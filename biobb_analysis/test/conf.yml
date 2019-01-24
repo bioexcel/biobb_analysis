@@ -19,4 +19,8 @@ cpptraj:
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm7
     input_traj_path: file:test_data_dir/ambertools/cpptraj.nc
     output_dat_path: output_dat.dat
-    ref_output_dat_path: file:test_reference_dir/ambertools/ref_rms.xvg
+    ref_output_dat_path: file:test_reference_dir/ambertools/ref_cpptraj.dat
+  properties:
+    input_instructions:
+      analysis: rms
+      rms: ToFirst @N,CA,C

@@ -38,7 +38,7 @@ class Cpptraj():
         self.output_traj_path = output_traj_path
 
         # Properties specific for BB
-        self.output_instructions_path = properties.get('input_instructions_path', 'instructions.in')
+        self.output_instructions_path = properties.get('output_instructions_path', 'instructions.in')
         self.input_instructions_path = properties.get('input_instructions_path', None)
         self.instructions = {k: str(v) for k, v in properties.get('input_instructions', dict()).items()}
 
@@ -54,7 +54,7 @@ class Cpptraj():
     def create_instrucions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
-        self.output_instructions_path = fu.create_name(prefix=self.prefix, step=self.step, name=self.input_instructions_path)
+        self.output_instructions_path = fu.create_name(prefix=self.prefix, step=self.step, name=self.output_instructions_path)
         analysis = self.instructions.get('type', 'rms')
         rms = (analysis.strip().lower() == 'rms')
 
@@ -69,7 +69,7 @@ class Cpptraj():
 
         # Adding the rest of parameters in the config file to the MDP file
         for key, value in self.instructions.items():
-            if key not in ['analysis, trajout']:
+            if key not in ['analysis', 'trajout']:
                 instructions_list.append(key+' '+value)
 
         #trajout
