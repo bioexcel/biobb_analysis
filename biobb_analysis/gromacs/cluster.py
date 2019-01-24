@@ -1,11 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
+"""Module containing the Cluster class and the command line interface."""
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
+from biobb_md.gromacs.common import get_gromacs_version
+from biobb_md.gromacs.common import GromacsVersionError
 
-class Cluster(object):
-    """Wrapper class for the GROMACS rms module.
+class Cluster():
+    """Wrapper class for the GROMACS cluster (http://manual.gromacs.org/current/onlinehelp/gmx-cluster.html) module.
 
     Args:
         input_gro_path (str): Path to the original (before launching the trajectory) GROMACS structure file GRO.
@@ -18,26 +22,37 @@ class Cluster(object):
             | - **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
-    def __init__(self, input_gro_path, input_traj_path, output_pdb_path, properties, **kwargs):
+    def __init__(self, input_gro_path, input_traj_path, output_pdb_path, properties=None, **kwargs):
+        properties = properties or {}
+
+        # Input/Output files
         self.input_gro_path = input_gro_path
         self.input_traj_path = input_traj_path
         self.output_pdb_path = output_pdb_path
+
         # Properties specific for BB
         self.dista = properties.get('dista', False)
         self.method = properties.get('method', "linkage")
         self.cutoff = properties.get('cutoff', 0.1)
-        # Common in all BB
-        self.gmx_path = properties.get('gmx_path','gmx')
-        self.global_log= properties.get('global_log', None)
-        self.prefix = properties.get('prefix',None)
-        self.step = properties.get('step',None)
-        self.path = properties.get('path','')
+
+        # Properties common in all GROMACS BB
+        self.gmx_path = properties.get('gmx_path', 'gmx')
+        self.gmx_version = get_gromacs_version(self.gmx_path)
+
+        # Properties common in all BB
+        self.can_write_console_log = properties.get('can_write_console_log', True)
+        self.global_log = properties.get('global_log', None)
+        self.prefix = properties.get('prefix', None)
+        self.step = properties.get('step', None)
+        self.path = properties.get('path', '')
 
 
     def launch(self):
-        """Launches the execution of the GROMACS rms module.
-        """
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step)
+        """Launches the execution of the GROMACS rms module."""
+        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        if self.gmx_version < 512:
+            raise GromacsVersionError("Gromacs version should be 5.1.2 or newer %d detected" % self.gmx_version)
+        fu.log("GROMACS %s %d version detected" % (self.__class__.__name__, self.gmx_version), out_log)
 
         cmd = ['echo', '\"'+'1 1'+'\"', '|',
                self.gmx_path, 'cluster',
@@ -54,7 +69,7 @@ class Cluster(object):
 
 def main():
     parser = argparse.ArgumentParser(description="Wrapper of the GROMACS cluster module.")
-    parser.add_argument('--conf_file', required=True)
+    parser.add_argument('--config', required=True)
     parser.add_argument('--system', required=False)
     parser.add_argument('--step', required=False)
 
@@ -62,17 +77,15 @@ def main():
     parser.add_argument('--input_gro_path', required=True)
     parser.add_argument('--input_traj_path', required=True)
     parser.add_argument('--output_pdb_path', required=True)
-    ####
 
     args = parser.parse_args()
+    args.config = args.config or "{}"
+    properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
     if args.step:
-        properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()[args.step]
-    else:
-        properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
+        properties = properties[args.step]
 
     #Specific call of each building block
     Cluster(input_gro_path=args.input_gro_path, input_traj_path=args.input_traj_path, output_pdb_path=args.output_pdb_path, properties=properties).launch()
-    ####
 
 if __name__ == '__main__':
     main()
