@@ -1,6 +1,0 @@
-Checking if empty file: /tmp/biobb/unitests_49/cpptraj/output_dat.dat
-Comparing: 
-        File_A: /tmp/biobb/unitests_49/cpptraj/output_dat.dat
-        File_B: /Users/pau/projects/biobb_analysis/biobb_analysis/test/reference/ambertools/ref_cpptraj.dat
-        File_A hash: b'\xc6;=\xf9\xf3\xc3B8W\x1e1\xe0\xdewSW\xa3\xb3\x14\x99\xd4\xe5\x98e@S\x12\xed<\xe5\xf1\xc4'
-        File_B hash: b'\xc6;=\xf9\xf3\xc3B8W\x1e1\xe0\xdewSW\xa3\xb3\x14\x99\xd4\xe5\x98e@S\x12\xed<\xe5\xf1\xc4'
