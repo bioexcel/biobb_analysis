@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
 """Module containing the Cpptraj class and the command line interface."""
-import os
 import argparse
-from pathlib import Path
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
@@ -74,7 +72,7 @@ class Cpptraj():
 
         #trajout
         if self.output_traj_path:
-            instructions_list.append('trajout '+self.output_traj_path+' '+self.mdp.pop('trajout', ''))
+            instructions_list.append('trajout '+self.output_traj_path+' '+self.instructions.pop('trajout', ''))
 
 
         with open(self.output_instructions_path, 'w') as mdp:
