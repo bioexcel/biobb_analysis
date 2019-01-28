@@ -1,15 +1,15 @@
 [![Documentation Status](https://readthedocs.org/projects/biobb-md/badge/?version=latest)](https://biobb-md.readthedocs.io/en/latest/?badge=latest)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/159c05eeeb094019b4ef0b4ab000d566)](https://www.codacy.com/app/andriopau/biobb_md?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bioexcel/biobb_md&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/159c05eeeb094019b4ef0b4ab000d566)](https://www.codacy.com/app/andriopau/biobb_analysis?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bioexcel/biobb_analysis&amp;utm_campaign=Badge_Grade)
 
-# biobb_md
+# biobb_analysis
 
 ### Introduction
-Biobb_md is the Biobb module collection to perform molecular dynamics simulations.
+biobb_analysis is the Biobb module collection to perform analysis over molecular dynamics simulations.
 Biobb (BioExcel building blocks) packages are Python building blocks that
 create new layer of compatibility and interoperability over popular
 bioinformatics tools.
 The latest documentation of this package can be found in our readthedocs site:
-[latest API documentation](http://biobb_md.readthedocs.io/en/latest/).
+[latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
 This software is in Alpha version.
@@ -26,4 +26,4 @@ Licensed under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), see the file
 [LICENSE](LICENSE) for details.
 
-![](docs/source/_static/bioexcel_logo.png "Bioexcel")
+![](biobb_analysis/docs/source/_static/bioexcel_logo.png "Bioexcel")
