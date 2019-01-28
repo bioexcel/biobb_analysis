@@ -10,30 +10,29 @@ class Cpptraj():
     """Wrapper of the Ambertools Cpptraj module.
     Cpptraj (the successor to ptraj) is the main program in Amber for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
-    the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtm
+    the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
 
     Args:
         input_top_path (str): Path to the input Amber structure or topology file.
         input_traj_path (str): Path to the input Amber trajectory to be processed.
-        output_dat_path (str): Path to the output dat file containing the analysis results.
-        output_traj_path (str)[Optional]: Path to the output processed Amber trajectory.
+        output_cpptraj_path (str): Path to the output processed Amber trajectory or to the output dat file containing the analysis results.
         properties (dic):
             | - **input_instructions_path** (*str*) - (None) Path of the input file.
             | - **output_instructions_path** (*str*) - ("instructions.in") Name of the instructions file to be created.
             | - **input_instructions** (*dict*) - (defaults dict) Input options specification. (Used if *input_file_path* is None)
-                | - **analysis** (*str*) - ("rms") Default options for the input instructions file. Valid values: rms, undefined
+            | - **analysis** (*str*) - ("rms") Default options for the input instructions file. Valid values: rms, undefined
+            | - **format** (*str*) - ("netcdf") Format for convert. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib
             | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
     def __init__(self, input_top_path, input_traj_path,
-                 output_dat_path, output_traj_path=None, properties=None, **kwargs):
+                 output_cpptraj_path, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
         self.input_top_path = input_top_path
         self.input_traj_path = input_traj_path
-        self.output_dat_path = output_dat_path
-        self.output_traj_path = output_traj_path
+        self.output_cpptraj_path = output_cpptraj_path
 
         # Properties specific for BB
         self.output_instructions_path = properties.get('output_instructions_path', 'instructions.in')
@@ -53,8 +52,10 @@ class Cpptraj():
         """Creates an input file using the properties file settings"""
         instructions_list = []
         self.output_instructions_path = fu.create_name(prefix=self.prefix, step=self.step, name=self.output_instructions_path)
-        analysis = self.instructions.get('type', 'rms')
+        # analysis type
+        analysis = self.instructions.get('analysis', 'rms')
         rms = (analysis.strip().lower() == 'rms')
+        convert = (analysis.strip().lower() == 'convert')
 
         #parm
         instructions_list.append('parm '+self.input_top_path+' '+self.instructions.pop('parm', ''))
@@ -63,16 +64,11 @@ class Cpptraj():
         instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
 
         if rms:
-            instructions_list.append('rms '+self.instructions.pop('rms', '')+' out '+self.output_dat_path)
+            instructions_list.append('rms '+''.join(self.instructions.get('trajout_parameters', ''))+' out '+self.output_cpptraj_path)
 
-        # Adding the rest of parameters in the config file to the MDP file
-        for key, value in self.instructions.items():
-            if key not in ['analysis', 'trajout']:
-                instructions_list.append(key+' '+value)
-
-        #trajout
-        if self.output_traj_path:
-            instructions_list.append('trajout '+self.output_traj_path+' '+self.instructions.pop('trajout', ''))
+        if convert:
+            format = self.instructions.get('format', 'netcdf')
+            instructions_list.append('trajout '+self.output_cpptraj_path+' '+format)
 
 
         with open(self.output_instructions_path, 'w') as mdp:
@@ -104,8 +100,7 @@ def main():
     #Specific args of each building block
     parser.add_argument('--input_top_path', required=True)
     parser.add_argument('--input_traj_path', required=True)
-    parser.add_argument('--output_dat_path', required=True)
-    parser.add_argument('--output_traj_path', required=False)
+    parser.add_argument('--output_cpptraj_path', required=True)
 
     args = parser.parse_args()
     args.config = args.config or "{}"
@@ -114,7 +109,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    Cpptraj(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_dat_path=args.output_dat_path, output_traj_path=args.output_traj_path, properties=properties).launch()
+    Cpptraj(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

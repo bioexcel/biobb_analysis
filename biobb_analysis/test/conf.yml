@@ -14,13 +14,24 @@ rms:
     output_xvg_path: output_xvg.xvg
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.xvg
 
-cpptraj:
+cpptraj_rms:
   paths:
-    input_top_path: file:test_data_dir/ambertools/cpptraj.parm7
-    input_traj_path: file:test_data_dir/ambertools/cpptraj.nc
-    output_dat_path: output_dat.dat
-    ref_output_dat_path: file:test_reference_dir/ambertools/ref_cpptraj.dat
+    input_top_path: file:test_data_dir/ambertools/cpptraj.rms.parm7
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.rms.nc
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.dat
   properties:
     input_instructions:
       analysis: rms
-      rms: ToFirst @N,CA,C
+      trajout_parameters: ToFirst @N,CA,C
+
+cpptraj_convert:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.convert.pdb
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.convert.dcd
+    output_cpptraj_path: output.netcdf
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_output.convert.netcdf
+  properties:
+    input_instructions:
+      analysis: convert
+      format: netcdf
