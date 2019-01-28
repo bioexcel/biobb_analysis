@@ -64,7 +64,7 @@ class Cpptraj():
         instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
 
         if rms:
-            instructions_list.append('rms '+''.join(self.instructions.get('trajout_parameters', ''))+' out '+self.output_cpptraj_path)
+            instructions_list.append('rms '+self.instructions.get('trajout_parameters', '')+' out '+self.output_cpptraj_path)
 
         if convert:
             format = self.instructions.get('format', 'netcdf')
