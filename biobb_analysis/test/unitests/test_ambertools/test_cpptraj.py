@@ -1,5 +1,4 @@
 from biobb_common.tools import test_fixtures as fx
-from gromacs.editconf import Editconf
 from biobb_analysis.ambertools.cpptraj import Cpptraj
 
 
