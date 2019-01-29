@@ -139,6 +139,28 @@ class Cpptraj():
 
         return instructions_list
 
+    def snapshot_instructions(self):
+        """Generates instructions list for snapshot analysis"""
+        instructions_list = []
+        # trajin
+        trajin_parameters = self.instructions.get('trajin_parameters', '')
+        snapshot = '1'
+        if trajin_parameters:
+            trajin_parameters_dict = literal_eval(trajin_parameters)
+            if not 'snapshot' in trajin_parameters_dict:
+                snapshot = '1'
+            else:
+                snapshot = str(trajin_parameters_dict['snapshot'])
+            if snapshot == 'None':
+                snapshot = '1'
+        trajin_parameters = snapshot + ' ' + snapshot + ' 1'
+        instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', '')+' '+trajin_parameters)
+        # trajout
+        format = self.instructions.get('format', 'pdb')
+        instructions_list.append('trajout '+self.output_cpptraj_path+' '+format)
+
+        return instructions_list
+
     def create_instrucions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
@@ -150,6 +172,7 @@ class Cpptraj():
         slice = (analysis.strip().lower() == 'slice')
         rgyr = (analysis.strip().lower() == 'rgyr')
         rmsf = (analysis.strip().lower() == 'rmsf')
+        snapshot = (analysis.strip().lower() == 'snapshot')
 
         # parm
         instructions_list.append('parm '+self.input_top_path+' '+self.instructions.pop('parm', ''))
@@ -168,6 +191,9 @@ class Cpptraj():
 
         # instructions for rmsf
         if rmsf: instructions_list = instructions_list + self.rmsf_instructions()
+
+        # instructions for snapshot
+        if snapshot: instructions_list = instructions_list + self.snapshot_instructions()
 
         # create .in file
         with open(self.output_instructions_path, 'w') as mdp:

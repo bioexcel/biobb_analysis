@@ -81,3 +81,16 @@ cpptraj_rmsf:
       analysis: rmsf
       trajout_parameters:
         - byres
+
+cpptraj_snapshot:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.convert.pdb
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.convert.dcd
+    output_cpptraj_path: output.pdb
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.snapshot.pdb
+  properties:
+      input_instructions:
+        analysis: snapshot
+        format: pdb
+        trajin_parameters:
+          snapshot: 3
