@@ -57,7 +57,6 @@ class Cpptraj():
         """Generates instructions list for rms analysis"""
         instructions_list = []
         # trajin
-        trajin_parameters = self.instructions.get('trajin_parameters', '')
         instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
         # trajout
         trajout_parameters = self.instructions.get('trajout_parameters', '')
@@ -73,7 +72,6 @@ class Cpptraj():
         """Generates instructions list for convert analysis"""
         instructions_list = []
         # trajin
-        trajin_parameters = self.instructions.get('trajin_parameters', '')
         instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
         # trajout
         format = self.instructions.get('format', '')
@@ -94,7 +92,10 @@ class Cpptraj():
         trajin_parameters = self.instructions.get('trajin_parameters', '')
         if trajin_parameters:
             trajin_parameters_dict = literal_eval(trajin_parameters)
-            trajin_parameters = ''.join('{} '.format(val) for key, val in trajin_parameters_dict.items())
+            start = '1' if not 'start' in trajin_parameters_dict else str(trajin_parameters_dict['start'])
+            end = '-1' if not 'end' in trajin_parameters_dict else str(trajin_parameters_dict['end'])
+            step = '1' if not 'step' in trajin_parameters_dict else str(trajin_parameters_dict['step'])
+            trajin_parameters = start + ' ' + end + ' ' + step
         instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', '')+' '+trajin_parameters)
         # trajout
         format = self.instructions.get('format', '')
@@ -115,7 +116,10 @@ class Cpptraj():
         trajin_parameters = self.instructions.get('trajin_parameters', '')
         if trajin_parameters:
             trajin_parameters_dict = literal_eval(trajin_parameters)
-            trajin_parameters = ''.join('{} '.format(val) for key, val in trajin_parameters_dict.items())
+            start = '1' if not 'start' in trajin_parameters_dict else str(trajin_parameters_dict['start'])
+            end = '-1' if not 'end' in trajin_parameters_dict else str(trajin_parameters_dict['end'])
+            step = '1' if not 'step' in trajin_parameters_dict else str(trajin_parameters_dict['step'])
+            trajin_parameters = start + ' ' + end + ' ' + step
         instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', '')+' '+trajin_parameters)
         # trajout
         trajout_parameters = self.instructions.get('trajout_parameters', '')
@@ -129,7 +133,6 @@ class Cpptraj():
         """Generates instructions list for rmsf analysis"""
         instructions_list = []
         # trajin
-        trajin_parameters = self.instructions.get('trajin_parameters', '')
         instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
         # trajout
         trajout_parameters = self.instructions.get('trajout_parameters', '')
@@ -147,10 +150,7 @@ class Cpptraj():
         snapshot = '1'
         if trajin_parameters:
             trajin_parameters_dict = literal_eval(trajin_parameters)
-            if not 'snapshot' in trajin_parameters_dict:
-                snapshot = '1'
-            else:
-                snapshot = str(trajin_parameters_dict['snapshot'])
+            snapshot = '1' if not 'snapshot' in trajin_parameters_dict else str(trajin_parameters_dict['snapshot'])
             if snapshot == 'None':
                 snapshot = '1'
         trajin_parameters = snapshot + ' ' + snapshot + ' 1'
