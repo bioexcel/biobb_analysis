@@ -2,6 +2,7 @@
 
 """Module containing the Cpptraj class and the command line interface."""
 import argparse
+from ast import literal_eval
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
@@ -20,10 +21,14 @@ class Cpptraj():
             | - **input_instructions_path** (*str*) - (None) Path of the input file.
             | - **output_instructions_path** (*str*) - ("instructions.in") Name of the instructions file to be created.
             | - **input_instructions** (*dict*) - (defaults dict) Input options specification. (Used if *input_file_path* is None)
-            | - **analysis** (*str*) - ("rms") Default options for the input instructions file. Valid values: rms, undefined
-            | - **format** (*str*) - ("netcdf") Format for convert. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib
+                | - **analysis** (*str*) - ("rms") Default options for the input instructions file. Valid values: rms, undefined
+                | - **format** (*str*) - ("netcdf") Format for convert. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib
+                | - **trajout_parameters** (*str*) - (None) Parameters for output trajectory
+                | - **trajin_parameters** (*str*) - (None) Parameters for input trajectory
             | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
+
+    formats = ['crd', 'cdf', 'netcdf', 'restart', 'ncrestart', 'restartnc', 'dcd', 'charmm', 'cor', 'pdb', 'mol2', 'trr', 'gro', 'binpos', 'xtc', 'cif', 'arc', 'sqm', 'sdf', 'conflib']
 
     def __init__(self, input_top_path, input_traj_path,
                  output_cpptraj_path, properties=None, **kwargs):
@@ -48,6 +53,62 @@ class Cpptraj():
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
 
+    def rms_instructions(self):
+        """Generates instructions list for rms analysis"""
+        instructions_list = []
+        # trajin
+        trajin_parameters = self.instructions.get('trajin_parameters', '')
+        instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
+        # trajout
+        trajout_parameters = self.instructions.get('trajout_parameters', '')
+        if not trajout_parameters:
+            exit('No output parameters given')
+        trajout_parameters_list = literal_eval(trajout_parameters)
+        trajout_parameters = ' '.join(trajout_parameters_list)
+        instructions_list.append('rms '+trajout_parameters+' out '+self.output_cpptraj_path)
+
+        return instructions_list
+
+    def convert_instructions(self):
+        """Generates instructions list for convert analysis"""
+        instructions_list = []
+        # trajin
+        trajin_parameters = self.instructions.get('trajin_parameters', '')
+        instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
+        # trajout
+        format = self.instructions.get('format', '')
+        # check if format provided
+        if not format:
+            exit('No format provided in configuration file')
+        # check if valid format
+        if format not in self.formats:
+            exit('Format '+format+' is not compatible with cpptraj')
+        instructions_list.append('trajout '+self.output_cpptraj_path+' '+format)
+
+        return instructions_list
+
+    def slice_instructions(self):
+        """Generates instructions list for convert analysis"""
+        instructions_list = []
+        # trajin
+        trajin_parameters = self.instructions.get('trajin_parameters', '')
+        if trajin_parameters:
+            trajin_parameters_dict = literal_eval(trajin_parameters)
+            trajin_parameters = ''.join('{} '.format(val) for key, val in trajin_parameters_dict.items())
+        instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', '')+' '+trajin_parameters)
+        # trajout
+        format = self.instructions.get('format', '')
+        # check if format provided
+        if not format:
+            exit('No format provided in configuration file')
+        # check if valid format
+        if format not in self.formats:
+            exit('Format '+format+' is not compatible with cpptraj')
+        #trajout
+        instructions_list.append('trajout '+self.output_cpptraj_path+' '+format)
+
+        return instructions_list
+
     def create_instrucions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
@@ -56,21 +117,21 @@ class Cpptraj():
         analysis = self.instructions.get('analysis', 'rms')
         rms = (analysis.strip().lower() == 'rms')
         convert = (analysis.strip().lower() == 'convert')
+        slice = (analysis.strip().lower() == 'slice')
 
-        #parm
+        # parm
         instructions_list.append('parm '+self.input_top_path+' '+self.instructions.pop('parm', ''))
 
-        #trajin
-        instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
+        # instructions for rms
+        if rms: instructions_list = instructions_list + self.rms_instructions()
 
-        if rms:
-            instructions_list.append('rms '+self.instructions.get('trajout_parameters', '')+' out '+self.output_cpptraj_path)
+        # instructions for convert
+        if convert: instructions_list = instructions_list + self.convert_instructions()
 
-        if convert:
-            format = self.instructions.get('format', 'netcdf')
-            instructions_list.append('trajout '+self.output_cpptraj_path+' '+format)
+        # instructions for slice
+        if slice: instructions_list = instructions_list + self.slice_instructions()
 
-
+        # create .in file
         with open(self.output_instructions_path, 'w') as mdp:
             for line in instructions_list:
                 mdp.write(line.strip() + '\n')

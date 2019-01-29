@@ -23,15 +23,32 @@ cpptraj_rms:
   properties:
     input_instructions:
       analysis: rms
-      trajout_parameters: ToFirst @N,CA,C
+      trajout_parameters:
+        - 'ToFirst'
+        - '@N,CA,C'
 
 cpptraj_convert:
   paths:
     input_top_path: file:test_data_dir/ambertools/cpptraj.convert.pdb
     input_traj_path: file:test_data_dir/ambertools/cpptraj.convert.dcd
     output_cpptraj_path: output.netcdf
-    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_output.convert.netcdf
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.convert.netcdf
   properties:
     input_instructions:
       analysis: convert
       format: netcdf
+
+cpptraj_slice:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.convert.pdb
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.convert.dcd
+    output_cpptraj_path: output.netcdf
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.slice.netcdf
+  properties:
+    input_instructions:
+      analysis: slice
+      format: netcdf
+      trajin_parameters:
+        start: 1
+        end: -1
+        step: 10
