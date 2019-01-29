@@ -125,6 +125,20 @@ class Cpptraj():
 
         return instructions_list
 
+    def rmsf_instructions(self):
+        """Generates instructions list for rmsf analysis"""
+        instructions_list = []
+        # trajin
+        trajin_parameters = self.instructions.get('trajin_parameters', '')
+        instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', ''))
+        # trajout
+        trajout_parameters = self.instructions.get('trajout_parameters', '')
+        trajout_parameters_list = literal_eval(trajout_parameters)
+        trajout_parameters = ' '.join(str(val) for val in trajout_parameters_list)
+        instructions_list.append('atomicfluct '+trajout_parameters+' out '+self.output_cpptraj_path)
+
+        return instructions_list
+
     def create_instrucions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
@@ -135,6 +149,7 @@ class Cpptraj():
         convert = (analysis.strip().lower() == 'convert')
         slice = (analysis.strip().lower() == 'slice')
         rgyr = (analysis.strip().lower() == 'rgyr')
+        rmsf = (analysis.strip().lower() == 'rmsf')
 
         # parm
         instructions_list.append('parm '+self.input_top_path+' '+self.instructions.pop('parm', ''))
@@ -150,6 +165,9 @@ class Cpptraj():
 
         # instructions for rgyr
         if rgyr: instructions_list = instructions_list + self.rgyr_instructions()
+
+        # instructions for rmsf
+        if rmsf: instructions_list = instructions_list + self.rmsf_instructions()
 
         # create .in file
         with open(self.output_instructions_path, 'w') as mdp:

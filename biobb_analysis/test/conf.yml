@@ -69,3 +69,15 @@ cpptraj_rgyr:
       trajout_parameters:
         - time
         - 1
+
+cpptraj_rmsf:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.convert.pdb
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.convert.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.dat
+  properties:
+    input_instructions:
+      analysis: rmsf
+      trajout_parameters:
+        - byres
