@@ -64,7 +64,7 @@ class Cpptraj():
         if not trajout_parameters:
             exit('No output parameters given')
         trajout_parameters_list = literal_eval(trajout_parameters)
-        trajout_parameters = ' '.join(trajout_parameters_list)
+        trajout_parameters = ' '.join(str(val) for val in trajout_parameters_list)
         instructions_list.append('rms '+trajout_parameters+' out '+self.output_cpptraj_path)
 
         return instructions_list
@@ -104,8 +104,24 @@ class Cpptraj():
         # check if valid format
         if format not in self.formats:
             exit('Format '+format+' is not compatible with cpptraj')
-        #trajout
         instructions_list.append('trajout '+self.output_cpptraj_path+' '+format)
+
+        return instructions_list
+
+    def rgyr_instructions(self):
+        """Generates instructions list for rgyr analysis"""
+        instructions_list = []
+        # trajin
+        trajin_parameters = self.instructions.get('trajin_parameters', '')
+        if trajin_parameters:
+            trajin_parameters_dict = literal_eval(trajin_parameters)
+            trajin_parameters = ''.join('{} '.format(val) for key, val in trajin_parameters_dict.items())
+        instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', '')+' '+trajin_parameters)
+        # trajout
+        trajout_parameters = self.instructions.get('trajout_parameters', '')
+        trajout_parameters_list = literal_eval(trajout_parameters)
+        trajout_parameters = ' '.join(str(val) for val in trajout_parameters_list)
+        instructions_list.append('radgyr '+trajout_parameters+' out '+self.output_cpptraj_path)
 
         return instructions_list
 
@@ -113,11 +129,12 @@ class Cpptraj():
         """Creates an input file using the properties file settings"""
         instructions_list = []
         self.output_instructions_path = fu.create_name(prefix=self.prefix, step=self.step, name=self.output_instructions_path)
-        # analysis type
+        # get analysis type
         analysis = self.instructions.get('analysis', 'rms')
         rms = (analysis.strip().lower() == 'rms')
         convert = (analysis.strip().lower() == 'convert')
         slice = (analysis.strip().lower() == 'slice')
+        rgyr = (analysis.strip().lower() == 'rgyr')
 
         # parm
         instructions_list.append('parm '+self.input_top_path+' '+self.instructions.pop('parm', ''))
@@ -130,6 +147,9 @@ class Cpptraj():
 
         # instructions for slice
         if slice: instructions_list = instructions_list + self.slice_instructions()
+
+        # instructions for rgyr
+        if rgyr: instructions_list = instructions_list + self.rgyr_instructions()
 
         # create .in file
         with open(self.output_instructions_path, 'w') as mdp:

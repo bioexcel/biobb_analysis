@@ -52,3 +52,20 @@ cpptraj_slice:
         start: 1
         end: -1
         step: 10
+
+cpptraj_rgyr:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.convert.pdb
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.convert.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rgyr.dat
+  properties:
+    input_instructions:
+      analysis: rgyr
+      trajin_parameters:
+        start: 1
+        end: -1
+        step: 1
+      trajout_parameters:
+        - time
+        - 1
