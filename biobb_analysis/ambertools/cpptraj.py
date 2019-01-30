@@ -20,11 +20,11 @@ class Cpptraj():
         properties (dic):
             | - **input_instructions_path** (*str*) - (None) Path of the input file.
             | - **output_instructions_path** (*str*) - ("instructions.in") Name of the instructions file to be created.
-            | - **input_instructions** (*dict*) - (defaults dict) Input options specification. (Used if *input_file_path* is None)
+            | - **input_instructions** (*dict*) - (defaults dict) Input options specification. (Used if *input_instructions_path* is None)
                 | - **analysis** (*str*) - ("rms") Default options for the input instructions file. Valid values: rms, undefined
                 | - **format** (*str*) - ("netcdf") Format for convert. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib
-                | - **trajout_parameters** (*str*) - (None) Parameters for output trajectory
-                | - **trajin_parameters** (*str*) - (None) Parameters for input trajectory
+                | - **trajin_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters: start, end, step, snapshot
+                | - **trajout_parameters** (*list*) - (None) Parameters for output trajectory.
             | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
@@ -178,22 +178,22 @@ class Cpptraj():
         instructions_list.append('parm '+self.input_top_path+' '+self.instructions.pop('parm', ''))
 
         # instructions for rms
-        if rms: instructions_list = instructions_list + self.rms_instructions()
+        if rms: instructions_list += self.rms_instructions()
 
         # instructions for convert
-        if convert: instructions_list = instructions_list + self.convert_instructions()
+        if convert: instructions_list += self.convert_instructions()
 
         # instructions for slice
-        if slice: instructions_list = instructions_list + self.slice_instructions()
+        if slice: instructions_list += self.slice_instructions()
 
         # instructions for rgyr
-        if rgyr: instructions_list = instructions_list + self.rgyr_instructions()
+        if rgyr: instructions_list += self.rgyr_instructions()
 
         # instructions for rmsf
-        if rmsf: instructions_list = instructions_list + self.rmsf_instructions()
+        if rmsf: instructions_list += self.rmsf_instructions()
 
         # instructions for snapshot
-        if snapshot: instructions_list = instructions_list + self.snapshot_instructions()
+        if snapshot: instructions_list += self.snapshot_instructions()
 
         # create .in file
         with open(self.output_instructions_path, 'w') as mdp:
@@ -208,6 +208,23 @@ class Cpptraj():
 
         self.output_instructions_path = self.create_instrucions_file() if not self.input_instructions_path else self.input_instructions_path
 
+        # check syntax for instructions file
+        syntax_instructions = True
+        err_instructions = ''
+        if not 'parm ' in open(self.output_instructions_path).read():
+            syntax_instructions = False
+            err_instructions += '\nNo topology provided'
+        if not 'trajin ' in open(self.output_instructions_path).read():
+            syntax_instructions = False
+            err_instructions += '\nNo input trajectory provided'
+        if not 'trajout ' or not 'out ' in open(self.output_instructions_path).read():
+            syntax_instructions = False
+            err_instructions += '\nNo cpptraj output provided'
+        if not syntax_instructions:
+            print("Incorrect syntax for instructions file:" + err_instructions)
+            exit()
+
+        # run command line
         cmd = [self.cpptraj_path, '-i', self.output_instructions_path]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
@@ -218,14 +235,14 @@ class Cpptraj():
 
 def main():
     parser = argparse.ArgumentParser(description="Wrapper for the Ambertools cpptraj module.")
-    parser.add_argument('--config', required=True)
+    parser.add_argument('--config', required=True, help='Configuration file')
     parser.add_argument('--system', required=False)
     parser.add_argument('--step', required=False)
 
     #Specific args of each building block
-    parser.add_argument('--input_top_path', required=True)
-    parser.add_argument('--input_traj_path', required=True)
-    parser.add_argument('--output_cpptraj_path', required=True)
+    parser.add_argument('--input_top_path', required=True, help='Path to the input Amber structure or topology file.')
+    parser.add_argument('--input_traj_path', required=True, help='Path to the input Amber trajectory to be processed.')
+    parser.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed Amber trajectory or to the output dat file containing the analysis results.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"
