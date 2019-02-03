@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_analysis",
-    version="0.0.4",
+    version="0.0.6",
     author="Biobb developers",
     author_email="pau.andrio@bsc.es",
-    description="biobb_analysis is the Biobb module collection to perform analysis over molecular dynamics simulations.",
+    description="biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="Bioinformatics Workflows BioExcel Compatibility",
@@ -18,7 +18,7 @@ setuptools.setup(
         "Bioexcel": "https://bioexcel.eu/"
     },
     packages=setuptools.find_packages(exclude=['docs', 'test',]),
-    install_requires=['biobb_common>=0.0.8'],
+    install_requires=['biobb_common>=0.1.0'],
     python_requires='>=3',
     classifiers=(
         "Development Status :: 3 - Alpha",
