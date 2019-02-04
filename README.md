@@ -11,7 +11,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
-v0.0.6 February 2019 Release
+v0.0.7 February 2019 Release
 
 ### Copyright & Licensing
 This software has been developed in the MMB group (http://mmb.irbbarcelona.org) at the
@@ -25,4 +25,4 @@ Licensed under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), see the file
 [LICENSE](LICENSE) for details.
 
-![](biobb_analysis/docs/source/_static/bioexcel_logo.png "Bioexcel")
+![](https://bioexcel.eu/wp-content/uploads/2015/12/Bioexcell_logo_1080px_transp.png "Bioexcel")
