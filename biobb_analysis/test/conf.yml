@@ -23,7 +23,7 @@ cpptraj_rms:
   properties:
     input_instructions:
       analysis: rms
-      trajout_parameters:
+      trajout_parameters: 
         - 'ToFirst'
         - '@N,CA,C'
 

@@ -9,16 +9,16 @@ from biobb_common.command_wrapper import cmd_wrapper
 
 class Cpptraj():
     """Wrapper of the Ambertools Cpptraj module.
-    Cpptraj (the successor to ptraj) is the main program in Amber for processing coordinate trajectories and data files.
+    Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
 
     Args:
-        input_top_path (str): Path to the input Amber structure or topology file.
-        input_traj_path (str): Path to the input Amber trajectory to be processed.
-        output_cpptraj_path (str): Path to the output processed Amber trajectory or to the output dat file containing the analysis results.
+        input_top_path (str): Path to the input structure or topology file.
+        input_traj_path (str): Path to the input trajectory to be processed.
+        output_cpptraj_path (str): Path to the output processed trajectory or to the output dat file containing the analysis results.
         properties (dic):
-            | - **input_instructions_path** (*str*) - (None) Path of the input file.
+            | - **input_instructions_path** (*str*) - (None) Path of the input file. (només per opció executar des de fitxer)
             | - **output_instructions_path** (*str*) - ("instructions.in") Name of the instructions file to be created.
             | - **input_instructions** (*dict*) - (defaults dict) Input options specification. (Used if *input_instructions_path* is None)
                 | - **analysis** (*str*) - ("rms") Default options for the input instructions file. Valid values: rms, undefined
@@ -76,6 +76,8 @@ class Cpptraj():
         # trajout
         format = self.instructions.get('format', '')
         # check if format provided
+        # No obligatori, posar netcdf per defecte
+        # afegir warning avisant
         if not format:
             exit('No format provided in configuration file')
         # check if valid format
@@ -90,7 +92,9 @@ class Cpptraj():
         instructions_list = []
         # trajin
         trajin_parameters = self.instructions.get('trajin_parameters', '')
+        # error si no ens passa trajin_parameters
         if trajin_parameters:
+            # Si no els passa l'usuari, treure un warning (LOG??)
             trajin_parameters_dict = literal_eval(trajin_parameters)
             start = '1' if not 'start' in trajin_parameters_dict else str(trajin_parameters_dict['start'])
             end = '-1' if not 'end' in trajin_parameters_dict else str(trajin_parameters_dict['end'])
@@ -100,6 +104,8 @@ class Cpptraj():
         # trajout
         format = self.instructions.get('format', '')
         # check if format provided
+        # No obligatori, posar netcdf per defecte
+        # afegir warning avisant
         if not format:
             exit('No format provided in configuration file')
         # check if valid format
@@ -125,6 +131,7 @@ class Cpptraj():
         trajout_parameters = self.instructions.get('trajout_parameters', '')
         trajout_parameters_list = literal_eval(trajout_parameters)
         trajout_parameters = ' '.join(str(val) for val in trajout_parameters_list)
+        # time 1 aquí:
         instructions_list.append('radgyr '+trajout_parameters+' out '+self.output_cpptraj_path)
 
         return instructions_list
@@ -138,6 +145,7 @@ class Cpptraj():
         trajout_parameters = self.instructions.get('trajout_parameters', '')
         trajout_parameters_list = literal_eval(trajout_parameters)
         trajout_parameters = ' '.join(str(val) for val in trajout_parameters_list)
+        # byres aquí:
         instructions_list.append('atomicfluct '+trajout_parameters+' out '+self.output_cpptraj_path)
 
         return instructions_list
@@ -148,6 +156,7 @@ class Cpptraj():
         # trajin
         trajin_parameters = self.instructions.get('trajin_parameters', '')
         snapshot = '1'
+        # warning si no ens passen snapshot
         if trajin_parameters:
             trajin_parameters_dict = literal_eval(trajin_parameters)
             snapshot = '1' if not 'snapshot' in trajin_parameters_dict else str(trajin_parameters_dict['snapshot'])
@@ -156,12 +165,13 @@ class Cpptraj():
         trajin_parameters = snapshot + ' ' + snapshot + ' 1'
         instructions_list.append('trajin '+self.input_traj_path+' '+self.instructions.pop('trajin', '')+' '+trajin_parameters)
         # trajout
+        # format és el mateix que per trajectòries
         format = self.instructions.get('format', 'pdb')
         instructions_list.append('trajout '+self.output_cpptraj_path+' '+format)
 
         return instructions_list
 
-    def create_instrucions_file(self):
+    def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
         self.output_instructions_path = fu.create_name(prefix=self.prefix, step=self.step, name=self.output_instructions_path)
@@ -206,9 +216,10 @@ class Cpptraj():
         """Launches the execution of the Ambertools cpptraj module."""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
 
-        self.output_instructions_path = self.create_instrucions_file() if not self.input_instructions_path else self.input_instructions_path
+        self.output_instructions_path = self.create_instructions_file() if not self.input_instructions_path else self.input_instructions_path
 
         # check syntax for instructions file
+        # (només per opció executar des de fitxer)
         syntax_instructions = True
         err_instructions = ''
         if not 'parm ' in open(self.output_instructions_path).read():
