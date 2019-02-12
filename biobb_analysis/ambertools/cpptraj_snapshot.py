@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Module containing the Cpptraj Convert class and the command line interface."""
+"""Module containing the Cpptraj Snapshot class and the command line interface."""
 import argparse
 from ast import literal_eval
 from biobb_common.configuration import  settings
@@ -10,8 +10,8 @@ from biobb_analysis.ambertools.common import get_trajin_parameters
 from biobb_analysis.ambertools.common import get_negative_mask
 from biobb_analysis.ambertools.common import get_trajout_parameters
 
-class Convert():
-    """Wrapper of the Ambertools Cpptraj Convert module.
+class Snapshot():
+    """Wrapper of the Ambertools Cpptraj Snapshot module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -24,9 +24,7 @@ class Convert():
             | - **instructions_file** (*str*) - ("instructions.in") Name of the instructions file to be created. 
             | - **input_instructions** (*dict*) - (defaults dict) Input options specification.
                 | - **trajin_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
-                    | - **start** (*int*) - (1) Starting frame for slicing
-                    | - **end** (*int*) - (-1) Ending frame for slicing
-                    | - **step** (*int*) - (1) Step for slicing
+                    | - **snapshot** (*int*) - (1) Frame to be captured for snapshot
                 | - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
                 | - **trajout_parameters** (*dict*) - (None) Parameters for output trajectory.
                     | - **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
@@ -67,7 +65,7 @@ class Convert():
 
         # trajin
         trajin_parameters = self.instructions.get('trajin_parameters', '')
-        in_params = get_trajin_parameters(trajin_parameters, self)
+        in_params = get_trajin_parameters(trajin_parameters, self, 'snapshot')
         instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
 
         # mask
@@ -122,7 +120,7 @@ def main():
         properties = properties[args.step]
 
     # Specific call of each building block
-    Convert(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
+    Snapshot(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

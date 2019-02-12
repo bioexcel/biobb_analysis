@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Module containing the Cpptraj Convert class and the command line interface."""
+"""Module containing the Cpptraj Slice class and the command line interface."""
 import argparse
 from ast import literal_eval
 from biobb_common.configuration import  settings
@@ -10,8 +10,8 @@ from biobb_analysis.ambertools.common import get_trajin_parameters
 from biobb_analysis.ambertools.common import get_negative_mask
 from biobb_analysis.ambertools.common import get_trajout_parameters
 
-class Convert():
-    """Wrapper of the Ambertools Cpptraj Convert module.
+class Slice():
+    """Wrapper of the Ambertools Cpptraj Slice module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -122,7 +122,7 @@ def main():
         properties = properties[args.step]
 
     # Specific call of each building block
-    Convert(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
+    Slice(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()
