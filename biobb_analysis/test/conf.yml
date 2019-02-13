@@ -35,8 +35,13 @@ cpptraj_convert:
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.convert.netcdf
   properties:
     input_instructions:
-      analysis: convert
-      format: netcdf
+      in_parameters:
+        start: 1
+        end: -1
+        step: 1
+      mask: c-alpha
+      out_parameters:
+        format: netcdf
 
 cpptraj_slice:
   paths:

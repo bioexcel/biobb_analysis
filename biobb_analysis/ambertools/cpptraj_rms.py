@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 
-"""Module containing the Cpptraj Convert class and the command line interface."""
+"""Module containing the Cpptraj Rms class and the command line interface."""
 import argparse
 from ast import literal_eval
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import get_in_parameters
+from biobb_analysis.ambertools.common import get_mask
 from biobb_analysis.ambertools.common import get_negative_mask
-from biobb_analysis.ambertools.common import get_out_parameters
+from biobb_analysis.ambertools.common import setup_structure
+from biobb_analysis.ambertools.common import get_reference
 
-class Convert():
-    """Wrapper of the Ambertools Cpptraj Convert module.
+class Rms():
+    """Wrapper of the Ambertools Cpptraj Rms module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -19,6 +21,7 @@ class Convert():
     Args:
         input_top_path (str): Path to the input structure or topology file.
         input_traj_path (str): Path to the input trajectory to be processed.
+        input_exp_path (str): Path to the experimental reference file (required if reference = experimental)
         output_cpptraj_path (str): Path to the output processed trajectory.
         properties (dic):
             | - **instructions_file** (*str*) - ("instructions.in") Name of the instructions file to be created. 
@@ -28,18 +31,18 @@ class Convert():
                     | - **end** (*int*) - (-1) Ending frame for slicing
                     | - **step** (*int*) - (1) Step for slicing
                 | - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
-                | - **out_parameters** (*dict*) - (None) Parameters for output trajectory.
-                    | - **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+                | - **reference** (*string*) - ("first") Reference definition. Values: first, average, experimental.
             | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
     def __init__(self, input_top_path, input_traj_path,
-                 output_cpptraj_path, properties=None, **kwargs):
+                 output_cpptraj_path, input_exp_path = None, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
         self.input_top_path = input_top_path
         self.input_traj_path = input_traj_path
+        self.input_exp_path = input_exp_path
         self.output_cpptraj_path = output_cpptraj_path
 
         # Properties specific for BB
@@ -70,16 +73,18 @@ class Convert():
         in_params = get_in_parameters(in_parameters, self)
         instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
 
+        # Set up
+        instructions_list += setup_structure(self)
+
         # mask
         mask = self.instructions.get('mask', '')
         if mask:
             strip_mask = get_negative_mask(mask, self)
             instructions_list.append('strip ' + strip_mask)
 
-        # trajout
-        out_parameters = self.instructions.get('out_parameters', '')
-        out_params = get_out_parameters(out_parameters, self)
-        instructions_list.append('trajout ' + self.output_cpptraj_path + ' ' + out_params)
+        # reference
+        reference = self.instructions.get('reference', '')
+        instructions_list += get_reference(reference, self, 'rms')
 
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
@@ -99,9 +104,9 @@ class Convert():
         cmd = [self.cpptraj_path, '-i', self.instructions_file]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        tmp_files = [self.instructions_file]
-        #removed_files = [f for f in tmp_files if fu.rm(f)]
-        #fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
+        tmp_files = [self.instructions_file, 'MyAvg']
+        removed_files = [f for f in tmp_files if fu.rm(f)]
+        fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
         return returncode
 
 def main():
@@ -113,6 +118,7 @@ def main():
     # Specific args of each building block
     parser.add_argument('--input_top_path', required=True, help='Path to the input Amber structure or topology file.')
     parser.add_argument('--input_traj_path', required=True, help='Path to the input Amber trajectory to be processed.')
+    parser.add_argument('--input_exp_path', required=False, help='Path to the experimental reference file (required if reference = experimental).')
     parser.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed Amber trajectory or to the output dat file containing the analysis results.')
 
     args = parser.parse_args()
@@ -122,7 +128,7 @@ def main():
         properties = properties[args.step]
 
     # Specific call of each building block
-    Convert(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
+    Rms(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, input_exp_path=args.input_exp_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

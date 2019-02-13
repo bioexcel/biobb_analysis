@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
-"""Module containing the Cpptraj Convert class and the command line interface."""
+"""Module containing the Cpptraj Rgyr class and the command line interface."""
 import argparse
 from ast import literal_eval
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import get_in_parameters
+from biobb_analysis.ambertools.common import get_mask
 from biobb_analysis.ambertools.common import get_negative_mask
-from biobb_analysis.ambertools.common import get_out_parameters
+from biobb_analysis.ambertools.common import setup_structure
 
-class Convert():
-    """Wrapper of the Ambertools Cpptraj Convert module.
+class Rgyr():
+    """Wrapper of the Ambertools Cpptraj Rgyr module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -28,8 +29,6 @@ class Convert():
                     | - **end** (*int*) - (-1) Ending frame for slicing
                     | - **step** (*int*) - (1) Step for slicing
                 | - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
-                | - **out_parameters** (*dict*) - (None) Parameters for output trajectory.
-                    | - **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
             | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
@@ -70,16 +69,17 @@ class Convert():
         in_params = get_in_parameters(in_parameters, self)
         instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
 
+        # Set up
+        instructions_list += setup_structure(self)
+
         # mask
         mask = self.instructions.get('mask', '')
         if mask:
             strip_mask = get_negative_mask(mask, self)
             instructions_list.append('strip ' + strip_mask)
 
-        # trajout
-        out_parameters = self.instructions.get('out_parameters', '')
-        out_params = get_out_parameters(out_parameters, self)
-        instructions_list.append('trajout ' + self.output_cpptraj_path + ' ' + out_params)
+        # output
+        instructions_list.append('radgyr time 1 out ' + self.output_cpptraj_path)
 
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
@@ -122,7 +122,7 @@ def main():
         properties = properties[args.step]
 
     # Specific call of each building block
-    Convert(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
+    Rgyr(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

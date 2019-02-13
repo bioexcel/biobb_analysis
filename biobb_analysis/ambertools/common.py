@@ -10,7 +10,9 @@ def get_default_value(key):
 		"step": 1,
 		"snapshot": 1,
 		"format": "netcdf",
-		"mask": "all-atoms"
+		"mask": "all-atoms",
+		"reference": "first",
+		"average": "MyAvg"
 	}
 
 	return default_values[key]
@@ -19,6 +21,14 @@ def is_valid_format(traj):
 	""" Checks if trajectory format is compatible with Cpptraj """
 	formats = ['crd', 'cdf', 'netcdf', 'restart', 'ncrestart', 'restartnc', 'dcd', 'charmm', 'cor', 'pdb', 'mol2', 'trr', 'gro', 'binpos', 'xtc', 'cif', 'arc', 'sqm', 'sdf', 'conflib']
 	if traj in formats:
+		return True
+	else:
+		return False
+
+def is_valid_reference(ref):
+	""" Checks if reference is correct """
+	references = ['first', 'average', 'experimental']
+	if ref in references:
 		return True
 	else:
 		return False
@@ -92,6 +102,20 @@ def get_in_parameters(list, obj, type = 'None'):
 
 	return start + " " + end + " " + step
 
+def setup_structure(obj):
+	""" Sets up the structure """
+	instructions_list = []
+	mask_atoms = get_mask('heavy-atoms', obj)
+	instructions_list.append('center ' + mask_atoms + ' origin')
+	instructions_list.append('autoimage')
+	instructions_list.append('rms first ' + mask_atoms)
+	mask_solvent = get_mask('solvent', obj)
+	mask_ions = get_mask('ions', obj)
+	instructions_list.append('strip ' + mask_solvent + ',' + mask_ions[1:])
+
+	return instructions_list
+
+
 def get_negative_mask(key, obj):
 	""" Gives the negative mask according to the given key """
 	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
@@ -115,6 +139,35 @@ def get_mask(key, obj):
 		fu.log(msg, out_log, obj.global_log)
 
 	return mask
+
+def get_reference(ref, obj, type):
+	""" Gives reference instructions according to the given key """
+	instructions_list = []
+
+	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
+	if not ref or ref == 'None':
+		ref = get_default_value('reference')
+		fu.log('No reference provided in configuration file, assigned default value: %s' % get_default_value('reference'), out_log, obj.global_log)
+
+	if not is_valid_reference(ref):
+		fu.log('Reference %s is not compatible, assigned default value: %s' % (ref, get_default_value('reference')), out_log, obj.global_log)
+		ref = get_default_value('reference')
+
+	if ref == 'first':
+		instructions_list.append('rms first out ' + obj.output_cpptraj_path)
+
+	if ref == 'average':
+		instructions_list.append('average ' + get_default_value('average'))
+		instructions_list.append('rms ref ' + get_default_value('average') + ' out ' + obj.output_cpptraj_path)
+
+	if ref == 'experimental':
+		if not obj.input_exp_path:
+			fu.log('No experimental structure provided, exiting', out_log, obj.global_log)
+			raise SystemExit('input_exp_path is mandatory')
+		instructions_list.append('reference ' + obj.input_exp_path)
+		instructions_list.append('rms reference out ' + obj.output_cpptraj_path)
+
+	return instructions_list
 
 def get_out_parameters(list, obj):
 	""" Return string with output parameters """

@@ -9,6 +9,7 @@ from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import get_in_parameters
 from biobb_analysis.ambertools.common import get_mask
 from biobb_analysis.ambertools.common import get_negative_mask
+from biobb_analysis.ambertools.common import setup_structure
 from biobb_analysis.ambertools.common import get_out_parameters
 
 class Average():
@@ -71,14 +72,8 @@ class Average():
         in_params = get_in_parameters(in_parameters, self)
         instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
 
-        # average
-        mask_atoms = get_mask('heavy-atoms', self)
-        instructions_list.append('center ' + mask_atoms + ' origin')
-        instructions_list.append('autoimage')
-        instructions_list.append('rms first ' + mask_atoms)
-        mask_solvent = get_mask('solvent', self)
-        mask_ions = get_mask('ions', self)
-        instructions_list.append('strip ' + mask_solvent + ',' + mask_ions[1:])
+        # Set up
+        instructions_list += setup_structure(self)
 
         # mask
         mask = self.instructions.get('mask', '')
