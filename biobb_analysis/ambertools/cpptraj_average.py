@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
-"""Module containing the Cpptraj Slice class and the command line interface."""
+"""Module containing the Cpptraj Average class and the command line interface."""
 import argparse
 from ast import literal_eval
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import get_in_parameters
+from biobb_analysis.ambertools.common import get_mask
 from biobb_analysis.ambertools.common import get_negative_mask
 from biobb_analysis.ambertools.common import get_out_parameters
 
-class Slice():
-    """Wrapper of the Ambertools Cpptraj Slice module.
+class Average():
+    """Wrapper of the Ambertools Cpptraj Average module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -70,16 +71,25 @@ class Slice():
         in_params = get_in_parameters(in_parameters, self)
         instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
 
+        # average
+        mask_atoms = get_mask('heavy-atoms', self)
+        instructions_list.append('center ' + mask_atoms + ' origin')
+        instructions_list.append('autoimage')
+        instructions_list.append('rms first ' + mask_atoms)
+        mask_solvent = get_mask('solvent', self)
+        mask_ions = get_mask('ions', self)
+        instructions_list.append('strip ' + mask_solvent + ',' + mask_ions[1:])
+
         # mask
         mask = self.instructions.get('mask', '')
         if mask:
             strip_mask = get_negative_mask(mask, self)
             instructions_list.append('strip ' + strip_mask)
 
-        # trajout
+        # output
         out_parameters = self.instructions.get('out_parameters', '')
         out_params = get_out_parameters(out_parameters, self)
-        instructions_list.append('trajout ' + self.output_cpptraj_path + ' ' + out_params)
+        instructions_list.append('average ' + self.output_cpptraj_path + ' ' + out_params)
 
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
@@ -122,7 +132,7 @@ def main():
         properties = properties[args.step]
 
     # Specific call of each building block
-    Slice(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
+    Average(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

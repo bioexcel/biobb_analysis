@@ -42,8 +42,8 @@ def get_mask_atoms(key):
 	else:
 		return masks[get_default_value("mask")], "Mask %s is not compatible, assigned default value: %s" % (key, get_default_value("mask"))
 
-def get_trajin_parameters(list, obj, type = 'None'):
-	""" Return string with trajin parameters """
+def get_in_parameters(list, obj, type = 'None'):
+	""" Return string with input parameters """
 	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	list = literal_eval(list)
 
@@ -116,8 +116,8 @@ def get_mask(key, obj):
 
 	return mask
 
-def get_trajout_parameters(list, obj):
-	""" Return string with trajout parameters """
+def get_out_parameters(list, obj):
+	""" Return string with output parameters """
 	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	list = literal_eval(list)
 	format = list['format']

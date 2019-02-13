@@ -6,9 +6,9 @@ from ast import literal_eval
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
-from biobb_analysis.ambertools.common import get_trajin_parameters
+from biobb_analysis.ambertools.common import get_in_parameters
 from biobb_analysis.ambertools.common import get_negative_mask
-from biobb_analysis.ambertools.common import get_trajout_parameters
+from biobb_analysis.ambertools.common import get_out_parameters
 
 class Convert():
     """Wrapper of the Ambertools Cpptraj Convert module.
@@ -23,12 +23,12 @@ class Convert():
         properties (dic):
             | - **instructions_file** (*str*) - ("instructions.in") Name of the instructions file to be created. 
             | - **input_instructions** (*dict*) - (defaults dict) Input options specification.
-                | - **trajin_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
+                | - **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
                     | - **start** (*int*) - (1) Starting frame for slicing
                     | - **end** (*int*) - (-1) Ending frame for slicing
                     | - **step** (*int*) - (1) Step for slicing
                 | - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
-                | - **trajout_parameters** (*dict*) - (None) Parameters for output trajectory.
+                | - **out_parameters** (*dict*) - (None) Parameters for output trajectory.
                     | - **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
             | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
@@ -66,8 +66,8 @@ class Convert():
         instructions_list.append('parm ' + self.input_top_path + ' ' + self.instructions.pop('parm', ''))
 
         # trajin
-        trajin_parameters = self.instructions.get('trajin_parameters', '')
-        in_params = get_trajin_parameters(trajin_parameters, self)
+        in_parameters = self.instructions.get('in_parameters', '')
+        in_params = get_in_parameters(in_parameters, self)
         instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
 
         # mask
@@ -77,8 +77,8 @@ class Convert():
             instructions_list.append('strip ' + strip_mask)
 
         # trajout
-        trajout_parameters = self.instructions.get('trajout_parameters', '')
-        out_params = get_trajout_parameters(trajout_parameters, self)
+        out_parameters = self.instructions.get('out_parameters', '')
+        out_params = get_out_parameters(out_parameters, self)
         instructions_list.append('trajout ' + self.output_cpptraj_path + ' ' + out_params)
 
         # create .in file
