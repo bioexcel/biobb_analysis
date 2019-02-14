@@ -1,0 +1,1141 @@
+ATOM      1  CA  LYS A   1     -10.333 -10.016  31.345  1.00  0.00           C  
+TER       2      LYS A   1 
+ATOM      2  CA  GLU A   2     -11.137  -9.637  29.012  1.00  0.00           C  
+TER       3      GLU A   2 
+ATOM      3  CA  PRO A   3     -11.786  -9.411  27.492  1.00  0.00           C  
+TER       4      PRO A   3 
+ATOM      4  CA  CYS A   4     -13.499  -9.303  24.401  1.00  0.00           C  
+TER       5      CYS A   4 
+ATOM      5  CA  PHE A   5     -16.600  -8.545  23.814  1.00  0.00           C  
+TER       6      PHE A   5 
+ATOM      6  CA  ARG A   6     -18.197 -10.053  21.015  1.00  0.00           C  
+TER       7      ARG A   6 
+ATOM      7  CA  GLU A   7     -21.641 -11.393  21.015  1.00  0.00           C  
+TER       8      GLU A   7 
+ATOM      8  CA  GLU A   8     -21.742 -14.648  19.319  1.00  0.00           C  
+TER       9      GLU A   8 
+ATOM      9  CA  ASN A   9     -24.730 -16.793  18.843  1.00  0.00           C  
+TER      10      ASN A   9 
+ATOM     10  CA  ALA A  10     -24.143 -20.481  18.790  1.00  0.00           C  
+TER      11      ALA A  10 
+ATOM     11  CA  ASN A  11     -27.352 -21.483  17.134  1.00  0.00           C  
+TER      12      ASN A  11 
+ATOM     12  CA  PHE A  12     -26.669 -19.159  14.287  1.00  0.00           C  
+TER      13      PHE A  12 
+ATOM     13  CA  ASN A  13     -23.142 -20.347  13.834  1.00  0.00           C  
+TER      14      ASN A  13 
+ATOM     14  CA  LYS A  14     -24.218 -23.962  13.831  1.00  0.00           C  
+TER      15      LYS A  14 
+ATOM     15  CA  ILE A  15     -26.676 -23.474  10.989  1.00  0.00           C  
+TER      16      ILE A  15 
+ATOM     16  CA  PHE A  16     -25.156 -20.528   9.108  1.00  0.00           C  
+TER      17      PHE A  16 
+ATOM     17  CA  LEU A  17     -21.553 -21.606   8.643  1.00  0.00           C  
+TER      18      LEU A  17 
+ATOM     18  CA  PRO A  18     -22.191 -25.218   7.516  1.00  0.00           C  
+TER      19      PRO A  18 
+ATOM     19  CA  THR A  19     -24.943 -24.250   5.099  1.00  0.00           C  
+TER      20      THR A  19 
+ATOM     20  CA  ILE A  20     -23.105 -21.405   3.385  1.00  0.00           C  
+TER      21      ILE A  20 
+ATOM     21  CA  TYR A  21     -19.800 -23.267   3.253  1.00  0.00           C  
+TER      22      TYR A  21 
+ATOM     22  CA  SER A  22     -21.416 -26.346   1.707  1.00  0.00           C  
+TER      23      SER A  22 
+ATOM     23  CA  ILE A  23     -22.574 -24.432  -1.362  1.00  0.00           C  
+TER      24      ILE A  23 
+ATOM     24  CA  ILE A  24     -19.127 -22.884  -1.812  1.00  0.00           C  
+TER      25      ILE A  24 
+ATOM     25  CA  PHE A  25     -17.404 -26.255  -1.354  1.00  0.00           C  
+TER      26      PHE A  25 
+ATOM     26  CA  LEU A  26     -19.598 -28.192  -3.771  1.00  0.00           C  
+TER      27      LEU A  26 
+ATOM     27  CA  THR A  27     -19.546 -25.634  -6.578  1.00  0.00           C  
+TER      28      THR A  27 
+ATOM     28  CA  GLY A  28     -15.875 -24.868  -5.948  1.00  0.00           C  
+TER      29      GLY A  28 
+ATOM     29  CA  ILE A  29     -14.560 -28.431  -6.177  1.00  0.00           C  
+TER      30      ILE A  29 
+ATOM     30  CA  VAL A  30     -16.516 -29.364  -9.283  1.00  0.00           C  
+TER      31      VAL A  30 
+ATOM     31  CA  GLY A  31     -16.056 -26.061 -11.088  1.00  0.00           C  
+TER      32      GLY A  31 
+ATOM     32  CA  ASN A  32     -12.367 -25.550 -10.516  1.00  0.00           C  
+TER      33      ASN A  32 
+ATOM     33  CA  GLY A  33     -11.694 -29.257 -11.021  1.00  0.00           C  
+TER      34      GLY A  33 
+ATOM     34  CA  LEU A  34     -13.379 -29.230 -14.406  1.00  0.00           C  
+TER      35      LEU A  34 
+ATOM     35  CA  VAL A  35     -11.584 -26.071 -15.483  1.00  0.00           C  
+TER      36      VAL A  35 
+ATOM     36  CA  ILE A  36      -8.164 -27.359 -14.552  1.00  0.00           C  
+TER      37      ILE A  36 
+ATOM     37  CA  LEU A  37      -8.881 -30.528 -16.482  1.00  0.00           C  
+TER      38      LEU A  37 
+ATOM     38  CA  VAL A  38      -9.806 -28.724 -19.641  1.00  0.00           C  
+TER      39      VAL A  38 
+ATOM     39  CA  MET A  39      -7.353 -25.901 -19.437  1.00  0.00           C  
+TER      40      MET A  39 
+ATOM     40  CA  GLY A  40      -4.286 -27.177 -17.963  1.00  0.00           C  
+TER      41      GLY A  40 
+ATOM     41  CA  TYR A  41      -3.806 -30.575 -16.841  1.00  0.00           C  
+TER      42      TYR A  41 
+ATOM     42  CA  GLN A  42      -2.304 -32.117 -19.523  1.00  0.00           C  
+TER      43      GLN A  42 
+ATOM     43  CA  SER B  43      -3.587 -17.828 -24.674  1.00  0.00           C  
+TER      44      SER B  43 
+ATOM     44  CA  MET B  44      -2.891 -15.756 -21.768  1.00  0.00           C  
+TER      45      MET B  44 
+ATOM     45  CA  THR B  45      -6.367 -15.515 -20.288  1.00  0.00           C  
+TER      46      THR B  45 
+ATOM     46  CA  ASP B  46      -6.286 -19.181 -19.318  1.00  0.00           C  
+TER      47      ASP B  46 
+ATOM     47  CA  LYS B  47      -3.058 -18.779 -17.347  1.00  0.00           C  
+TER      48      LYS B  47 
+ATOM     48  CA  TYR B  48      -4.527 -15.982 -15.257  1.00  0.00           C  
+TER      49      TYR B  48 
+ATOM     49  CA  ARG B  49      -7.658 -18.011 -14.516  1.00  0.00           C  
+TER      50      ARG B  49 
+ATOM     50  CA  LEU B  50      -5.523 -21.045 -13.630  1.00  0.00           C  
+TER      51      LEU B  50 
+ATOM     51  CA  HIS B  51      -3.614 -18.952 -11.066  1.00  0.00           C  
+TER      52      HIS B  51 
+ATOM     52  CA  LEU B  52      -6.926 -17.883  -9.568  1.00  0.00           C  
+TER      53      LEU B  52 
+ATOM     53  CA  SER B  53      -8.449 -21.373  -9.686  1.00  0.00           C  
+TER      54      SER B  53 
+ATOM     54  CA  VAL B  54      -5.498 -23.118  -8.003  1.00  0.00           C  
+TER      55      VAL B  54 
+ATOM     55  CA  ALA B  55      -5.729 -20.758  -5.021  1.00  0.00           C  
+TER      56      ALA B  55 
+ATOM     56  CA  ASP B  56      -9.487 -21.243  -4.985  1.00  0.00           C  
+TER      57      ASP B  56 
+ATOM     57  CA  LEU B  57      -9.162 -25.047  -5.096  1.00  0.00           C  
+TER      58      LEU B  57 
+ATOM     58  CA  LEU B  58      -6.750 -24.923  -2.163  1.00  0.00           C  
+TER      59      LEU B  58 
+ATOM     59  CA  PHE B  59      -9.232 -22.807  -0.229  1.00  0.00           C  
+TER      60      PHE B  59 
+ATOM     60  CA  VAL B  60     -12.292 -24.934  -1.009  1.00  0.00           C  
+TER      61      VAL B  60 
+ATOM     61  CA  ILE B  61     -10.670 -28.166   0.149  1.00  0.00           C  
+TER      62      ILE B  61 
+ATOM     62  CA  THR B  62      -9.991 -26.613   3.543  1.00  0.00           C  
+TER      63      THR B  62 
+ATOM     63  CA  LEU B  63     -13.623 -25.631   4.172  1.00  0.00           C  
+TER      64      LEU B  63 
+ATOM     64  CA  PRO B  64     -14.553 -28.842   6.057  1.00  0.00           C  
+TER      65      PRO B  64 
+ATOM     65  CA  PHE B  65     -12.158 -27.767   8.819  1.00  0.00           C  
+TER      66      PHE B  65 
+ATOM     66  CA  TRP B  66     -13.740 -24.334   9.245  1.00  0.00           C  
+TER      67      TRP B  66 
+ATOM     67  CA  ALA B  67     -17.190 -25.916   9.189  1.00  0.00           C  
+TER      68      ALA B  67 
+ATOM     68  CA  VAL B  68     -16.296 -28.428  11.881  1.00  0.00           C  
+TER      69      VAL B  68 
+ATOM     69  CA  ASP B  69     -15.107 -25.607  14.098  1.00  0.00           C  
+TER      70      ASP B  69 
+ATOM     70  CA  ALA B  70     -18.534 -24.029  13.965  1.00  0.00           C  
+TER      71      ALA B  70 
+ATOM     71  CA  VAL B  71     -20.536 -27.135  14.764  1.00  0.00           C  
+TER      72      VAL B  71 
+ATOM     72  CA  ALA B  72     -18.273 -29.381  16.729  1.00  0.00           C  
+TER      73      ALA B  72 
+ATOM     73  CA  ASN B  73     -15.169 -29.352  18.805  1.00  0.00           C  
+TER      74      ASN B  73 
+ATOM     74  CA  TRP B  74     -11.872 -28.613  17.135  1.00  0.00           C  
+TER      75      TRP B  74 
+ATOM     75  CA  TYR B  75      -9.322 -31.158  18.160  1.00  0.00           C  
+TER      76      TYR B  75 
+ATOM     76  CA  PHE B  76      -6.687 -30.443  15.527  1.00  0.00           C  
+TER      77      PHE B  76 
+ATOM     77  CA  GLY B  77      -3.265 -29.248  16.599  1.00  0.00           C  
+TER      78      GLY B  77 
+ATOM     78  CA  ASN B  78      -0.672 -26.744  15.520  1.00  0.00           C  
+TER      79      ASN B  78 
+ATOM     79  CA  PHE B  79       0.166 -28.021  12.040  1.00  0.00           C  
+TER      80      PHE B  79 
+ATOM     80  CA  LEU B  80      -3.416 -28.130  10.836  1.00  0.00           C  
+TER      81      LEU B  80 
+ATOM     81  CA  CYS B  81      -4.197 -24.806  12.478  1.00  0.00           C  
+TER      82      CYS B  81 
+ATOM     82  CA  LYS B  82      -1.251 -23.167  10.693  1.00  0.00           C  
+TER      83      LYS B  82 
+ATOM     83  CA  ALA B  83      -2.037 -24.843   7.384  1.00  0.00           C  
+TER      84      ALA B  83 
+ATOM     84  CA  VAL B  84      -5.672 -23.719   7.232  1.00  0.00           C  
+TER      85      VAL B  84 
+ATOM     85  CA  HIS B  85      -4.756 -20.146   8.166  1.00  0.00           C  
+TER      86      HIS B  85 
+ATOM     86  CA  VAL B  86      -1.969 -19.779   5.585  1.00  0.00           C  
+TER      87      VAL B  86 
+ATOM     87  CA  ILE B  87      -4.216 -20.888   2.731  1.00  0.00           C  
+TER      88      ILE B  87 
+ATOM     88  CA  TYR B  88      -6.853 -18.301   3.674  1.00  0.00           C  
+TER      89      TYR B  88 
+ATOM     89  CA  THR B  89      -4.324 -15.482   3.363  1.00  0.00           C  
+TER      90      THR B  89 
+ATOM     90  CA  VAL B  90      -2.790 -16.732   0.117  1.00  0.00           C  
+TER      91      VAL B  90 
+ATOM     91  CA  ASN B  91      -6.214 -16.824  -1.520  1.00  0.00           C  
+TER      92      ASN B  91 
+ATOM     92  CA  LEU B  92      -7.143 -13.313  -0.395  1.00  0.00           C  
+TER      93      LEU B  92 
+ATOM     93  CA  TYR B  93      -3.814 -11.760  -1.388  1.00  0.00           C  
+TER      94      TYR B  93 
+ATOM     94  CA  SER B  94      -3.440 -13.455  -4.773  1.00  0.00           C  
+TER      95      SER B  94 
+ATOM     95  CA  SER B  95      -6.985 -12.936  -6.041  1.00  0.00           C  
+TER      96      SER B  95 
+ATOM     96  CA  VAL B  96      -6.978  -9.123  -5.901  1.00  0.00           C  
+TER      97      VAL B  96 
+ATOM     97  CA  TRP B  97      -3.636  -8.922  -7.725  1.00  0.00           C  
+TER      98      TRP B  97 
+ATOM     98  CA  ILE B  98      -4.794 -11.341 -10.424  1.00  0.00           C  
+TER      99      ILE B  98 
+ATOM     99  CA  LEU B  99      -7.892  -9.189 -10.941  1.00  0.00           C  
+TER     100      LEU B  99 
+ATOM    100  CA  ALA B 100      -5.589  -6.271 -11.651  1.00  0.00           C  
+TER     101      ALA B 100 
+ATOM    101  CA  PHE B 101      -3.551  -8.389 -14.074  1.00  0.00           C  
+TER     102      PHE B 101 
+ATOM    102  CA  ILE B 102      -6.608  -9.643 -15.987  1.00  0.00           C  
+TER     103      ILE B 102 
+ATOM    103  CA  SER B 103      -7.651  -6.033 -16.560  1.00  0.00           C  
+TER     104      SER B 103 
+ATOM    104  CA  LEU B 104      -4.151  -5.078 -17.730  1.00  0.00           C  
+TER     105      LEU B 104 
+ATOM    105  CA  ASP B 105      -4.190  -7.977 -20.205  1.00  0.00           C  
+TER     106      ASP B 105 
+ATOM    106  CA  ARG B 106      -7.458  -6.715 -21.680  1.00  0.00           C  
+TER     107      ARG B 106 
+ATOM    107  CA  TYR B 107      -6.087  -3.184 -21.902  1.00  0.00           C  
+TER     108      TYR B 107 
+ATOM    108  CA  LEU B 108      -3.033  -4.414 -23.808  1.00  0.00           C  
+TER     109      LEU B 108 
+ATOM    109  CA  ALA B 109      -5.059  -6.633 -26.108  1.00  0.00           C  
+TER     110      ALA B 109 
+ATOM    110  CA  ILE B 110      -7.687  -4.063 -27.043  1.00  0.00           C  
+TER     111      ILE B 110 
+ATOM    111  CA  VAL B 111      -5.660  -0.879 -27.253  1.00  0.00           C  
+TER     112      VAL B 111 
+ATOM    112  CA  HIS B 112      -2.274  -1.963 -28.438  1.00  0.00           C  
+TER     113      HIS B 112 
+ATOM    113  CA  ALA B 113      -2.136  -3.375 -31.433  1.00  0.00           C  
+TER     114      ALA B 113 
+ATOM    114  CA  THR B 114       1.039  -4.264 -32.751  1.00  0.00           C  
+TER     115      THR B 114 
+ATOM    115  CA  ASN B 115       2.881  -5.181 -29.971  1.00  0.00           C  
+TER     116      ASN B 115 
+ATOM    116  CA  SER B 116       0.719  -6.778 -27.407  1.00  0.00           C  
+TER     117      SER B 116 
+ATOM    117  CA  GLN B 117       1.716 -10.436 -27.330  1.00  0.00           C  
+TER     118      GLN B 117 
+ATOM    118  CA  ARG B 118       5.126 -10.097 -25.751  1.00  0.00           C  
+TER     119      ARG B 118 
+ATOM    119  CA  PRO B 119       3.841  -7.783 -23.023  1.00  0.00           C  
+TER     120      PRO B 119 
+ATOM    120  CA  ARG B 120       0.898 -10.110 -22.331  1.00  0.00           C  
+TER     121      ARG B 120 
+ATOM    121  CA  LYS B 121       3.128 -13.202 -22.175  1.00  0.00           C  
+TER     122      LYS B 121 
+ATOM    122  CA  LEU B 122       5.510 -11.555 -19.703  1.00  0.00           C  
+TER     123      LEU B 122 
+ATOM    123  CA  LEU B 123       2.577 -10.573 -17.515  1.00  0.00           C  
+TER     124      LEU B 123 
+ATOM    124  CA  ALA B 124       0.840 -13.955 -17.495  1.00  0.00           C  
+TER     125      ALA B 124 
+ATOM    125  CA  GLU B 125       3.842 -15.982 -16.535  1.00  0.00           C  
+TER     126      GLU B 125 
+ATOM    126  CA  LYS B 126       6.851 -14.092 -15.224  1.00  0.00           C  
+TER     127      LYS B 126 
+ATOM    127  CA  VAL B 127       5.390 -10.988 -13.597  1.00  0.00           C  
+TER     128      VAL B 127 
+ATOM    128  CA  VAL B 128       2.659 -12.972 -11.798  1.00  0.00           C  
+TER     129      VAL B 128 
+ATOM    129  CA  TYR B 129       5.230 -15.406 -10.385  1.00  0.00           C  
+TER     130      TYR B 129 
+ATOM    130  CA  VAL B 130       7.755 -12.841  -9.158  1.00  0.00           C  
+TER     131      VAL B 130 
+ATOM    131  CA  GLY B 131       5.256 -10.124  -8.257  1.00  0.00           C  
+TER     132      GLY B 131 
+ATOM    132  CA  VAL B 132       2.503 -12.070  -6.541  1.00  0.00           C  
+TER     133      VAL B 132 
+ATOM    133  CA  TRP B 133       3.350 -15.746  -5.967  1.00  0.00           C  
+TER     134      TRP B 133 
+ATOM    134  CA  ILE B 134       6.874 -15.573  -4.540  1.00  0.00           C  
+TER     135      ILE B 134 
+ATOM    135  CA  PRO B 135       5.993 -12.680  -2.200  1.00  0.00           C  
+TER     136      PRO B 135 
+ATOM    136  CA  ALA B 136       2.779 -14.470  -1.181  1.00  0.00           C  
+TER     137      ALA B 136 
+ATOM    137  CA  LEU B 137       4.746 -17.606  -0.371  1.00  0.00           C  
+TER     138      LEU B 137 
+ATOM    138  CA  LEU B 138       7.228 -15.644   1.718  1.00  0.00           C  
+TER     139      LEU B 138 
+ATOM    139  CA  LEU B 139       4.437 -13.736   3.467  1.00  0.00           C  
+TER     140      LEU B 139 
+ATOM    140  CA  THR B 140       3.026 -16.986   4.819  1.00  0.00           C  
+TER     141      THR B 140 
+ATOM    141  CA  ILE B 141       5.755 -17.192   7.452  1.00  0.00           C  
+TER     142      ILE B 141 
+ATOM    142  CA  PRO B 142       4.232 -14.469   9.666  1.00  0.00           C  
+TER     143      PRO B 142 
+ATOM    143  CA  ASP B 143       0.829 -16.195   9.590  1.00  0.00           C  
+TER     144      ASP B 143 
+ATOM    144  CA  PHE B 144       2.493 -19.541  10.257  1.00  0.00           C  
+TER     145      PHE B 144 
+ATOM    145  CA  ILE B 145       4.122 -18.187  13.423  1.00  0.00           C  
+TER     146      ILE B 145 
+ATOM    146  CA  PHE B 146       1.088 -16.292  14.730  1.00  0.00           C  
+TER     147      PHE B 146 
+ATOM    147  CA  ALA B 147      -1.529 -19.002  14.109  1.00  0.00           C  
+TER     148      ALA B 147 
+ATOM    148  CA  ASN B 148      -1.493 -21.161  17.215  1.00  0.00           C  
+TER     149      ASN B 148 
+ATOM    149  CA  VAL B 149      -3.711 -23.543  19.122  1.00  0.00           C  
+TER     150      VAL B 149 
+ATOM    150  CA  SER B 150      -4.982 -22.580  22.510  1.00  0.00           C  
+TER     151      SER B 150 
+ATOM    151  CA  GLU B 151      -4.926 -25.419  24.749  1.00  0.00           C  
+TER     152      GLU B 151 
+ATOM    152  CA  ALA B 152      -8.091 -25.609  26.503  1.00  0.00           C  
+TER     153      ALA B 152 
+ATOM    153  CA  ASP B 153      -9.662 -28.589  27.875  1.00  0.00           C  
+TER     154      ASP B 153 
+ATOM    154  CA  ASP B 154     -11.630 -30.009  25.484  1.00  0.00           C  
+TER     155      ASP B 154 
+ATOM    155  CA  ARG B 155     -11.454 -27.579  22.839  1.00  0.00           C  
+TER     156      ARG B 155 
+ATOM    156  CA  TYR B 156      -8.424 -26.609  21.094  1.00  0.00           C  
+TER     157      TYR B 156 
+ATOM    157  CA  ILE B 157      -9.023 -23.224  19.656  1.00  0.00           C  
+TER     158      ILE B 157 
+ATOM    158  CA  CYS B 158      -7.078 -22.203  16.594  1.00  0.00           C  
+TER     159      CYS B 158 
+ATOM    159  CA  ASP B 159      -6.485 -18.492  16.772  1.00  0.00           C  
+TER     160      ASP B 159 
+ATOM    160  CA  ARG B 160      -4.081 -15.791  15.630  1.00  0.00           C  
+TER     161      ARG B 160 
+ATOM    161  CA  PHE B 161      -1.930 -14.819  18.572  1.00  0.00           C  
+TER     162      PHE B 161 
+ATOM    162  CA  TYR B 162      -0.153 -11.541  17.886  1.00  0.00           C  
+TER     163      TYR B 162 
+ATOM    163  CA  PRO B 163       2.239 -10.015  20.436  1.00  0.00           C  
+TER     164      PRO B 163 
+ATOM    164  CA  ASN B 164       0.925  -6.460  20.460  1.00  0.00           C  
+TER     165      ASN B 164 
+ATOM    165  CA  ASP B 165      -1.537  -4.002  18.960  1.00  0.00           C  
+TER     166      ASP B 165 
+ATOM    166  CA  LEU B 166       1.067  -2.685  16.533  1.00  0.00           C  
+TER     167      LEU B 166 
+ATOM    167  CA  TRP B 167       1.279  -6.099  14.868  1.00  0.00           C  
+TER     168      TRP B 167 
+ATOM    168  CA  VAL B 168      -2.498  -6.372  14.499  1.00  0.00           C  
+TER     169      VAL B 168 
+ATOM    169  CA  VAL B 169      -2.898  -2.923  12.912  1.00  0.00           C  
+TER     170      VAL B 169 
+ATOM    170  CA  VAL B 170      -0.203  -3.402  10.252  1.00  0.00           C  
+TER     171      VAL B 170 
+ATOM    171  CA  PHE B 171      -1.847  -6.615   9.084  1.00  0.00           C  
+TER     172      PHE B 171 
+ATOM    172  CA  GLN B 172      -5.366  -5.262   9.417  1.00  0.00           C  
+TER     173      GLN B 172 
+ATOM    173  CA  PHE B 173      -4.463  -2.409   7.128  1.00  0.00           C  
+TER     174      PHE B 173 
+ATOM    174  CA  GLN B 174      -3.805  -4.627   4.201  1.00  0.00           C  
+TER     175      GLN B 174 
+ATOM    175  CA  HIS B 175      -7.194  -5.148   2.615  1.00  0.00           C  
+TER     176      HIS B 175 
+ATOM    176  CA  ILE B 176      -7.913  -1.489   2.141  1.00  0.00           C  
+TER     177      ILE B 176 
+ATOM    177  CA  MET B 177      -4.681  -0.984   0.245  1.00  0.00           C  
+TER     178      MET B 177 
+ATOM    178  CA  VAL B 178      -4.370  -4.367  -1.477  1.00  0.00           C  
+TER     179      VAL B 178 
+ATOM    179  CA  GLY B 179      -7.962  -4.826  -2.342  1.00  0.00           C  
+TER     180      GLY B 179 
+ATOM    180  CA  LEU B 180     -10.063  -1.702  -2.436  1.00  0.00           C  
+TER     181      LEU B 180 
+ATOM    181  CA  ILE B 181      -7.682   1.115  -3.328  1.00  0.00           C  
+TER     182      ILE B 181 
+ATOM    182  CA  LEU B 182      -4.649  -0.130  -5.259  1.00  0.00           C  
+TER     183      LEU B 182 
+ATOM    183  CA  PRO B 183      -6.203  -2.902  -7.388  1.00  0.00           C  
+TER     184      PRO B 183 
+ATOM    184  CA  GLY B 184      -9.409  -0.853  -7.644  1.00  0.00           C  
+TER     185      GLY B 184 
+ATOM    185  CA  ILE B 185      -7.742   2.202  -9.172  1.00  0.00           C  
+TER     186      ILE B 185 
+ATOM    186  CA  VAL B 186      -5.874   0.122 -11.747  1.00  0.00           C  
+TER     187      VAL B 186 
+ATOM    187  CA  ILE B 187      -9.068  -1.686 -12.776  1.00  0.00           C  
+TER     188      ILE B 187 
+ATOM    188  CA  LEU B 188     -11.084   1.537 -13.026  1.00  0.00           C  
+TER     189      LEU B 188 
+ATOM    189  CA  SER B 189      -8.404   3.356 -15.013  1.00  0.00           C  
+TER     190      SER B 189 
+ATOM    190  CA  CYS B 190      -7.999   0.464 -17.429  1.00  0.00           C  
+TER     191      CYS B 190 
+ATOM    191  CA  TYR B 191     -11.756   0.185 -17.850  1.00  0.00           C  
+TER     192      TYR B 191 
+ATOM    192  CA  CYS B 192     -12.067   3.908 -18.546  1.00  0.00           C  
+TER     193      CYS B 192 
+ATOM    193  CA  ILE B 193      -9.516   3.730 -21.356  1.00  0.00           C  
+TER     194      ILE B 193 
+ATOM    194  CA  ILE B 194     -11.071   0.644 -22.926  1.00  0.00           C  
+TER     195      ILE B 194 
+ATOM    195  CA  ILE B 195     -14.633   1.879 -22.961  1.00  0.00           C  
+TER     196      ILE B 195 
+ATOM    196  CA  SER B 196     -13.703   4.992 -24.749  1.00  0.00           C  
+TER     197      SER B 196 
+ATOM    197  CA  LYS B 197     -12.016   3.062 -27.489  1.00  0.00           C  
+TER     198      LYS B 197 
+ATOM    198  CA  LEU B 198     -14.774   0.609 -27.818  1.00  0.00           C  
+TER     199      LEU B 198 
+ATOM    199  CA  SER B 199     -17.448   2.827 -27.870  1.00  0.00           C  
+TER     200      SER B 199 
+ATOM    200  CA  HIS B 200     -17.957   4.578 -30.153  1.00  0.00           C  
+TER     201      HIS B 200 
+ATOM    201  CA  GLY C 201     -17.379   2.995 -32.363  1.00  0.00           C  
+TER     202      GLY C 201 
+ATOM    202  CA  HIS C 202     -16.979   0.446 -32.244  1.00  0.00           C  
+TER     203      HIS C 202 
+ATOM    203  CA  GLN C 203     -16.437  -1.505 -30.306  1.00  0.00           C  
+TER     204      GLN C 203 
+ATOM    204  CA  LYS C 204     -14.992  -3.556 -31.085  1.00  0.00           C  
+TER     205      LYS C 204 
+ATOM    205  CA  ARG C 205     -15.836  -6.106 -30.405  1.00  0.00           C  
+TER     206      ARG C 205 
+ATOM    206  CA  LYS C 206     -13.865  -7.359 -28.080  1.00  0.00           C  
+TER     207      LYS C 206 
+ATOM    207  CA  ALA C 207     -14.773  -9.178 -25.299  1.00  0.00           C  
+TER     208      ALA C 207 
+ATOM    208  CA  LEU C 208     -14.880  -7.120 -22.190  1.00  0.00           C  
+TER     209      LEU C 208 
+ATOM    209  CA  LYS C 209     -18.008  -8.280 -20.367  1.00  0.00           C  
+TER     210      LYS C 209 
+ATOM    210  CA  PRO C 210     -16.966 -11.701 -18.998  1.00  0.00           C  
+TER     211      PRO C 210 
+ATOM    211  CA  THR C 211     -13.764 -10.319 -17.535  1.00  0.00           C  
+TER     212      THR C 211 
+ATOM    212  CA  VAL C 212     -15.386  -7.292 -15.977  1.00  0.00           C  
+TER     213      VAL C 212 
+ATOM    213  CA  ILE C 213     -18.345  -9.201 -14.528  1.00  0.00           C  
+TER     214      ILE C 213 
+ATOM    214  CA  LEU C 214     -15.885 -11.438 -12.649  1.00  0.00           C  
+TER     215      LEU C 214 
+ATOM    215  CA  ILE C 215     -14.196  -8.360 -11.179  1.00  0.00           C  
+TER     216      ILE C 215 
+ATOM    216  CA  LEU C 216     -17.562  -6.814 -10.257  1.00  0.00           C  
+TER     217      LEU C 216 
+ATOM    217  CA  ALA C 217     -18.728 -10.041  -8.564  1.00  0.00           C  
+TER     218      ALA C 217 
+ATOM    218  CA  PHE C 218     -15.540 -10.312  -6.494  1.00  0.00           C  
+TER     219      PHE C 218 
+ATOM    219  CA  PHE C 219     -15.525  -6.642  -5.451  1.00  0.00           C  
+TER     220      PHE C 219 
+ATOM    220  CA  ALA C 220     -19.273  -6.519  -4.725  1.00  0.00           C  
+TER     221      ALA C 220 
+ATOM    221  CA  CYS C 221     -19.070  -9.533  -2.408  1.00  0.00           C  
+TER     222      CYS C 221 
+ATOM    222  CA  TRP C 222     -16.109  -8.122  -0.482  1.00  0.00           C  
+TER     223      TRP C 222 
+ATOM    223  CA  LEU C 223     -17.320  -4.505  -0.193  1.00  0.00           C  
+TER     224      LEU C 223 
+ATOM    224  CA  PRO C 224     -19.327  -5.001   3.056  1.00  0.00           C  
+TER     225      PRO C 224 
+ATOM    225  CA  TYR C 225     -16.227  -6.506   4.694  1.00  0.00           C  
+TER     226      TYR C 225 
+ATOM    226  CA  TYR C 226     -14.000  -3.718   3.352  1.00  0.00           C  
+TER     227      TYR C 226 
+ATOM    227  CA  ILE C 227     -16.098  -1.064   5.052  1.00  0.00           C  
+TER     228      ILE C 227 
+ATOM    228  CA  GLY C 228     -16.246  -3.158   8.202  1.00  0.00           C  
+TER     229      GLY C 228 
+ATOM    229  CA  ILE C 229     -12.546  -3.890   8.582  1.00  0.00           C  
+TER     230      ILE C 229 
+ATOM    230  CA  SER C 230     -11.635  -0.259   7.827  1.00  0.00           C  
+TER     231      SER C 230 
+ATOM    231  CA  ILE C 231     -13.814   1.047  10.675  1.00  0.00           C  
+TER     232      ILE C 231 
+ATOM    232  CA  ASP C 232     -12.412  -1.586  13.050  1.00  0.00           C  
+TER     233      ASP C 232 
+ATOM    233  CA  SER C 233      -8.866  -0.601  12.096  1.00  0.00           C  
+TER     234      SER C 233 
+ATOM    234  CA  PHE C 234      -9.695   3.098  12.575  1.00  0.00           C  
+TER     235      PHE C 234 
+ATOM    235  CA  ILE C 235     -10.885   2.435  16.125  1.00  0.00           C  
+TER     236      ILE C 235 
+ATOM    236  CA  LEU C 236      -7.631   0.583  16.827  1.00  0.00           C  
+TER     237      LEU C 236 
+ATOM    237  CA  LEU C 237      -5.665   3.582  15.626  1.00  0.00           C  
+TER     238      LEU C 237 
+ATOM    238  CA  GLU C 238      -6.960   5.648  18.429  1.00  0.00           C  
+TER     239      GLU C 238 
+ATOM    239  CA  ILE C 239      -8.427   8.299  16.354  1.00  0.00           C  
+TER     240      ILE C 239 
+ATOM    240  CA  ILE C 240     -12.049   7.481  16.691  1.00  0.00           C  
+TER     241      ILE C 240 
+ATOM    241  CA  LYS C 241     -13.186   6.972  20.137  1.00  0.00           C  
+TER     242      LYS C 241 
+ATOM    242  CA  GLN C 242     -16.502   5.443  20.164  1.00  0.00           C  
+TER     243      GLN C 242 
+ATOM    243  CA  GLY C 243     -16.964   2.796  22.716  1.00  0.00           C  
+TER     244      GLY C 243 
+ATOM    244  CA  CYS C 244     -18.338  -0.554  23.506  1.00  0.00           C  
+TER     245      CYS C 244 
+ATOM    245  CA  GLU C 245     -21.546  -0.502  21.503  1.00  0.00           C  
+TER     246      GLU C 245 
+ATOM    246  CA  PHE C 246     -19.747   0.489  18.337  1.00  0.00           C  
+TER     247      PHE C 246 
+ATOM    247  CA  GLU C 247     -17.000  -2.063  18.874  1.00  0.00           C  
+TER     248      GLU C 247 
+ATOM    248  CA  ASN C 248     -19.512  -4.847  19.407  1.00  0.00           C  
+TER     249      ASN C 248 
+ATOM    249  CA  THR C 249     -21.513  -4.103  16.271  1.00  0.00           C  
+TER     250      THR C 249 
+ATOM    250  CA  VAL C 250     -18.491  -3.800  13.978  1.00  0.00           C  
+TER     251      VAL C 250 
+ATOM    251  CA  HIS C 251     -17.138  -7.128  15.236  1.00  0.00           C  
+TER     252      HIS C 251 
+ATOM    252  CA  LYS C 252     -20.494  -8.772  14.587  1.00  0.00           C  
+TER     253      LYS C 252 
+ATOM    253  CA  TRP C 253     -20.574  -7.261  11.097  1.00  0.00           C  
+TER     254      TRP C 253 
+ATOM    254  CA  ILE C 254     -17.077  -8.510  10.256  1.00  0.00           C  
+TER     255      ILE C 254 
+ATOM    255  CA  SER C 255     -17.751 -12.085  11.388  1.00  0.00           C  
+TER     256      SER C 255 
+ATOM    256  CA  ILE C 256     -20.970 -12.444   9.409  1.00  0.00           C  
+TER     257      ILE C 256 
+ATOM    257  CA  THR C 257     -19.764 -10.569   6.334  1.00  0.00           C  
+TER     258      THR C 257 
+ATOM    258  CA  GLU C 258     -16.441 -12.405   6.021  1.00  0.00           C  
+TER     259      GLU C 258 
+ATOM    259  CA  ALA C 259     -18.287 -15.713   5.859  1.00  0.00           C  
+TER     260      ALA C 259 
+ATOM    260  CA  LEU C 260     -20.689 -14.375   3.232  1.00  0.00           C  
+TER     261      LEU C 260 
+ATOM    261  CA  ALA C 261     -17.956 -12.669   1.197  1.00  0.00           C  
+TER     262      ALA C 261 
+ATOM    262  CA  PHE C 262     -16.447 -16.044   0.365  1.00  0.00           C  
+TER     263      PHE C 262 
+ATOM    263  CA  PHE C 263     -19.129 -16.440  -2.271  1.00  0.00           C  
+TER     264      PHE C 263 
+ATOM    264  CA  HIS C 264     -16.477 -15.114  -4.670  1.00  0.00           C  
+TER     265      HIS C 264 
+ATOM    265  CA  CYS C 265     -14.999 -18.604  -4.617  1.00  0.00           C  
+TER     266      CYS C 265 
+ATOM    266  CA  CYS C 266     -18.390 -19.930  -5.706  1.00  0.00           C  
+TER     267      CYS C 266 
+ATOM    267  CA  LEU C 267     -18.821 -17.271  -8.397  1.00  0.00           C  
+TER     268      LEU C 267 
+ATOM    268  CA  ASN C 268     -15.439 -18.057  -9.984  1.00  0.00           C  
+TER     269      ASN C 268 
+ATOM    269  CA  PRO C 269     -16.641 -21.531 -11.079  1.00  0.00           C  
+TER     270      PRO C 269 
+ATOM    270  CA  ILE C 270     -19.970 -20.176 -12.324  1.00  0.00           C  
+TER     271      ILE C 270 
+ATOM    271  CA  LEU C 271     -18.352 -17.369 -14.332  1.00  0.00           C  
+TER     272      LEU C 271 
+ATOM    272  CA  TYR C 272     -16.186 -19.452 -16.612  1.00  0.00           C  
+TER     273      TYR C 272 
+ATOM    273  CA  ALA C 273     -16.907 -18.811 -20.003  1.00  0.00           C  
+TER     274      ALA C 273 
+ATOM    274  CA  ARG D 274      -9.780 -13.617  14.670  1.00  0.00           C  
+TER     275      ARG D 274 
+ATOM    275  CA  ARG D 275      -6.820 -11.362  14.981  1.00  0.00           C  
+TER     276      ARG D 275 
+ATOM    276  CA  CYS D 276      -6.073 -11.174  18.659  1.00  0.00           C  
+TER     277      CYS D 276 
+ATOM    277  CA  TYR D 277      -3.407  -9.428  20.679  1.00  0.00           C  
+TER     278      TYR D 277 
+ATOM    278  CA  GLN D 278      -1.725 -10.598  23.786  1.00  0.00           C  
+TER     279      GLN D 278 
+ATOM    279  CA  LYS D 279      -1.310  -7.304  25.436  1.00  0.00           C  
+TER     280      LYS D 279 
+ATOM    280  CA  PRO D 280      -2.242  -7.086  28.105  1.00  0.00           C  
+TER     281      PRO D 280 
+ATOM    281  CA  TYR D 281      -4.754  -9.868  28.309  1.00  0.00           C  
+TER     282      TYR D 281 
+ATOM    282  CA  ARG D 282      -4.606 -13.082  26.420  1.00  0.00           C  
+TER     283      ARG D 282 
+ATOM    283  CA  CYS D 283      -6.147 -12.824  23.937  1.00  0.00           C  
+TER     284      CYS D 283 
+ATOM    284  CA  ARG D 284      -7.793  -9.503  23.417  1.00  0.00           C  
+TER     285      ARG D 284 
+ATOM    285  CA  GLY D 285      -9.753  -9.144  20.357  1.00  0.00           C  
+TER     286      GLY D 285 
+ATOM    286  CA  LYS E 286      10.962   1.455  28.242  1.00  0.00           C  
+TER     287      LYS E 286 
+ATOM    287  CA  GLU E 287      13.155   3.994  28.012  1.00  0.00           C  
+TER     288      GLU E 287 
+ATOM    288  CA  PRO E 288      12.247   6.886  26.598  1.00  0.00           C  
+TER     289      PRO E 288 
+ATOM    289  CA  CYS E 289      14.199   8.072  23.738  1.00  0.00           C  
+TER     290      CYS E 289 
+ATOM    290  CA  PHE E 290      14.754  11.715  23.592  1.00  0.00           C  
+TER     291      PHE E 290 
+ATOM    291  CA  ARG E 291      16.562  13.800  21.128  1.00  0.00           C  
+TER     292      ARG E 291 
+ATOM    292  CA  GLU E 292      18.953  16.233  22.450  1.00  0.00           C  
+TER     293      GLU E 292 
+ATOM    293  CA  GLU E 293      19.411  19.689  21.308  1.00  0.00           C  
+TER     294      GLU E 293 
+ATOM    294  CA  ASN E 294      22.759  19.621  20.090  1.00  0.00           C  
+TER     295      ASN E 294 
+ATOM    295  CA  ALA E 295      24.729  22.322  18.557  1.00  0.00           C  
+TER     296      ALA E 295 
+ATOM    296  CA  ASN E 296      26.654  20.237  16.141  1.00  0.00           C  
+TER     297      ASN E 296 
+ATOM    297  CA  PHE E 297      23.709  18.415  14.635  1.00  0.00           C  
+TER     298      PHE E 297 
+ATOM    298  CA  ASN E 298      20.719  20.688  15.011  1.00  0.00           C  
+TER     299      ASN E 298 
+ATOM    299  CA  LYS E 299      22.259  24.126  14.784  1.00  0.00           C  
+TER     300      LYS E 299 
+ATOM    300  CA  ILE E 300      25.202  23.704  12.453  1.00  0.00           C  
+TER     301      ILE E 300 
+ATOM    301  CA  PHE E 301      24.857  20.549  10.377  1.00  0.00           C  
+TER     302      PHE E 301 
+ATOM    302  CA  LEU E 302      21.208  20.781   9.386  1.00  0.00           C  
+TER     303      LEU E 302 
+ATOM    303  CA  PRO E 303      21.370  24.430   8.273  1.00  0.00           C  
+TER     304      PRO E 303 
+ATOM    304  CA  THR E 304      24.592  23.945   6.346  1.00  0.00           C  
+TER     305      THR E 304 
+ATOM    305  CA  ILE E 305      23.332  20.921   4.423  1.00  0.00           C  
+TER     306      ILE E 305 
+ATOM    306  CA  TYR E 306      20.044  22.654   3.613  1.00  0.00           C  
+TER     307      TYR E 306 
+ATOM    307  CA  SER E 307      21.966  25.666   2.300  1.00  0.00           C  
+TER     308      SER E 307 
+ATOM    308  CA  ILE E 308      24.010  23.592  -0.153  1.00  0.00           C  
+TER     309      ILE E 308 
+ATOM    309  CA  ILE E 309      20.869  21.875  -1.457  1.00  0.00           C  
+TER     310      ILE E 309 
+ATOM    310  CA  PHE E 310      19.177  25.275  -1.784  1.00  0.00           C  
+TER     311      PHE E 310 
+ATOM    311  CA  LEU E 311      22.043  26.956  -3.653  1.00  0.00           C  
+TER     312      LEU E 311 
+ATOM    312  CA  THR E 312      22.589  24.078  -6.064  1.00  0.00           C  
+TER     313      THR E 312 
+ATOM    313  CA  GLY E 313      18.855  23.353  -6.474  1.00  0.00           C  
+TER     314      GLY E 313 
+ATOM    314  CA  ILE E 314      17.834  26.905  -7.362  1.00  0.00           C  
+TER     315      ILE E 314 
+ATOM    315  CA  VAL E 315      20.433  27.185 -10.118  1.00  0.00           C  
+TER     316      VAL E 315 
+ATOM    316  CA  GLY E 316      19.713  23.691 -11.421  1.00  0.00           C  
+TER     317      GLY E 316 
+ATOM    317  CA  ASN E 317      15.936  23.969 -11.515  1.00  0.00           C  
+TER     318      ASN E 317 
+ATOM    318  CA  GLY E 318      16.128  27.581 -12.673  1.00  0.00           C  
+TER     319      GLY E 318 
+ATOM    319  CA  LEU E 319      17.931  26.453 -15.807  1.00  0.00           C  
+TER     320      LEU E 319 
+ATOM    320  CA  VAL E 320      15.259  23.915 -16.670  1.00  0.00           C  
+TER     321      VAL E 320 
+ATOM    321  CA  ILE E 321      12.245  26.107 -15.854  1.00  0.00           C  
+TER     322      ILE E 321 
+ATOM    322  CA  LEU E 322      13.486  29.015 -17.962  1.00  0.00           C  
+TER     323      LEU E 322 
+ATOM    323  CA  VAL E 323      14.501  27.048 -21.029  1.00  0.00           C  
+TER     324      VAL E 323 
+ATOM    324  CA  MET E 324      11.733  24.489 -20.994  1.00  0.00           C  
+TER     325      MET E 324 
+ATOM    325  CA  GLY E 325       8.958  26.608 -19.801  1.00  0.00           C  
+TER     326      GLY E 325 
+ATOM    326  CA  TYR E 326       7.784  29.734 -21.181  1.00  0.00           C  
+TER     327      TYR E 326 
+ATOM    327  CA  GLN E 327       9.629  30.877 -23.794  1.00  0.00           C  
+TER     328      GLN E 327 
+ATOM    328  CA  SER F 328       4.780  18.619 -25.766  1.00  0.00           C  
+TER     329      SER F 328 
+ATOM    329  CA  MET F 329       6.289  15.760 -24.259  1.00  0.00           C  
+TER     330      MET F 329 
+ATOM    330  CA  THR F 330       9.724  15.936 -22.672  1.00  0.00           C  
+TER     331      THR F 330 
+ATOM    331  CA  ASP F 331       9.171  19.489 -21.581  1.00  0.00           C  
+TER     332      ASP F 331 
+ATOM    332  CA  LYS F 332       6.023  18.702 -19.637  1.00  0.00           C  
+TER     333      LYS F 332 
+ATOM    333  CA  TYR F 333       7.636  15.822 -17.760  1.00  0.00           C  
+TER     334      TYR F 333 
+ATOM    334  CA  ARG F 334      10.613  17.993 -16.827  1.00  0.00           C  
+TER     335      ARG F 334 
+ATOM    335  CA  LEU F 335       8.315  20.810 -15.705  1.00  0.00           C  
+TER     336      LEU F 335 
+ATOM    336  CA  HIS F 336       6.275  18.440 -13.520  1.00  0.00           C  
+TER     337      HIS F 336 
+ATOM    337  CA  LEU F 337       9.488  17.504 -11.726  1.00  0.00           C  
+TER     338      LEU F 337 
+ATOM    338  CA  SER F 338      11.068  20.967 -11.601  1.00  0.00           C  
+TER     339      SER F 338 
+ATOM    339  CA  VAL F 339       8.043  22.909 -10.309  1.00  0.00           C  
+TER     340      VAL F 339 
+ATOM    340  CA  ALA F 340       7.818  20.774  -7.161  1.00  0.00           C  
+TER     341      ALA F 340 
+ATOM    341  CA  ASP F 341      11.609  20.770  -6.831  1.00  0.00           C  
+TER     342      ASP F 341 
+ATOM    342  CA  LEU F 342      11.805  24.554  -7.161  1.00  0.00           C  
+TER     343      LEU F 342 
+ATOM    343  CA  LEU F 343       9.115  24.856  -4.486  1.00  0.00           C  
+TER     344      LEU F 343 
+ATOM    344  CA  PHE F 344      11.037  22.420  -2.309  1.00  0.00           C  
+TER     345      PHE F 344 
+ATOM    345  CA  VAL F 345      14.374  24.233  -2.603  1.00  0.00           C  
+TER     346      VAL F 345 
+ATOM    346  CA  ILE F 346      12.867  27.663  -1.937  1.00  0.00           C  
+TER     347      ILE F 346 
+ATOM    347  CA  THR F 347      11.317  26.329   1.259  1.00  0.00           C  
+TER     348      THR F 347 
+ATOM    348  CA  LEU F 348      14.678  25.195   2.697  1.00  0.00           C  
+TER     349      LEU F 348 
+ATOM    349  CA  PRO F 349      15.452  28.627   4.226  1.00  0.00           C  
+TER     350      PRO F 349 
+ATOM    350  CA  PHE F 350      12.291  28.220   6.288  1.00  0.00           C  
+TER     351      PHE F 350 
+ATOM    351  CA  TRP F 351      13.361  24.745   7.387  1.00  0.00           C  
+TER     352      TRP F 351 
+ATOM    352  CA  ALA F 352      16.732  26.161   8.405  1.00  0.00           C  
+TER     353      ALA F 352 
+ATOM    353  CA  VAL F 353      15.068  28.859  10.473  1.00  0.00           C  
+TER     354      VAL F 353 
+ATOM    354  CA  ASP F 354      12.948  26.256  12.237  1.00  0.00           C  
+TER     355      ASP F 354 
+ATOM    355  CA  ALA F 355      16.046  24.320  13.240  1.00  0.00           C  
+TER     356      ALA F 355 
+ATOM    356  CA  VAL F 356      18.039  27.260  14.534  1.00  0.00           C  
+TER     357      VAL F 356 
+ATOM    357  CA  ALA F 357      15.634  29.972  15.556  1.00  0.00           C  
+TER     358      ALA F 357 
+ATOM    358  CA  ASN F 358      12.004  30.734  16.236  1.00  0.00           C  
+TER     359      ASN F 358 
+ATOM    359  CA  TRP F 359       9.261  30.373  13.658  1.00  0.00           C  
+TER     360      TRP F 359 
+ATOM    360  CA  TYR F 360       8.258  33.936  12.933  1.00  0.00           C  
+TER     361      TYR F 360 
+ATOM    361  CA  PHE F 361       5.902  32.960  10.157  1.00  0.00           C  
+TER     362      PHE F 361 
+ATOM    362  CA  GLY F 362       2.256  32.137   9.860  1.00  0.00           C  
+TER     363      GLY F 362 
+ATOM    363  CA  ASN F 363       0.130  29.074   9.932  1.00  0.00           C  
+TER     364      ASN F 363 
+ATOM    364  CA  PHE F 364      -0.282  28.721   6.196  1.00  0.00           C  
+TER     365      PHE F 364 
+ATOM    365  CA  LEU F 365       3.454  28.761   5.735  1.00  0.00           C  
+TER     366      LEU F 365 
+ATOM    366  CA  CYS F 366       3.853  26.097   8.400  1.00  0.00           C  
+TER     367      CYS F 366 
+ATOM    367  CA  LYS F 367       1.355  23.913   6.543  1.00  0.00           C  
+TER     368      LYS F 367 
+ATOM    368  CA  ALA F 368       2.864  24.704   3.145  1.00  0.00           C  
+TER     369      ALA F 368 
+ATOM    369  CA  VAL F 369       6.415  23.762   4.093  1.00  0.00           C  
+TER     370      VAL F 369 
+ATOM    370  CA  HIS F 370       5.336  20.363   5.396  1.00  0.00           C  
+TER     371      HIS F 370 
+ATOM    371  CA  VAL F 371       3.040  19.666   2.451  1.00  0.00           C  
+TER     372      VAL F 371 
+ATOM    372  CA  ILE F 372       5.687  20.422  -0.206  1.00  0.00           C  
+TER     373      ILE F 372 
+ATOM    373  CA  TYR F 373       8.058  18.004   1.552  1.00  0.00           C  
+TER     374      TYR F 373 
+ATOM    374  CA  THR F 374       5.574  15.133   1.414  1.00  0.00           C  
+TER     375      THR F 374 
+ATOM    375  CA  VAL F 375       4.466  15.926  -2.140  1.00  0.00           C  
+TER     376      VAL F 375 
+ATOM    376  CA  ASN F 376       8.060  15.880  -3.431  1.00  0.00           C  
+TER     377      ASN F 376 
+ATOM    377  CA  LEU F 377       8.700  12.532  -1.749  1.00  0.00           C  
+TER     378      LEU F 377 
+ATOM    378  CA  TYR F 378       5.874  10.885  -3.648  1.00  0.00           C  
+TER     379      TYR F 378 
+ATOM    379  CA  SER F 379       5.544  12.858  -6.888  1.00  0.00           C  
+TER     380      SER F 379 
+ATOM    380  CA  SER F 380       9.144  12.585  -8.135  1.00  0.00           C  
+TER     381      SER F 380 
+ATOM    381  CA  VAL F 381       9.370   8.806  -8.121  1.00  0.00           C  
+TER     382      VAL F 381 
+ATOM    382  CA  TRP F 382       5.884   8.470  -9.577  1.00  0.00           C  
+TER     383      TRP F 382 
+ATOM    383  CA  ILE F 383       6.742  10.829 -12.441  1.00  0.00           C  
+TER     384      ILE F 383 
+ATOM    384  CA  LEU F 384       9.869   8.769 -13.114  1.00  0.00           C  
+TER     385      LEU F 384 
+ATOM    385  CA  ALA F 385       7.557   5.804 -13.597  1.00  0.00           C  
+TER     386      ALA F 385 
+ATOM    386  CA  PHE F 386       5.551   7.797 -16.143  1.00  0.00           C  
+TER     387      PHE F 386 
+ATOM    387  CA  ILE F 387       8.724   8.863 -17.960  1.00  0.00           C  
+TER     388      ILE F 387 
+ATOM    388  CA  SER F 388       9.582   5.158 -18.176  1.00  0.00           C  
+TER     389      SER F 388 
+ATOM    389  CA  LEU F 389       6.119   4.453 -19.608  1.00  0.00           C  
+TER     390      LEU F 389 
+ATOM    390  CA  ASP F 390       6.772   7.104 -22.283  1.00  0.00           C  
+TER     391      ASP F 390 
+ATOM    391  CA  ARG F 391       9.925   5.220 -23.276  1.00  0.00           C  
+TER     392      ARG F 391 
+ATOM    392  CA  TYR F 392       7.982   1.937 -23.307  1.00  0.00           C  
+TER     393      TYR F 392 
+ATOM    393  CA  LEU F 393       5.322   3.375 -25.632  1.00  0.00           C  
+TER     394      LEU F 393 
+ATOM    394  CA  ALA F 394       7.950   4.911 -27.925  1.00  0.00           C  
+TER     395      ALA F 394 
+ATOM    395  CA  ILE F 395       9.868   1.664 -28.332  1.00  0.00           C  
+TER     396      ILE F 395 
+ATOM    396  CA  VAL F 396       6.975  -0.769 -28.589  1.00  0.00           C  
+TER     397      VAL F 396 
+ATOM    397  CA  HIS F 397       4.767   1.127 -30.984  1.00  0.00           C  
+TER     398      HIS F 397 
+ATOM    398  CA  ALA F 398       5.936   1.744 -34.386  1.00  0.00           C  
+TER     399      ALA F 398 
+ATOM    399  CA  THR F 399       3.152   3.557 -35.942  1.00  0.00           C  
+TER     400      THR F 399 
+ATOM    400  CA  ASN F 400       1.374   5.477 -33.365  1.00  0.00           C  
+TER     401      ASN F 400 
+ATOM    401  CA  SER F 401       3.357   6.478 -30.439  1.00  0.00           C  
+TER     402      SER F 401 
+ATOM    402  CA  GLN F 402       3.205  10.263 -30.385  1.00  0.00           C  
+TER     403      GLN F 402 
+ATOM    403  CA  ARG F 403      -0.453  10.590 -29.448  1.00  0.00           C  
+TER     404      ARG F 403 
+ATOM    404  CA  PRO F 404      -0.238   8.182 -26.491  1.00  0.00           C  
+TER     405      PRO F 404 
+ATOM    405  CA  ARG F 405       2.896   9.978 -25.271  1.00  0.00           C  
+TER     406      ARG F 405 
+ATOM    406  CA  LYS F 406       1.227  13.390 -25.514  1.00  0.00           C  
+TER     407      LYS F 406 
+ATOM    407  CA  LEU F 407      -1.822  12.146 -23.619  1.00  0.00           C  
+TER     408      LEU F 407 
+ATOM    408  CA  LEU F 408       0.464  10.661 -20.962  1.00  0.00           C  
+TER     409      LEU F 408 
+ATOM    409  CA  ALA F 409       2.337  13.933 -20.479  1.00  0.00           C  
+TER     410      ALA F 409 
+ATOM    410  CA  GLU F 410      -0.749  16.115 -20.307  1.00  0.00           C  
+TER     411      GLU F 410 
+ATOM    411  CA  LYS F 411      -3.772  14.198 -19.081  1.00  0.00           C  
+TER     412      LYS F 411 
+ATOM    412  CA  VAL F 412      -2.623  11.009 -17.366  1.00  0.00           C  
+TER     413      VAL F 412 
+ATOM    413  CA  VAL F 413       0.235  12.485 -15.314  1.00  0.00           C  
+TER     414      VAL F 413 
+ATOM    414  CA  TYR F 414      -2.052  15.074 -13.790  1.00  0.00           C  
+TER     415      TYR F 414 
+ATOM    415  CA  VAL F 415      -4.690  12.573 -12.708  1.00  0.00           C  
+TER     416      VAL F 415 
+ATOM    416  CA  GLY F 416      -2.221   9.834 -11.972  1.00  0.00           C  
+TER     417      GLY F 416 
+ATOM    417  CA  VAL F 417       0.350  11.694  -9.897  1.00  0.00           C  
+TER     418      VAL F 417 
+ATOM    418  CA  TRP F 418      -0.829  15.083  -8.703  1.00  0.00           C  
+TER     419      TRP F 418 
+ATOM    419  CA  ILE F 419      -4.297  14.223  -7.429  1.00  0.00           C  
+TER     420      ILE F 419 
+ATOM    420  CA  PRO F 420      -3.065  11.198  -5.458  1.00  0.00           C  
+TER     421      PRO F 420 
+ATOM    421  CA  ALA F 421      -0.119  13.199  -4.128  1.00  0.00           C  
+TER     422      ALA F 421 
+ATOM    422  CA  LEU F 422      -2.422  15.981  -3.028  1.00  0.00           C  
+TER     423      LEU F 422 
+ATOM    423  CA  LEU F 423      -4.796  13.570  -1.322  1.00  0.00           C  
+TER     424      LEU F 423 
+ATOM    424  CA  LEU F 424      -1.927  11.938   0.556  1.00  0.00           C  
+TER     425      LEU F 424 
+ATOM    425  CA  THR F 425      -0.966  15.289   2.081  1.00  0.00           C  
+TER     426      THR F 425 
+ATOM    426  CA  ILE F 426      -4.087  15.722   4.152  1.00  0.00           C  
+TER     427      ILE F 426 
+ATOM    427  CA  PRO F 427      -2.500  14.190   7.282  1.00  0.00           C  
+TER     428      PRO F 427 
+ATOM    428  CA  ASP F 428       0.375  16.658   7.056  1.00  0.00           C  
+TER     429      ASP F 428 
+ATOM    429  CA  PHE F 429      -1.959  19.575   6.424  1.00  0.00           C  
+TER     430      PHE F 429 
+ATOM    430  CA  ILE F 430      -4.129  18.858   9.445  1.00  0.00           C  
+TER     431      ILE F 430 
+ATOM    431  CA  PHE F 431      -1.300  18.226  11.864  1.00  0.00           C  
+TER     432      PHE F 431 
+ATOM    432  CA  ALA F 432       1.058  21.054  10.894  1.00  0.00           C  
+TER     433      ALA F 432 
+ATOM    433  CA  ASN F 433       0.313  23.962  13.169  1.00  0.00           C  
+TER     434      ASN F 433 
+ATOM    434  CA  VAL F 434       2.138  26.845  14.805  1.00  0.00           C  
+TER     435      VAL F 434 
+ATOM    435  CA  SER F 435       2.599  26.341  18.445  1.00  0.00           C  
+TER     436      SER F 435 
+ATOM    436  CA  GLU F 436       3.469  29.191  20.335  1.00  0.00           C  
+TER     437      GLU F 436 
+ATOM    437  CA  ALA F 437       5.064  28.801  23.322  1.00  0.00           C  
+TER     438      ALA F 437 
+ATOM    438  CA  ASP F 438       6.667  31.419  25.267  1.00  0.00           C  
+TER     439      ASP F 438 
+ATOM    439  CA  ASP F 439       9.444  31.846  24.274  1.00  0.00           C  
+TER     440      ASP F 439 
+ATOM    440  CA  ARG F 440       9.197  29.507  21.606  1.00  0.00           C  
+TER     441      ARG F 440 
+ATOM    441  CA  TYR F 441       7.359  29.733  18.412  1.00  0.00           C  
+TER     442      TYR F 441 
+ATOM    442  CA  ILE F 442       7.476  26.531  16.569  1.00  0.00           C  
+TER     443      ILE F 442 
+ATOM    443  CA  CYS F 443       5.966  24.894  13.506  1.00  0.00           C  
+TER     444      CYS F 443 
+ATOM    444  CA  ASP F 444       4.788  21.664  15.015  1.00  0.00           C  
+TER     445      ASP F 444 
+ATOM    445  CA  ARG F 445       3.962  18.571  13.115  1.00  0.00           C  
+TER     446      ARG F 445 
+ATOM    446  CA  PHE F 446       2.146  16.347  15.492  1.00  0.00           C  
+TER     447      PHE F 446 
+ATOM    447  CA  TYR F 447       2.133  12.623  15.368  1.00  0.00           C  
+TER     448      TYR F 447 
+ATOM    448  CA  PRO F 448      -0.452  10.839  17.436  1.00  0.00           C  
+TER     449      PRO F 448 
+ATOM    449  CA  ASN F 449       0.339   7.441  18.640  1.00  0.00           C  
+TER     450      ASN F 449 
+ATOM    450  CA  ASP F 450       2.763   4.732  17.680  1.00  0.00           C  
+TER     451      ASP F 450 
+ATOM    451  CA  LEU F 451       0.079   2.818  15.816  1.00  0.00           C  
+TER     452      LEU F 451 
+ATOM    452  CA  TRP F 452      -0.422   5.737  13.409  1.00  0.00           C  
+TER     453      TRP F 452 
+ATOM    453  CA  VAL F 453       3.294   6.146  12.754  1.00  0.00           C  
+TER     454      VAL F 453 
+ATOM    454  CA  VAL F 454       3.959   2.462  12.019  1.00  0.00           C  
+TER     455      VAL F 454 
+ATOM    455  CA  VAL F 455       1.147   2.193   9.448  1.00  0.00           C  
+TER     456      VAL F 455 
+ATOM    456  CA  PHE F 456       2.256   5.348   7.625  1.00  0.00           C  
+TER     457      PHE F 456 
+ATOM    457  CA  GLN F 457       5.957   4.502   7.804  1.00  0.00           C  
+TER     458      GLN F 457 
+ATOM    458  CA  PHE F 458       5.288   1.086   6.302  1.00  0.00           C  
+TER     459      PHE F 458 
+ATOM    459  CA  GLN F 459       3.015   2.577   3.642  1.00  0.00           C  
+TER     460      GLN F 459 
+ATOM    460  CA  HIS F 460       5.766   4.986   2.564  1.00  0.00           C  
+TER     461      HIS F 460 
+ATOM    461  CA  ILE F 461       7.866   2.023   1.415  1.00  0.00           C  
+TER     462      ILE F 461 
+ATOM    462  CA  MET F 462       4.987   0.637  -0.651  1.00  0.00           C  
+TER     463      MET F 462 
+ATOM    463  CA  VAL F 463       3.905   3.917  -2.254  1.00  0.00           C  
+TER     464      VAL F 463 
+ATOM    464  CA  GLY F 464       7.371   5.449  -2.678  1.00  0.00           C  
+TER     465      GLY F 464 
+ATOM    465  CA  LEU F 465       9.624   2.546  -3.597  1.00  0.00           C  
+TER     466      LEU F 465 
+ATOM    466  CA  ILE F 466       7.697  -0.627  -4.426  1.00  0.00           C  
+TER     467      ILE F 466 
+ATOM    467  CA  LEU F 467       4.853   0.794  -6.533  1.00  0.00           C  
+TER     468      LEU F 467 
+ATOM    468  CA  PRO F 468       7.180   2.799  -8.810  1.00  0.00           C  
+TER     469      PRO F 468 
+ATOM    469  CA  GLY F 469       9.552  -0.166  -8.742  1.00  0.00           C  
+TER     470      GLY F 469 
+ATOM    470  CA  ILE F 470       7.001  -2.582 -10.204  1.00  0.00           C  
+TER     471      ILE F 470 
+ATOM    471  CA  VAL F 471       6.214  -0.207 -13.066  1.00  0.00           C  
+TER     472      VAL F 471 
+ATOM    472  CA  ILE F 472       9.873   0.635 -13.753  1.00  0.00           C  
+TER     473      ILE F 472 
+ATOM    473  CA  LEU F 473      11.132  -2.970 -13.736  1.00  0.00           C  
+TER     474      LEU F 473 
+ATOM    474  CA  SER F 474       8.267  -4.326 -15.855  1.00  0.00           C  
+TER     475      SER F 474 
+ATOM    475  CA  CYS F 475       8.592  -1.562 -18.457  1.00  0.00           C  
+TER     476      CYS F 475 
+ATOM    476  CA  TYR F 476      12.336  -2.103 -18.821  1.00  0.00           C  
+TER     477      TYR F 476 
+ATOM    477  CA  CYS F 477      11.823  -5.881 -19.094  1.00  0.00           C  
+TER     478      CYS F 477 
+ATOM    478  CA  ILE F 478       9.406  -5.354 -21.989  1.00  0.00           C  
+TER     479      ILE F 478 
+ATOM    479  CA  ILE F 479      11.835  -2.957 -23.712  1.00  0.00           C  
+TER     480      ILE F 479 
+ATOM    480  CA  ILE F 480      14.749  -5.387 -23.488  1.00  0.00           C  
+TER     481      ILE F 480 
+ATOM    481  CA  SER F 481      12.553  -8.258 -24.668  1.00  0.00           C  
+TER     482      SER F 481 
+ATOM    482  CA  LYS F 482      11.573  -6.250 -27.724  1.00  0.00           C  
+TER     483      LYS F 482 
+ATOM    483  CA  LEU F 483      15.053  -5.012 -28.438  1.00  0.00           C  
+TER     484      LEU F 483 
+ATOM    484  CA  SER F 484      16.898  -8.085 -28.196  1.00  0.00           C  
+TER     485      SER F 484 
+ATOM    485  CA  HIS F 485      16.803 -10.667 -29.685  1.00  0.00           C  
+TER     486      HIS F 485 
+ATOM    486  CA  GLY G 486      20.014  -7.899 -33.153  1.00  0.00           C  
+TER     487      GLY G 486 
+ATOM    487  CA  HIS G 487      20.137  -5.944 -32.678  1.00  0.00           C  
+TER     488      HIS G 487 
+ATOM    488  CA  GLN G 488      19.383  -4.172 -30.409  1.00  0.00           C  
+TER     489      GLN G 488 
+ATOM    489  CA  LYS G 489      19.025  -1.998 -30.597  1.00  0.00           C  
+TER     490      LYS G 489 
+ATOM    490  CA  ARG G 490      19.397  -0.101 -28.059  1.00  0.00           C  
+TER     491      ARG G 490 
+ATOM    491  CA  LYS G 491      17.888   2.685 -28.078  1.00  0.00           C  
+TER     492      LYS G 491 
+ATOM    492  CA  ALA G 492      18.134   5.108 -25.771  1.00  0.00           C  
+TER     493      ALA G 492 
+ATOM    493  CA  LEU G 493      17.813   3.756 -22.332  1.00  0.00           C  
+TER     494      LEU G 493 
+ATOM    494  CA  LYS G 494      20.439   5.826 -20.558  1.00  0.00           C  
+TER     495      LYS G 494 
+ATOM    495  CA  PRO G 495      18.500   9.112 -20.188  1.00  0.00           C  
+TER     496      PRO G 495 
+ATOM    496  CA  THR G 496      15.823   7.600 -17.976  1.00  0.00           C  
+TER     497      THR G 496 
+ATOM    497  CA  VAL G 497      17.981   4.968 -16.294  1.00  0.00           C  
+TER     498      VAL G 497 
+ATOM    498  CA  ILE G 498      20.523   7.459 -14.923  1.00  0.00           C  
+TER     499      ILE G 498 
+ATOM    499  CA  LEU G 499      17.787   9.432 -13.155  1.00  0.00           C  
+TER     500      LEU G 499 
+ATOM    500  CA  ILE G 500      16.131   6.326 -11.687  1.00  0.00           C  
+TER     501      ILE G 500 
+ATOM    501  CA  LEU G 501      19.473   4.967 -10.443  1.00  0.00           C  
+TER     502      LEU G 501 
+ATOM    502  CA  ALA G 502      20.485   8.295  -8.878  1.00  0.00           C  
+TER     503      ALA G 502 
+ATOM    503  CA  PHE G 503      17.169   8.558  -7.058  1.00  0.00           C  
+TER     504      PHE G 503 
+ATOM    504  CA  PHE G 504      17.341   4.964  -5.846  1.00  0.00           C  
+TER     505      PHE G 504 
+ATOM    505  CA  ALA G 505      20.936   5.343  -4.666  1.00  0.00           C  
+TER     506      ALA G 505 
+ATOM    506  CA  CYS G 506      20.277   8.533  -2.710  1.00  0.00           C  
+TER     507      CYS G 506 
+ATOM    507  CA  TRP G 507      17.009   7.376  -1.116  1.00  0.00           C  
+TER     508      TRP G 507 
+ATOM    508  CA  LEU G 508      17.956   3.784  -0.206  1.00  0.00           C  
+TER     509      LEU G 508 
+ATOM    509  CA  PRO G 509      19.767   4.671   3.062  1.00  0.00           C  
+TER     510      PRO G 509 
+ATOM    510  CA  TYR G 510      16.578   6.381   4.277  1.00  0.00           C  
+TER     511      TYR G 510 
+ATOM    511  CA  TYR G 511      14.473   3.375   3.253  1.00  0.00           C  
+TER     512      TYR G 511 
+ATOM    512  CA  ILE G 512      16.692   1.036   5.250  1.00  0.00           C  
+TER     513      ILE G 512 
+ATOM    513  CA  GLY G 513      16.669   3.541   8.104  1.00  0.00           C  
+TER     514      GLY G 513 
+ATOM    514  CA  ILE G 514      12.906   3.904   8.392  1.00  0.00           C  
+TER     515      ILE G 514 
+ATOM    515  CA  SER G 515      12.436   0.143   8.072  1.00  0.00           C  
+TER     516      SER G 515 
+ATOM    516  CA  ILE G 516      14.738  -0.463  11.031  1.00  0.00           C  
+TER     517      ILE G 516 
+ATOM    517  CA  ASP G 517      12.801   2.157  13.000  1.00  0.00           C  
+TER     518      ASP G 517 
+ATOM    518  CA  SER G 518       9.554   0.391  12.120  1.00  0.00           C  
+TER     519      SER G 518 
+ATOM    519  CA  PHE G 519      10.982  -2.950  13.218  1.00  0.00           C  
+TER     520      PHE G 519 
+ATOM    520  CA  ILE G 520      12.020  -1.485  16.556  1.00  0.00           C  
+TER     521      ILE G 520 
+ATOM    521  CA  LEU G 521       8.537  -0.051  16.978  1.00  0.00           C  
+TER     522      LEU G 521 
+ATOM    522  CA  LEU G 522       6.956  -3.413  16.208  1.00  0.00           C  
+TER     523      LEU G 522 
+ATOM    523  CA  GLU G 523       8.697  -4.890  19.168  1.00  0.00           C  
+TER     524      GLU G 523 
+ATOM    524  CA  ILE G 524      10.617  -7.676  17.905  1.00  0.00           C  
+TER     525      ILE G 524 
+ATOM    525  CA  ILE G 525      13.965  -6.407  18.847  1.00  0.00           C  
+TER     526      ILE G 525 
+ATOM    526  CA  LYS G 526      14.249  -4.694  22.065  1.00  0.00           C  
+TER     527      LYS G 526 
+ATOM    527  CA  GLN G 527      16.780  -2.207  22.267  1.00  0.00           C  
+TER     528      GLN G 527 
+ATOM    528  CA  GLY G 528      16.691   0.771  24.327  1.00  0.00           C  
+TER     529      GLY G 528 
+ATOM    529  CA  CYS G 529      17.317   4.334  24.203  1.00  0.00           C  
+TER     530      CYS G 529 
+ATOM    530  CA  GLU G 530      20.845   4.372  23.164  1.00  0.00           C  
+TER     531      GLU G 530 
+ATOM    531  CA  PHE G 531      20.466   2.551  19.992  1.00  0.00           C  
+TER     532      PHE G 531 
+ATOM    532  CA  GLU G 532      17.167   4.155  19.185  1.00  0.00           C  
+TER     533      GLU G 532 
+ATOM    533  CA  ASN G 533      18.735   7.601  19.412  1.00  0.00           C  
+TER     534      ASN G 533 
+ATOM    534  CA  THR G 534      21.561   6.667  17.086  1.00  0.00           C  
+TER     535      THR G 534 
+ATOM    535  CA  VAL G 535      19.165   5.173  14.604  1.00  0.00           C  
+TER     536      VAL G 535 
+ATOM    536  CA  HIS G 536      17.035   8.242  14.744  1.00  0.00           C  
+TER     537      HIS G 536 
+ATOM    537  CA  LYS G 537      20.104  10.396  14.113  1.00  0.00           C  
+TER     538      LYS G 537 
+ATOM    538  CA  TRP G 538      20.995   8.294  11.129  1.00  0.00           C  
+TER     539      TRP G 538 
+ATOM    539  CA  ILE G 539      17.520   8.704   9.717  1.00  0.00           C  
+TER     540      ILE G 539 
+ATOM    540  CA  SER G 540      17.709  12.471  10.129  1.00  0.00           C  
+TER     541      SER G 540 
+ATOM    541  CA  ILE G 541      21.102  12.827   8.462  1.00  0.00           C  
+TER     542      ILE G 541 
+ATOM    542  CA  THR G 542      20.290  10.457   5.594  1.00  0.00           C  
+TER     543      THR G 542 
+ATOM    543  CA  GLU G 543      16.981  12.221   4.926  1.00  0.00           C  
+TER     544      GLU G 543 
+ATOM    544  CA  ALA G 544      18.779  15.576   4.658  1.00  0.00           C  
+TER     545      ALA G 544 
+ATOM    545  CA  LEU G 545      21.407  14.144   2.324  1.00  0.00           C  
+TER     546      LEU G 545 
+ATOM    546  CA  ALA G 546      18.879  12.287   0.162  1.00  0.00           C  
+TER     547      ALA G 546 
+ATOM    547  CA  PHE G 547      17.212  15.541  -0.859  1.00  0.00           C  
+TER     548      PHE G 547 
+ATOM    548  CA  PHE G 548      20.064  16.103  -3.309  1.00  0.00           C  
+TER     549      PHE G 548 
+ATOM    549  CA  HIS G 549      17.874  14.437  -5.936  1.00  0.00           C  
+TER     550      HIS G 549 
+ATOM    550  CA  CYS G 550      16.349  17.871  -6.442  1.00  0.00           C  
+TER     551      CYS G 550 
+ATOM    551  CA  CYS G 551      19.732  19.068  -7.682  1.00  0.00           C  
+TER     552      CYS G 551 
+ATOM    552  CA  LEU G 552      20.827  15.888  -9.437  1.00  0.00           C  
+TER     553      LEU G 552 
+ATOM    553  CA  ASN G 553      17.754  15.522 -11.655  1.00  0.00           C  
+TER     554      ASN G 553 
+ATOM    554  CA  PRO G 554      18.140  18.845 -13.484  1.00  0.00           C  
+TER     555      PRO G 554 
+ATOM    555  CA  ILE G 555      21.847  18.355 -14.081  1.00  0.00           C  
+TER     556      ILE G 555 
+ATOM    556  CA  LEU G 556      21.830  14.715 -15.106  1.00  0.00           C  
+TER     557      LEU G 556 
+ATOM    557  CA  TYR G 557      21.491  14.734 -18.818  1.00  0.00           C  
+TER     558      TYR G 557 
+ATOM    558  CA  ALA G 558      22.568  12.226 -21.268  1.00  0.00           C  
+TER     559      ALA G 558 
+ATOM    559  CA  ARG H 559       9.645  20.387  14.245  1.00  0.00           C  
+TER     560      ARG H 559 
+ATOM    560  CA  ARG H 560       8.207  16.949  14.556  1.00  0.00           C  
+TER     561      ARG H 560 
+ATOM    561  CA  CYS H 561       6.345  15.933  17.602  1.00  0.00           C  
+TER     562      CYS H 561 
+ATOM    562  CA  TYR H 562       5.777  12.364  18.411  1.00  0.00           C  
+TER     563      TYR H 562 
+ATOM    563  CA  GLN H 563       3.554  11.444  21.246  1.00  0.00           C  
+TER     564      GLN H 563 
+ATOM    564  CA  LYS H 564       5.085   8.272  22.417  1.00  0.00           C  
+TER     565      LYS H 564 
+ATOM    565  CA  PRO H 565       6.445   8.239  24.826  1.00  0.00           C  
+TER     566      PRO H 565 
+ATOM    566  CA  TYR H 566       6.550  11.569  25.993  1.00  0.00           C  
+TER     567      TYR H 566 
+ATOM    567  CA  ARG H 567       5.181  14.551  24.448  1.00  0.00           C  
+TER     568      ARG H 567 
+ATOM    568  CA  CYS H 568       7.038  15.714  22.647  1.00  0.00           C  
+TER     569      CYS H 568 
+ATOM    569  CA  ARG H 569       9.690  13.431  21.456  1.00  0.00           C  
+TER     570      ARG H 569 
+ATOM    570  CA  GLY H 570      11.622  15.405  19.160  1.00  0.00           C  
+TER     571      GLY H 570 
+END   

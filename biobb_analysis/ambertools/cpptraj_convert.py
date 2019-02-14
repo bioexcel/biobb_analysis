@@ -100,8 +100,8 @@ class Convert():
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         tmp_files = [self.instructions_file]
-        #removed_files = [f for f in tmp_files if fu.rm(f)]
-        #fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
+        removed_files = [f for f in tmp_files if fu.rm(f)]
+        fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
         return returncode
 
 def main():
