@@ -2,15 +2,21 @@
 
 """Module containing the Cpptraj Rms class and the command line interface."""
 import argparse
-from ast import literal_eval
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
+from biobb_analysis.ambertools.common import check_top_path
+from biobb_analysis.ambertools.common import check_traj_path
+from biobb_analysis.ambertools.common import check_out_path
+from biobb_analysis.ambertools.common import get_parameters
+from biobb_analysis.ambertools.common import get_binary_path
+from biobb_analysis.ambertools.common import get_default_value
 from biobb_analysis.ambertools.common import get_in_parameters
 from biobb_analysis.ambertools.common import get_mask
 from biobb_analysis.ambertools.common import get_negative_mask
 from biobb_analysis.ambertools.common import setup_structure
 from biobb_analysis.ambertools.common import get_reference
+from biobb_analysis.ambertools.common import check_conf
 
 class Rms():
     """Wrapper of the Ambertools Cpptraj Rms module.
@@ -19,17 +25,14 @@ class Rms():
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
 
     Args:
-        input_top_path (str): Path to the input structure or topology file.
-        input_traj_path (str): Path to the input trajectory to be processed.
-        input_exp_path (str): Path to the experimental reference file (required if reference = experimental)
+        input_top_path (str): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop.
+        input_traj_path (str): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
         output_cpptraj_path (str): Path to the output processed trajectory.
         properties (dic):
-            | - **instructions_file** (*str*) - ("instructions.in") Name of the instructions file to be created. 
-            | - **input_instructions** (*dict*) - (defaults dict) Input options specification.
-                | - **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
-                    | - **start** (*int*) - (1) Starting frame for slicing
-                    | - **end** (*int*) - (-1) Ending frame for slicing
-                    | - **step** (*int*) - (1) Step for slicing
+            | - **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
+                | - **start** (*int*) - (1) Starting frame for slicing
+                | - **end** (*int*) - (-1) Ending frame for slicing
+                | - **step** (*int*) - (1) Step for slicing
                 | - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
                 | - **reference** (*string*) - ("first") Reference definition. Values: first, average, experimental.
             | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
@@ -40,18 +43,14 @@ class Rms():
         properties = properties or {}
 
         # Input/Output files
-        self.input_top_path = input_top_path
-        self.input_traj_path = input_traj_path
-        self.input_exp_path = input_exp_path
-        self.output_cpptraj_path = output_cpptraj_path
+        self.input_top_path = check_top_path(input_top_path)
+        self.input_traj_path = check_traj_path(input_traj_path)
+        self.output_cpptraj_path = check_out_path(output_cpptraj_path)
 
         # Properties specific for BB
-        # posar 'instructions.in' en funció global
-        self.instructions_file = properties.get('instructions_file', 'instructions.in')
-        self.instructions = {k: str(v) for k, v in properties.get('input_instructions', dict()).items()}
-
-        # posar 'cpptraj' en funció global
-        self.cpptraj_path = properties.get('cpptraj_path', 'cpptraj')
+        self.instructions_file = get_default_value('instructions_file')
+        self.in_parameters = get_parameters(properties, 'in_parameters')
+        self.cpptraj_path = get_binary_path(properties, 'cpptraj_path')
 
         # Properties common in all BB
         self.can_write_console_log = properties.get('can_write_console_log', True)
@@ -66,25 +65,24 @@ class Rms():
         self.instructions_file = fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
 
         # parm
-        instructions_list.append('parm ' + self.input_top_path + ' ' + self.instructions.pop('parm', ''))
+        instructions_list.append('parm ' + self.input_top_path)
 
         # trajin
-        in_parameters = self.instructions.get('in_parameters', '')
-        in_params = get_in_parameters(in_parameters, self)
+        in_params = get_in_parameters(self.in_parameters, self)
         instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
 
         # Set up
         instructions_list += setup_structure(self)
 
         # mask
-        mask = self.instructions.get('mask', '')
+        mask = self.in_parameters.get('mask', '')
         if mask:
             strip_mask = get_negative_mask(mask, self)
             instructions_list.append('strip ' + strip_mask)
 
         # reference
-        reference = self.instructions.get('reference', '')
-        instructions_list += get_reference(reference, self, 'rms')
+        reference = self.in_parameters.get('reference', '')
+        instructions_list += get_reference(reference, self, get_mask(mask, self), 'rms')
 
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
@@ -105,8 +103,8 @@ class Rms():
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         tmp_files = [self.instructions_file, 'MyAvg']
-        removed_files = [f for f in tmp_files if fu.rm(f)]
-        fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
+        #removed_files = [f for f in tmp_files if fu.rm(f)]
+        #fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
         return returncode
 
 def main():
@@ -122,6 +120,7 @@ def main():
     parser.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed Amber trajectory or to the output dat file containing the analysis results.')
 
     args = parser.parse_args()
+    check_conf(args.config)
     args.config = args.config or "{}"
     properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
     if args.step:

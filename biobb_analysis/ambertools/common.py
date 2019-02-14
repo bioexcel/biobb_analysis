@@ -1,6 +1,48 @@
 """ Common functions for package biobb_analysis.ambertools """
+import os.path
 from biobb_common.tools import file_utils as fu
-from ast import literal_eval
+
+
+def check_top_path(path):
+	""" Checks topology input file """ 
+	if not os.path.exists(path):
+		raise SystemExit('Unexisting topology input file')
+	filename, file_extension = os.path.splitext(path)
+	if not is_valid_topology(file_extension[1:]):
+		raise SystemExit('Format %s in topology input file is not compatible' % file_extension[1:])
+	return path
+
+def check_traj_path(path):
+	""" Checks trajectory input file """ 
+	if not os.path.exists(path):
+		raise SystemExit('Unexisting trajectory input file')
+	filename, file_extension = os.path.splitext(path)
+	if not is_valid_trajectory(file_extension[1:]):
+		raise SystemExit('Format %s in trajectory input file is not compatible' % file_extension[1:])
+	return path
+
+def check_out_path(path):
+	""" Checks if output folder exists """
+	if not os.path.exists(os.path.dirname(path)):
+		raise SystemExit('Unexisting output folder')
+	return path
+
+def check_conf(path):
+	""" Checks configuration file """
+	if not os.path.exists(path):
+		raise SystemExit('Unexisting configuration file')
+	return path
+
+def get_parameters(properties, type):
+	""" Gets in_parameters and out_parameters """
+	if not properties.get(type, dict()):
+		raise SystemExit('No ' + type + ' parameters provided')
+	else:
+		return {k: v for k, v in properties.get(type, dict()).items()}
+
+def get_binary_path(properties, type):
+	""" Gets binary path """
+	return properties.get(type, get_default_value(type))
 
 def get_default_value(key):
 	""" Gives default values according to the given key """
@@ -12,12 +54,22 @@ def get_default_value(key):
 		"format": "netcdf",
 		"mask": "all-atoms",
 		"reference": "first",
-		"average": "MyAvg"
+		"average": "MyAvg",
+		"instructions_file": "instructions.in",
+		"cpptraj_path": "cpptraj"
 	}
 
 	return default_values[key]
 
-def is_valid_format(traj):
+def is_valid_topology(ext):
+	""" Checks if trajectory format is compatible with Cpptraj """
+	formats = ['top', 'pdb', 'prmtop', 'parmtop']
+	if ext in formats:
+		return True
+	else:
+		return False
+
+def is_valid_trajectory(traj):
 	""" Checks if trajectory format is compatible with Cpptraj """
 	formats = ['crd', 'cdf', 'netcdf', 'restart', 'ncrestart', 'restartnc', 'dcd', 'charmm', 'cor', 'pdb', 'mol2', 'trr', 'gro', 'binpos', 'xtc', 'cif', 'arc', 'sqm', 'sdf', 'conflib']
 	if traj in formats:
@@ -41,9 +93,9 @@ def get_mask_atoms(key):
 		"all-atoms": ":*",
 		"heavy-atoms": "!@H*,1H*,2H*,3H*",
 		"side-chain": "!@CA,C,N,O,H,HA,C3',O3',C4',C5',O5',P",
-		"solute": "!:WAT,SOL,TIP3,TP3",
+		"solute": "!:WAT,HOH,SOL,TIP3,TP3",
 		"ions": ":SOD,CLA,Na+,Cl-,NA,CL,K+,K",
-		"solvent": ":WAT,SOL,TIP3,TP3"
+		"solvent": ":WAT,HOH,SOL,TIP3,TP3"
 	}
 
 	# if key incorrect, return default value and message 
@@ -55,7 +107,6 @@ def get_mask_atoms(key):
 def get_in_parameters(list, obj, type = 'None'):
 	""" Return string with input parameters """
 	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
-	list = literal_eval(list)
 
 	# if strip or mask, no mandatory trajin parameters
 	if type == 'strip' or type == 'mask':
@@ -140,7 +191,7 @@ def get_mask(key, obj):
 
 	return mask
 
-def get_reference(ref, obj, type):
+def get_reference(ref, obj, mask, type):
 	""" Gives reference instructions according to the given key """
 	instructions_list = []
 
@@ -157,8 +208,9 @@ def get_reference(ref, obj, type):
 		instructions_list.append('rms first out ' + obj.output_cpptraj_path)
 
 	if ref == 'average':
-		instructions_list.append('average ' + get_default_value('average'))
-		instructions_list.append('rms ref ' + get_default_value('average') + ' out ' + obj.output_cpptraj_path)
+		instructions_list.append('average crdset ' + get_default_value('average'))
+		instructions_list.append('run')
+		instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask + ' out ' + obj.output_cpptraj_path)
 
 	if ref == 'experimental':
 		if not obj.input_exp_path:
@@ -172,7 +224,7 @@ def get_reference(ref, obj, type):
 def get_out_parameters(list, obj):
 	""" Return string with output parameters """
 	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
-	list = literal_eval(list)
+
 	format = list['format']
 	msg = None
 	 # check if format provided
@@ -180,7 +232,7 @@ def get_out_parameters(list, obj):
 		format = get_default_value('format')
 		fu.log('No format provided in configuration file, assigned default value: %s' % get_default_value('format'), out_log, obj.global_log)
 	# check if valid format
-	if not is_valid_format(format):
+	if not is_valid_trajectory(format):
 		fu.log('Format %s is not compatible, assigned default value: %s' % (format, get_default_value('format')), out_log, obj.global_log)
 		format = get_default_value('format')
 
