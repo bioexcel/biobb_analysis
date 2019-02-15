@@ -44,6 +44,26 @@ def get_binary_path(properties, type):
 	""" Gets binary path """
 	return properties.get(type, get_default_value(type))
 
+def check_in_path(path, obj):
+	""" Checks input instructions file """ 
+	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
+	if not os.path.exists(path):
+		fu.log('Unexisting input instructions file, exiting', out_log, obj.global_log)
+		raise SystemExit('Unexisting input instructions file')
+
+	# check syntax for instructions file
+	syntax_instructions = True
+	err_instructions = ''
+	if not 'parm ' in open(path).read():
+		syntax_instructions = False
+		err_instructions += 'No topology provided'
+	if not 'trajin ' in open(path).read():
+		syntax_instructions = False
+		err_instructions += ' No input trajectory provided'
+	if not syntax_instructions:
+		fu.log('Incorrect syntax for instructions file: %s, exiting' % err_instructions, out_log, obj.global_log)
+		raise SystemExit('Incorrect syntax for instructions file: %s, exiting' % err_instructions)
+
 def get_default_value(key):
 	""" Gives default values according to the given key """
 	default_values = {
