@@ -5,17 +5,8 @@ import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
-from biobb_analysis.ambertools.common import check_top_path
-from biobb_analysis.ambertools.common import check_traj_path
-from biobb_analysis.ambertools.common import check_out_path
-from biobb_analysis.ambertools.common import get_parameters
-from biobb_analysis.ambertools.common import get_binary_path
-from biobb_analysis.ambertools.common import get_default_value
-from biobb_analysis.ambertools.common import get_in_parameters
-from biobb_analysis.ambertools.common import get_mask
-from biobb_analysis.ambertools.common import get_negative_mask
-from biobb_analysis.ambertools.common import setup_structure
-from biobb_analysis.ambertools.common import check_conf
+from biobb_analysis.ambertools.common import *
+
 
 class Rgyr():
     """Wrapper of the Ambertools Cpptraj Rgyr module.

@@ -174,3 +174,104 @@ cpptraj_rms_average:
       step: 1
       mask: c-alpha
       reference: average
+
+cpptraj_rms_experimental:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: experimental
+
+cpptraj_rmsf_first:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.first.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: first
+
+cpptraj_rmsf_average:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.average.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: average
+
+cpptraj_rmsf_experimental:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.experimental.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: experimental
+
+cpptraj_bfactor_first:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.first.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: first
+
+cpptraj_bfactor_average:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.average.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: average
+
+cpptraj_bfactor_experimental:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.experimental.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: experimental

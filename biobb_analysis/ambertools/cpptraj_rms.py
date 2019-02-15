@@ -5,18 +5,8 @@ import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
-from biobb_analysis.ambertools.common import check_top_path
-from biobb_analysis.ambertools.common import check_traj_path
-from biobb_analysis.ambertools.common import check_out_path
-from biobb_analysis.ambertools.common import get_parameters
-from biobb_analysis.ambertools.common import get_binary_path
-from biobb_analysis.ambertools.common import get_default_value
-from biobb_analysis.ambertools.common import get_in_parameters
-from biobb_analysis.ambertools.common import get_mask
-from biobb_analysis.ambertools.common import get_negative_mask
-from biobb_analysis.ambertools.common import setup_structure
-from biobb_analysis.ambertools.common import get_reference
-from biobb_analysis.ambertools.common import check_conf
+from biobb_analysis.ambertools.common import *
+
 
 class Rms():
     """Wrapper of the Ambertools Cpptraj Rms module.
@@ -27,6 +17,7 @@ class Rms():
     Args:
         input_top_path (str): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop.
         input_traj_path (str): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+        input_exp_path (str): Path to the experimental reference file (required if reference = experimental).
         output_cpptraj_path (str): Path to the output processed trajectory.
         properties (dic):
             | - **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
@@ -45,6 +36,7 @@ class Rms():
         # Input/Output files
         self.input_top_path = check_top_path(input_top_path)
         self.input_traj_path = check_traj_path(input_traj_path)
+        self.input_exp_path = input_exp_path
         self.output_cpptraj_path = check_out_path(output_cpptraj_path)
 
         # Properties specific for BB
@@ -76,13 +68,15 @@ class Rms():
 
         # mask
         mask = self.in_parameters.get('mask', '')
+        ref_mask = ''
         if mask:
             strip_mask = get_negative_mask(mask, self)
+            ref_mask = get_mask(mask, self)
             instructions_list.append('strip ' + strip_mask)
 
         # reference
         reference = self.in_parameters.get('reference', '')
-        instructions_list += get_reference(reference, self, get_mask(mask, self), 'rms')
+        instructions_list += get_reference(reference, self, ref_mask, True)
 
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
@@ -103,8 +97,8 @@ class Rms():
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         tmp_files = [self.instructions_file, 'MyAvg']
-        #removed_files = [f for f in tmp_files if fu.rm(f)]
-        #fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
+        removed_files = [f for f in tmp_files if fu.rm(f)]
+        fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
         return returncode
 
 def main():

@@ -191,7 +191,7 @@ def get_mask(key, obj):
 
 	return mask
 
-def get_reference(ref, obj, mask, type):
+def get_reference(ref, obj, mask, output):
 	""" Gives reference instructions according to the given key """
 	instructions_list = []
 
@@ -205,19 +205,26 @@ def get_reference(ref, obj, mask, type):
 		ref = get_default_value('reference')
 
 	if ref == 'first':
-		instructions_list.append('rms first out ' + obj.output_cpptraj_path)
+		if output: instructions_list.append('rms first out ' + obj.output_cpptraj_path)
+		else: instructions_list.append('rms first')
 
 	if ref == 'average':
 		instructions_list.append('average crdset ' + get_default_value('average'))
 		instructions_list.append('run')
-		instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask + ' out ' + obj.output_cpptraj_path)
+		if output: instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask + ' out ' + obj.output_cpptraj_path)
+		else: instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask)
 
 	if ref == 'experimental':
 		if not obj.input_exp_path:
 			fu.log('No experimental structure provided, exiting', out_log, obj.global_log)
 			raise SystemExit('input_exp_path is mandatory')
-		instructions_list.append('reference ' + obj.input_exp_path)
-		instructions_list.append('rms reference out ' + obj.output_cpptraj_path)
+		instructions_list.append('parm ' + obj.input_exp_path + ' noconect [exp]')
+		solute, msg = get_mask_atoms('solute')
+		instructions_list.append('reference ' + obj.input_exp_path + ' ' + solute + ' parm [exp]')
+		backbone, msg = get_mask_atoms('backbone')
+		if output: instructions_list.append('rms reference ' + backbone + ' ' + mask + ' out ' + obj.output_cpptraj_path)
+		else: instructions_list.append('rms reference ' + backbone + ' ' + mask)
+
 
 	return instructions_list
 
