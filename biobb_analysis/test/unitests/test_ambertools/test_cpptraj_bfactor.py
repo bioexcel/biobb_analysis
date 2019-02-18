@@ -15,7 +15,7 @@ class TestCpptrajBfactorFirst():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
-"""class TestCpptrajBfactorAverage():
+class TestCpptrajBfactorAverage():
     def setUp(self):
         fx.test_setup(self,'cpptraj_bfactor_average')
 
@@ -39,4 +39,4 @@ class TestCpptrajBfactorExperimental():
     def test_bfactor_experimental(self):
         Bfactor(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
-        assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])"""
+        assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
