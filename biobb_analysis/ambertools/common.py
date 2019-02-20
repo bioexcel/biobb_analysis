@@ -83,27 +83,18 @@ def get_default_value(key):
 
 def is_valid_topology(ext):
 	""" Checks if trajectory format is compatible with Cpptraj """
-	formats = ['top', 'pdb', 'prmtop', 'parmtop']
-	if ext in formats:
-		return True
-	else:
-		return False
+	formats = 'top', 'pdb', 'prmtop', 'parmtop'
+	return ext in formats
 
 def is_valid_trajectory(traj):
 	""" Checks if trajectory format is compatible with Cpptraj """
-	formats = ['crd', 'cdf', 'netcdf', 'restart', 'ncrestart', 'restartnc', 'dcd', 'charmm', 'cor', 'pdb', 'mol2', 'trr', 'gro', 'binpos', 'xtc', 'cif', 'arc', 'sqm', 'sdf', 'conflib']
-	if traj in formats:
-		return True
-	else:
-		return False
+	formats = 'crd', 'cdf', 'netcdf', 'restart', 'ncrestart', 'restartnc', 'dcd', 'charmm', 'cor', 'pdb', 'mol2', 'trr', 'gro', 'binpos', 'xtc', 'cif', 'arc', 'sqm', 'sdf', 'conflib'
+	return traj in formats
 
 def is_valid_reference(ref):
 	""" Checks if reference is correct """
-	references = ['first', 'average', 'experimental']
-	if ref in references:
-		return True
-	else:
-		return False
+	references = 'first', 'average', 'experimental'
+	return ref in references
 
 def get_mask_atoms(key):
 	""" Gives mask atoms according to the given key """
