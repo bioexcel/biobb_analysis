@@ -20,12 +20,12 @@ class Average():
         output_cpptraj_path (str): Path to the output processed trajectory.
         properties (dic):
             | - **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
-                | - **start** (*int*) - (1) Starting frame for slicing
-                | - **end** (*int*) - (-1) Ending frame for slicing
-                | - **step** (*int*) - (1) Step for slicing
-                | - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
+                || - **start** (*int*) - (1) Starting frame for slicing
+                || - **end** (*int*) - (-1) Ending frame for slicing
+                || - **step** (*int*) - (1) Step for slicing
+                || - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
             | - **out_parameters** (*dict*) - (None) Parameters for output trajectory.
-                | - **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+                || - **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
             | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
