@@ -1,0 +1,3 @@
+parm ~/projects/BioBB/cpptraj/v3/biobb_analysis/biobb_analysis/test/data/ambertools/cpptraj.parm.top
+trajin ~/projects/BioBB/cpptraj/v3/biobb_analysis/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd
+trajout output.nc netcdf

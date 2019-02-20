@@ -14,13 +14,270 @@ rms:
     output_xvg_path: output_xvg.xvg
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.xvg
 
-cpptraj:
+
+cpptraj_input:
   paths:
-    input_top_path: file:test_data_dir/ambertools/cpptraj.parm7
-    input_traj_path: file:test_data_dir/ambertools/cpptraj.nc
-    output_dat_path: output_dat.dat
-    ref_output_dat_path: file:test_reference_dir/ambertools/ref_cpptraj.dat
+    input_instructions_path: file:test_data_dir/ambertools/cpptraj.in
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.in.nc
+
+cpptraj_convert:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.convert.nc
   properties:
-    input_instructions:
-      analysis: rms
-      rms: ToFirst @N,CA,C
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+
+cpptraj_average:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.pdb
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.average.pdb
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: pdb
+
+cpptraj_dry:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.dry.nc
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+
+cpptraj_image:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.image.nc
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+
+cpptraj_mask:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.mask.nc
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+
+cpptraj_slice:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.slice.nc
+  properties:
+    in_parameters:
+      start: 2
+      end: 20
+      step: 2
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+
+cpptraj_snapshot:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.pdb
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.snapshot.pdb
+  properties:
+    in_parameters:
+      snapshot: 12
+      mask: c-alpha
+    out_parameters:
+      format: pdb
+
+cpptraj_strip:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.strip.nc
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+
+cpptraj_rgyr:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rgyr.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+
+cpptraj_rms_first:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: first
+
+cpptraj_rms_average:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: average
+
+cpptraj_rms_experimental:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: experimental
+
+cpptraj_rmsf_first:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.first.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: first
+
+cpptraj_rmsf_average:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.average.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: average
+
+cpptraj_rmsf_experimental:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.experimental.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: experimental
+
+cpptraj_bfactor_first:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.first.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: first
+
+cpptraj_bfactor_average:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.average.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: average
+
+cpptraj_bfactor_experimental:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.experimental.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: experimental
+
