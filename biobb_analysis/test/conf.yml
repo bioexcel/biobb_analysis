@@ -15,6 +15,11 @@ rms:
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.xvg
 
 
+cpptraj_input:
+  paths:
+    input_instructions_path: file:test_data_dir/ambertools/cpptraj.in
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.in.nc
 
 cpptraj_convert:
   paths:
@@ -276,8 +281,3 @@ cpptraj_bfactor_experimental:
       mask: c-alpha
       reference: experimental
 
-cpptraj_input:
-  paths:
-    input_instructions_path: file:test_data_dir/ambertools/cpptraj.in
-    output_cpptraj_path: output.nc
-    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.in.nc

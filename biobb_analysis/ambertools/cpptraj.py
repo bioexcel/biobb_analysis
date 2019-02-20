@@ -2,7 +2,6 @@
 
 """Module containing the Cpptraj class and the command line interface."""
 import argparse
-#from ast import literal_eval
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
@@ -23,6 +22,8 @@ class Cpptraj():
     def __init__(self, input_instructions_path, properties=None, **kwargs):
         properties = properties or {}
 
+        # check if input_instructions_path = None (test) and create .in for test purposes
+
         # Properties specific for BB
         self.input_instructions_path = input_instructions_path
 
@@ -34,6 +35,7 @@ class Cpptraj():
         self.prefix = properties.get('prefix', None)
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
+
 
     def launch(self):
         """Launches the execution of the Ambertools cpptraj module."""
