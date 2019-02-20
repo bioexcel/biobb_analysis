@@ -27,3 +27,6 @@ Indices and tables
 
 `Github repository <https://github.com/bioexcel/biobb_analysis>`_.
 ===================================================================
+
+.. raw:: html
+	:file: schema.html
