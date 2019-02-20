@@ -53,14 +53,15 @@ class Cpptraj():
 def main():
     parser = argparse.ArgumentParser(description="Wrapper for the Ambertools cpptraj module.")
     parser.add_argument('--config', required=False, help='Configuration file')
+
     parser.add_argument('--system', required=False)
     parser.add_argument('--step', required=False)
 
     parser.add_argument('--input_instructions_path', required=True, help='Path of the instructions file.')
 
     args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
+    config = args.config if args.config else None
+    properties = settings.ConfReader(config=config, system=args.system).get_prop_dic()
     if args.step:
         properties = properties[args.step]
 

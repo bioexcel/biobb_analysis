@@ -5,3 +5,4 @@ biobb_analysis
    :maxdepth: 4
 
    gromacs
+   ambertools

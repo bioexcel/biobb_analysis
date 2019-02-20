@@ -64,7 +64,7 @@ class Cluster():
 
 def main():
     parser = argparse.ArgumentParser(description="Wrapper of the GROMACS cluster module.")
-    parser.add_argument('--config', required=True)
+    parser.add_argument('--config', required=False)
     parser.add_argument('--system', required=False)
     parser.add_argument('--step', required=False)
 
@@ -74,8 +74,8 @@ def main():
     parser.add_argument('--output_pdb_path', required=True)
 
     args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
+    config = args.config if args.config else None
+    properties = settings.ConfReader(config=config, system=args.system).get_prop_dic()
     if args.step:
         properties = properties[args.step]
 
