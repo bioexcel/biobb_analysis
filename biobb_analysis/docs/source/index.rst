@@ -30,12 +30,10 @@ Indices and tables
 
 .. raw:: html
 	<div itemscope itemtype="http://schema.org/SportsTeam">
-  		<span itemprop="name">San Francisco 49ers</span>
-  		<div itemprop="member" itemscope
-        itemtype="http://schema.org/OrganizationRole">
-   	 <div itemprop="member" itemscope
-            itemtype="http://schema.org/Person">
-      <span itemprop="name">Joe Montana</span>
+  	<span itemprop="name">San Francisco 49ers</span>
+  	<div itemprop="member" itemscope itemtype="http://schema.org/OrganizationRole">
+   	<div itemprop="member" itemscope itemtype="http://schema.org/Person">
+    <span itemprop="name">Joe Montana</span>
     </div>
     <span itemprop="startDate">1979</span>
     <span itemprop="endDate">1992</span>
