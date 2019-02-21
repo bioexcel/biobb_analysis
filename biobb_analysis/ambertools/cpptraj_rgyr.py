@@ -19,12 +19,12 @@ class Rgyr():
         input_traj_path (str): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
         output_cpptraj_path (str): Path to the output analysis.
         properties (dic):
-            | - **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
-                | - **start** (*int*) - (1) Starting frame for slicing
-                | - **end** (*int*) - (-1) Ending frame for slicing
-                | - **step** (*int*) - (1) Step for slicing
-                | - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
-            | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+            * **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
+                * **start** (*int*) - (1) Starting frame for slicing
+                * **end** (*int*) - (-1) Ending frame for slicing
+                * **step** (*int*) - (1) Step for slicing
+                * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
+            * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
     def __init__(self, input_top_path, input_traj_path,

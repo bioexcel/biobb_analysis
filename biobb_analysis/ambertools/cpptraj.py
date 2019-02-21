@@ -16,7 +16,7 @@ class Cpptraj():
     Args:
         input_instructions_path (str): Path of the instructions file.
         properties (dic):
-            | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+            * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
     def __init__(self, input_instructions_path, properties=None, **kwargs):

@@ -20,13 +20,13 @@ class Bfactor():
         input_exp_path (str): Path to the experimental reference file (required if reference = experimental).
         output_cpptraj_path (str): Path to the output processed trajectory.
         properties (dic):
-            | - **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
-                | - **start** (*int*) - (1) Starting frame for slicing
-                | - **end** (*int*) - (-1) Ending frame for slicing
-                | - **step** (*int*) - (1) Step for slicing
-                | - **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
-                | - **reference** (*string*) - ("first") Reference definition. Values: first, average, experimental.
-            | - **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+            * **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
+                * **start** (*int*) - (1) Starting frame for slicing
+                * **end** (*int*) - (-1) Ending frame for slicing
+                * **step** (*int*) - (1) Step for slicing
+                * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
+                * **reference** (*string*) - ("first") Reference definition. Values: first, average, experimental.
+            * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
     def __init__(self, input_top_path, input_traj_path,
