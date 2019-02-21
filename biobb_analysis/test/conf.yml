@@ -17,7 +17,8 @@ rms:
 
 cpptraj_input:
   paths:
-    input_instructions_path: file:test_data_dir/ambertools/cpptraj.in
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.nc
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.in.nc
 

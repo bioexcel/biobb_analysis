@@ -19,13 +19,14 @@ class Cpptraj():
             * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 
-    def __init__(self, input_instructions_path, properties=None, **kwargs):
+    def __init__(self, input_instructions_path=None, properties=None, **kwargs):
         properties = properties or {}
-
-        # check if input_instructions_path = None (test) and create .in for test purposes
 
         # Properties specific for BB
         self.input_instructions_path = input_instructions_path
+        self.input_top_path = kwargs.get('input_top_path')
+        self.input_traj_path = kwargs.get('input_traj_path')
+        self.output_cpptraj_path = kwargs.get('output_cpptraj_path')
 
         self.cpptraj_path = properties.get('cpptraj_path', 'cpptraj')
 
@@ -36,12 +37,26 @@ class Cpptraj():
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
 
+    def create_instrucions_file(self):
+        """ Creates an input file using paths provideed in the configuration file (only used for test purposes) """
+        instructions_list = []
+        output_instructions_path = fu.create_name(prefix=self.prefix, step=self.step, name=get_default_value("instructions_file"))
+
+        instructions_list.append('parm ' + self.input_top_path)
+        instructions_list.append('trajin ' + self.input_traj_path)
+        instructions_list.append('trajout ' + self.output_cpptraj_path + ' ' + get_default_value("format"))
+
+        with open(output_instructions_path, 'w') as mdp:
+            for line in instructions_list:
+                mdp.write(line.strip() + '\n')
+
+        return output_instructions_path
 
     def launch(self):
         """Launches the execution of the Ambertools cpptraj module."""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
 
-        output_instructions_path = self.input_instructions_path
+        output_instructions_path = self.create_instrucions_file() if not self.input_instructions_path else self.input_instructions_path
         check_in_path(output_instructions_path, self)
 
         # run command line
