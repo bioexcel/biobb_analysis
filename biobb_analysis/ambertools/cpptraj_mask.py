@@ -25,7 +25,7 @@ class Mask():
                 * **step** (*int*) - (1) Step for slicing
                 * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
             * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
-                *- **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+                * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
             * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
     """
 

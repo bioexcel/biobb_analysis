@@ -17,7 +17,7 @@ class Average():
     Args:
         input_top_path (str): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop.
         input_traj_path (str): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-        output_cpptraj_path (str): Path to the output processed trajectory.
+        output_cpptraj_path (str): Path to the output processed structure.
         properties (dic):
             * **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
                 * **start** (*int*) - (1) Starting frame for slicing

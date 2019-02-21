@@ -85,15 +85,6 @@ ambertools.cpptraj_rmsf module
     :undoc-members:
     :show-inheritance:
 
-
-ambertools.cpptraj_slice module
---------------------------------
-
-.. automodule:: ambertools.cpptraj_slice
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 ambertools.cpptraj_slice module
 --------------------------------
 
