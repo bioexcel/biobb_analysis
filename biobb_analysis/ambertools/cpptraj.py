@@ -27,7 +27,6 @@ class Cpptraj():
         self.input_top_path = kwargs.get('input_top_path')
         self.input_traj_path = kwargs.get('input_traj_path')
         self.output_cpptraj_path = kwargs.get('output_cpptraj_path')
-
         self.cpptraj_path = properties.get('cpptraj_path', 'cpptraj')
 
         # Properties common in all BB
