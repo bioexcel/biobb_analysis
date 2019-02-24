@@ -15,17 +15,20 @@ v0.1.5 February 2019 Release
 
 ### Installation
 Using PIP:
-    pip install biobb_analysis
+
+        pip install biobb_analysis
 
 Using ANACONDA:
-    conda install -c bioconda biobb_analysis
+
+        conda install -c bioconda biobb_analysis
 
 Using DOCKER:
-    docker pull mmbirb/biobb_analysis:0.1.3
+
+        docker pull mmbirb/biobb_analysis:0.1.3
 
 ### Copyright & Licensing
-This software has been developed in the MMB group (http://mmb.irbbarcelona.org) at the
-BSC (http://www.bsc.es/) & IRB (https://www.irbbarcelona.org/) for the European BioExcel (http://bioexcel.eu/), funded by the European Commission
+This software has been developed in the MMB group [http://mmb.irbbarcelona.org](http://mmb.irbbarcelona.org) at the
+BSC [http://www.bsc.es](http://www.bsc.es/) & IRB [https://www.irbbarcelona.org](https://www.irbbarcelona.org/) for the European BioExcel [http://bioexcel.eu](http://bioexcel.eu/), funded by the European Commission
 (EU H2020 [675728](http://cordis.europa.eu/projects/675728)).
 
 * (c) 2015-2019 [Barcelona Supercomputing Center](https://www.bsc.es/)
