@@ -2,3 +2,8 @@ Bootstrap: docker
 From: biobb_analysis:0.1.6
 Namespace: mmbirb
 
+%post
+    /opt/conda/bin/conda config --add channels defaults
+    /opt/conda/bin/conda config --add channels bioconda
+    /opt/conda/bin/conda config --add channels conda-forge
+    /opt/conda/bin/conda install -y -c bioconda "biobb_analysis>=0.1.6"
