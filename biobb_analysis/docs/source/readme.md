@@ -26,6 +26,10 @@ Using DOCKER:
 
         docker pull mmbirb/biobb_analysis:0.1.6
 
+Using SINGULARITY:
+
+        singularity pull shub://bioexcel/biobb_analysis
+
 ### Copyright & Licensing
 This software has been developed in the MMB group [http://mmb.irbbarcelona.org](http://mmb.irbbarcelona.org) at the
 BSC [http://www.bsc.es](http://www.bsc.es/) & IRB [https://www.irbbarcelona.org](https://www.irbbarcelona.org/) for the European BioExcel [http://bioexcel.eu](http://bioexcel.eu/), funded by the European Commission
