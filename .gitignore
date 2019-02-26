@@ -53,6 +53,8 @@ coverage.xml
 # Django stuff:
 *.log
 *.pot
+*.err
+*.out
 
 # Sphinx documentation
 docs/_build/
@@ -108,3 +110,6 @@ traj_comp.xtc
 
 # ipynb checkpoints
 .ipynb_checkpoints
+
+# jupyter docs
+biobb_analysis/docs/jupyter/data
