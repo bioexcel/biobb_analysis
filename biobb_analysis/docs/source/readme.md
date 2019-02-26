@@ -24,7 +24,7 @@ Using ANACONDA:
 
 Using DOCKER:
 
-        docker pull mmbirb/biobb_analysis:0.1.3
+        docker pull mmbirb/biobb_analysis:0.1.6
 
 ### Copyright & Licensing
 This software has been developed in the MMB group [http://mmb.irbbarcelona.org](http://mmb.irbbarcelona.org) at the
