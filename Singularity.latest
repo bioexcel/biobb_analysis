@@ -3,8 +3,8 @@ From: biobb_analysis:0.1.6
 Namespace: mmbirb
 
 %post
-    conda config --add channels defaults
-    conda config --add channels bioconda
-    conda config --add channels conda-forge
-    conda install -y -c bioconda "biobb_analysis>=0.1.6"
+    /opt/bin/conda config --add channels defaults
+    /opt/bin/conda config --add channels bioconda
+    /opt/bin/conda config --add channels conda-forge
+    /opt/bin/conda install -y -c bioconda "biobb_analysis>=0.1.6"
     source /usr/local/gromacs/bin/GMXRC
