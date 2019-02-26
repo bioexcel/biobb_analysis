@@ -1,13 +1,13 @@
 working_dir_path: /tmp/biobb/unitests
 
-cluster:
+gmx_cluster:
   paths:
     input_gro_path: file:test_data_dir/gromacs/cluster.gro
     input_traj_path: file:test_data_dir/gromacs/cluster.trr
     output_pdb_path: output_pdb.pdb
     ref_output_pdb_path: file:test_reference_dir/gromacs/ref_cluster.pdb
 
-rms:
+gmx_rms:
   paths:
     input_structure_path: file:test_data_dir/gromacs/rms.gro
     input_traj_path: file:test_data_dir/gromacs/rms.trr

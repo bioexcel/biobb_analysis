@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj import Cpptraj
+from biobb_analysis.ambertools.cpptraj_input import CpptrajInput
 
 
 class TestCpptrajInput():
@@ -11,6 +11,6 @@ class TestCpptrajInput():
 		pass
 
 	def test_input(self):
-		Cpptraj(properties=self.properties, **self.paths).launch()
+		CpptrajInput(properties=self.properties, **self.paths).launch()
 		assert fx.not_empty(self.paths['output_cpptraj_path'])
 		assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

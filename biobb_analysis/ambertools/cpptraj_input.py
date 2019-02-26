@@ -7,8 +7,8 @@ from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import *
 
-class Cpptraj():
-    """Wrapper of the Ambertools Cpptraj module.
+class CpptrajInput():
+    """Wrapper of the Ambertools CpptrajInput module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -80,7 +80,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    Cpptraj(input_instructions_path=args.input_instructions_path, properties=properties).launch()
+    CpptrajInput(input_instructions_path=args.input_instructions_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

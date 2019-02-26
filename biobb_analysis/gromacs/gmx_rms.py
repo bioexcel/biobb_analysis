@@ -6,7 +6,8 @@ from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
 
-class Rms():
+
+class GMXRms():
     """Wrapper of the GROMACS rms (http://manual.gromacs.org/current/onlinehelp/gmx-rms.html) module.
 
     Args:
@@ -74,7 +75,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    Rms(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, output_xvg_path=args.output_xvg_path, properties=properties).launch()
+    GMXRms(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, output_xvg_path=args.output_xvg_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

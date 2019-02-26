@@ -7,7 +7,7 @@ from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
 
 
-class Cluster():
+class GMXCluster():
     """Wrapper class for the GROMACS cluster (http://manual.gromacs.org/current/onlinehelp/gmx-cluster.html) module.
 
     Args:
@@ -80,7 +80,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    Cluster(input_gro_path=args.input_gro_path, input_traj_path=args.input_traj_path, output_pdb_path=args.output_pdb_path, properties=properties).launch()
+    GMXCluster(input_gro_path=args.input_gro_path, input_traj_path=args.input_traj_path, output_pdb_path=args.output_pdb_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()
