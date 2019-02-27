@@ -7,7 +7,7 @@ Submodules
 gromacs.cluster module
 -----------------------
 
-.. automodule:: gromacs.cluster
+.. automodule:: gromacs.gmx_cluster
     :members:
     :undoc-members:
     :show-inheritance:
@@ -15,7 +15,7 @@ gromacs.cluster module
 gromacs.rms module
 ------------------------------
 
-.. automodule:: gromacs.rms
+.. automodule:: gromacs.gmx_rms
     :members:
     :undoc-members:
     :show-inheritance:

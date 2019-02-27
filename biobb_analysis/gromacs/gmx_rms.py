@@ -15,9 +15,9 @@ class GMXRms():
         input_traj_path (str): Path to the GROMACS trajectory file XTC/TRR.
         output_xvg_path (str): Path to the XVG output file.
         properties (dic):
-            | - **xvg** (*str*) - ("none") XVG plot formatting: xmgrace, xmgr, none.
-            | - **selection** (*str*) - ("Protein-H") Group where the rms will be performed: System, Protein, Protein-H...
-            | - **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **xvg** (*str*) - ("none") XVG plot formatting: xmgrace, xmgr, none.
+            * **selection** (*str*) - ("Protein-H") Group where the rms will be performed: System, Protein, Protein-H...
+            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
     def __init__(self, input_structure_path, input_traj_path, output_xvg_path, properties=None, **kwargs):

@@ -15,10 +15,10 @@ class GMXCluster():
         input_traj_path (str): Path to the GROMACS trajectory: TRR or XTC formats.
         output_pdb_path (str): Path to the output cluster PDB file.
         properties (dic):
-            | - **dista** (*bool*) - (False) Use RMSD of distances instead of RMS deviation.
-            | - **method** (*str*) - ("linkage") Method for cluster determination: linkage, jarvis-patrick, monte-carlo, diagonalization, gromos
-            | - **cutoff** (*float*) - (0.1) RMSD cut-off (nm) for two structures to be neighbor
-            | - **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **dista** (*bool*) - (False) Use RMSD of distances instead of RMS deviation.
+            * **method** (*str*) - ("linkage") Method for cluster determination: linkage, jarvis-patrick, monte-carlo, diagonalization, gromos
+            * **cutoff** (*float*) - (0.1) RMSD cut-off (nm) for two structures to be neighbor
+            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
     def __init__(self, input_gro_path, input_traj_path, output_pdb_path, properties=None, **kwargs):

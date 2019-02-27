@@ -5,10 +5,10 @@ Submodules
 -----------
 
 
-ambertools.cpptraj module
+ambertools.cpptraj_input module
 --------------------------
 
-.. automodule:: ambertools.cpptraj
+.. automodule:: ambertools.cpptraj_input
     :members:
     :undoc-members:
     :show-inheritance:
