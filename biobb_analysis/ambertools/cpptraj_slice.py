@@ -97,7 +97,7 @@ class Slice():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the Ambertools cpptraj module.")
+    parser = argparse.ArgumentParser(description="Wrapper for the Ambertools cpptraj slice module.")
     parser.add_argument('--config', required=True, help='Configuration file')
     parser.add_argument('--system', required=False)
     parser.add_argument('--step', required=False)

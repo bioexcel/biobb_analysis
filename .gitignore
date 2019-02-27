@@ -105,6 +105,7 @@ testworkflow*
 
 # Gromacs
 \#*
+*.xvg.*
 mdout.mdp
 traj_comp.xtc
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Module containing the Cluster class and the command line interface."""
+"""Module containing the GMX Cluster class and the command line interface."""
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu

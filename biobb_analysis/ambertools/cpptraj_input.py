@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Module containing the Cpptraj class and the command line interface."""
+"""Module containing the Cpptraj Input class and the command line interface."""
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
@@ -65,7 +65,7 @@ class CpptrajInput():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the Ambertools cpptraj module.")
+    parser = argparse.ArgumentParser(description="Wrapper for the Ambertools cpptraj input module.")
     parser.add_argument('--config', required=False, help='Configuration file')
 
     parser.add_argument('--system', required=False)

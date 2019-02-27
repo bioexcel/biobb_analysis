@@ -14,6 +14,14 @@ gmx_rms:
     output_xvg_path: output_xvg.xvg
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.xvg
 
+gmx_energy:
+  paths:
+    input_energy_path: file:test_data_dir/gromacs/energy.edr
+    output_xvg_path: output.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_energy.xvg
+  properties:
+    terms: [Potential, Pressure]
+
 
 cpptraj_input:
   paths:
