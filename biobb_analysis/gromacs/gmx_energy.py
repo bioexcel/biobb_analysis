@@ -29,7 +29,7 @@ class GMXEnergy():
 
         # Properties specific for BB
         self.instructions_file = get_default_value('instructions_file')
-        self.xvg = get_xvg(properties)#properties.get('xvg', "none")
+        self.xvg = get_xvg(properties)
         self.terms = get_terms(properties)
 
         # Properties common in all GROMACS BB
@@ -87,6 +87,7 @@ def main():
     parser.add_argument('--output_xvg_path', required=True)
 
     args = parser.parse_args()
+    check_conf(args.config)
     config = args.config if args.config else None
     properties = settings.ConfReader(config=config, system=args.system).get_prop_dic()
     if args.step:

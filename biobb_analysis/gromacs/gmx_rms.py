@@ -5,6 +5,7 @@ import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.command_wrapper import cmd_wrapper
+from biobb_analysis.gromacs.common import *
 
 
 class GMXRms():
@@ -16,7 +17,7 @@ class GMXRms():
         output_xvg_path (str): Path to the XVG output file.
         properties (dic):
             * **xvg** (*str*) - ("none") XVG plot formatting: xmgrace, xmgr, none.
-            * **selection** (*str*) - ("Protein-H") Group where the rms will be performed: System, Protein, Protein-H...
+            * **selection** (*str*) - ("Protein-H") Group where the rms will be performed: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
@@ -26,14 +27,14 @@ class GMXRms():
         # Input/Output files
         self.input_structure_path = input_structure_path
         self.input_traj_path = input_traj_path
-        self.output_xvg_path = output_xvg_path
+        self.output_xvg_path = check_out_xvg_path(output_xvg_path)
 
         # Properties specific for BB
-        self.xvg = properties.get('xvg', "none")
+        self.xvg = get_xvg(properties)
         self.selection = properties.get('selection', "Protein-H")
 
         # Properties common in all GROMACS BB
-        self.gmx_path = properties.get('gmx_path', 'gmx')
+        self.gmx_path = get_binary_path(properties, 'gmx_path')
 
         # Properties common in all BB
         self.can_write_console_log = properties.get('can_write_console_log', True)
