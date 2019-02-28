@@ -11,7 +11,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
-v0.1.6 February 2019 Release
+v0.1.7 February 2019 Release
 
 ### Installation
 Using PIP:
@@ -24,7 +24,7 @@ Using ANACONDA:
 
 Using DOCKER:
 
-        docker pull mmbirb/biobb_analysis:0.1.6
+        docker pull mmbirb/biobb_analysis:0.1.7
 
 Using SINGULARITY:
 
