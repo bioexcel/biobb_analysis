@@ -27,3 +27,11 @@ gromacs.gmx_energy module
     :members:
     :undoc-members:
     :show-inheritance:
+
+gromacs.gmx_rgyr module
+------------------------------
+
+.. automodule:: gromacs.gmx_rgyr
+    :members:
+    :undoc-members:
+    :show-inheritance:

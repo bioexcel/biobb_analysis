@@ -2,7 +2,7 @@ working_dir_path: /tmp/biobb/unitests
 
 gmx_cluster:
   paths:
-    input_gro_path: file:test_data_dir/gromacs/cluster.gro
+    input_structure_path: file:test_data_dir/gromacs/cluster.gro
     input_traj_path: file:test_data_dir/gromacs/cluster.trr
     output_pdb_path: output_pdb.pdb
     ref_output_pdb_path: file:test_reference_dir/gromacs/ref_cluster.pdb
@@ -21,6 +21,15 @@ gmx_energy:
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_energy.xvg
   properties:
     terms: [Potential, Pressure]
+
+gmx_rgyr:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/rgyr.gro
+    input_traj_path: file:test_data_dir/gromacs/rgyr.trr
+    output_xvg_path: output.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rgyr.xvg
+  properties:
+    selection: Protein-H
 
 
 cpptraj_input:
