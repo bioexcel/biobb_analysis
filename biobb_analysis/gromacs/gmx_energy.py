@@ -24,13 +24,12 @@ class GMXEnergy():
         properties = properties or {}
 
         # Input/Output files
-        self.input_energy_path = check_energy_path(input_energy_path)
-        self.output_xvg_path = check_out_xvg_path(output_xvg_path)
+        self.input_energy_path = input_energy_path
+        self.output_xvg_path = output_xvg_path
 
         # Properties specific for BB
         self.instructions_file = get_default_value('instructions_file')
-        self.xvg = get_xvg(properties)
-        self.terms = get_terms(properties)
+        self.properties = properties
 
         # Properties common in all GROMACS BB
         self.gmx_path = get_binary_path(properties, 'gmx_path')
@@ -41,6 +40,13 @@ class GMXEnergy():
         self.prefix = properties.get('prefix', None)
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
+
+    def check_data_params(self):
+        """ Checks all the input/output paths and parameters """
+        self.input_energy_path = check_energy_path(self.input_energy_path, self)
+        self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, self)
+        self.xvg = get_xvg(self.properties, self)
+        self.terms = get_terms(self.properties, self)
 
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
@@ -60,6 +66,9 @@ class GMXEnergy():
     def launch(self):
         """Launches the execution of the GROMACS energy module."""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+
+        # check input/output paths and parameters
+        self.check_data_params()
 
         # create instructions file
         self.create_instructions_file() 

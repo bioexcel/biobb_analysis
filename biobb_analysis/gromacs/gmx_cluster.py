@@ -26,14 +26,12 @@ class GMXCluster():
         properties = properties or {}
 
         # Input/Output files
-        self.input_structure_path = check_input_path(input_structure_path)
-        self.input_traj_path = check_traj_path(input_traj_path)
-        self.output_pdb_path = check_out_pdb_path(output_pdb_path)
+        self.input_structure_path = input_structure_path
+        self.input_traj_path = input_traj_path
+        self.output_pdb_path = output_pdb_path
 
         # Properties specific for BB
-        self.dista = properties.get('dista', False)
-        self.method = properties.get('method', "linkage")
-        self.cutoff = properties.get('cutoff', 0.1)
+        self.properties = properties
 
         # Properties common in all GROMACS BB
         self.gmx_path = get_binary_path(properties, 'gmx_path')
@@ -45,10 +43,22 @@ class GMXCluster():
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
 
+    def check_data_params(self):
+        """ Checks all the input/output paths and parameters """
+        self.input_structure_path = check_input_path(self.input_structure_path, self)
+        self.input_traj_path = check_traj_path(self.input_traj_path, self)
+        self.output_pdb_path = check_out_pdb_path(self.output_pdb_path, self)
+        self.dista = self.properties.get('dista', False)
+        self.method = self.properties.get('method', "linkage")
+        self.cutoff = self.properties.get('cutoff', 0.1)
+
 
     def launch(self):
         """Launches the execution of the GROMACS rms module."""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+
+        # check input/output paths and parameters
+        self.check_data_params()
 
         cmd = ['echo', '\"'+'1 1'+'\"', '|',
                self.gmx_path, 'cluster',

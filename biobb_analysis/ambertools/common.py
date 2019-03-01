@@ -3,27 +3,35 @@ import os.path
 from biobb_common.tools import file_utils as fu
 
 
-def check_top_path(path):
+def check_top_path(path, obj):
 	""" Checks topology input file """ 
+	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(path):
+		fu.log('Unexisting topology input file, exiting', out_log, obj.global_log)
 		raise SystemExit('Unexisting topology input file')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_topology(file_extension[1:]):
+		fu.log('Format %s in topology input file is not compatible' % file_extension[1:], out_log, obj.global_log)
 		raise SystemExit('Format %s in topology input file is not compatible' % file_extension[1:])
 	return path
 
-def check_traj_path(path):
+def check_traj_path(path, obj):
 	""" Checks trajectory input file """ 
+	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(path):
+		fu.log('Unexisting trajectory input file, exiting', out_log, obj.global_log)
 		raise SystemExit('Unexisting trajectory input file')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_trajectory(file_extension[1:]):
+		fu.log('Format %s in trajectory input file is not compatible' % file_extension[1:], out_log, obj.global_log)
 		raise SystemExit('Format %s in trajectory input file is not compatible' % file_extension[1:])
 	return path
 
-def check_out_path(path):
+def check_out_path(path, obj):
 	""" Checks if output folder exists """
+	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(os.path.dirname(path)):
+		fu.log('Unexisting output folder, exiting', out_log, obj.global_log)
 		raise SystemExit('Unexisting output folder')
 	return path
 
@@ -33,10 +41,12 @@ def check_conf(path):
 		raise SystemExit('Unexisting configuration file')
 	return path
 
-def get_parameters(properties, type):
+def get_parameters(properties, type, obj):
 	""" Gets in_parameters and out_parameters """
+	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not properties.get(type, dict()):
-		raise SystemExit('No ' + type + ' parameters provided')
+		fu.log('No %s parameters provided' % type, out_log, obj.global_log)
+		raise SystemExit('No %s parameters provided' % type)
 	else:
 		return {k: v for k, v in properties.get(type, dict()).items()}
 

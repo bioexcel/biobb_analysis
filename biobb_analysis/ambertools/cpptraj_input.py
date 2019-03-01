@@ -74,6 +74,7 @@ def main():
     parser.add_argument('--input_instructions_path', required=True, help='Path of the instructions file.')
 
     args = parser.parse_args()
+    check_conf(args.config)
     config = args.config if args.config else None
     properties = settings.ConfReader(config=config, system=args.system).get_prop_dic()
     if args.step:

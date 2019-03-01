@@ -31,15 +31,14 @@ class Snapshot():
                  output_cpptraj_path, properties=None, **kwargs):
         properties = properties or {}
 
-       # Input/Output files
-        self.input_top_path = check_top_path(input_top_path)
-        self.input_traj_path = check_traj_path(input_traj_path)
-        self.output_cpptraj_path = check_out_path(output_cpptraj_path)
+        # Input/Output files
+        self.input_top_path = input_top_path
+        self.input_traj_path = input_traj_path
+        self.output_cpptraj_path = output_cpptraj_path
 
         # Properties specific for BB
         self.instructions_file = get_default_value('instructions_file')
-        self.in_parameters = get_parameters(properties, 'in_parameters')
-        self.out_parameters = get_parameters(properties, 'out_parameters')
+        self.properties = properties
         self.cpptraj_path = get_binary_path(properties, 'cpptraj_path')
 
         # Properties common in all BB
@@ -48,6 +47,14 @@ class Snapshot():
         self.prefix = properties.get('prefix', None)
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
+
+    def check_data_params(self):
+        """ Checks all the input/output paths and parameters """
+        self.input_top_path = check_top_path(self.input_top_path, self)
+        self.input_traj_path = check_traj_path(self.input_traj_path, self)
+        self.output_cpptraj_path = check_out_path(self.output_cpptraj_path, self)
+        self.in_parameters = get_parameters(self.properties, 'in_parameters', self)
+        self.out_parameters = get_parameters(self.properties, 'out_parameters', self)
 
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
@@ -81,6 +88,9 @@ class Snapshot():
     def launch(self):
         """Launches the execution of the Ambertools cpptraj module."""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+
+        # check input/output paths and parameters
+        self.check_data_params()
 
         # create instructions file
         self.create_instructions_file() 
