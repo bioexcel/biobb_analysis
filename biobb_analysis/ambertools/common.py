@@ -190,7 +190,6 @@ def setup_structure(obj):
 
 	return instructions_list
 
-
 def get_negative_mask(key, obj):
 	""" Gives the negative mask according to the given key """
 	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
