@@ -1,27 +1,32 @@
 
-Cpptraj average
-===============
+BioBB Analysis Command Line Help
+================================
 
 Generic usage:
 
-.. code:: ipython3
+.. parsed-literal::
 
-    cpptraj_average [-h] --config CONFIG [--system SYSTEM] [--step STEP] --input_top_path <input_top_path> --input_traj_path <input_traj_path> --output_cpptraj_path <output_cpptraj_path>
+    biobb_command [-h] --config CONFIG [--system SYSTEM] [--step STEP] --input_file(s) <input_file(s)> --output_file <output_file>
 
 Please refer to the `system & step
 documentation <https://biobb-common.readthedocs.io/en/latest/system_step.html>`__
 for more information of these two parameters.
 
+--------------
+
+Cpptraj average
+---------------
+
 Get help
---------
+~~~~~~~~
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_average -h
 
-.. code:: ipython3
+.. parsed-literal::
 
     usage: cpptraj_average [-h] --config CONFIG [--system SYSTEM] [--step STEP]
                            --input_top_path INPUT_TOP_PATH --input_traj_path
@@ -45,7 +50,7 @@ Command:
 
 
 Config
-------
+~~~~~~
 
 Syntax: input_parameter (datatype) - (default_value) Definition
 
@@ -75,7 +80,7 @@ YAML file config
 
 average.yml:
 
-.. code:: ipython3
+.. parsed-literal::
 
     properties:
       in_parameters:
@@ -88,7 +93,7 @@ average.yml:
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_average --config data/conf/average.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.average.nc
 
@@ -97,7 +102,7 @@ JSON file config
 
 average.json:
 
-.. code:: ipython3
+.. parsed-literal::
 
     {
     	"properties": {
@@ -115,6 +120,6 @@ average.json:
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_average --config data/conf/average.json --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.average.nc
