@@ -4,7 +4,7 @@ BioBB Analysis Command Line Help
 
 Generic usage:
 
-.. code:: ipython3
+.. parsed-literal::
 
     biobb_command [-h] --config CONFIG [--system SYSTEM] [--step STEP] --input_file(s) <input_file(s)> --output_file <output_file>
 
@@ -24,11 +24,11 @@ Get help
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_average -h
 
-.. code:: ipython3
+.. parsed-literal::
 
     usage: cpptraj_average [-h] --config CONFIG [--system SYSTEM] [--step STEP]
                            --input_top_path INPUT_TOP_PATH --input_traj_path
@@ -82,7 +82,7 @@ YAML file config
 
 average.yml:
 
-.. code:: ipython3
+.. parsed-literal::
 
     properties:
       in_parameters:
@@ -95,7 +95,7 @@ average.yml:
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_average --config data/conf/average.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.average.nc
 
@@ -104,7 +104,7 @@ JSON file config
 
 average.json:
 
-.. code:: ipython3
+.. parsed-literal::
 
     {
       "properties": {
@@ -122,7 +122,7 @@ average.json:
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_average --config data/conf/average.json --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.average.nc
 
@@ -136,11 +136,11 @@ Get help
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_bfactor -h
 
-.. code:: ipython3
+.. parsed-literal::
 
     usage: cpptraj_bfactor [-h] --config CONFIG [--system SYSTEM] [--step STEP]
                            --input_top_path INPUT_TOP_PATH --input_traj_path
@@ -193,7 +193,7 @@ YAML file config
 
 bfactor.yml:
 
-.. code:: ipython3
+.. parsed-literal::
 
     properties:
       in_parameters:
@@ -205,7 +205,7 @@ bfactor.yml:
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_bfactor --config data/conf/bfactor.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.bfactor.dat
 
@@ -214,7 +214,7 @@ JSON file config
 
 bfactor.json:
 
-.. code:: ipython3
+.. parsed-literal::
 
     {
       "properties": {
@@ -230,6 +230,6 @@ bfactor.json:
 
 Command:
 
-.. code:: ipython3
+.. parsed-literal::
 
     cpptraj_bfactor --config data/conf/bfactor.json --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.average.dat
