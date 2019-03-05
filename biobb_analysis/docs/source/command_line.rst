@@ -17,7 +17,7 @@ for more information of these two parameters.
 Cpptraj average
 ---------------
 
-Wrapper of the Ambertools Cpptraj Average module.
+Wrapper of the Ambertools Cpptraj module. Computing average structure.
 
 Get help
 ~~~~~~~~
@@ -26,29 +26,35 @@ Command:
 
 .. parsed-literal::
 
-    cpptraj_average -h
+    !cpptraj_average -h
 
 .. parsed-literal::
 
-    usage: cpptraj_average [-h] --config CONFIG [--system SYSTEM] [--step STEP]
+    usage: cpptraj_average [-h] [--config CONFIG] [--system SYSTEM] [--step STEP]
                            --input_top_path INPUT_TOP_PATH --input_traj_path
                            INPUT_TRAJ_PATH --output_cpptraj_path
                            OUTPUT_CPPTRAJ_PATH
     
-    Wrapper for the Ambertools cpptraj average module.
+    Wrapper of the Ambertools Cpptraj module. Computing average structure.
     
     optional arguments:
       -h, --help            show this help message and exit
       --config CONFIG       Configuration file
-      --system SYSTEM
-      --step STEP
+      --system SYSTEM       Check 'https://biobb-
+                            common.readthedocs.io/en/latest/system_step.html' for
+                            help
+      --step STEP           Check 'https://biobb-
+                            common.readthedocs.io/en/latest/system_step.html' for
+                            help
+    
+    required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input Amber structure or topology file.
       --input_traj_path INPUT_TRAJ_PATH
                             Path to the input Amber trajectory to be processed.
       --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
                             Path to the output processed Amber trajectory or to
-                            the output dat file containing the analysis results.
+                            the output dat file containing the analysis results
 
 
 Config
@@ -129,7 +135,7 @@ Command:
 Cpptraj bfactor
 ---------------
 
-Wrapper of the Ambertools Cpptraj Bfactor module.
+Wrapper for the Ambertools Cpptraj module. Calculating B-Factor.
 
 Get help
 ~~~~~~~~
@@ -138,29 +144,35 @@ Command:
 
 .. parsed-literal::
 
-    cpptraj_bfactor -h
+    !cpptraj_bfactor -h
 
 .. parsed-literal::
 
-    usage: cpptraj_bfactor [-h] --config CONFIG [--system SYSTEM] [--step STEP]
+    usage: cpptraj_bfactor [-h] [--config CONFIG] [--system SYSTEM] [--step STEP]
                            --input_top_path INPUT_TOP_PATH --input_traj_path
                            INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH]
                            --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
     
-    Wrapper for the Ambertools cpptraj bfactor module.
+    Wrapper for the Ambertools Cpptraj module. Calculating B-Factor.
     
     optional arguments:
       -h, --help            show this help message and exit
       --config CONFIG       Configuration file
-      --system SYSTEM
-      --step STEP
+      --system SYSTEM       Check 'https://biobb-
+                            common.readthedocs.io/en/latest/system_step.html' for
+                            help
+      --step STEP           Check 'https://biobb-
+                            common.readthedocs.io/en/latest/system_step.html' for
+                            help
+      --input_exp_path INPUT_EXP_PATH
+                            Path to the experimental reference file (required if
+                            reference = experimental).
+    
+    required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input Amber structure or topology file.
       --input_traj_path INPUT_TRAJ_PATH
                             Path to the input Amber trajectory to be processed.
-      --input_exp_path INPUT_EXP_PATH
-                            Path to the experimental reference file (required if
-                            reference = experimental).
       --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
                             Path to the output processed Amber trajectory or to
                             the output dat file containing the analysis results.

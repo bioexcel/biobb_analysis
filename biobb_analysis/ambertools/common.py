@@ -35,20 +35,18 @@ def check_out_path(path, obj):
 		raise SystemExit('Unexisting output folder')
 	return path
 
-def check_conf(path):
-	""" Checks configuration file """
-	if not os.path.exists(path):
-		raise SystemExit('Unexisting configuration file')
-	return path
-
 def get_parameters(properties, type, obj):
 	""" Gets in_parameters and out_parameters """
 	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not properties.get(type, dict()):
 		fu.log('No %s parameters provided' % type, out_log, obj.global_log)
-		raise SystemExit('No %s parameters provided' % type)
-	else:
-		return {k: v for k, v in properties.get(type, dict()).items()}
+		###################################
+		#return get_default_value()
+		return get_default_value(obj.__class__.__name__)[type]
+		###################################
+		#raise SystemExit('No %s parameters provided' % type)
+	#else:
+	return {k: v for k, v in properties.get(type, dict()).items()}
 
 def get_binary_path(properties, type):
 	""" Gets binary path """
@@ -86,7 +84,140 @@ def get_default_value(key):
 		"reference": "first",
 		"average": "MyAvg",
 		"instructions_file": "instructions.in",
-		"cpptraj_path": "cpptraj"
+		"cpptraj_path": "cpptraj",
+		# default conf for Average
+		"Average": {
+			"in_parameters": {
+				"start": 1,
+				"end": -1,
+				"step": 1,
+				"mask": "c-alpha"
+			},
+			"out_parameters": {
+				"format": "pdb"
+			}
+		},
+		# default conf for Bfactor
+		"Bfactor": {
+			"in_parameters": {
+			    "start": 1,
+			    "end": -1,
+			    "step": 1,
+			    "mask": "c-alpha",
+			    "reference": "first"
+			}
+		},
+		# default conf for Convert
+		"Convert": {
+			"in_parameters": {
+				"start": 1,
+				"end": -1,
+				"step": 1,
+				"mask": "c-alpha"
+			},
+			"out_parameters": {
+				"format": "netcdf"
+			}
+		},
+		# default conf for Dry
+		"Dry": {
+			"in_parameters": {
+				"start": 1,
+				"end": -1,
+				"step": 1,
+				"mask": "c-alpha"
+			},
+			"out_parameters": {
+				"format": "netcdf"
+			}
+		},
+		# default conf for Image
+		"Image": {
+			"in_parameters": {
+				"start": 1,
+				"end": -1,
+				"step": 1,
+				"mask": "c-alpha"
+			},
+			"out_parameters": {
+				"format": "netcdf"
+			}
+		},
+		# default conf for Mask
+		"Mask": {
+			"in_parameters": {
+				"start": 1,
+				"end": -1,
+				"step": 1,
+				"mask": "c-alpha"
+			},
+			"out_parameters": {
+				"format": "netcdf"
+			}
+		},
+		# default conf for Rgyr
+		"Rgyr": {
+			"in_parameters": {
+			    "start": 1,
+			    "end": -1,
+			    "step": 1,
+			    "mask": "c-alpha"
+			}
+		},
+		# default conf for Rms
+		"Rms": {
+			"in_parameters": {
+			    "start": 1,
+			    "end": -1,
+			    "step": 1,
+			    "mask": "c-alpha",
+			    "reference": "first"
+			}
+		},
+		# default conf for Rmsf
+		"Rmsf": {
+			"in_parameters": {
+			    "start": 1,
+			    "end": -1,
+			    "step": 1,
+			    "mask": "c-alpha",
+			    "reference": "first"
+			}
+		},
+		# default conf for Slice
+		"Slice": {
+			"in_parameters": {
+				"start": 1,
+				"end": -1,
+				"step": 1,
+				"mask": "c-alpha"
+			},
+			"out_parameters": {
+				"format": "netcdf"
+			}
+		},
+		# default conf for Snapshot
+		"Snapshot": {
+			"in_parameters": {
+				"snapshot": 12,
+				"mask": "c-alpha"
+			},
+			"out_parameters": {
+				"format": "pdb"
+			}
+		},
+		# default conf for Strip
+		"Strip": {
+			"in_parameters": {
+				"start": 1,
+				"end": -1,
+				"step": 1,
+				"mask": "c-alpha"
+			},
+			"out_parameters": {
+				"format": "netcdf"
+			}
+		}
 	}
 
 	return default_values[key]

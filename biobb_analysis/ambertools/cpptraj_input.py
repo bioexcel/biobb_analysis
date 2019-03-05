@@ -8,7 +8,7 @@ from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import *
 
 class CpptrajInput():
-    """Wrapper of the Ambertools CpptrajInput module.
+    """Wrapper of the Ambertools Cpptraj module. Performing any Cpptraj operation from a given instructions file.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -65,18 +65,17 @@ class CpptrajInput():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the Ambertools cpptraj input module.")
+    parser = argparse.ArgumentParser(description="Wrapper of the Ambertools Cpptraj module. Performing any Cpptraj operation from a given instructions file.")
     parser.add_argument('--config', required=False, help='Configuration file')
+    parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
+    parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
-    parser.add_argument('--system', required=False)
-    parser.add_argument('--step', required=False)
-
-    parser.add_argument('--input_instructions_path', required=True, help='Path of the instructions file.')
+    required_args = parser.add_argument_group('required arguments')
+    required_args.add_argument('--input_instructions_path', required=True, help='Path of the instructions file.')
 
     args = parser.parse_args()
-    check_conf(args.config)
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config, system=args.system).get_prop_dic()
+    args.config = args.config or "{}"
+    properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
     if args.step:
         properties = properties[args.step]
 

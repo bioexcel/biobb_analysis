@@ -9,7 +9,7 @@ from biobb_analysis.ambertools.common import *
 
 
 class Rmsf():
-    """Wrapper of the Ambertools Cpptraj Rmsf module.
+    """Wrapper of the Ambertools Cpptraj module. Calculating Rmsf analysis.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -113,19 +113,19 @@ class Rmsf():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the Ambertools cpptraj rmsf module.")
-    parser.add_argument('--config', required=True, help='Configuration file')
-    parser.add_argument('--system', required=False)
-    parser.add_argument('--step', required=False)
+    parser = argparse.ArgumentParser(description="Wrapper of the Ambertools Cpptraj module. Calculating Rmsf analysis.")
+    parser.add_argument('--config', required=False, help='Configuration file')
+    parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
+    parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     # Specific args of each building block
-    parser.add_argument('--input_top_path', required=True, help='Path to the input Amber structure or topology file.')
-    parser.add_argument('--input_traj_path', required=True, help='Path to the input Amber trajectory to be processed.')
+    required_args = parser.add_argument_group('required arguments')
+    required_args.add_argument('--input_top_path', required=True, help='Path to the input Amber structure or topology file.')
+    required_args.add_argument('--input_traj_path', required=True, help='Path to the input Amber trajectory to be processed.')
     parser.add_argument('--input_exp_path', required=False, help='Path to the experimental reference file (required if reference = experimental).')
-    parser.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed Amber trajectory or to the output dat file containing the analysis results.')
+    required_args.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed Amber trajectory or to the output dat file containing the analysis results.')
 
     args = parser.parse_args()
-    check_conf(args.config)
     args.config = args.config or "{}"
     properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
     if args.step:
