@@ -1,0 +1,120 @@
+
+Cpptraj average
+===============
+
+Generic usage:
+
+.. code:: ipython3
+
+    cpptraj_average [-h] --config CONFIG [--system SYSTEM] [--step STEP] --input_top_path <input_top_path> --input_traj_path <input_traj_path> --output_cpptraj_path <output_cpptraj_path>
+
+Please refer to the `system & step
+documentation <https://biobb-common.readthedocs.io/en/latest/system_step.html>`__
+for more information of these two parameters.
+
+Get help
+--------
+
+Command:
+
+.. code:: ipython3
+
+    cpptraj_average -h
+
+.. code:: ipython3
+
+    usage: cpptraj_average [-h] --config CONFIG [--system SYSTEM] [--step STEP]
+                           --input_top_path INPUT_TOP_PATH --input_traj_path
+                           INPUT_TRAJ_PATH --output_cpptraj_path
+                           OUTPUT_CPPTRAJ_PATH
+    
+    Wrapper for the Ambertools cpptraj average module.
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      --config CONFIG       Configuration file
+      --system SYSTEM
+      --step STEP
+      --input_top_path INPUT_TOP_PATH
+                            Path to the input Amber structure or topology file.
+      --input_traj_path INPUT_TRAJ_PATH
+                            Path to the input Amber trajectory to be processed.
+      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed Amber trajectory or to
+                            the output dat file containing the analysis results.
+
+
+Config
+------
+
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+
+-  **in_parameters** (*dict*) - (None) Parameters for input trajectory.
+   Accepted parameters:
+
+   -  **start** (*int*) - (1) Starting frame for slicing
+   -  **end** (*int*) - (-1) Ending frame for slicing
+   -  **step** (*int*) - (1) Step for slicing
+   -  **mask** (*string*) - (“all-atoms”) Mask definition. Values:
+      c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute,
+      ions, solvent.
+
+-  **out_parameters** (*dict*) - (None) Parameters for output
+   trajectory.
+
+   -  **format** (*str*) - (“netcdf”) Output trajectory format. Values:
+      crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor,
+      pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+   -  **cpptraj_path** (*str*) - (“cpptraj”) Path to the cpptraj
+      executable binary.
+
+YAML file config
+~~~~~~~~~~~~~~~~
+
+average.yml:
+
+.. code:: ipython3
+
+    properties:
+      in_parameters:
+        start: 1
+        end: -1
+        step: 1
+        mask: c-alpha
+      out_parameters:
+        format: pdb
+
+Command:
+
+.. code:: ipython3
+
+    cpptraj_average --config data/conf/average.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.average.nc
+
+JSON file config
+~~~~~~~~~~~~~~~~
+
+average.json:
+
+.. code:: ipython3
+
+    {
+    	"properties": {
+    		"in_parameters": {
+    			"start": 1,
+    			"end": -1,
+    			"step": 1,
+    			"mask": "c-alpha"
+    		},
+    		"out_parameters": {
+    			"format": "pdb"
+    		}
+    	}
+    }
+
+Command:
+
+.. code:: ipython3
+
+    cpptraj_average --config data/conf/average.json --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.average.nc

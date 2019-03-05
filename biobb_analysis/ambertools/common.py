@@ -245,8 +245,8 @@ def get_reference(ref, obj, mask, output):
 		solute, msg = get_mask_atoms('solute')
 		instructions_list.append('reference ' + obj.input_exp_path + ' ' + solute + ' parm [exp]')
 		backbone, msg = get_mask_atoms('backbone')
-		if output: instructions_list.append('rms reference ' + backbone + ' ' + mask + ' out ' + obj.output_cpptraj_path)
-		else: instructions_list.append('rms reference ' + backbone + ' ' + mask)
+		if output: instructions_list.append('rms reference ' + mask + ' out ' + obj.output_cpptraj_path)
+		else: instructions_list.append('rms reference ' + mask)
 
 
 	return instructions_list

@@ -5,7 +5,7 @@ Submodules
 ----------
 
 gromacs.gmx_cluster module
------------------------
+---------------------------
 
 .. automodule:: gromacs.gmx_cluster
     :members:
