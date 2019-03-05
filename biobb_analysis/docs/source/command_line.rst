@@ -26,7 +26,7 @@ Command:
 
 .. parsed-literal::
 
-    !cpptraj_average -h
+    cpptraj_average -h
 
 .. parsed-literal::
 
@@ -40,12 +40,8 @@ Command:
     optional arguments:
       -h, --help            show this help message and exit
       --config CONFIG       Configuration file
-      --system SYSTEM       Check 'https://biobb-
-                            common.readthedocs.io/en/latest/system_step.html' for
-                            help
-      --step STEP           Check 'https://biobb-
-                            common.readthedocs.io/en/latest/system_step.html' for
-                            help
+      --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
+      --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
@@ -144,7 +140,7 @@ Command:
 
 .. parsed-literal::
 
-    !cpptraj_bfactor -h
+    cpptraj_bfactor -h
 
 .. parsed-literal::
 
@@ -158,15 +154,10 @@ Command:
     optional arguments:
       -h, --help            show this help message and exit
       --config CONFIG       Configuration file
-      --system SYSTEM       Check 'https://biobb-
-                            common.readthedocs.io/en/latest/system_step.html' for
-                            help
-      --step STEP           Check 'https://biobb-
-                            common.readthedocs.io/en/latest/system_step.html' for
-                            help
+      --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
+      --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
       --input_exp_path INPUT_EXP_PATH
-                            Path to the experimental reference file (required if
-                            reference = experimental).
+                            Path to the experimental reference file (required if reference = experimental).
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
