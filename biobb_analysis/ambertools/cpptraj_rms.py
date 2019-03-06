@@ -15,7 +15,7 @@ class Rms():
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
 
     Args:
-        input_top_path (str): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop.
+        input_top_path (str): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
         input_traj_path (str): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
         input_exp_path (str): Path to the experimental reference file (required if reference = experimental).
         output_cpptraj_path (str): Path to the output processed analysis.
@@ -53,7 +53,7 @@ class Rms():
 
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
-        self.input_top_path = check_top_path(self.input_top_path, self)
+        self.input_top_path, self.input_top_path_orig = check_top_path(self.input_top_path, self)
         self.input_traj_path = check_traj_path(self.input_traj_path, self)
         self.output_cpptraj_path = check_out_path(self.output_cpptraj_path, self)
         self.in_parameters = get_parameters(self.properties, 'in_parameters', self)
@@ -106,9 +106,7 @@ class Rms():
         cmd = [self.cpptraj_path, '-i', self.instructions_file]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        tmp_files = [self.instructions_file, 'MyAvg']
-        removed_files = [f for f in tmp_files if fu.rm(f)]
-        fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
+        remove_tmp_files([self.instructions_file, 'MyAvg'], self)
         return returncode
 
 def main():
