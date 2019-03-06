@@ -35,3 +35,27 @@ gromacs.gmx_rgyr module
     :members:
     :undoc-members:
     :show-inheritance:
+
+gromacs.gmx_image module
+------------------------------
+
+.. automodule:: gromacs.gmx_image
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+gromacs.gmx_trjconv_str module
+------------------------------
+
+.. automodule:: gromacs.gmx_trjconv_str
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+gromacs.gmx_trjconv_trj module
+------------------------------
+
+.. automodule:: gromacs.gmx_trjconv_trj
+    :members:
+    :undoc-members:
+    :show-inheritance:

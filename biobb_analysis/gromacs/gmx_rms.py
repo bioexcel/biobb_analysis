@@ -17,7 +17,7 @@ class GMXRms():
         output_xvg_path (str): Path to the XVG output file.
         properties (dic):
             * **xvg** (*str*) - ("none") XVG plot formatting: xmgrace, xmgr, none.
-            * **selection** (*str*) - ("Protein-H") Group where the rms will be performed: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **selection** (*str*) - ("System") Group where the rms will be performed: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 

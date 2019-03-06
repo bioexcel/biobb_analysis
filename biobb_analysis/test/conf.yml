@@ -33,6 +33,40 @@ gmx_rgyr:
   properties:
     selection: Protein-H
 
+gmx_trjconv_str:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/trjconv.str.gro
+    input_top_path: file:test_data_dir/gromacs/trjconv.str.gro
+    output_str_path: output.pdb
+    ref_output_str_path: file:test_reference_dir/gromacs/ref_trjconv.str.pdb
+  properties:
+    selection: Protein-H
+
+gmx_trjconv_trj:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trjconv.trj.trr
+    output_traj_path: output.xtc
+    ref_output_traj_path: file:test_reference_dir/gromacs/ref_trjconv.trj.xtc
+  properties:
+    selection: Protein-H
+    start: 0
+    end: 0
+    dt: 0
+
+gmx_image:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/image.trr
+    input_top_path: file:test_data_dir/gromacs/image.gro
+    output_traj_path: output.xtc
+    ref_output_traj_path: file:test_reference_dir/gromacs/ref_image.xtc
+  properties:
+    center_selection: Protein-H
+    output_selection: Protein-H
+    pbc: mol
+    center: True
+    fit: none
+    ur: compact
+
 
 cpptraj_input:
   paths:

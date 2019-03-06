@@ -11,24 +11,58 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
-v0.1.8 March 2019 Release
+v0.1.9 March 2019 Release
 
 ### Installation
 Using PIP:
+* Installation:
 
-        pip install biobb_analysis
+
+        pip install "biobb_analysis>=0.1.9"
+
+
+* Usage: [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html)
 
 Using ANACONDA:
 
-        conda install -c bioconda biobb_analysis
+* Installation:
+
+
+        conda install -c bioconda "biobb_analysis>=0.1.9"
+
+
+* Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-analysis.readthedocs.io/en/latest/command_line.html)
 
 Using DOCKER:
 
+* Installation:
+
+
         docker pull mmbirb/biobb_analysis:0.1.7
+
+
+* Usage:
+
+
+        docker run mmbirb/biobb_analysis:0.1.7 <command>
+
 
 Using SINGULARITY:
 
+* Installation:
+
+
         singularity pull shub://bioexcel/biobb_analysis
+
+
+* Usage:
+
+
+        singularity exec bioexcel-biobb_analysis-master-latest.simg <command>
+
+
+The command list and specification can be found at the [Command Line documentation](https://biobb-analysis.readthedocs.io/en/latest/command_line.html).
+
 
 ### Copyright & Licensing
 This software has been developed in the MMB group [http://mmb.irbbarcelona.org](http://mmb.irbbarcelona.org) at the

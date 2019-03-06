@@ -11,14 +11,14 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
-v0.1.8 March 2019 Release
+v0.1.9 March 2019 Release
 
 ### Installation
 Using PIP:
 * Installation:
 
 
-        pip install "biobb_analysis>=0.1.8"
+        pip install "biobb_analysis>=0.1.9"
 
 
 * Usage: [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html)
@@ -28,7 +28,7 @@ Using ANACONDA:
 * Installation:
 
 
-        conda install -c bioconda "biobb_analysis>=0.1.8"
+        conda install -c bioconda "biobb_analysis>=0.1.9"
 
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-analysis.readthedocs.io/en/latest/command_line.html)

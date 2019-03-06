@@ -63,13 +63,25 @@ def check_out_pdb_path(path, obj):
 		raise SystemExit('Format %s in output file is not compatible' % file_extension[1:])
 	return path
 
+def check_out_traj_path(path, obj):
+	""" Checks if output folder exists and format is correct """
+	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
+	if not os.path.exists(os.path.dirname(path)):
+		fu.log('Unexisting output folder, exiting', out_log, obj.global_log)
+		raise SystemExit('Unexisting output folder')
+	filename, file_extension = os.path.splitext(path)
+	if not is_valid_trajectory_output(file_extension[1:]):
+		fu.log('Format %s in output file is not compatible' % file_extension[1:], out_log, obj.global_log)
+		raise SystemExit('Format %s in output file is not compatible' % file_extension[1:])
+	return path
+
 def get_default_value(key):
 	""" Gives default values according to the given key """
 	default_values = {
 		"instructions_file": "instructions.in",
 		"gmx_path": "gmx",
 		"terms": ["Potential"],
-		"selection": "Protein-H"
+		"selection": "System"
 	}
 
 	return default_values[key]
@@ -119,6 +131,11 @@ def is_valid_structure(ext):
 def is_valid_trajectory(ext):
 	""" Checks if trajectory format is compatible with GROMACS """
 	formats = ['xtc', 'trr', 'cpt', 'gro', 'g96', 'pdb', 'tng']
+	return ext in formats
+
+def is_valid_trajectory_output(ext):
+	""" Checks if trajectory format is compatible with GROMACS """
+	formats = ['xtc', 'trr', 'gro', 'g96', 'pdb', 'tng']
 	return ext in formats
 
 def is_valid_energy(ext):
