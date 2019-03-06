@@ -87,18 +87,18 @@ class GMXEnergy():
 
 def main():
     parser = argparse.ArgumentParser(description="Wrapper for the GROMACS energy module.")
-    parser.add_argument('--config', required=False)
-    parser.add_argument('--system', required=False)
-    parser.add_argument('--step', required=False)
+    parser.add_argument('--config', required=False, help='Configuration file')
+    parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
+    parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     #Specific args of each building block
-    parser.add_argument('--input_energy_path', required=True)
-    parser.add_argument('--output_xvg_path', required=True)
+    required_args = parser.add_argument_group('required arguments')
+    required_args.add_argument('--input_energy_path', required=True, help='Path to the input GROMACS energy file.')
+    required_args.add_argument('--output_xvg_path', required=True, help='Path to the output analysis file.')
 
     args = parser.parse_args()
-    check_conf(args.config)
-    config = args.config if args.config else None
-    properties = settings.ConfReader(config=config, system=args.system).get_prop_dic()
+    args.config = args.config or "{}"
+    properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
     if args.step:
         properties = properties[args.step]
 

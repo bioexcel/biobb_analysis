@@ -8,6 +8,7 @@ class TestGMXRms():
 
     def tearDown(self):
         fx.test_teardown(self)
+        pass
 
     def test_rms(self):
         GMXRms(properties=self.properties, **self.paths).launch()

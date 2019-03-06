@@ -40,12 +40,8 @@ def get_parameters(properties, type, obj):
 	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not properties.get(type, dict()):
 		fu.log('No %s parameters provided' % type, out_log, obj.global_log)
-		###################################
-		#return get_default_value()
 		return get_default_value(obj.__class__.__name__)[type]
-		###################################
-		#raise SystemExit('No %s parameters provided' % type)
-	#else:
+
 	return {k: v for k, v in properties.get(type, dict()).items()}
 
 def get_binary_path(properties, type):
@@ -91,7 +87,7 @@ def get_default_value(key):
 				"start": 1,
 				"end": -1,
 				"step": 1,
-				"mask": "c-alpha"
+				"mask": "all-atoms"
 			},
 			"out_parameters": {
 				"format": "pdb"
@@ -103,7 +99,7 @@ def get_default_value(key):
 			    "start": 1,
 			    "end": -1,
 			    "step": 1,
-			    "mask": "c-alpha",
+			    "mask": "all-atoms",
 			    "reference": "first"
 			}
 		},
@@ -113,7 +109,7 @@ def get_default_value(key):
 				"start": 1,
 				"end": -1,
 				"step": 1,
-				"mask": "c-alpha"
+				"mask": "all-atoms"
 			},
 			"out_parameters": {
 				"format": "netcdf"
@@ -125,7 +121,7 @@ def get_default_value(key):
 				"start": 1,
 				"end": -1,
 				"step": 1,
-				"mask": "c-alpha"
+				"mask": "all-atoms"
 			},
 			"out_parameters": {
 				"format": "netcdf"
@@ -137,7 +133,7 @@ def get_default_value(key):
 				"start": 1,
 				"end": -1,
 				"step": 1,
-				"mask": "c-alpha"
+				"mask": "all-atoms"
 			},
 			"out_parameters": {
 				"format": "netcdf"
@@ -149,7 +145,7 @@ def get_default_value(key):
 				"start": 1,
 				"end": -1,
 				"step": 1,
-				"mask": "c-alpha"
+				"mask": "all-atoms"
 			},
 			"out_parameters": {
 				"format": "netcdf"
@@ -161,7 +157,7 @@ def get_default_value(key):
 			    "start": 1,
 			    "end": -1,
 			    "step": 1,
-			    "mask": "c-alpha"
+			    "mask": "all-atoms"
 			}
 		},
 		# default conf for Rms
@@ -170,7 +166,7 @@ def get_default_value(key):
 			    "start": 1,
 			    "end": -1,
 			    "step": 1,
-			    "mask": "c-alpha",
+			    "mask": "all-atoms",
 			    "reference": "first"
 			}
 		},
@@ -180,7 +176,7 @@ def get_default_value(key):
 			    "start": 1,
 			    "end": -1,
 			    "step": 1,
-			    "mask": "c-alpha",
+			    "mask": "all-atoms",
 			    "reference": "first"
 			}
 		},
@@ -190,7 +186,7 @@ def get_default_value(key):
 				"start": 1,
 				"end": -1,
 				"step": 1,
-				"mask": "c-alpha"
+				"mask": "all-atoms"
 			},
 			"out_parameters": {
 				"format": "netcdf"
@@ -200,7 +196,7 @@ def get_default_value(key):
 		"Snapshot": {
 			"in_parameters": {
 				"snapshot": 12,
-				"mask": "c-alpha"
+				"mask": "all-atoms"
 			},
 			"out_parameters": {
 				"format": "pdb"
@@ -212,7 +208,7 @@ def get_default_value(key):
 				"start": 1,
 				"end": -1,
 				"step": 1,
-				"mask": "c-alpha"
+				"mask": "all-atoms"
 			},
 			"out_parameters": {
 				"format": "netcdf"

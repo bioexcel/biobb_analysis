@@ -13,6 +13,8 @@ gmx_rms:
     input_traj_path: file:test_data_dir/gromacs/rms.trr
     output_xvg_path: output_xvg.xvg
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.xvg
+  properties:
+    selection: Protein-H
 
 gmx_energy:
   paths:

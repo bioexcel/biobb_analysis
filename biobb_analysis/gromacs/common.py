@@ -63,12 +63,6 @@ def check_out_pdb_path(path, obj):
 		raise SystemExit('Format %s in output file is not compatible' % file_extension[1:])
 	return path
 
-def check_conf(path):
-	""" Checks configuration file """
-	if not os.path.exists(path):
-		raise SystemExit('Unexisting configuration file')
-	return path
-
 def get_default_value(key):
 	""" Gives default values according to the given key """
 	default_values = {
