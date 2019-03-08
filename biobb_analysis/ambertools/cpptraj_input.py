@@ -56,7 +56,7 @@ class CpptrajInput():
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
 
         output_instructions_path = self.create_instrucions_file() if not self.input_instructions_path else self.input_instructions_path
-        check_in_path(output_instructions_path, self)
+        check_in_path(output_instructions_path, out_log)
 
         # run command line
         cmd = [self.cpptraj_path, '-i', output_instructions_path]
@@ -65,7 +65,7 @@ class CpptrajInput():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper of the Ambertools Cpptraj module. Performing any Cpptraj operation from a given instructions file.")
+    parser = argparse.ArgumentParser(description="Wrapper of the Ambertools Cpptraj module. Performing any Cpptraj operation from a given instructions file.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")

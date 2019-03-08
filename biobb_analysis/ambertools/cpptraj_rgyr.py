@@ -50,21 +50,24 @@ class Rgyr():
 
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
-        self.input_top_path, self.input_top_path_orig = check_top_path(self.input_top_path, self)
-        self.input_traj_path = check_traj_path(self.input_traj_path, self)
-        self.output_cpptraj_path = check_out_path(self.output_cpptraj_path, self)
-        self.in_parameters = get_parameters(self.properties, 'in_parameters', self)
+        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        self.input_top_path, self.input_top_path_orig = check_top_path(self.input_top_path, out_log)
+        self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
+        self.output_cpptraj_path = check_out_path(self.output_cpptraj_path, out_log)
+        self.in_parameters = get_parameters(self.properties, 'in_parameters', self.__class__.__name__, out_log)
 
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
+        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         instructions_list = []
-        self.instructions_file = fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
+        self.instructions_file = os.path.join(fu.create_unique_dir(), self.instructions_file)
+        fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
 
         # parm
         instructions_list.append('parm ' + self.input_top_path)
 
         # trajin
-        in_params = get_in_parameters(self.in_parameters, self)
+        in_params = get_in_parameters(self.in_parameters, out_log)
         instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
 
         # Set up
@@ -73,7 +76,7 @@ class Rgyr():
         # mask
         mask = self.in_parameters.get('mask', '')
         if mask:
-            strip_mask = get_negative_mask(mask, self)
+            strip_mask = get_negative_mask(mask, out_log)
             instructions_list.append('strip ' + strip_mask)
 
         # output
@@ -100,20 +103,20 @@ class Rgyr():
         cmd = [self.cpptraj_path, '-i', self.instructions_file]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        remove_tmp_files([self.instructions_file], self)
+        remove_tmp_files([os.path.dirname(self.instructions_file)], out_log, self.input_top_path_orig, self.input_top_path)
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper of the Ambertools Cpptraj module. Calculating Rgyr analysis.")
+    parser = argparse.ArgumentParser(description="Wrapper of the Ambertools Cpptraj module. Calculating Rgyr analysis.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_top_path', required=True, help='Path to the input Amber structure or topology file.')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the input Amber trajectory to be processed.')
-    required_args.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed Amber trajectory or to the output dat file containing the analysis results.')
+    required_args.add_argument('--input_top_path', required=True, help='Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.')
+    required_args.add_argument('--input_traj_path', required=True, help='Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.')
+    required_args.add_argument('--output_cpptraj_path', required=True, help='Path to the output analysis.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"
