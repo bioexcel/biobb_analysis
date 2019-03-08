@@ -44,11 +44,12 @@ class GMXRgyr():
 
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
-        self.input_structure_path = check_input_path(self.input_structure_path, self)
-        self.input_traj_path = check_traj_path(self.input_traj_path, self)
-        self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, self)
-        self.xvg = get_xvg(self.properties, self)
-        self.selection = get_selection(self.properties, self)
+        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        self.input_structure_path = check_input_path(self.input_structure_path, out_log)
+        self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
+        self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, out_log)
+        self.xvg = get_xvg(self.properties, out_log)
+        self.selection = get_selection(self.properties, out_log)
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
@@ -68,16 +69,16 @@ class GMXRgyr():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS rgyr module.")
+    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS rgyr module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     #Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_structure_path', required=True, help='Path to the input GROMACS structure or topology file.')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the input GROMACS trajectory file.')
-    required_args.add_argument('--output_xvg_path', required=True, help='Path to the output analysis file.')
+    required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file: tpr, gro, g96, pdb, brk, ent.')
+    required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.')
+    required_args.add_argument('--output_xvg_path', required=True, help='Path to the XVG output file.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"

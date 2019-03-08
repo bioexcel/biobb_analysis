@@ -43,15 +43,17 @@ class GMXEnergy():
 
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
-        self.input_energy_path = check_energy_path(self.input_energy_path, self)
-        self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, self)
-        self.xvg = get_xvg(self.properties, self)
-        self.terms = get_terms(self.properties, self)
+        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        self.input_energy_path = check_energy_path(self.input_energy_path, out_log)
+        self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, out_log)
+        self.xvg = get_xvg(self.properties, out_log)
+        self.terms = get_terms(self.properties, out_log)
 
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
-        self.instructions_file = fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
+        self.instructions_file = os.path.join(fu.create_unique_dir(), self.instructions_file)
+        fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
 
         for t in self.terms:
             instructions_list.append(t)
@@ -80,21 +82,19 @@ class GMXEnergy():
                '<', self.instructions_file]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        tmp_files = [self.instructions_file]
-        removed_files = [f for f in tmp_files if fu.rm(f)]
-        fu.log('Removed: %s' % str(removed_files), out_log, self.global_log)
+        remove_tmp_files([os.path.dirname(self.instructions_file)], out_log)
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS energy module.")
+    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS energy module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     #Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_energy_path', required=True, help='Path to the input GROMACS energy file.')
-    required_args.add_argument('--output_xvg_path', required=True, help='Path to the output analysis file.')
+    required_args.add_argument('--input_energy_path', required=True, help='Path to the input EDR file.')
+    required_args.add_argument('--output_xvg_path', required=True, help='Path to the XVG output file.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"

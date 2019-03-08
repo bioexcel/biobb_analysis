@@ -44,9 +44,10 @@ class GMXTrjConvTrj():
 
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
-        self.input_traj_path = check_traj_path(self.input_traj_path, self)
-        self.output_traj_path = check_out_traj_path(self.output_traj_path, self)
-        self.selection = get_selection(self.properties, self)
+        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
+        self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log)
+        self.selection = get_selection(self.properties, out_log)
         self.start = str(self.properties.get('start', '0'))
         self.end = str(self.properties.get('end', '0'))
         self.dt = str(self.properties.get('dt', '0'))
@@ -70,15 +71,15 @@ class GMXTrjConvTrj():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS trjconv module.")
+    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS trjconv module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     #Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file.')
-    required_args.add_argument('--output_traj_path', required=True, help='Path to the output file.')
+    required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.')
+    required_args.add_argument('--output_traj_path', required=True, help='Path to the output file: xtc, trr, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"

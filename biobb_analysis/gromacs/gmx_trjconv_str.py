@@ -12,7 +12,7 @@ class GMXTrjConvStr():
     """Wrapper of the GROMACS trjconv (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-trjconv.html) module.
 
     Args:
-        input_structure_path (str): Path to the input structure file: xtc, trr, cpt, gro, g96, pdb, tng. 
+        input_structure_path (str): Path to the input structure file: xtc, trr, cpt, gro, g96, pdb, tng.
         input_top_path (str): Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.
         output_str_path (str): Path to the output file: xtc, trr, gro, g96, pdb, tng.
         properties (dic):
@@ -43,10 +43,11 @@ class GMXTrjConvStr():
 
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
-        self.input_structure_path = check_traj_path(self.input_structure_path, self)
-        self.input_top_path = check_input_path(self.input_top_path, self)
-        self.output_str_path = check_out_traj_path(self.output_str_path, self)
-        self.selection = get_selection(self.properties, self)
+        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        self.input_structure_path = check_traj_path(self.input_structure_path, out_log)
+        self.input_top_path = check_input_path(self.input_top_path, out_log)
+        self.output_str_path = check_out_traj_path(self.output_str_path, out_log)
+        self.selection = get_selection(self.properties, out_log)
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
@@ -65,16 +66,16 @@ class GMXTrjConvStr():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS trjconv module.")
+    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS trjconv module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     #Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file.')
-    required_args.add_argument('--input_top_path', required=True, help='Path to the input GROMACS trajectory file.')
-    required_args.add_argument('--output_str_path', required=True, help='Path to the output file.')
+    required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file: xtc, trr, cpt, gro, g96, pdb, tng.')
+    required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.')
+    required_args.add_argument('--output_str_path', required=True, help='Path to the output file: xtc, trr, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"

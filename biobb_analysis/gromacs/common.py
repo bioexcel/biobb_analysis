@@ -3,75 +3,69 @@ import os.path
 from biobb_common.tools import file_utils as fu
 
 
-def check_energy_path(path, obj):
+def check_energy_path(path, out_log):
 	""" Checks energy input file """ 
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(path):
-		fu.log('Unexisting energy input file, exiting', out_log, obj.global_log)
+		fu.log('Unexisting energy input file, exiting', out_log)
 		raise SystemExit('Unexisting energy input file')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_energy(file_extension[1:]):
-		fu.log('Format %s in energy input file is not compatible' % file_extension[1:], out_log, obj.global_log)
+		fu.log('Format %s in energy input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit('Format %s in energy input file is not compatible' % file_extension[1:])
 	return path
 
-def check_input_path(path, obj):
+def check_input_path(path, out_log):
 	""" Checks input structure file """ 
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(path):
-		fu.log('Unexisting structure input file, exiting', out_log, obj.global_log)
+		fu.log('Unexisting structure input file, exiting', out_log)
 		raise SystemExit('Unexisting structure input file')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_structure(file_extension[1:]):
-		fu.log('Format %s in structure input file is not compatible' % file_extension[1:], out_log, obj.global_log)
+		fu.log('Format %s in structure input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit('Format %s in structure input file is not compatible' % file_extension[1:])
 	return path
 
-def check_traj_path(path, obj):
+def check_traj_path(path, out_log):
 	""" Checks input structure file """ 
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(path):
-		fu.log('Unexisting trajectory input file, exiting', out_log, obj.global_log)
+		fu.log('Unexisting trajectory input file, exiting', out_log)
 		raise SystemExit('Unexisting trajectory input file')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_trajectory(file_extension[1:]):
-		fu.log('Format %s in trajectory input file is not compatible' % file_extension[1:], out_log, obj.global_log)
+		fu.log('Format %s in trajectory input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit('Format %s in trajectory input file is not compatible' % file_extension[1:])
 	return path
 
-def check_out_xvg_path(path, obj):
+def check_out_xvg_path(path, out_log):
 	""" Checks if output folder exists and format is xvg """
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(os.path.dirname(path)):
-		fu.log('Unexisting output folder, exiting', out_log, obj.global_log)
+		fu.log('Unexisting output folder, exiting', out_log)
 		raise SystemExit('Unexisting output folder')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_xvg(file_extension[1:]):
-		fu.log('Format %s in output file is not compatible' % file_extension[1:], out_log, obj.global_log)
+		fu.log('Format %s in output file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit('Format %s in output file is not compatible' % file_extension[1:])
 	return path
 
-def check_out_pdb_path(path, obj):
+def check_out_pdb_path(path, out_log):
 	""" Checks if output folder exists and format is xvg """
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(os.path.dirname(path)):
-		fu.log('Unexisting output folder, exiting', out_log, obj.global_log)
+		fu.log('Unexisting output folder, exiting', out_log)
 		raise SystemExit('Unexisting output folder')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_structure(file_extension[1:]):
-		fu.log('Format %s in output file is not compatible' % file_extension[1:], out_log, obj.global_log)
+		fu.log('Format %s in output file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit('Format %s in output file is not compatible' % file_extension[1:])
 	return path
 
-def check_out_traj_path(path, obj):
+def check_out_traj_path(path, out_log):
 	""" Checks if output folder exists and format is correct """
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	if not os.path.exists(os.path.dirname(path)):
-		fu.log('Unexisting output folder, exiting', out_log, obj.global_log)
+		fu.log('Unexisting output folder, exiting', out_log)
 		raise SystemExit('Unexisting output folder')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_trajectory_output(file_extension[1:]):
-		fu.log('Format %s in output file is not compatible' % file_extension[1:], out_log, obj.global_log)
+		fu.log('Format %s in output file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit('Format %s in output file is not compatible' % file_extension[1:])
 	return path
 
@@ -90,36 +84,33 @@ def get_binary_path(properties, type):
 	""" Gets binary path """
 	return properties.get(type, get_default_value(type))
 
-def get_terms(properties, obj):
+def get_terms(properties, out_log):
 	""" Gets energy terms """
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	terms = properties.get('terms', dict())
 	if not terms or not isinstance(terms, list):
-		fu.log('No terms provided or incorrect format, exiting', out_log, obj.global_log)
+		fu.log('No terms provided or incorrect format, exiting', out_log)
 		raise SystemExit('No terms provided or incorrect format')
 	if not is_valid_term(terms):
-		fu.log('Incorrect terms provided, exiting', out_log, obj.global_log)
+		fu.log('Incorrect terms provided, exiting', out_log)
 		raise SystemExit('Incorrect terms provided')
 	return properties.get('terms', '')
 
-def get_selection(properties, obj):
+def get_selection(properties, out_log):
 	""" Gets selection items """
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	selection = properties.get('selection', get_default_value('selection'))
 	if not selection:
-		fu.log('No selection provided or incorrect format, exiting', out_log, obj.global_log)
+		fu.log('No selection provided or incorrect format, exiting', out_log)
 		raise SystemExit('No selection provided or incorrect format')
 	if not is_valid_selection(selection):
-		fu.log('Incorrect selection provided, exiting', out_log, obj.global_log)
+		fu.log('Incorrect selection provided, exiting', out_log)
 		raise SystemExit('Incorrect selection provided')
 	return selection
 
-def get_xvg(properties, obj):
+def get_xvg(properties, out_log):
 	""" Gets xvg """
-	out_log, err_log = fu.get_logs(path=obj.path, prefix=obj.prefix, step=obj.step, can_write_console=obj.can_write_console_log)
 	xvg = properties.get('xvg', 'none')
 	if not is_valid_xvg_param(xvg):
-		fu.log('Incorrect xvg provided, exiting', out_log, obj.global_log)
+		fu.log('Incorrect xvg provided, exiting', out_log)
 		raise SystemExit('Incorrect xvg provided')
 	return xvg
 
@@ -162,3 +153,9 @@ def is_valid_selection(ext):
 	""" Checks if selection is correct """
 	formats = ['System', 'Protein', 'Protein-H', 'C-alpha', 'Backbone', 'MainChain', 'MainChain+Cb', 'MainChain+H', 'SideChain', 'SideChain-H', 'Prot-Masses', 'non-Protein', 'Water', 'SOL', 'non-Water', 'Ion', 'NA', 'CL', 'Water_and_ions']
 	return ext in formats
+
+def remove_tmp_files(list, out_log):
+	""" Removes temporal files generated by the wrapper """
+	tmp_files = list
+	removed_files = [f for f in tmp_files if fu.rm(f)]
+	fu.log('Removed: %s' % str(removed_files), out_log)

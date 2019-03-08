@@ -45,9 +45,10 @@ class GMXCluster():
 
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
-        self.input_structure_path = check_input_path(self.input_structure_path, self)
-        self.input_traj_path = check_traj_path(self.input_traj_path, self)
-        self.output_pdb_path = check_out_pdb_path(self.output_pdb_path, self)
+        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        self.input_structure_path = check_input_path(self.input_structure_path, out_log)
+        self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
+        self.output_pdb_path = check_out_pdb_path(self.output_pdb_path, out_log)
         self.dista = self.properties.get('dista', False)
         self.method = self.properties.get('method', "linkage")
         self.cutoff = self.properties.get('cutoff', 0.1)
@@ -74,16 +75,16 @@ class GMXCluster():
         return cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS cluster module.")
+    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS cluster module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     #Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_structure_path', required=True, help='Path to the input GROMACS structure or topology file.')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the input GROMACS trajectory file.')
-    required_args.add_argument('--output_pdb_path', required=True, help='Path to the output cluster file.')
+    required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file: tpr, gro, g96, pdb, brk, ent.')
+    required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.')
+    required_args.add_argument('--output_pdb_path', required=True, help='Path to the output cluster file: xtc, trr, cpt, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"
