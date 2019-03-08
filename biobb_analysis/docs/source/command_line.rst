@@ -30,10 +30,7 @@ Command:
 
 .. parsed-literal::
 
-    usage: cpptraj_average [-h] [--config CONFIG] [--system SYSTEM] [--step STEP]
-                           --input_top_path INPUT_TOP_PATH --input_traj_path
-                           INPUT_TRAJ_PATH --output_cpptraj_path
-                           OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_average [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
     
     Wrapper of the Ambertools Cpptraj module. Computing average structure.
     
@@ -45,13 +42,27 @@ Command:
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
-                            Path to the input Amber structure or topology file.
+                            Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input Amber trajectory to be processed.
+                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
       --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed Amber trajectory or to
-                            the output dat file containing the analysis results
+                            Path to the output processed structure.
 
+I / O Arguments
+~~~~~~~~~~~~~~~
+
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+
+-  **input_top_path** (*str*): Path to the input structure or topology
+   file. Accepted formats: top, pdb, prmtop, parmtop, zip.
+-  **input_traj_path** (*str*): Path to the input trajectory to be
+   processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart,
+   restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif,
+   arc, sqm, sdf, conflib.
+-  **output_cpptraj_path** (*str*): Path to the output processed
+   structure.
 
 Config
 ~~~~~~
@@ -144,10 +155,7 @@ Command:
 
 .. parsed-literal::
 
-    usage: cpptraj_bfactor [-h] [--config CONFIG] [--system SYSTEM] [--step STEP]
-                           --input_top_path INPUT_TOP_PATH --input_traj_path
-                           INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH]
-                           --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_bfactor [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
     
     Wrapper for the Ambertools Cpptraj module. Calculating B-Factor.
     
@@ -161,13 +169,29 @@ Command:
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
-                            Path to the input Amber structure or topology file.
+                            Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input Amber trajectory to be processed.
+                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
       --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed Amber trajectory or to
-                            the output dat file containing the analysis results.
+                            Path to the output processed analysis.
 
+I / O Arguments
+~~~~~~~~~~~~~~~
+
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+
+-  **input_top_path** (*str*): Path to the input structure or topology
+   file. Accepted formats: top, pdb, prmtop, parmtop, zip.
+-  **input_traj_path** (*str*): Path to the input trajectory to be
+   processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart,
+   restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif,
+   arc, sqm, sdf, conflib.
+-  **input_exp_path** (*str*): Path to the experimental reference file
+   (required if reference = experimental).
+-  **output_cpptraj_path** (*str*): Path to the output processed
+   analysis.
 
 Config
 ~~~~~~
@@ -254,9 +278,7 @@ Command:
 
 .. parsed-literal::
 
-    usage: gmx_energy [-h] [--config CONFIG] [--system SYSTEM] [--step STEP]
-                      --input_energy_path INPUT_ENERGY_PATH --output_xvg_path
-                      OUTPUT_XVG_PATH
+    usage: gmx_energy [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_energy_path INPUT_ENERGY_PATH --output_xvg_path OUTPUT_XVG_PATH
     
     Wrapper for the GROMACS energy module.
     
@@ -268,10 +290,19 @@ Command:
     
     required arguments:
       --input_energy_path INPUT_ENERGY_PATH
-                            Path to the input GROMACS energy file.
+                            Path to the input EDR file.
       --output_xvg_path OUTPUT_XVG_PATH
-                            Path to the output analysis file.
+                            Path to the XVG output file.
 
+I / O Arguments
+~~~~~~~~~~~~~~~
+
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+
+-  **input_energy_path** (*str*): Path to the input EDR file.
+-  **output_xvg_path** (*str*): Path to the XVG output file.
 
 Config
 ~~~~~~
