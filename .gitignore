@@ -114,3 +114,5 @@ traj_comp.xtc
 
 # jupyter docs
 biobb_analysis/docs/jupyter/data
+biobb_analysis/docs/jupyter/log.*
+biobb_analysis/docs/jupyter/.ipynb_checkpoints/

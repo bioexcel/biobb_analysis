@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_analysis",
-    version="0.1.9",
+    version="0.2.0",
     author="Biobb developers",
     author_email="pau.andrio@bsc.es",
     description="biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.",
@@ -18,11 +18,11 @@ setuptools.setup(
         "Bioexcel": "https://bioexcel.eu/"
     },
     packages=setuptools.find_packages(exclude=['docs', 'test']),
-    install_requires=['biobb_common>=0.1.2', 'biopython==1.72'],
-    python_requires='>=3',
+    install_requires=['biobb_common==0.1.4'],
+    python_requires='==3.6.*',
     classifiers=(
         "Development Status :: 3 - Alpha",
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX",
