@@ -48,9 +48,9 @@ class GMXTrjConvTrj():
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
         self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log)
         self.selection = get_selection(self.properties, out_log)
-        self.start = str(self.properties.get('start', '0'))
-        self.end = str(self.properties.get('end', '0'))
-        self.dt = str(self.properties.get('dt', '0'))
+        self.start = get_start(self.properties, out_log)
+        self.end = get_end(self.properties, out_log)
+        self.dt = get_dt(self.properties, out_log)
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""

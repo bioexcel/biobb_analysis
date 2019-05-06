@@ -6,6 +6,10 @@ gmx_cluster:
     input_traj_path: file:test_data_dir/gromacs/cluster.trr
     output_pdb_path: output_pdb.pdb
     ref_output_pdb_path: file:test_reference_dir/gromacs/ref_cluster.pdb
+  properties:
+    dista: False
+    method: linkage
+    cutoff: 0.1
 
 gmx_rms:
   paths:

@@ -49,9 +49,9 @@ class GMXCluster():
         self.input_structure_path = check_input_path(self.input_structure_path, out_log)
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
         self.output_pdb_path = check_out_pdb_path(self.output_pdb_path, out_log)
-        self.dista = self.properties.get('dista', False)
-        self.method = self.properties.get('method', "linkage")
-        self.cutoff = self.properties.get('cutoff', 0.1)
+        self.dista = get_dista(self.properties, out_log)
+        self.method = get_method(self.properties, out_log)
+        self.cutoff = get_cutoff(self.properties, out_log)
 
 
     def launch(self):

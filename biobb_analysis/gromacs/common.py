@@ -75,7 +75,20 @@ def get_default_value(key):
 		"instructions_file": "instructions.in",
 		"gmx_path": "gmx",
 		"terms": ["Potential"],
-		"selection": "System"
+		"selection": "System",
+		"xvg": "none",
+		"dista": False,
+		"method": "linkage",
+		"cutoff": 0.1,
+		"center_selection": "Protein-H",
+	  	"output_selection": "Protein-H",
+	  	"pbc": "mol",
+	  	"center": True,
+	  	"fit": "none",
+	  	"ur": "compact",
+	  	"start": 0,
+	  	"end": 0,
+	  	"dt": 0
 	}
 
 	return default_values[key]
@@ -106,13 +119,126 @@ def get_selection(properties, out_log):
 		raise SystemExit('Incorrect selection provided')
 	return selection
 
+def get_image_selection(properties, key, out_log):
+	""" Gets selection items """
+	selection = properties.get(key, get_default_value(key))
+	if not selection:
+		fu.log('No selection provided or incorrect format, exiting', out_log)
+		raise SystemExit('No selection provided or incorrect format')
+	if not is_valid_selection(selection):
+		fu.log('Incorrect selection provided, exiting', out_log)
+		raise SystemExit('Incorrect selection provided')
+	return selection
+
+def get_pbc(properties, out_log):
+	""" Gets pbc """
+	pbc = properties.get('pbc', get_default_value('pbc'))
+	if not is_valid_pbc(pbc):
+		fu.log('Incorrect pbc provided, exiting', out_log)
+		raise SystemExit('Incorrect pbc provided')
+	return pbc
+
+def get_center(properties, out_log):
+	""" Gets center """
+	center = properties.get('center', get_default_value('center'))
+	if not is_valid_boolean(center):
+		fu.log('Incorrect center provided, exiting', out_log)
+		raise SystemExit('Incorrect center provided')
+	return center
+
+def get_ur(properties, out_log):
+	""" Gets ur """
+	ur = properties.get('ur', get_default_value('ur'))
+	if not is_valid_ur(ur):
+		fu.log('Incorrect ur provided, exiting', out_log)
+		raise SystemExit('Incorrect ur provided')
+	return ur
+
+def get_fit(properties, out_log):
+	""" Gets fit """
+	fit = properties.get('fit', get_default_value('fit'))
+	if not is_valid_fit(fit):
+		fu.log('Incorrect fit provided, exiting', out_log)
+		raise SystemExit('Incorrect fit provided')
+	return fit
+
+def get_start(properties, out_log):
+	""" Gets start """
+	start = properties.get('start', get_default_value('start'))
+	if not is_valid_int(start):
+		fu.log('Incorrect start provided, exiting', out_log)
+		raise SystemExit('Incorrect start provided')
+	return str(start)
+
+def get_end(properties, out_log):
+	""" Gets end """
+	end = properties.get('end', get_default_value('end'))
+	if not is_valid_int(end):
+		fu.log('Incorrect end provided, exiting', out_log)
+		raise SystemExit('Incorrect end provided')
+	return str(end)
+
+def get_dt(properties, out_log):
+	""" Gets dt """
+	dt = properties.get('dt', get_default_value('dt'))
+	if not is_valid_int(dt):
+		fu.log('Incorrect dt provided, exiting', out_log)
+		raise SystemExit('Incorrect dt provided')
+	return str(dt)
+
 def get_xvg(properties, out_log):
 	""" Gets xvg """
-	xvg = properties.get('xvg', 'none')
+	xvg = properties.get('xvg', get_default_value('xvg'))
 	if not is_valid_xvg_param(xvg):
 		fu.log('Incorrect xvg provided, exiting', out_log)
 		raise SystemExit('Incorrect xvg provided')
 	return xvg
+
+def get_dista(properties, out_log):
+	""" Gets dista """
+	dista = properties.get('dista', get_default_value('dista'))
+	if not is_valid_boolean(dista):
+		fu.log('Incorrect dista provided, exiting', out_log)
+		raise SystemExit('Incorrect dista provided')
+	return dista
+
+def get_method(properties, out_log):
+	""" Gets method """
+	method = properties.get('method', get_default_value('method'))
+	if not is_valid_method_param(method):
+		fu.log('Incorrect method provided, exiting', out_log)
+		raise SystemExit('Incorrect method provided')
+	return method
+
+def get_cutoff(properties, out_log):
+	""" Gets cutoff """
+	cutoff = properties.get('cutoff', get_default_value('cutoff'))
+	if not is_valid_float(cutoff):
+		fu.log('Incorrect cutoff provided, exiting', out_log)
+		raise SystemExit('Incorrect cutoff provided')
+	return str(cutoff)
+
+def is_valid_boolean(val):
+	""" Checks if given value is boolean """
+	values = [True, False]
+	return val in values
+
+def is_valid_float(val):
+	""" Checks if given value is float """
+	if val and not isinstance(val, float) and not isinstance(val, int):
+		return False
+	return True
+
+def is_valid_int(val):
+	""" Checks if given value is int """
+	if val and not isinstance(val, int):
+		return False
+	return True
+
+def is_valid_method_param(met):
+	""" Checks if method is compatible with GROMACS """
+	methods = ['linkage', 'jarvis-patrick', 'monte-carlo', 'diagonalization', 'gromos']
+	return met in methods
 
 def is_valid_structure(ext):
 	""" Checks if structure format is compatible with GROMACS """
@@ -143,6 +269,21 @@ def is_valid_xvg_param(ext):
 	""" Checks xvg parameter """
 	formats = ['xmgrace', 'xmgr', 'none']
 	return ext in formats
+
+def is_valid_pbc(pbc):
+	""" Checks pbc parameter """
+	values = ['none', 'mol', 'res', 'atom', 'nojump', 'cluster', 'whole']
+	return pbc in values
+
+def is_valid_ur(ur):
+	""" Checks ur parameter """
+	values = ['rect', 'tric', 'compact']
+	return ur in values
+
+def is_valid_fit(fit):
+	""" Checks fit parameter """
+	values = ['none', 'rot+trans', 'rotxy+transxy', 'translation', 'transxy', 'progressive']
+	return fit in values
 
 def is_valid_term(iterms):
 	""" Checks if term is correct """

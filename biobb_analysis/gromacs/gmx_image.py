@@ -18,9 +18,9 @@ class GMXImage():
         properties (dic):
             * **center_selection** (*str*) - ("System") Group where the trjconv will be performed: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **output_selection** (*str*) - ("System") Group that is going to be written in the output trajectory: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
-            * **pbc** (*str*) - ("none") PBC treatment (see help text for full description): none, mol, res, atom, nojump, cluster, whole
-            * **center** (*bool*) - (False) Center atoms in box.
-            * **ur** (*str*) - ("rect") Unit-cell representation: rect, tric, compact.
+            * **pbc** (*str*) - ("mol") PBC treatment (see help text for full description): none, mol, res, atom, nojump, cluster, whole
+            * **center** (*bool*) - (True) Center atoms in box.
+            * **ur** (*str*) - ("compact") Unit-cell representation: rect, tric, compact.
             * **fit** (*str*) - ("none") Fit molecule to ref structure in the structure file: none, rot+trans, rotxy+transxy, translation, transxy, progressive.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
@@ -52,12 +52,12 @@ class GMXImage():
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
         self.input_top_path = check_input_path(self.input_top_path, out_log)
         self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log)
-        self.center_selection = str(self.properties.get('center_selection', 'System'))
-        self.output_selection = str(self.properties.get('output_selection', 'System'))
-        self.pbc = str(self.properties.get('pbc', 'none'))
-        self.center = self.properties.get('center', False)
-        self.ur = str(self.properties.get('ur', 'rect'))
-        self.fit = str(self.properties.get('fit', 'none'))
+        self.center_selection = get_image_selection(self.properties, 'center_selection', out_log)
+        self.output_selection = get_image_selection(self.properties, 'output_selection', out_log)
+        self.pbc = get_pbc(self.properties, out_log)
+        self.center = get_center(self.properties, out_log)
+        self.ur = get_ur(self.properties, out_log)
+        self.fit = get_fit(self.properties, out_log)
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
