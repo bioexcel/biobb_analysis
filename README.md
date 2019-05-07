@@ -42,13 +42,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull mmbirb/biobb_analysis:0.2.0
+        docker pull mmbirb/biobb_analysis:latest
 
 
 * Usage:
 
 
-        docker run mmbirb/biobb_analysis:0.2.0 <command>
+        docker run mmbirb/biobb_analysis:latest <command>
 
 
 Using SINGULARITY:
