@@ -46,12 +46,12 @@ class GMXCluster():
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
-        self.input_structure_path = check_input_path(self.input_structure_path, out_log)
-        self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
-        self.output_pdb_path = check_out_pdb_path(self.output_pdb_path, out_log)
-        self.dista = get_dista(self.properties, out_log)
-        self.method = get_method(self.properties, out_log)
-        self.cutoff = get_cutoff(self.properties, out_log)
+        self.input_structure_path = check_input_path(self.input_structure_path, out_log, self.__class__.__name__)
+        self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
+        self.output_pdb_path = check_out_pdb_path(self.output_pdb_path, out_log, self.__class__.__name__)
+        self.dista = get_dista(self.properties, out_log, self.__class__.__name__)
+        self.method = get_method(self.properties, out_log, self.__class__.__name__)
+        self.cutoff = get_cutoff(self.properties, out_log, self.__class__.__name__)
 
 
     def launch(self):

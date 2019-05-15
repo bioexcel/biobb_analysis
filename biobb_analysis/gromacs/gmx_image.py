@@ -49,15 +49,15 @@ class GMXImage():
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
-        self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
-        self.input_top_path = check_input_path(self.input_top_path, out_log)
-        self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log)
-        self.center_selection = get_image_selection(self.properties, 'center_selection', out_log)
-        self.output_selection = get_image_selection(self.properties, 'output_selection', out_log)
-        self.pbc = get_pbc(self.properties, out_log)
-        self.center = get_center(self.properties, out_log)
-        self.ur = get_ur(self.properties, out_log)
-        self.fit = get_fit(self.properties, out_log)
+        self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
+        self.input_top_path = check_input_path(self.input_top_path, out_log, self.__class__.__name__)
+        self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log, self.__class__.__name__)
+        self.center_selection = get_image_selection(self.properties, 'center_selection', out_log, self.__class__.__name__)
+        self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
+        self.pbc = get_pbc(self.properties, out_log, self.__class__.__name__)
+        self.center = get_center(self.properties, out_log, self.__class__.__name__)
+        self.ur = get_ur(self.properties, out_log, self.__class__.__name__)
+        self.fit = get_fit(self.properties, out_log, self.__class__.__name__)
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""

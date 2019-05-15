@@ -45,12 +45,12 @@ class GMXTrjConvTrj():
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
-        self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
-        self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log)
-        self.selection = get_selection(self.properties, out_log)
-        self.start = get_start(self.properties, out_log)
-        self.end = get_end(self.properties, out_log)
-        self.dt = get_dt(self.properties, out_log)
+        self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
+        self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log, self.__class__.__name__)
+        self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+        self.start = get_start(self.properties, out_log, self.__class__.__name__)
+        self.end = get_end(self.properties, out_log, self.__class__.__name__)
+        self.dt = get_dt(self.properties, out_log, self.__class__.__name__)
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""

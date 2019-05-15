@@ -51,9 +51,9 @@ class Rgyr():
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
-        self.input_top_path, self.input_top_path_orig = check_top_path(self.input_top_path, out_log)
-        self.input_traj_path = check_traj_path(self.input_traj_path, out_log)
-        self.output_cpptraj_path = check_out_path(self.output_cpptraj_path, out_log)
+        self.input_top_path, self.input_top_path_orig = check_top_path(self.input_top_path, out_log, self.__class__.__name__)
+        self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
+        self.output_cpptraj_path = check_out_path(self.output_cpptraj_path, out_log, self.__class__.__name__)
         self.in_parameters = get_parameters(self.properties, 'in_parameters', self.__class__.__name__, out_log)
 
     def create_instructions_file(self):

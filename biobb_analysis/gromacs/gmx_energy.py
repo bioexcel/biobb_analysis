@@ -44,10 +44,10 @@ class GMXEnergy():
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
-        self.input_energy_path = check_energy_path(self.input_energy_path, out_log)
-        self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, out_log)
-        self.xvg = get_xvg(self.properties, out_log)
-        self.terms = get_terms(self.properties, out_log)
+        self.input_energy_path = check_energy_path(self.input_energy_path, out_log, self.__class__.__name__)
+        self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, out_log, self.__class__.__name__)
+        self.xvg = get_xvg(self.properties, out_log, self.__class__.__name__)
+        self.terms = get_terms(self.properties, out_log, self.__class__.__name__)
 
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""

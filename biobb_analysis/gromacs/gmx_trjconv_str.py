@@ -44,10 +44,10 @@ class GMXTrjConvStr():
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
-        self.input_structure_path = check_traj_path(self.input_structure_path, out_log)
-        self.input_top_path = check_input_path(self.input_top_path, out_log)
-        self.output_str_path = check_out_traj_path(self.output_str_path, out_log)
-        self.selection = get_selection(self.properties, out_log)
+        self.input_structure_path = check_traj_path(self.input_structure_path, out_log, self.__class__.__name__)
+        self.input_top_path = check_input_path(self.input_top_path, out_log, self.__class__.__name__)
+        self.output_str_path = check_out_traj_path(self.output_str_path, out_log, self.__class__.__name__)
+        self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
@@ -58,8 +58,8 @@ class GMXTrjConvStr():
 
         cmd = ['echo', '\"'+self.selection+'\"', '|',
                self.gmx_path, 'trjconv',
-               '-s', self.input_structure_path,
-               '-f', self.input_top_path,
+               '-f', self.input_structure_path,
+               '-s', self.input_top_path,
                '-o', self.output_str_path]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()

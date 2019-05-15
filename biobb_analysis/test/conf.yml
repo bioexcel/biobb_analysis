@@ -46,6 +46,20 @@ gmx_trjconv_str:
   properties:
     selection: Protein-H
 
+gmx_trjconv_str_ens:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trjconv.str.ens.trr
+    input_top_path: file:test_data_dir/gromacs/trjconv.str.ens.gro
+    output_str_ens_path: output.zip
+    ref_output_str_ens_path: file:test_reference_dir/gromacs/ref_trjconv.str.ens.zip
+  properties:
+    selection: Protein-H
+    start: 0
+    end: 10
+    dt: 1
+    output_name: output
+    output_type: pdb
+
 gmx_trjconv_trj:
   paths:
     input_traj_path: file:test_data_dir/gromacs/trjconv.trj.trr

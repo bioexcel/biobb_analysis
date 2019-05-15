@@ -4,44 +4,44 @@ import zipfile
 from biobb_common.tools import file_utils as fu
 
 
-def check_top_path(path, out_log):
+def check_top_path(path, out_log, classname):
 	""" Checks topology input file """ 
 	orig_path = path
 	if not os.path.exists(path):
-		fu.log('Unexisting topology input file, exiting', out_log)
-		raise SystemExit('Unexisting topology input file')
+		fu.log(classname + ': Unexisting topology input file, exiting', out_log)
+		raise SystemExit(classname + ': Unexisting topology input file')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_topology(file_extension[1:]):
-		fu.log('Format %s in topology input file is not compatible' % file_extension[1:], out_log)
-		raise SystemExit('Format %s in topology input file is not compatible' % file_extension[1:])
+		fu.log(classname + ': Format %s in topology input file is not compatible' % file_extension[1:], out_log)
+		raise SystemExit(classname + ': Format %s in topology input file is not compatible' % file_extension[1:])
 	if zipfile.is_zipfile(path):
 		top_file = fu.unzip_top(zip_file=path, out_log=out_log)
 		path = top_file
 	return path, orig_path
 
-def check_traj_path(path, out_log):
+def check_traj_path(path, out_log, classname):
 	""" Checks trajectory input file """ 
 	if not os.path.exists(path):
-		fu.log('Unexisting trajectory input file, exiting', out_log)
-		raise SystemExit('Unexisting trajectory input file')
+		fu.log(classname + ': Unexisting trajectory input file, exiting', out_log)
+		raise SystemExit(classname + ': Unexisting trajectory input file')
 	filename, file_extension = os.path.splitext(path)
 	if not is_valid_trajectory(file_extension[1:]):
-		fu.log('Format %s in trajectory input file is not compatible' % file_extension[1:], out_log)
-		raise SystemExit('Format %s in trajectory input file is not compatible' % file_extension[1:])
+		fu.log(classname + ': Format %s in trajectory input file is not compatible' % file_extension[1:], out_log)
+		raise SystemExit(classname + ': Format %s in trajectory input file is not compatible' % file_extension[1:])
 	return path
 
-def check_out_path(path, out_log):
+def check_out_path(path, out_log, classname):
 	""" Checks if output folder exists """
 	if not os.path.exists(os.path.dirname(path)):
-		fu.log('Unexisting output folder, exiting', out_log)
-		raise SystemExit('Unexisting output folder')
+		fu.log(classname + ': Unexisting output folder, exiting', out_log)
+		raise SystemExit(classname + ': Unexisting output folder')
 	return path
 
-def get_parameters(properties, type, class_name, out_log):
+def get_parameters(properties, type, classname, out_log):
 	""" Gets in_parameters and out_parameters """
 	if not properties.get(type, dict()):
 		fu.log('No %s parameters provided' % type, out_log)
-		return get_default_value(class_name)[type]
+		return get_default_value(classname)[type]
 
 	return {k: v for k, v in properties.get(type, dict()).items()}
 
@@ -49,11 +49,11 @@ def get_binary_path(properties, type):
 	""" Gets binary path """
 	return properties.get(type, get_default_value(type))
 
-def check_in_path(path, out_log):
+def check_in_path(path, out_log, classname):
 	""" Checks input instructions file """ 
 	if not os.path.exists(path):
-		fu.log('Unexisting input instructions file, exiting', out_log)
-		raise SystemExit('Unexisting input instructions file')
+		fu.log(classname + ': Unexisting input instructions file, exiting', out_log)
+		raise SystemExit(classname + ': Unexisting input instructions file')
 
 	# check syntax for instructions file
 	syntax_instructions = True
@@ -65,8 +65,8 @@ def check_in_path(path, out_log):
 		syntax_instructions = False
 		err_instructions += ' No input trajectory provided'
 	if not syntax_instructions:
-		fu.log('Incorrect syntax for instructions file: %s, exiting' % err_instructions, out_log)
-		raise SystemExit('Incorrect syntax for instructions file: %s, exiting' % err_instructions)
+		fu.log(classname + ': Incorrect syntax for instructions file: %s, exiting' % err_instructions, out_log)
+		raise SystemExit(classname + ': Incorrect syntax for instructions file: %s, exiting' % err_instructions)
 
 def get_default_value(key):
 	""" Gives default values according to the given key """
@@ -337,7 +337,7 @@ def get_mask(key, out_log):
 
 	return mask
 
-def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output):
+def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output, classname):
 	""" Gives reference instructions according to the given key """
 	instructions_list = []
 	if not ref or ref == 'None':
@@ -361,7 +361,7 @@ def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output):
 	if ref == 'experimental':
 		if not input_exp_path:
 			fu.log('No experimental structure provided, exiting', out_log)
-			raise SystemExit('input_exp_path is mandatory')
+			raise SystemExit(classname + ': input_exp_path is mandatory')
 		instructions_list.append('parm ' + input_exp_path + ' noconect [exp]')
 		solute, msg = get_mask_atoms('solute')
 		instructions_list.append('reference ' + input_exp_path + ' ' + solute + ' parm [exp]')
