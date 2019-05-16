@@ -1,0 +1,131 @@
+{
+    "_id": "biobb_analysis",
+    "desc": "Biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.",
+    "github": "https://github.com/bioexcel/biobb_analysis",
+    "readthedocs": "https://biobb-analysis.readthedocs.io/en/latest/",
+    "conda": "https://anaconda.org/bioconda/biobb_analysis",
+    "docker": "https://hub.docker.com/r/mmbirb/biobb_analysis",
+    "singularity": "https://www.singularity-hub.org/collections/2423/usage",
+    "version": "1.0.1",
+    "tools": "tools" : [
+        {
+            "block" : "gmx_cluster", 
+            "tool" : "gmx cluster", 
+            "desc" : "Creates cluster structures from a given input trajectory."
+        }, 
+        {
+            "block" : "gmx_rms", 
+            "tool" : "gmx rms", 
+            "desc" : "Performs an RMS analysis of the given input trajectory."
+        }, 
+        {
+            "block" : "gmx_energy", 
+            "tool" : "gmx energy", 
+            "desc" : "Extracts energy components from an energy file"
+        }, 
+        {
+            "block" : "gmx_rgyr", 
+            "tool" : "gmx rgyr", 
+            "desc" : "Computes the radius of gyration of a molecule and the radii of gyration about the x-, y- and z-axes, as a function of time"
+        }, 
+        {
+            "block" : "gmx_image", 
+            "tool" : "gmx image", 
+            "desc" : "Converts trajectory files imaging"
+        }, 
+        {
+            "block" : "gmx_trjconv_str", 
+            "tool" : "gmx trjconv", 
+            "desc" : "Converts structure files"
+        }, 
+        {
+            "block" : "gmx_trjconv_trj", 
+            "tool" : "gmx trjconv", 
+            "desc" : "Converts trajectory files."
+        }, 
+        {
+            "block" : "cpptraj_input", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Performs multiple analysis and trajecotory operations of a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_average", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Calculates an average of a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_bfactor", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Calculates the RMSf bfactor analysis of a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_convert", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Converts a given trajectory to a different format."
+        }, 
+        {
+            "block" : "cpptraj_dry", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : ""
+        }, 
+        {
+            "block" : "cpptraj_image", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : ""
+        }, 
+        {
+            "block" : "cpptraj_mask", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Masks a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_rgyr", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Calculates the Rgyr analysis of a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_rms", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Calculates the RMS analysis of a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_rmsf", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Calculates the RMSf analysis of a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_slice", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Slices a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_snapshot", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Generates a snapshot of a given trajectory."
+        }, 
+        {
+            "block" : "cpptraj_strip", 
+            "tool" : "Ambertools cpptraj", 
+            "desc" : "Strips a given trajectory."
+        }
+    ],
+    "dep_pypi": [
+        {
+            "install_requires": ["biobb_common==1.1.6"]
+        },
+        {
+            "python_requires": "==3.6.*"
+        }
+    ],
+    "dep_conda": [
+        {
+            "python": "==3.6.*"
+        },
+        {
+            "biobb_common": "==1.1.6"
+        },
+        {
+            "gromacs": "==2019.1"
+        }
+    ]
+}
