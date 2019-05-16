@@ -1,4 +1,4 @@
-# v1.0.2
+# v1.0.3
 Bootstrap: docker
 From: biobb_analysis:latest
 Namespace: mmbirb
