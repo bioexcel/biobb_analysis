@@ -7,7 +7,7 @@
     "docker": "https://hub.docker.com/r/mmbirb/biobb_analysis",
     "singularity": "https://www.singularity-hub.org/collections/2423/usage",
     "version": "1.0.1",
-    "tools": "tools" : [
+    "tools" : [
         {
             "block" : "gmx_cluster", 
             "tool" : "gmx cluster", 
