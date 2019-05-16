@@ -39,7 +39,7 @@ def check_traj_path(path, out_log, classname):
 
 def check_out_xvg_path(path, out_log, classname):
 	""" Checks if output folder exists and format is xvg """
-	if not os.path.exists(os.path.dirname(path)):
+	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
 	filename, file_extension = os.path.splitext(path)
@@ -50,7 +50,7 @@ def check_out_xvg_path(path, out_log, classname):
 
 def check_out_pdb_path(path, out_log, classname):
 	""" Checks if output folder exists and format is xvg """
-	if not os.path.exists(os.path.dirname(path)):
+	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
 	filename, file_extension = os.path.splitext(path)
@@ -61,7 +61,7 @@ def check_out_pdb_path(path, out_log, classname):
 
 def check_out_traj_path(path, out_log, classname):
 	""" Checks if output folder exists and format is correct """
-	if not os.path.exists(os.path.dirname(path)):
+	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
 	filename, file_extension = os.path.splitext(path)
@@ -72,7 +72,7 @@ def check_out_traj_path(path, out_log, classname):
 
 def check_out_str_ens_path(path, out_log, classname):
 	""" Checks if output folder exists and format is correct """
-	if not os.path.exists(os.path.dirname(path)):
+	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
 	filename, file_extension = os.path.splitext(path)

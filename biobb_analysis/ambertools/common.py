@@ -32,7 +32,7 @@ def check_traj_path(path, out_log, classname):
 
 def check_out_path(path, out_log, classname):
 	""" Checks if output folder exists """
-	if not os.path.exists(os.path.dirname(path)):
+	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
 	return path

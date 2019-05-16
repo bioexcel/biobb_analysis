@@ -36,6 +36,9 @@ class CpptrajInput():
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
 
+        # Check the properties
+        fu.check_properties(self, properties)
+
     def create_instrucions_file(self):
         """ Creates an input file using paths provideed in the configuration file (only used for test purposes) """
         instructions_list = []
