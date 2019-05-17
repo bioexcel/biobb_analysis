@@ -124,6 +124,6 @@
         "gromacs ==2019.1"
     ],
     "dep_conda_extra" : [
-        "conda install -y  -c ambermd ambertools"
+        "conda install -y  -c ambermd ambertools==18.0"
     ]
 }
