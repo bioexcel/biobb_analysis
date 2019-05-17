@@ -122,5 +122,8 @@
         "python ==3.6.*", 
         "biobb_common ==1.1.6", 
         "gromacs ==2019.1"
+    ],
+    "dep_conda_extra" : [
+        "conda install -y  -c ambermd ambertools"
     ]
 }
