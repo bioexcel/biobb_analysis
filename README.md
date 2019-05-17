@@ -9,8 +9,7 @@
 ### Introduction
 Biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.
 Biobb (BioExcel building blocks) packages are Python building blocks that
-create new layer of compatibility and interoperability over popular
-bioinformatics tools.
+create new layer of compatibility and interoperability over popular bioinformatics tools.
 The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
