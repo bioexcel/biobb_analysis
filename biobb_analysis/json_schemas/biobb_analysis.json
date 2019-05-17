@@ -114,23 +114,13 @@
             "desc" : "Strips a given trajectory."
         }
     ],
-    "dep_pypi": [
-        {
-            "install_requires": ["biobb_common==1.1.6"]
-        },
-        {
-            "python_requires": "==3.6.*"
-        }
-    ],
-    "dep_conda": [
-        {
-            "python": "==3.6.*"
-        },
-        {
-            "biobb_common": "==1.1.6"
-        },
-        {
-            "gromacs": "==2019.1"
-        }
+    "dep_pypi" : [
+        "install_requires=['biobb_common==1.1.6']", 
+        "python_requires='==3.6.*'"
+    ], 
+    "dep_conda" : [
+        "python ==3.6.*", 
+        "biobb_common ==1.1.6", 
+        "gromacs ==2019.1"
     ]
 }
