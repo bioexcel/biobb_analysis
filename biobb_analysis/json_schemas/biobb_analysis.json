@@ -39,6 +39,11 @@
             "desc" : "Converts structure files"
         }, 
         {
+            "block" : "gmx_trjconv_str_ens", 
+            "tool" : "gmx trjconv", 
+            "desc" : "Converts trajectory files to an ensemble of structures"
+        },
+        {
             "block" : "gmx_trjconv_trj", 
             "tool" : "gmx trjconv", 
             "desc" : "Converts trajectory files."
