@@ -6,7 +6,7 @@
     "conda": "https://anaconda.org/bioconda/biobb_analysis",
     "docker": "https://hub.docker.com/r/mmbirb/biobb_analysis",
     "singularity": "https://www.singularity-hub.org/collections/2423/usage",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "tools" : [
         {
             "block" : "gmx_cluster", 
