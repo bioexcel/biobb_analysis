@@ -125,5 +125,10 @@
     ],
     "dep_conda_extra" : [
         "conda install -y  -c ambermd ambertools==18.0"
+    ],
+    "keywords" : [
+        "analysis", 
+        "ambertools", 
+        "gromacs"
     ]
 }
