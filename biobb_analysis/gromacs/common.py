@@ -13,6 +13,9 @@ def check_energy_path(path, out_log, classname):
 	if not is_valid_energy(file_extension[1:]):
 		fu.log(classname + ': Format %s in energy input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in energy input file is not compatible' % file_extension[1:])
+	# if file input has no path, add cwd because execution is launched on tmp folder
+	if(os.path.basename(path) == path):
+		path = os.path.join(os.getcwd(), path)
 	return path
 
 def check_input_path(path, out_log, classname):
@@ -24,6 +27,9 @@ def check_input_path(path, out_log, classname):
 	if not is_valid_structure(file_extension[1:]):
 		fu.log(classname + ': Format %s in structure input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in structure input file is not compatible' % file_extension[1:])
+	# if file input has no path, add cwd because execution is launched on tmp folder
+	if(os.path.basename(path) == path):
+		path = os.path.join(os.getcwd(), path)
 	return path
 
 def check_traj_path(path, out_log, classname):
@@ -35,6 +41,9 @@ def check_traj_path(path, out_log, classname):
 	if not is_valid_trajectory(file_extension[1:]):
 		fu.log(classname + ': Format %s in trajectory input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in trajectory input file is not compatible' % file_extension[1:])
+	# if file input has no path, add cwd because execution is launched on tmp folder
+	if(os.path.basename(path) == path):
+		path = os.path.join(os.getcwd(), path)
 	return path
 
 def check_out_xvg_path(path, out_log, classname):
