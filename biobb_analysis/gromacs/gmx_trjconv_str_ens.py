@@ -104,7 +104,7 @@ def main():
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.')
     required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.')
-    required_args.add_argument('--output_str_ens_path', required=True, help='Path to the output file: gro, g96, pdb.')
+    required_args.add_argument('--output_str_ens_path', required=True, help='Path to the output file: zip.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"

@@ -2243,7 +2243,7 @@ Command:
       --input_top_path INPUT_TOP_PATH
                             Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.
       --output_str_ens_path OUTPUT_STR_ENS_PATH
-                            Path to the output file: gro, g96, pdb.
+                            Path to the output file: zip.
 
 I / O Arguments
 ~~~~~~~~~~~~~~~
@@ -2256,8 +2256,7 @@ Config input / output arguments for this building block:
    trr, cpt, gro, g96, pdb, tng.
 -  **input_top_path** (*str*): Path to the GROMACS input topology file:
    tpr, gro, g96, pdb, brk, ent.
--  **output_str_ens_path** (*str*): Path to the output file: gro, g96,
-   pdb.
+-  **output_str_ens_path** (*str*): Path to the output file: zip.
 
 Config
 ~~~~~~
