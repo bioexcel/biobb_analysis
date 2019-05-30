@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_analysis",
-    version="1.0.4",
+    version="1.0.5",
     author="Biobb developers",
     author_email="pau.andrio@bsc.es",
     description="Biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.",
