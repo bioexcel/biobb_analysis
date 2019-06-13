@@ -46,6 +46,9 @@ class GMXTrjConvStrEns():
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
 
+        # check input/output paths and parameters
+        self.check_data_params()
+
         # Check the properties
         fu.check_properties(self, properties)
 
@@ -65,9 +68,6 @@ class GMXTrjConvStrEns():
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
-
-        # check input/output paths and parameters
-        self.check_data_params()
 
         # create temporary folder
         self.tmp_folder = fu.create_unique_dir()
