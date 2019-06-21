@@ -14,10 +14,12 @@ class GMXImage():
     Args:
         input_traj_path (str): Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
         input_top_path (str): Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.
+        input_index_path (str): Path to the GROMACS index file: ndx.
         output_traj_path (str): Path to the output file: xtc, trr, gro, g96, pdb, tng.
         properties (dic):
-            * **center_selection** (*str*) - ("System") Group where the trjconv will be performed: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
-            * **output_selection** (*str*) - ("System") Group that is going to be written in the output trajectory: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **fit_selection** (*str*) - ("System") - Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **center_selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **output_selection** (*str*) - ("System") Group that is going to be written in the output trajectory. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **pbc** (*str*) - ("mol") PBC treatment (see help text for full description): none, mol, res, atom, nojump, cluster, whole
             * **center** (*bool*) - (True) Center atoms in box.
             * **ur** (*str*) - ("compact") Unit-cell representation: rect, tric, compact.
@@ -25,12 +27,13 @@ class GMXImage():
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
-    def __init__(self, input_traj_path, input_top_path, output_traj_path, properties=None, **kwargs):
+    def __init__(self, input_traj_path, input_top_path, input_index_path, output_traj_path, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
         self.input_traj_path = input_traj_path
         self.input_top_path = input_top_path
+        self.input_index_path = input_index_path
         self.output_traj_path = output_traj_path
 
         # Properties specific for BB
@@ -57,9 +60,16 @@ class GMXImage():
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
         self.input_top_path = check_input_path(self.input_top_path, out_log, self.__class__.__name__)
+        self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
         self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log, self.__class__.__name__)
-        self.center_selection = get_image_selection(self.properties, 'center_selection', out_log, self.__class__.__name__)
-        self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
+        if not self.input_index_path:
+            self.fit_selection = get_image_selection(self.properties, 'fit_selection', out_log, self.__class__.__name__)
+            self.center_selection = get_image_selection(self.properties, 'center_selection', out_log, self.__class__.__name__)
+            self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
+        else:
+            self.fit_selection = get_selection_index_file(self.properties, self.input_index_path, 'fit_selection', out_log, self.__class__.__name__)
+            self.center_selection = get_selection_index_file(self.properties, self.input_index_path, 'center_selection', out_log, self.__class__.__name__)
+            self.output_selection = get_selection_index_file(self.properties, self.input_index_path, 'output_selection', out_log, self.__class__.__name__)
         self.pbc = get_pbc(self.properties, out_log, self.__class__.__name__)
         self.center = get_center(self.properties, out_log, self.__class__.__name__)
         self.ur = get_ur(self.properties, out_log, self.__class__.__name__)
@@ -69,15 +79,26 @@ class GMXImage():
         """Launches the execution of the GROMACS rgyr module."""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
 
-        cmd = ['echo', '\"' + self.center_selection + '\" \"' + self.output_selection + '\"', '|',
+        # If fitting provided, echo fit_selection
+        if self.fit == 'none':
+            selections = '\"' + self.center_selection + '\" \"' + self.output_selection + '\"'
+        else:
+            selections = '\"' + self.fit_selection + '\" \"' + self.center_selection + '\" \"' + self.output_selection + '\"'
+
+        cmd = ['echo', selections, '|',
                self.gmx_path, 'trjconv',
                '-f', self.input_traj_path,
                '-s', self.input_top_path,
-               '-pbc', self.pbc,
                '-center' if self.center else '-nocenter',
-               '-ur', self.ur,
                '-fit', self.fit,
                '-o', self.output_traj_path]
+
+        # Unit-cell representation is incompatible with fitting
+        if self.fit == 'none':
+            cmd.append('-pbc')
+            cmd.append(self.pbc)
+            cmd.append('-ur')
+            cmd.append(self.ur)
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         return returncode
@@ -92,6 +113,7 @@ def main():
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.')
     required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.')
+    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file: ndx.")
     required_args.add_argument('--output_traj_path', required=True, help='Path to the output file: xtc, trr, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
@@ -101,7 +123,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    GMXImage(input_traj_path=args.input_traj_path, input_top_path=args.input_top_path, output_traj_path=args.output_traj_path, properties=properties).launch()
+    GMXImage(input_traj_path=args.input_traj_path, input_top_path=args.input_top_path, input_index_path=args.input_index_path, output_traj_path=args.output_traj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

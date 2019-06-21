@@ -2,23 +2,27 @@ working_dir_path: /tmp/biobb/unitests
 
 gmx_cluster:
   paths:
-    input_structure_path: file:test_data_dir/gromacs/cluster.gro
-    input_traj_path: file:test_data_dir/gromacs/cluster.trr
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
     output_pdb_path: output_pdb.pdb
     ref_output_pdb_path: file:test_reference_dir/gromacs/ref_cluster.pdb
   properties:
+    fit_selection: System
+    output_selection: System
     dista: False
     method: linkage
-    cutoff: 0.1
+    cutoff: 0.
 
 gmx_rms:
   paths:
-    input_structure_path: file:test_data_dir/gromacs/rms.gro
-    input_traj_path: file:test_data_dir/gromacs/rms.trr
-    output_xvg_path: output_xvg.xvg
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_xvg_path: output.xvg
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.xvg
   properties:
-    selection: Protein-H
+    selection: System
 
 gmx_energy:
   paths:
@@ -30,30 +34,33 @@ gmx_energy:
 
 gmx_rgyr:
   paths:
-    input_structure_path: file:test_data_dir/gromacs/rgyr.gro
-    input_traj_path: file:test_data_dir/gromacs/rgyr.trr
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
     output_xvg_path: output.xvg
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rgyr.xvg
   properties:
-    selection: Protein-H
+    selection: System
 
 gmx_trjconv_str:
   paths:
-    input_structure_path: file:test_data_dir/gromacs/trjconv.str.gro
-    input_top_path: file:test_data_dir/gromacs/trjconv.str.gro
+    input_structure_path: file:test_data_dir/gromacs/trajectory.trr
+    input_top_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
     output_str_path: output.pdb
     ref_output_str_path: file:test_reference_dir/gromacs/ref_trjconv.str.pdb
   properties:
-    selection: Protein-H
+    selection: System
 
 gmx_trjconv_str_ens:
   paths:
-    input_traj_path: file:test_data_dir/gromacs/trjconv.str.ens.trr
-    input_top_path: file:test_data_dir/gromacs/trjconv.str.ens.gro
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_top_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
     output_str_ens_path: output.zip
     ref_output_str_ens_path: file:test_reference_dir/gromacs/ref_trjconv.str.ens.zip
   properties:
-    selection: Protein-H
+    selection: System
     start: 0
     end: 10
     dt: 1
@@ -62,27 +69,30 @@ gmx_trjconv_str_ens:
 
 gmx_trjconv_trj:
   paths:
-    input_traj_path: file:test_data_dir/gromacs/trjconv.trj.trr
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
     output_traj_path: output.xtc
     ref_output_traj_path: file:test_reference_dir/gromacs/ref_trjconv.trj.xtc
   properties:
-    selection: Protein-H
+    selection: System
     start: 0
     end: 0
     dt: 0
 
 gmx_image:
   paths:
-    input_traj_path: file:test_data_dir/gromacs/image.trr
-    input_top_path: file:test_data_dir/gromacs/image.gro
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_top_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
     output_traj_path: output.xtc
     ref_output_traj_path: file:test_reference_dir/gromacs/ref_image.xtc
   properties:
-    center_selection: Protein-H
-    output_selection: Protein-H
+    fit_selection: System
+    center_selection: System
+    output_selection: System
     pbc: mol
     center: True
-    fit: none
+    fit: rot+trans
     ur: compact
 
 

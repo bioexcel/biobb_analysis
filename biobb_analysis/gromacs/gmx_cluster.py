@@ -14,20 +14,24 @@ class GMXCluster():
     Args:
         input_structure_path (str): Path to the input structure file: tpr, gro, g96, pdb, brk, ent.
         input_traj_path (str): Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_index_path (str): Path to the GROMACS index file: ndx.
         output_pdb_path (str): Path to the output cluster file: xtc, trr, cpt, gro, g96, pdb, tng.
         properties (dic):
+            * **fit_selection** (*str*) - ("System") - Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **output_selection** (*str*) - ("System") Group that is going to be written in the output trajectory. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **dista** (*bool*) - (False) Use RMSD of distances instead of RMS deviation.
             * **method** (*str*) - ("linkage") Method for cluster determination: linkage, jarvis-patrick, monte-carlo, diagonalization, gromos
             * **cutoff** (*float*) - (0.1) RMSD cut-off (nm) for two structures to be neighbor
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
-    def __init__(self, input_structure_path, input_traj_path, output_pdb_path, properties=None, **kwargs):
+    def __init__(self, input_structure_path, input_traj_path, input_index_path, output_pdb_path, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
         self.input_structure_path = input_structure_path
         self.input_traj_path = input_traj_path
+        self.input_index_path = input_index_path
         self.output_pdb_path = output_pdb_path
 
         # Properties specific for BB
@@ -54,7 +58,14 @@ class GMXCluster():
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         self.input_structure_path = check_input_path(self.input_structure_path, out_log, self.__class__.__name__)
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
+        self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
         self.output_pdb_path = check_out_pdb_path(self.output_pdb_path, out_log, self.__class__.__name__)
+        if not self.input_index_path:
+            self.fit_selection = get_image_selection(self.properties, 'fit_selection', out_log, self.__class__.__name__)
+            self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
+        else:
+            self.fit_selection = get_selection_index_file(self.properties, self.input_index_path, 'fit_selection', out_log, self.__class__.__name__)
+            self.output_selection = get_selection_index_file(self.properties, self.input_index_path, 'output_selection', out_log, self.__class__.__name__)
         self.dista = get_dista(self.properties, out_log, self.__class__.__name__)
         self.method = get_method(self.properties, out_log, self.__class__.__name__)
         self.cutoff = get_cutoff(self.properties, out_log, self.__class__.__name__)
@@ -64,7 +75,7 @@ class GMXCluster():
         """Launches the execution of the GROMACS rms module."""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
 
-        cmd = ['echo', '\"'+'1 1'+'\"', '|',
+        cmd = ['echo', '\"' + self.fit_selection + '\" \"' + self.output_selection + '\"', '|',
                self.gmx_path, 'cluster',
                '-s', self.input_structure_path,
                '-f', self.input_traj_path,
@@ -87,6 +98,7 @@ def main():
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file: tpr, gro, g96, pdb, brk, ent.')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.')
+    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file: ndx.")
     required_args.add_argument('--output_pdb_path', required=True, help='Path to the output cluster file: xtc, trr, cpt, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
@@ -96,7 +108,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    GMXCluster(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, output_pdb_path=args.output_pdb_path, properties=properties).launch()
+    GMXCluster(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, input_index_path=args.input_index_path, output_pdb_path=args.output_pdb_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

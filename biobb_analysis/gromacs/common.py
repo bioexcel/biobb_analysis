@@ -1,5 +1,6 @@
 """ Common functions for package biobb_analysis.gromacs """
 import os.path
+import re, sys
 from os import listdir
 from biobb_common.tools import file_utils as fu
 
@@ -27,6 +28,19 @@ def check_input_path(path, out_log, classname):
 	if not is_valid_structure(file_extension[1:]):
 		fu.log(classname + ': Format %s in structure input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in structure input file is not compatible' % file_extension[1:])
+	# if file input has no path, add cwd because execution is launched on tmp folder
+	if(os.path.basename(path) == path or not os.path.isabs(path)):
+		path = os.path.join(os.getcwd(), path)
+	return path
+
+def check_index_path(path, out_log, classname):
+	""" Checks index input file """ 
+	if not path:
+		return None
+	filename, file_extension = os.path.splitext(path)
+	if not is_valid_index(file_extension[1:]):
+		fu.log(classname + ': Format %s in index input file is not compatible' % file_extension[1:], out_log)
+		raise SystemExit(classname + ': Format %s in index input file is not compatible' % file_extension[1:])
 	# if file input has no path, add cwd because execution is launched on tmp folder
 	if(os.path.basename(path) == path or not os.path.isabs(path)):
 		path = os.path.join(os.getcwd(), path)
@@ -101,8 +115,9 @@ def get_default_value(key):
 		"dista": False,
 		"method": "linkage",
 		"cutoff": 0.1,
-		"center_selection": "Protein-H",
-	  	"output_selection": "Protein-H",
+		"fit_selection": "System",
+		"center_selection": "System",
+	  	"output_selection": "System",
 	  	"pbc": "mol",
 	  	"center": True,
 	  	"fit": "none",
@@ -151,6 +166,19 @@ def get_image_selection(properties, key, out_log, classname):
 		fu.log(classname + ': Incorrect selection provided, exiting', out_log)
 		raise SystemExit(classname + ': Incorrect selection provided')
 	return selection
+
+def get_selection_index_file(properties, index, key, out_log, classname):
+	""" Gets selection items from provided index file """
+	pattern = re.compile("\[.*\]")
+	selection = []
+	for i, line in enumerate(open(index)):
+		for match in re.finditer(pattern, line):
+			selection.append(re.sub('[\[\] ]', '', match.group()))
+	sel = properties.get(key, get_default_value(key))
+	if not sel in selection:
+		fu.log(classname + ': Incorrect selection provided, exiting', out_log)
+		raise SystemExit(classname + ': Incorrect selection provided')
+	return sel
 
 def get_pbc(properties, out_log, classname):
 	""" Gets pbc """
@@ -273,6 +301,11 @@ def is_valid_method_param(met):
 def is_valid_structure(ext):
 	""" Checks if structure format is compatible with GROMACS """
 	formats = ['tpr', 'gro', 'g96', 'pdb', 'brk', 'ent']
+	return ext in formats
+
+def is_valid_index(ext):
+	""" Checks if structure format is compatible with GROMACS """
+	formats = ['ndx']
 	return ext in formats
 
 def is_valid_trajectory(ext):

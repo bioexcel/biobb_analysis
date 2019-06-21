@@ -14,18 +14,20 @@ class GMXTrjConvStr():
     Args:
         input_structure_path (str): Path to the input structure file: xtc, trr, cpt, gro, g96, pdb, tng.
         input_top_path (str): Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.
+        input_index_path (str): Path to the GROMACS index file: ndx.
         output_str_path (str): Path to the output file: xtc, trr, gro, g96, pdb, tng.
         properties (dic):
-            * **selection** (*str*) - ("System") Group where the trjconv will be performed: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
-    def __init__(self, input_structure_path, input_top_path, output_str_path, properties=None, **kwargs):
+    def __init__(self, input_structure_path, input_top_path, input_index_path, output_str_path, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
         self.input_structure_path = input_structure_path
         self.input_top_path = input_top_path
+        self.input_index_path = input_index_path
         self.output_str_path = output_str_path
 
         # Properties specific for BB
@@ -52,8 +54,12 @@ class GMXTrjConvStr():
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         self.input_structure_path = check_traj_path(self.input_structure_path, out_log, self.__class__.__name__)
         self.input_top_path = check_input_path(self.input_top_path, out_log, self.__class__.__name__)
+        self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
         self.output_str_path = check_out_traj_path(self.output_str_path, out_log, self.__class__.__name__)
-        self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+        if not self.input_index_path:
+            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+        else:
+            self.selection = get_selection_index_file(self.properties, self.input_index_path, 'selection', out_log, self.__class__.__name__)
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
@@ -78,6 +84,7 @@ def main():
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file: xtc, trr, cpt, gro, g96, pdb, tng.')
     required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.')
+    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file: ndx.")
     required_args.add_argument('--output_str_path', required=True, help='Path to the output file: xtc, trr, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
@@ -87,7 +94,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    GMXTrjConvStr(input_structure_path=args.input_structure_path, input_top_path=args.input_top_path, output_str_path=args.output_str_path, properties=properties).launch()
+    GMXTrjConvStr(input_structure_path=args.input_structure_path, input_top_path=args.input_top_path, input_index_path=args.input_index_path, output_str_path=args.output_str_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

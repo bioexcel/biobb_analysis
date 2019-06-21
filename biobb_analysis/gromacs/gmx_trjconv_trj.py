@@ -13,20 +13,22 @@ class GMXTrjConvTrj():
 
     Args:
         input_traj_path (str): Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_index_path (str): Path to the GROMACS index file: ndx.
         output_traj_path (str): Path to the output file: xtc, trr, gro, g96, pdb, tng.
         properties (dic):
-            * **selection** (*str*) - ("System") Group where the trjconv will be performed: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **start** (*int*) - (0) Time of first frame to read from trajectory (default unit ps).
             * **end** (*int*) - (0) Time of last frame to read from trajectory (default unit ps).
             * **dt** (*int*) - (0) Only write frame when t MOD dt = first time (ps).
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
-    def __init__(self, input_traj_path, output_traj_path, properties=None, **kwargs):
+    def __init__(self, input_traj_path, input_index_path, output_traj_path, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
         self.input_traj_path = input_traj_path
+        self.input_index_path = input_index_path
         self.output_traj_path = output_traj_path
 
         # Properties specific for BB
@@ -52,8 +54,12 @@ class GMXTrjConvTrj():
         """ Checks all the input/output paths and parameters """
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
+        self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
         self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log, self.__class__.__name__)
-        self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+        if not self.input_index_path:
+            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+        else:
+            self.selection = get_selection_index_file(self.properties, self.input_index_path, 'selection', out_log, self.__class__.__name__)
         self.start = get_start(self.properties, out_log, self.__class__.__name__)
         self.end = get_end(self.properties, out_log, self.__class__.__name__)
         self.dt = get_dt(self.properties, out_log, self.__class__.__name__)
@@ -82,6 +88,7 @@ def main():
     #Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.')
+    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file: ndx.")
     required_args.add_argument('--output_traj_path', required=True, help='Path to the output file: xtc, trr, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
@@ -91,7 +98,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    GMXTrjConvTrj(input_traj_path=args.input_traj_path, output_traj_path=args.output_traj_path, properties=properties).launch()
+    GMXTrjConvTrj(input_traj_path=args.input_traj_path, input_index_path=args.input_index_path, output_traj_path=args.output_traj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()
