@@ -21,7 +21,7 @@ class GMXTrjConvStr():
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
-    def __init__(self, input_structure_path, input_top_path, input_index_path, output_str_path, properties=None, **kwargs):
+    def __init__(self, input_structure_path, input_top_path, output_str_path, input_index_path=None, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
@@ -94,7 +94,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    GMXTrjConvStr(input_structure_path=args.input_structure_path, input_top_path=args.input_top_path, input_index_path=args.input_index_path, output_str_path=args.output_str_path, properties=properties).launch()
+    GMXTrjConvStr(input_structure_path=args.input_structure_path, input_top_path=args.input_top_path, output_str_path=args.output_str_path, input_index_path=args.input_index_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

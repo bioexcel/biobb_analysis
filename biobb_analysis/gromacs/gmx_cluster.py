@@ -25,7 +25,7 @@ class GMXCluster():
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
-    def __init__(self, input_structure_path, input_traj_path, input_index_path, output_pdb_path, properties=None, **kwargs):
+    def __init__(self, input_structure_path, input_traj_path, output_pdb_path, input_index_path=None, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
@@ -108,7 +108,7 @@ def main():
         properties = properties[args.step]
 
     #Specific call of each building block
-    GMXCluster(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, input_index_path=args.input_index_path, output_pdb_path=args.output_pdb_path, properties=properties).launch()
+    GMXCluster(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, output_pdb_path=args.output_pdb_path, input_index_path=args.input_index_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()
