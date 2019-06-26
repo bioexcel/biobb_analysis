@@ -89,16 +89,16 @@ class GMXImage():
                self.gmx_path, 'trjconv',
                '-f', self.input_traj_path,
                '-s', self.input_top_path,
-               '-center' if self.center else '-nocenter',
                '-fit', self.fit,
                '-o', self.output_traj_path]
 
-        # Unit-cell representation is incompatible with fitting
+        # Unit-cell representation, PBC tratment and atoms center are incompatible with fitting
         if self.fit == 'none':
+            cmd.append('-center' if self.center else '-nocenter')
             cmd.append('-pbc')
             cmd.append(self.pbc)
             cmd.append('-ur')
-            cmd.append(self.ur)
+            cmd.append(self.ur)            
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         return returncode
