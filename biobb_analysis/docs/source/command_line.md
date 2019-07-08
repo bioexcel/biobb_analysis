@@ -1410,7 +1410,7 @@ Command:
 cpptraj_strip --config data/conf/strip.json --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.strip.netcdf
 ```
 
-## Gromacs cluster
+## GROMACS cluster
 
 Creates cluster structures from a given GROMACS compatible trajectory.
 
@@ -1435,15 +1435,15 @@ optional arguments:
   --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
-                        Path to the GROMACS index file: ndx.
+                        Path to the GROMACS index file. Accepted formats: ndx.
 
 required arguments:
   --input_structure_path INPUT_STRUCTURE_PATH
-                        Path to the input structure file: tpr, gro, g96, pdb, brk, ent.
+                        Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
   --input_traj_path INPUT_TRAJ_PATH
-                        Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
+                        Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
   --output_pdb_path OUTPUT_PDB_PATH
-                        Path to the output cluster file: xtc, trr, cpt, gro, g96, pdb, tng.
+                        Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
 ```
 
 ### I / O Arguments
@@ -1515,7 +1515,7 @@ Command:
 gmx_cluster --config data/conf/cluster.json --input_structure_path data/input/cluster.gro --input_traj_path data/input/cluster.trr --output_pdb_path data/output/output.cluster.pdb
 ```
 
-## Gromacs energy
+## GROMACS energy
 
 Extracts energy components from a given GROMACS energy file.
 
@@ -1542,9 +1542,9 @@ optional arguments:
 
 required arguments:
   --input_energy_path INPUT_ENERGY_PATH
-                        Path to the input EDR file.
+                        Path to the input EDR file. Accepted formats: edr.
   --output_xvg_path OUTPUT_XVG_PATH
-                        Path to the XVG output file.
+                        Path to the XVG output file. Accepted formats: xvg.
 ```
 
 ### I / O Arguments
@@ -1603,7 +1603,7 @@ Command:
 gmx_energy --config data/conf/energy.json --input_energy_path data/input/energy.edr --output_xvg_path data/output/output.energy.xvg
 ```
 
-## Gromacs image
+## GROMACS image
 
 Corrects periodicity (image) from a given GROMACS compatible trajectory file.
 
@@ -1628,15 +1628,15 @@ optional arguments:
   --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
-                        Path to the GROMACS index file: ndx.
+                        Path to the GROMACS index file. Accepted formats: ndx.
 
 required arguments:
   --input_traj_path INPUT_TRAJ_PATH
-                        Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
+                        Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
   --input_top_path INPUT_TOP_PATH
-                        Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.
+                        Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
   --output_traj_path OUTPUT_TRAJ_PATH
-                        Path to the output file: xtc, trr, gro, g96, pdb, tng.
+                        Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
 ```
 
 ### I / O Arguments
@@ -1714,7 +1714,7 @@ Command:
 gmx_image --config data/conf/gmx_image.json --input_traj_path data/input/image.trr --input_top_path data/input/image.gro --output_traj_path data/output/output.image.xtc
 ```
 
-## Gromacs rgyr
+## GROMACS rgyr
 
 Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.
 
@@ -1739,15 +1739,15 @@ optional arguments:
   --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
-                        Path to the GROMACS index file: ndx.
+                        Path to the GROMACS index file. Accepted formats: ndx.
 
 required arguments:
   --input_structure_path INPUT_STRUCTURE_PATH
-                        Path to the input structure file: tpr, gro, g96, pdb, brk, ent.
+                        Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
   --input_traj_path INPUT_TRAJ_PATH
-                        Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
+                        Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
   --output_xvg_path OUTPUT_XVG_PATH
-                        Path to the XVG output file.
+                        Path to the XVG output file. Accepted formats: xvg.
 ```
 
 ### I / O Arguments
@@ -1808,7 +1808,7 @@ Command:
 gmx_rgyr --config data/conf/gmx_rgyr.json --input_structure_path data/input/rgyr.gro --input_traj_path data/input/rgyr.trr --output_xvg_path data/output/output.rgyr.xvg
 ```
 
-## Gromacs rms
+## GROMACS rms
 
 Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.
 
@@ -1833,15 +1833,16 @@ optional arguments:
   --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
-                        Path to the GROMACS index file: ndx.
+                        Path to the GROMACS index file. Accepted formats: ndx.
 
 required arguments:
   --input_structure_path INPUT_STRUCTURE_PATH
-                        Path to the input structure file: tpr, gro, g96, pdb, brk, ent.
+                        Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
   --input_traj_path INPUT_TRAJ_PATH
-                        Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
+                        Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
   --output_xvg_path OUTPUT_XVG_PATH
-                        Path to the XVG output file.
+                        Path to the XVG output file. Accepted formats: xvg.
+
 ```
 
 ### I / O Arguments
@@ -1902,7 +1903,7 @@ Command:
 gmx_rms --config data/conf/gmx_rms.json --input_structure_path data/input/rgyr.gro --input_traj_path data/input/rgyr.trr --output_xvg_path data/output/output.rms.xvg
 ```
 
-## Gromacs trjconv structure
+## GROMACS trjconv structure
 
 Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.
 
@@ -1927,15 +1928,15 @@ optional arguments:
   --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
-                        Path to the GROMACS index file: ndx.
+                        Path to the GROMACS index file. Accepted formats: ndx.
 
 required arguments:
   --input_structure_path INPUT_STRUCTURE_PATH
-                        Path to the input structure file: xtc, trr, cpt, gro, g96, pdb, tng.
+                        Path to the input structure file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
   --input_top_path INPUT_TOP_PATH
-                        Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.
+                        Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
   --output_str_path OUTPUT_STR_PATH
-                        Path to the output file: xtc, trr, gro, g96, pdb, tng.
+                        Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
 ```
 
 ### I / O Arguments
@@ -1995,7 +1996,7 @@ Command:
 gmx_trjconv_str --config data/conf/gmx_trjconv_str.json --input_structure_path data/input/trjconv.str.gro --input_top_path data/input/trjconv.str.gro --output_str_path data/output/output.trjconv.str.pdb
 ```
 
-## Gromacs trjconv structure ensemble
+## GROMACS trjconv structure ensemble
 
 Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.
 
@@ -2020,15 +2021,16 @@ optional arguments:
   --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
-                        Path to the GROMACS index file: ndx.
+                        Path to the GROMACS index file. Accepted formats: ndx.
 
 required arguments:
   --input_traj_path INPUT_TRAJ_PATH
-                        Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
+                        Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
   --input_top_path INPUT_TOP_PATH
-                        Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.
+                        Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
   --output_str_ens_path OUTPUT_STR_ENS_PATH
-                        Path to the output file: zip.
+                        Path to the output file. Accepted formats: zip.
+
 ```
 
 ### I / O Arguments
@@ -2103,7 +2105,7 @@ Command:
 gmx_trjconv_str_ens --config data/conf/gmx_trjconv_str_ens.json --input_traj_path data/input/trjconv.str.ens.trr --input_top_path data/input/trjconv.str.ens.gro --output_str_ens_path data/output/output.trjconv.str.ens.zip
 ```
 
-## Gromacs trjconv trajectory
+## GROMACS trjconv trajectory
 
 Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.
 
@@ -2128,13 +2130,13 @@ optional arguments:
   --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
-                        Path to the GROMACS index file: ndx.
+                        Path to the GROMACS index file. Accepted formats: ndx.
 
 required arguments:
   --input_traj_path INPUT_TRAJ_PATH
-                        Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
+                        Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
   --output_traj_path OUTPUT_TRAJ_PATH
-                        Path to the output file: xtc, trr, gro, g96, pdb, tng.
+                        Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
 ```
 
 ### I / O Arguments
