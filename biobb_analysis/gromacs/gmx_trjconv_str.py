@@ -83,10 +83,10 @@ def main():
 
     #Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file: xtc, trr, cpt, gro, g96, pdb, tng.')
-    required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.')
-    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file: ndx.")
-    required_args.add_argument('--output_str_path', required=True, help='Path to the output file: xtc, trr, gro, g96, pdb, tng.')
+    required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
+    required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
+    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file. Accepted formats: ndx.")
+    required_args.add_argument('--output_str_path', required=True, help='Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"
