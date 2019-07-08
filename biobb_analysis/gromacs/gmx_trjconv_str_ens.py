@@ -9,20 +9,21 @@ from biobb_analysis.gromacs.common import *
 
 
 class GMXTrjConvStrEns():
-    """Wrapper of the GROMACS trjconv (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-trjconv.html) module.
+    """Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.
+    Wrapper of the GROMACS trjconv (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-trjconv.html) module.
 
     Args:
-        input_traj_path (str): Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_top_path (str): Path to the GROMACS input topology file: tpr, gro, g96, pdb, brk, ent.
-        input_index_path (str): Path to the GROMACS index file: ndx.
-        output_str_ens_path (str): Path to the output file: zip.
+        input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_top_path (str): Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+        input_index_path (str): Path to the GROMACS index file. Accepted formats: ndx.
+        output_str_ens_path (str): Path to the output file. Accepted formats: zip.
         properties (dic):
-            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not, values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **start** (*int*) - (0) Time of first frame to read from trajectory (default unit ps).
             * **end** (*int*) - (0) Time of last frame to read from trajectory (default unit ps).
             * **dt** (*int*) - (0) Only write frame when t MOD dt = first time (ps).
             * **output_name** (*str*) - ("output") File name for ensemble of output files.
-            * **output_type** (*str*) - ("pdb") File type for ensemble of output files: gro, g96, pdb.
+            * **output_type** (*str*) - ("pdb") File type for ensemble of output files. Values: gro, g96, pdb.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
@@ -101,7 +102,7 @@ class GMXTrjConvStrEns():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS trjconv module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
+    parser = argparse.ArgumentParser(description="Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")

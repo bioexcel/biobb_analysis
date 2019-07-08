@@ -9,16 +9,17 @@ from biobb_analysis.gromacs.common import *
 
 
 class GMXRgyr():
-    """Wrapper of the GROMACS rgyr (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-gyrate.html) module.
+    """Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.
+    Wrapper of the GROMACS rgyr (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-gyrate.html) module.
 
     Args:
-        input_structure_path (str): Path to the input structure file: tpr, gro, g96, pdb, brk, ent.
-        input_traj_path (str): Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_index_path (str): Path to the GROMACS index file: ndx.
-        output_xvg_path (str): Path to the XVG output file.
+        input_structure_path (str): Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+        input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_index_path (str): Path to the GROMACS index file. Accepted formats: ndx.
+        output_xvg_path (str): Path to the XVG output file. Accepted formats: xvg.
         properties (dic):
-            * **xvg** (*str*) - ("none") XVG plot formatting: xmgrace, xmgr, none.
-            * **selection** (*str*) - ("System") Group where the rgyr will be performed. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
+            * **selection** (*str*) - ("System") Group where the rgyr will be performed. If **input_index_path** provided, check the file for the accepted values, if not, values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
@@ -78,7 +79,7 @@ class GMXRgyr():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS rgyr module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
+    parser = argparse.ArgumentParser(description="Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")

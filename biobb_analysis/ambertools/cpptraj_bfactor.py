@@ -9,7 +9,8 @@ from biobb_analysis.ambertools.common import *
 
 
 class Bfactor():
-    """Wrapper of the Ambertools Cpptraj module. Calculating B-Factor.
+    """Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory.
+    Wrapper of the Ambertools Cpptraj module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as
     the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
@@ -117,7 +118,7 @@ class Bfactor():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the Ambertools Cpptraj module. Calculating B-Factor.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
+    parser = argparse.ArgumentParser(description="Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")

@@ -9,14 +9,15 @@ from biobb_analysis.gromacs.common import *
 
 
 class GMXTrjConvTrj():
-    """Wrapper of the GROMACS trjconv (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-trjconv.html) module.
+    """Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.
+    Wrapper of the GROMACS trjconv (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-trjconv.html) module.
 
     Args:
-        input_traj_path (str): Path to the GROMACS trajectory file: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_index_path (str): Path to the GROMACS index file: ndx.
-        output_traj_path (str): Path to the output file: xtc, trr, gro, g96, pdb, tng.
+        input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_index_path (str): Path to the GROMACS index file. Accepted formats: ndx.
+        output_traj_path (str): Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
         properties (dic):
-            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not, values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **start** (*int*) - (0) Time of first frame to read from trajectory (default unit ps).
             * **end** (*int*) - (0) Time of last frame to read from trajectory (default unit ps).
             * **dt** (*int*) - (0) Only write frame when t MOD dt = first time (ps).
@@ -80,7 +81,7 @@ class GMXTrjConvTrj():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper of the GROMACS trjconv module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
+    parser = argparse.ArgumentParser(description="Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")

@@ -9,14 +9,15 @@ from biobb_analysis.gromacs.common import *
 
 
 class GMXEnergy():
-    """Wrapper of the GROMACS energy (http://manual.gromacs.org/current/onlinehelp/gmx-energy.html) module.
+    """Extracts energy components from a given GROMACS energy file.
+    Wrapper of the GROMACS energy (http://manual.gromacs.org/current/onlinehelp/gmx-energy.html) module.
 
     Args:
-        input_energy_path (str): Path to the input EDR file.
-        output_xvg_path (str): Path to the XVG output file.
+        input_energy_path (str): Path to the input EDR file. Accepted formats: edr.
+        output_xvg_path (str): Path to the XVG output file. Accepted formats: xvg.
         properties (dic):
-            * **xvg** (*str*) - ("none") XVG plot formatting: xmgrace, xmgr, none.
-            * **terms** (*list*) - (["Potential"]) Energy terms. Select one or more from: Angle, Proper-Dih., Improper-Dih., LJ-14, Coulomb-14, LJ-(SR), Coulomb-(SR), Coul.-recip., Position-Rest., Potential, Kinetic-En., Total-Energy, Temperature, Pressure,  Constr.-rmsd, Box-X, Box-Y,  Box-Z, Volume, Density, pV, Enthalpy, Vir-XX, Vir-XY, Vir-XZ, Vir-YX, Vir-YY, Vir-YZ, Vir-ZX, Vir-ZY, Vir-ZZ, Pres-XX, Pres-XY, Pres-XZ, Pres-YX, Pres-YY,  Pres-YZ, Pres-ZX, Pres-ZY, Pres-ZZ, #Surf*SurfTen, Box-Vel-XX, Box-Vel-YY, Box-Vel-ZZ, Mu-X, Mu-Y, Mu-Z, T-Protein, T-non-Protein, Lamb-Protein, Lamb-non-Protein
+            * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
+            * **terms** (*list*) - (["Potential"]) Energy terms. Select one or more from values: Angle, Proper-Dih., Improper-Dih., LJ-14, Coulomb-14, LJ-(SR), Coulomb-(SR), Coul.-recip., Position-Rest., Potential, Kinetic-En., Total-Energy, Temperature, Pressure,  Constr.-rmsd, Box-X, Box-Y,  Box-Z, Volume, Density, pV, Enthalpy, Vir-XX, Vir-XY, Vir-XZ, Vir-YX, Vir-YY, Vir-YZ, Vir-ZX, Vir-ZY, Vir-ZZ, Pres-XX, Pres-XY, Pres-XZ, Pres-YX, Pres-YY,  Pres-YZ, Pres-ZX, Pres-ZY, Pres-ZZ, #Surf*SurfTen, Box-Vel-XX, Box-Vel-YY, Box-Vel-ZZ, Mu-X, Mu-Y, Mu-Z, T-Protein, T-non-Protein, Lamb-Protein, Lamb-non-Protein.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
     """
 
@@ -89,7 +90,7 @@ class GMXEnergy():
         return returncode
 
 def main():
-    parser = argparse.ArgumentParser(description="Wrapper for the GROMACS energy module.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
+    parser = argparse.ArgumentParser(description="Extracts energy components from a given GROMACS energy file.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
