@@ -48,6 +48,8 @@ class GMXTrjConvStrEns():
         self.prefix = properties.get('prefix', None)
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
+        self.remove_tmp = properties.get('remove_tmp', True)
+        self.restart = properties.get('restart', False)
 
         # check input/output paths and parameters
         self.check_data_params()
@@ -58,6 +60,7 @@ class GMXTrjConvStrEns():
     def check_data_params(self):
         """ Checks all the input/output paths and parameters """
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
         self.input_top_path = check_input_path(self.input_top_path, out_log, self.__class__.__name__)
         self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
@@ -74,7 +77,16 @@ class GMXTrjConvStrEns():
 
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
+        tmp_files = []
+
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+
+        #Restart
+        if self.restart:
+            output_file_list = [self.output_str_ens_path]
+            if fu.check_complete_files(output_file_list):
+                fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
+                return 0
 
         # create temporary folder
         self.tmp_folder = fu.create_unique_dir()
@@ -99,6 +111,10 @@ class GMXTrjConvStrEns():
         # move files to output_str_ens_path and removes temporary folder
         os.chdir(cwd)
         process_output_trjconv_str_ens(self.tmp_folder, self.output_str_ens_path, out_log)
+
+        if self.remove_tmp:
+            fu.rm_file_list(tmp_files)
+
         return returncode
 
 def main():
