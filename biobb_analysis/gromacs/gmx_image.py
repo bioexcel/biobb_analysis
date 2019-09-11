@@ -4,6 +4,7 @@
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
+from biobb_common.tools.file_utils import launchlogger
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
 
@@ -78,11 +79,23 @@ class GMXImage():
         self.ur = get_ur(self.properties, out_log, self.__class__.__name__)
         self.fit = get_fit(self.properties, out_log, self.__class__.__name__)
 
+        handlers = out_log.handlers[:]
+        for handler in handlers:
+            handler.close()
+            out_log.removeHandler(handler)
+        handlers = err_log.handlers[:] # Create a copy [:] of the handler list to be able to modify it while we are iterating
+        for handler in handlers:
+            handler.close()
+            err_log.removeHandler(handler)
+
+    @launchlogger
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
         tmp_files = []
 
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        # Get local loggers from launchlogger decorator
+        out_log = getattr(self, 'out_log', None)
+        err_log = getattr(self, 'err_log', None)
 
         if self.restart:
             output_file_list = [self.output_traj_path]
