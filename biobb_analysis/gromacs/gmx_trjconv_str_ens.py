@@ -94,7 +94,7 @@ class GMXTrjConvStrEns():
         out_log = getattr(self, 'out_log', None)
         err_log = getattr(self, 'err_log', None)
 
-        #Restart
+        # Restart
         if self.restart:
             output_file_list = [self.output_str_ens_path]
             if fu.check_complete_files(output_file_list):
@@ -113,16 +113,11 @@ class GMXTrjConvStrEns():
                '-e', self.end,
                '-dt', self.dt,
                '-sep',
-               '-o', self.output_name + '.' + self.output_type]
-
-        # change execution directory to temporary folder
-        cwd = os.getcwd()
-        os.chdir(self.tmp_folder)
+               '-o', self.tmp_folder + '/' + self.output_name + '.' + self.output_type]
 
         # execute cmd
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         # move files to output_str_ens_path and removes temporary folder
-        os.chdir(cwd)
         process_output_trjconv_str_ens(self.tmp_folder, self.output_str_ens_path, out_log)
 
         if self.remove_tmp:
