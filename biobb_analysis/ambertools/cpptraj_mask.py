@@ -70,7 +70,8 @@ class Mask():
         """Creates an input file using the properties file settings"""
         out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         instructions_list = []
-        self.instructions_file = os.path.join(fu.create_unique_dir(), self.instructions_file)
+        #self.instructions_file = os.path.join(fu.create_unique_dir(), self.instructions_file)
+        self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
         fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
 
         # parm
@@ -113,7 +114,8 @@ class Mask():
         cmd = [self.cpptraj_path, '-i', self.instructions_file]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        remove_tmp_files([os.path.dirname(self.instructions_file)], out_log, self.input_top_path_orig, self.input_top_path)
+        #remove_tmp_files([os.path.dirname(self.instructions_file)], out_log, self.input_top_path_orig, self.input_top_path)
+        remove_tmp_files([PurePath(self.instructions_file).parent], out_log, self.input_top_path_orig, self.input_top_path)
         return returncode
 
 def main():

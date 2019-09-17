@@ -1,71 +1,95 @@
 """ Common functions for package biobb_analysis.gromacs """
-import os.path
+############################################
+## TODO: REMOVE
+#import os.path
+############################################
+from pathlib import Path, PurePath
 import re, sys
-from os import listdir
+############################################
+## TODO: REMOVE
+#from os import listdir
+############################################
 from biobb_common.tools import file_utils as fu
 
 
 def check_energy_path(path, out_log, classname):
 	""" Checks energy input file """ 
-	if not os.path.exists(path):
+	#if not os.path.exists(path):
+	if not Path(path).exists():
 		fu.log(classname + ': Unexisting energy input file, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting energy input file')
-	filename, file_extension = os.path.splitext(path)
+	#filename, file_extension = os.path.splitext(path)
+	file_extension = PurePath(path).suffix
 	if not is_valid_energy(file_extension[1:]):
 		fu.log(classname + ': Format %s in energy input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in energy input file is not compatible' % file_extension[1:])
 	# if file input has no path, add cwd because execution is launched on tmp folder
-	if(os.path.basename(path) == path or not os.path.isabs(path)):
-		path = os.path.join(os.getcwd(), path)
+	#if(os.path.basename(path) == path or not os.path.isabs(path)):
+	if(PurePath(path).name == path or not PurePath(path).is_absolute()):
+		#path = os.path.join(os.getcwd(), path)
+		path = str(PurePath(Path.cwd()).joinpath(path))
 	return path
 
 def check_input_path(path, out_log, classname):
 	""" Checks input structure file """ 
-	if not os.path.exists(path):
+	#if not os.path.exists(path):
+	if not Path(path).exists():
 		fu.log(classname + ': Unexisting structure input file, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting structure input file')
-	filename, file_extension = os.path.splitext(path)
+	#filename, file_extension = os.path.splitext(path)
+	file_extension = PurePath(path).suffix
 	if not is_valid_structure(file_extension[1:]):
 		fu.log(classname + ': Format %s in structure input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in structure input file is not compatible' % file_extension[1:])
 	# if file input has no path, add cwd because execution is launched on tmp folder
-	if(os.path.basename(path) == path or not os.path.isabs(path)):
-		path = os.path.join(os.getcwd(), path)
+	#if(os.path.basename(path) == path or not os.path.isabs(path)):
+	if(PurePath(path).name == path or not PurePath(path).is_absolute()):
+		#path = os.path.join(os.getcwd(), path)
+		path = str(PurePath(Path.cwd()).joinpath(path))
 	return path
 
 def check_index_path(path, out_log, classname):
 	""" Checks index input file """ 
 	if not path:
 		return None
-	filename, file_extension = os.path.splitext(path)
+	#filename, file_extension = os.path.splitext(path)
+	file_extension = PurePath(path).suffix
 	if not is_valid_index(file_extension[1:]):
 		fu.log(classname + ': Format %s in index input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in index input file is not compatible' % file_extension[1:])
 	# if file input has no path, add cwd because execution is launched on tmp folder
-	if(os.path.basename(path) == path or not os.path.isabs(path)):
-		path = os.path.join(os.getcwd(), path)
+	#if(os.path.basename(path) == path or not os.path.isabs(path)):
+	if(PurePath(path).name == path or not PurePath(path).is_absolute()):
+		#path = os.path.join(os.getcwd(), path)
+		path = str(PurePath(Path.cwd()).joinpath(path))
 	return path
 
 def check_traj_path(path, out_log, classname):
 	""" Checks input structure file """ 
-	if not os.path.exists(path):
+	#if not os.path.exists(path):
+	if not Path(path).exists():
 		fu.log(classname + ': Unexisting trajectory input file, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting trajectory input file')
-	filename, file_extension = os.path.splitext(path)
+	#filename, file_extension = os.path.splitext(path)
+	file_extension = PurePath(path).suffix
 	if not is_valid_trajectory(file_extension[1:]):
 		fu.log(classname + ': Format %s in trajectory input file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in trajectory input file is not compatible' % file_extension[1:])
 	# if file input has no path, add cwd because execution is launched on tmp folder
-	if(os.path.basename(path) == path or not os.path.isabs(path)):
-		path = os.path.join(os.getcwd(), path)
+	#if(os.path.basename(path) == path or not os.path.isabs(path)):
+	if(PurePath(path).name == path or not PurePath(path).is_absolute()):
+		#path = os.path.join(os.getcwd(), path)
+		path = str(PurePath(Path.cwd()).joinpath(path))
 	return path
 
 def check_out_xvg_path(path, out_log, classname):
 	""" Checks if output folder exists and format is xvg """
-	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
+	#if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
+	if PurePath(path).parent and not Path(PurePath(path).parent).exists():
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
-	filename, file_extension = os.path.splitext(path)
+	#filename, file_extension = os.path.splitext(path)
+	file_extension = PurePath(path).suffix
 	if not is_valid_xvg(file_extension[1:]):
 		fu.log(classname + ': Format %s in output file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in output file is not compatible' % file_extension[1:])
@@ -73,10 +97,12 @@ def check_out_xvg_path(path, out_log, classname):
 
 def check_out_pdb_path(path, out_log, classname):
 	""" Checks if output folder exists and format is xvg """
-	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
+	#if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
+	if PurePath(path).parent and not Path(PurePath(path).parent).exists():
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
-	filename, file_extension = os.path.splitext(path)
+	#filename, file_extension = os.path.splitext(path)
+	file_extension = PurePath(path).suffix
 	if not is_valid_structure(file_extension[1:]):
 		fu.log(classname + ': Format %s in output file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in output file is not compatible' % file_extension[1:])
@@ -84,10 +110,12 @@ def check_out_pdb_path(path, out_log, classname):
 
 def check_out_traj_path(path, out_log, classname):
 	""" Checks if output folder exists and format is correct """
-	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
+	#if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
+	if PurePath(path).parent and not Path(PurePath(path).parent).exists():
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
-	filename, file_extension = os.path.splitext(path)
+	#filename, file_extension = os.path.splitext(path)
+	file_extension = PurePath(path).suffix
 	if not is_valid_trajectory_output(file_extension[1:]):
 		fu.log(classname + ': Format %s in output file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in output file is not compatible' % file_extension[1:])
@@ -95,10 +123,12 @@ def check_out_traj_path(path, out_log, classname):
 
 def check_out_str_ens_path(path, out_log, classname):
 	""" Checks if output folder exists and format is correct """
-	if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
+	#if os.path.dirname(path) and not os.path.exists(os.path.dirname(path)):
+	if PurePath(path).parent and not Path(PurePath(path).parent).exists():
 		fu.log(classname + ': Unexisting output folder, exiting', out_log)
 		raise SystemExit(classname + ': Unexisting output folder')
-	filename, file_extension = os.path.splitext(path)
+	#filename, file_extension = os.path.splitext(path)
+	file_extension = PurePath(path).suffix
 	if not is_valid_zip(file_extension[1:]):
 		fu.log(classname + ': Format %s in output file is not compatible' % file_extension[1:], out_log)
 		raise SystemExit(classname + ': Format %s in output file is not compatible' % file_extension[1:])
@@ -377,10 +407,14 @@ def remove_tmp_files(list, out_log):
 def process_output_trjconv_str_ens(tmp_folder, output_file, out_log):
 	""" Compresses, moves and removes temporal files generated by the wrapper """
 	# list all files in temporary folder
-	tmp_fl = os.listdir( tmp_folder )
+	#tmp_fl = os.listdir( tmp_folder )
+	tmp_fl = list(Path(tmp_folder).glob('*'))
+	#print(tmp_fl)
 	files_list = []
 	for file_name in tmp_fl:
-		files_list.append(os.path.join(tmp_folder, file_name))
+		#files_list.append(os.path.join(tmp_folder, file_name))
+		#files_list.append(str(PurePath(tmp_folder).joinpath(file_name)))
+		files_list.append(file_name)
 
 	# adding files from temporary folder to zip
 	fu.zip_list(output_file, files_list, out_log)

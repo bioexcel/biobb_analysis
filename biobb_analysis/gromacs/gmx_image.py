@@ -54,14 +54,14 @@ class GMXImage():
         self.restart = properties.get('restart', False)
 
         # check input/output paths and parameters
-        self.check_data_params()
+        #self.check_data_params()
 
         # Check the properties
-        fu.check_properties(self, properties)
+        #fu.check_properties(self, properties)
 
-    def check_data_params(self):
+    def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        #out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
         self.input_top_path = check_input_path(self.input_top_path, out_log, self.__class__.__name__)
         self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
@@ -96,6 +96,12 @@ class GMXImage():
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
         err_log = getattr(self, 'err_log', None)
+
+        # check input/output paths and parameters
+        self.check_data_params(out_log, err_log)
+
+        # Check the properties
+        fu.check_properties(self, self.properties)
 
         if self.restart:
             output_file_list = [self.output_traj_path]

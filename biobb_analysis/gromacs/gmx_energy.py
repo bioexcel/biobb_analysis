@@ -59,7 +59,8 @@ class GMXEnergy():
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
-        self.instructions_file = os.path.join(fu.create_unique_dir(), self.instructions_file)
+        self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
+        #self.instructions_file = os.path.join(fu.create_unique_dir(), self.instructions_file)
         fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
 
         for t in self.terms:
@@ -86,7 +87,8 @@ class GMXEnergy():
                '<', self.instructions_file]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        remove_tmp_files([os.path.dirname(self.instructions_file)], out_log)
+        #remove_tmp_files([os.path.dirname(self.instructions_file)], out_log)
+        remove_tmp_files([PurePath(self.instructions_file).parent], out_log)
         return returncode
 
 def main():
