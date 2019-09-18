@@ -4,6 +4,7 @@
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
+from biobb_common.tools.file_utils import launchlogger
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import *
 
@@ -26,6 +27,8 @@ class Rgyr():
                 * **step** (*int*) - (1) Step for slicing
                 * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
             * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+            * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+            * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
     """
 
     def __init__(self, input_top_path, input_traj_path,
@@ -48,24 +51,18 @@ class Rgyr():
         self.prefix = properties.get('prefix', None)
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
+        self.remove_tmp = properties.get('remove_tmp', True)
+        self.restart = properties.get('restart', False)
 
-        # check input/output paths and parameters
-        self.check_data_params()
-
-        # Check the properties
-        fu.check_properties(self, properties)
-
-    def check_data_params(self):
+    def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         self.input_top_path, self.input_top_path_orig = check_top_path(self.input_top_path, out_log, self.__class__.__name__)
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
         self.output_cpptraj_path = check_out_path(self.output_cpptraj_path, out_log, self.__class__.__name__)
         self.in_parameters = get_parameters(self.properties, 'in_parameters', self.__class__.__name__, out_log)
 
-    def create_instructions_file(self):
+    def create_instructions_file(self, out_log, err_log):
         """Creates an input file using the properties file settings"""
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         instructions_list = []
         #self.instructions_file = os.path.join(fu.create_unique_dir(), self.instructions_file)
         self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
@@ -97,19 +94,35 @@ class Rgyr():
 
         return self.instructions_file
 
+    @launchlogger
     def launch(self):
         """Launches the execution of the Ambertools cpptraj module."""
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        
+        # Get local loggers from launchlogger decorator
+        out_log = getattr(self, 'out_log', None)
+        err_log = getattr(self, 'err_log', None)
+
+        # check input/output paths and parameters
+        self.check_data_params(out_log, err_log)
+
+        # Check the properties
+        fu.check_properties(self, self.properties)
+
+        if self.restart:
+            output_file_list = [self.output_cpptraj_path]
+            if fu.check_complete_files(output_file_list):
+                fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
+                return 0
 
         # create instructions file
-        self.create_instructions_file() 
+        self.create_instructions_file(out_log, err_log) 
 
         # run command line
         cmd = [self.cpptraj_path, '-i', self.instructions_file]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         #remove_tmp_files([os.path.dirname(self.instructions_file)], out_log, self.input_top_path_orig, self.input_top_path)
-        remove_tmp_files([PurePath(self.instructions_file).parent], out_log, self.input_top_path_orig, self.input_top_path)
+        remove_tmp_files([PurePath(self.instructions_file).parent], self.remove_tmp, out_log, self.input_top_path_orig, self.input_top_path)
         return returncode
 
 def main():

@@ -26,6 +26,8 @@ class GMXTrjConvStrEns():
             * **output_name** (*str*) - ("output") File name for ensemble of output files.
             * **output_type** (*str*) - ("pdb") File type for ensemble of output files. Values: gro, g96, pdb.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+            * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
     """
 
     def __init__(self, input_traj_path, input_top_path, output_str_ens_path, input_index_path=None, properties=None, **kwargs):
@@ -52,16 +54,8 @@ class GMXTrjConvStrEns():
         self.remove_tmp = properties.get('remove_tmp', True)
         self.restart = properties.get('restart', False)
 
-        # check input/output paths and parameters
-        self.check_data_params()
-
-        # Check the properties
-        fu.check_properties(self, properties)
-
-    def check_data_params(self):
+    def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
-
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
         self.input_top_path = check_input_path(self.input_top_path, out_log, self.__class__.__name__)
         self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
@@ -76,23 +70,19 @@ class GMXTrjConvStrEns():
         self.output_name = self.properties.get('output_name', 'output')
         self.output_type = get_ot_str_ens(self.properties, out_log, self.__class__.__name__)
 
-        handlers = out_log.handlers[:]
-        for handler in handlers:
-            handler.close()
-            out_log.removeHandler(handler)
-        handlers = err_log.handlers[:] # Create a copy [:] of the handler list to be able to modify it while we are iterating
-        for handler in handlers:
-            handler.close()
-            err_log.removeHandler(handler)
-
     @launchlogger
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
-        tmp_files = []
 
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
         err_log = getattr(self, 'err_log', None)
+
+        # check input/output paths and parameters
+        self.check_data_params(out_log, err_log)
+
+        # Check the properties
+        fu.check_properties(self, self.properties)
 
         # Restart
         if self.restart:
@@ -118,10 +108,7 @@ class GMXTrjConvStrEns():
         # execute cmd
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         # move files to output_str_ens_path and removes temporary folder
-        process_output_trjconv_str_ens(self.tmp_folder, self.output_str_ens_path, out_log)
-
-        if self.remove_tmp:
-            fu.rm_file_list(tmp_files)
+        process_output_trjconv_str_ens(self.tmp_folder, self.remove_tmp, self.output_str_ens_path, out_log)
 
         return returncode
 

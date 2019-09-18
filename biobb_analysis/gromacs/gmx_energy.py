@@ -4,6 +4,7 @@
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
+from biobb_common.tools.file_utils import launchlogger
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
 
@@ -19,6 +20,8 @@ class GMXEnergy():
             * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
             * **terms** (*list*) - (["Potential"]) Energy terms. Select one or more from values: Angle, Proper-Dih., Improper-Dih., LJ-14, Coulomb-14, LJ-(SR), Coulomb-(SR), Coul.-recip., Position-Rest., Potential, Kinetic-En., Total-Energy, Temperature, Pressure,  Constr.-rmsd, Box-X, Box-Y,  Box-Z, Volume, Density, pV, Enthalpy, Vir-XX, Vir-XY, Vir-XZ, Vir-YX, Vir-YY, Vir-YZ, Vir-ZX, Vir-ZY, Vir-ZZ, Pres-XX, Pres-XY, Pres-XZ, Pres-YX, Pres-YY,  Pres-YZ, Pres-ZX, Pres-ZY, Pres-ZZ, #Surf*SurfTen, Box-Vel-XX, Box-Vel-YY, Box-Vel-ZZ, Mu-X, Mu-Y, Mu-Z, T-Protein, T-non-Protein, Lamb-Protein, Lamb-non-Protein.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+            * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
     """
 
     def __init__(self, input_energy_path, output_xvg_path, properties=None, **kwargs):
@@ -41,16 +44,11 @@ class GMXEnergy():
         self.prefix = properties.get('prefix', None)
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
+        self.remove_tmp = properties.get('remove_tmp', True)
+        self.restart = properties.get('restart', False)
 
-        # check input/output paths and parameters
-        self.check_data_params()
-
-        # Check the properties
-        fu.check_properties(self, properties)
-
-    def check_data_params(self):
+    def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         self.input_energy_path = check_energy_path(self.input_energy_path, out_log, self.__class__.__name__)
         self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, out_log, self.__class__.__name__)
         self.xvg = get_xvg(self.properties, out_log, self.__class__.__name__)
@@ -73,9 +71,26 @@ class GMXEnergy():
 
         return self.instructions_file
 
+    @launchlogger
     def launch(self):
         """Launches the execution of the GROMACS energy module."""
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+
+        # Get local loggers from launchlogger decorator
+        out_log = getattr(self, 'out_log', None)
+        err_log = getattr(self, 'err_log', None)
+
+        # check input/output paths and parameters
+        self.check_data_params(out_log, err_log)
+
+        # Check the properties
+        fu.check_properties(self, self.properties)
+
+        # Restart
+        if self.restart:
+            output_file_list = [self.output_xvg_path]
+            if fu.check_complete_files(output_file_list):
+                fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
+                return 0
 
         # create instructions file
         self.create_instructions_file() 
@@ -88,7 +103,9 @@ class GMXEnergy():
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         #remove_tmp_files([os.path.dirname(self.instructions_file)], out_log)
-        remove_tmp_files([PurePath(self.instructions_file).parent], out_log)
+        if self.remove_tmp:
+            remove_tmp_files([PurePath(self.instructions_file).parent], out_log)
+
         return returncode
 
 def main():

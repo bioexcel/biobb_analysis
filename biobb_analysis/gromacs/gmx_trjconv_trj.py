@@ -4,6 +4,7 @@
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
+from biobb_common.tools.file_utils import launchlogger
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
 
@@ -22,6 +23,8 @@ class GMXTrjConvTrj():
             * **end** (*int*) - (0) Time of last frame to read from trajectory (default unit ps).
             * **dt** (*int*) - (0) Only write frame when t MOD dt = first time (ps).
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+            * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
     """
 
     def __init__(self, input_traj_path, output_traj_path, input_index_path=None, properties=None, **kwargs):
@@ -44,16 +47,11 @@ class GMXTrjConvTrj():
         self.prefix = properties.get('prefix', None)
         self.step = properties.get('step', None)
         self.path = properties.get('path', '')
+        self.remove_tmp = properties.get('remove_tmp', True)
+        self.restart = properties.get('restart', False)
 
-        # check input/output paths and parameters
-        self.check_data_params()
-
-        # Check the properties
-        fu.check_properties(self, properties)
-
-    def check_data_params(self):
+    def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
         self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
         self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
         self.output_traj_path = check_out_traj_path(self.output_traj_path, out_log, self.__class__.__name__)
@@ -65,9 +63,26 @@ class GMXTrjConvTrj():
         self.end = get_end(self.properties, out_log, self.__class__.__name__)
         self.dt = get_dt(self.properties, out_log, self.__class__.__name__)
 
+    @launchlogger
     def launch(self):
         """Launches the execution of the GROMACS rgyr module."""
-        out_log, err_log = fu.get_logs(path=self.path, prefix=self.prefix, step=self.step, can_write_console=self.can_write_console_log)
+        
+        # Get local loggers from launchlogger decorator
+        out_log = getattr(self, 'out_log', None)
+        err_log = getattr(self, 'err_log', None)
+
+        # check input/output paths and parameters
+        self.check_data_params(out_log, err_log)
+
+        # Check the properties
+        fu.check_properties(self, self.properties)
+
+        # Restart
+        if self.restart:
+            output_file_list = [self.output_traj_path]
+            if fu.check_complete_files(output_file_list):
+                fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
+                return 0
 
         cmd = ['echo', '\"'+self.selection+'\"', '|',
                self.gmx_path, 'trjconv',
