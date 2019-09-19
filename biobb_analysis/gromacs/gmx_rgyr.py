@@ -87,6 +87,7 @@ class GMXRgyr():
                self.gmx_path, 'gyrate',
                '-s', self.input_structure_path,
                '-f', self.input_traj_path,
+               '-n', self.input_index_path,
                '-o', self.output_xvg_path,
                '-xvg', self.xvg]
 

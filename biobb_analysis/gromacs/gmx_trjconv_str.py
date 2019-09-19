@@ -84,6 +84,7 @@ class GMXTrjConvStr():
         cmd = ['echo', '\"'+self.selection+'\"', '|',
                self.gmx_path, 'trjconv',
                '-f', self.input_structure_path,
+               '-n', self.input_index_path,
                '-s', self.input_top_path,
                '-o', self.output_str_path]
 
