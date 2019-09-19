@@ -87,9 +87,11 @@ class GMXRms():
                self.gmx_path, 'rms',
                '-s', self.input_structure_path,
                '-f', self.input_traj_path,
-               '-n', self.input_index_path,
                '-o', self.output_xvg_path,
                '-xvg', self.xvg]
+
+        if self.input_index_path:
+            cmd.extend(['-n', self.input_index_path])
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         return returncode

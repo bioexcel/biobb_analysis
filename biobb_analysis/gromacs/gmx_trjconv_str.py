@@ -84,9 +84,11 @@ class GMXTrjConvStr():
         cmd = ['echo', '\"'+self.selection+'\"', '|',
                self.gmx_path, 'trjconv',
                '-f', self.input_structure_path,
-               '-n', self.input_index_path,
                '-s', self.input_top_path,
                '-o', self.output_str_path]
+
+        if self.input_index_path:
+            cmd.extend(['-n', self.input_index_path])
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         return returncode

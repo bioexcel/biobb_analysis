@@ -103,10 +103,12 @@ class GMXImage():
         cmd = ['echo', selections, '|',
                self.gmx_path, 'trjconv',
                '-f', self.input_traj_path,
-               '-n', self.input_index_path,
                '-s', self.input_top_path,
                '-fit', self.fit,
                '-o', self.output_traj_path]
+
+        if self.input_index_path:
+            cmd.extend(['-n', self.input_index_path])
 
         # Unit-cell representation, PBC tratment and atoms center are incompatible with fitting
         if self.fit == 'none':

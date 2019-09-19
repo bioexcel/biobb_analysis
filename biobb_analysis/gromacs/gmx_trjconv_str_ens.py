@@ -98,13 +98,15 @@ class GMXTrjConvStrEns():
         cmd = ['echo', '\"'+self.selection+'\"', '|',
                self.gmx_path, 'trjconv',
                '-f', self.input_traj_path,
-               '-n', self.input_index_path,
                '-s', self.input_top_path,
                '-b', self.start,
                '-e', self.end,
                '-dt', self.dt,
                '-sep',
                '-o', self.tmp_folder + '/' + self.output_name + '.' + self.output_type]
+
+        if self.input_index_path:
+            cmd.extend(['-n', self.input_index_path])
 
         # execute cmd
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()

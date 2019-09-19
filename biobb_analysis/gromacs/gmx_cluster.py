@@ -93,10 +93,12 @@ class GMXCluster():
                self.gmx_path, 'cluster',
                '-s', self.input_structure_path,
                '-f', self.input_traj_path,
-               '-n', self.input_index_path,
                '-cl', self.output_pdb_path,
                '-cutoff', str(self.cutoff),
                '-method', self.method]
+
+        if self.input_index_path:
+            cmd.extend(['-n', self.input_index_path])
 
         if self.dista:
             cmd.append('-dista')
