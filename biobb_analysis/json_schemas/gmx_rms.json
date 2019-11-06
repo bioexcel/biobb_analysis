@@ -1,0 +1,109 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/gmx_rms",
+    "title": "Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.",
+    "type": "object",
+    "required": [
+        "input_structure_path",
+        "input_traj_path",
+        "output_xvg_path"
+    ],
+    "properties": {
+        "input_structure_path": {
+            "type": "string",
+            "description": "Path to the input structure file.",
+            "enum": [
+                ".*\\.tpr$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.brk$",
+                ".*\\.ent$"
+            ]
+        },
+        "input_traj_path": {
+            "type": "string",
+            "description": "Path to the GROMACS trajectory file.",
+            "enum": [
+                ".*\\.xtc$",
+                ".*\\.trr$",
+                ".*\\.cpt$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.tng$"
+            ]
+        },
+        "input_index_path": {
+            "type": "string",
+            "description": "Path to the GROMACS index file.",
+            "enum": [
+                ".*\\.ndx$"
+            ]
+        },
+        "output_xvg_path": {
+            "type": "string",
+            "description": "Path to the XVG output file.",
+            "enum": [
+                ".*\\.xvg$"
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "xvg": {
+                    "type": "string",
+                    "default": "none",
+                    "description": "XVG plot formatting.",
+                    "enum": [
+                        "xmgrace",
+                        "xmgr",
+                        "none"
+                    ]
+                },
+                "selection": {
+                    "type": "string",
+                    "default": "System",
+                    "description": "Group where the rms will be performed. If **input_index_path** provided, check the file for the accepted values.",
+                    "enum": [
+                        "System",
+                        "Protein",
+                        "Protein-H",
+                        "C-alpha",
+                        "Backbone",
+                        "MainChain",
+                        "MainChain+Cb",
+                        "MainChain+H",
+                        "SideChain",
+                        "SideChain-H",
+                        "Prot-Masses",
+                        "non-Protein",
+                        "Water",
+                        "SOL",
+                        "non-Water",
+                        "Ion",
+                        "NA",
+                        "CL",
+                        "Water_and_ions"
+                    ]
+                },
+                "gmx_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "[WF property] Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "[WF property] Do not execute if output files exist."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

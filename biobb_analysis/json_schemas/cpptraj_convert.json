@@ -1,0 +1,142 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/cpptraj_convert",
+    "title": "Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames.",
+    "type": "object",
+    "required": [
+        "input_top_path",
+        "input_traj_path",
+        "output_cpptraj_path"
+    ],
+    "properties": {
+        "input_top_path": {
+            "type": "string",
+            "description": "Path to the input structure or topology file.",
+            "enum": [
+                ".*\\.top$",
+                ".*\\.pdb$",
+                ".*\\.prmtop$",
+                ".*\\.parmtop$",
+                ".*\\.zip$"
+            ]
+        },
+        "input_traj_path": {
+            "type": "string",
+            "description": "Path to the input trajectory to be processed.",
+            "enum": [
+                ".*\\.crd$",
+                ".*\\.cdf$",
+                ".*\\.netcdf$",
+                ".*\\.restart$",
+                ".*\\.ncrestart$",
+                ".*\\.restartnc$",
+                ".*\\.dcd$",
+                ".*\\.charmm$",
+                ".*\\.cor$",
+                ".*\\.pdb$",
+                ".*\\.mol2$",
+                ".*\\.trr$",
+                ".*\\.gro$",
+                ".*\\.binpos$",
+                ".*\\.xtc$",
+                ".*\\.cif$",
+                ".*\\.arc$",
+                ".*\\.sqm$",
+                ".*\\.sdf$",
+                ".*\\.conflib$"
+            ]
+        },
+        "output_cpptraj_path": {
+            "type": "string",
+            "description": "Path to the output processed trajectory."
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "in_parameters": {
+                    "type": "object",
+                    "parameters": {
+                        "start": {
+                            "type": "number",
+                            "default": 1,
+                            "description": "Starting frame for slicing"
+                        },
+                        "end": {
+                            "type": "number",
+                            "default": -1,
+                            "description": "Ending frame for slicing"
+                        },
+                        "step": {
+                            "type": "number",
+                            "default": 1,
+                            "description": "Step for slicing"
+                        },
+                        "mask": {
+                            "type": "string",
+                            "default": "all-atoms",
+                            "description": "Mask definition.",
+                            "enum": [
+                                "c-alpha",
+                                "backbone",
+                                "all-atoms",
+                                "heavy-atoms",
+                                "side-chain",
+                                "solute",
+                                "ions",
+                                "solvent"
+                            ]
+                        }
+                    }
+                },
+                "out_parameters": {
+                    "type": "object",
+                    "parameters": {
+                        "format": {
+                            "type": "string",
+                            "default": "netcdf",
+                            "description": "Output trajectory format.",
+                            "enum": [
+                                "crd",
+                                "cdf",
+                                "netcdf",
+                                "restart",
+                                "ncrestart",
+                                "restartnc",
+                                "dcd",
+                                "charmm",
+                                "cor",
+                                "pdb",
+                                "mol2",
+                                "trr",
+                                "gro",
+                                "binpos",
+                                "xtc",
+                                "cif",
+                                "arc",
+                                "sqm",
+                                "sdf",
+                                "conflib"
+                            ]
+                        }
+                    }
+                },
+                "cpptraj_path": {
+                    "type": "string",
+                    "default": "cpptraj",
+                    "description": "Path to the cpptraj executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "[WF property] Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "[WF property] Do not execute if output files exist."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

@@ -1,0 +1,129 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/gmx_trjconv_str_ens",
+    "title": "Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.",
+    "type": "object",
+    "required": [
+        "input_traj_path",
+        "input_top_path",
+        "output_str_ens_path"
+    ],
+    "properties": {
+        "input_traj_path": {
+            "type": "string",
+            "description": "Path to the GROMACS trajectory file.",
+            "enum": [
+                ".*\\.xtc$",
+                ".*\\.trr$",
+                ".*\\.cpt$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.tng$"
+            ]
+        },
+        "input_top_path": {
+            "type": "string",
+            "description": "Path to the GROMACS input topology file.",
+            "enum": [
+                ".*\\.tpr$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.brk$",
+                ".*\\.ent$"
+            ]
+        },
+        "input_index_path": {
+            "type": "string",
+            "description": "Path to the GROMACS index file.",
+            "enum": [
+                ".*\\.ndx$"
+            ]
+        },
+        "output_str_ens_path": {
+            "type": "string",
+            "description": "Path to the output file.",
+            "enum": [
+                ".*\\.zip$"
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "selection": {
+                    "type": "string",
+                    "default": "System",
+                    "description": "Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values.",
+                    "enum": [
+                        "System",
+                        "Protein",
+                        "Protein-H",
+                        "C-alpha",
+                        "Backbone",
+                        "MainChain",
+                        "MainChain+Cb",
+                        "MainChain+H",
+                        "SideChain",
+                        "SideChain-H",
+                        "Prot-Masses",
+                        "non-Protein",
+                        "Water",
+                        "SOL",
+                        "non-Water",
+                        "Ion",
+                        "NA",
+                        "CL",
+                        "Water_and_ions"
+                    ]
+                },
+                "start": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "Time of first frame to read from trajectory (default unit ps)."
+                },
+                "end": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "Time of last frame to read from trajectory (default unit ps)."
+                },
+                "dt": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "Only write frame when t MOD dt = first time (ps)."
+                },
+                "output_name": {
+                    "type": "string",
+                    "default": "output",
+                    "description": "File name for ensemble of output files."
+                },
+                "output_type": {
+                    "type": "string",
+                    "default": "pdb",
+                    "description": "File type for ensemble of output files.",
+                    "enum": [
+                        "gro",
+                        "g96",
+                        "pdb"
+                    ]
+                },
+                "gmx_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "[WF property] Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "[WF property] Do not execute if output files exist."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

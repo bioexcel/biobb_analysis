@@ -1,0 +1,117 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/gmx_energy",
+    "title": "Extracts energy components from a given GROMACS energy file.",
+    "type": "object",
+    "required": [
+        "input_energy_path",
+        "output_xvg_path"
+    ],
+    "properties": {
+        "input_energy_path": {
+            "type": "string",
+            "description": "Path to the input EDR file.",
+            "enum": [
+                ".*\\.edr$"
+            ]
+        },
+        "output_xvg_path": {
+            "type": "string",
+            "description": "Path to the XVG output file.",
+            "enum": [
+                ".*\\.xvg$"
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "xvg": {
+                    "type": "string",
+                    "default": "none",
+                    "description": "XVG plot formatting.",
+                    "enum": [
+                        "xmgrace",
+                        "xmgr",
+                        "none"
+                    ]
+                },
+                "terms": {
+                    "type": "list",
+                    "default": [
+                        "Potential"
+                    ],
+                    "description": "Energy terms.",
+                    "enum": [
+                        "Angle",
+                        "Proper-Dih",
+                        "Improper-Dih",
+                        "LJ-14",
+                        "Coulomb-14",
+                        "LJ-(SR)",
+                        "Coulomb-(SR)",
+                        "Coul-recip",
+                        "Position-Rest",
+                        "Potential",
+                        "Kinetic-En",
+                        "Total-Energy",
+                        "Temperature",
+                        "Pressure",
+                        "Constr-rmsd",
+                        "Box-X",
+                        "Box-Y",
+                        "Box-Z",
+                        "Volume",
+                        "Density",
+                        "pV",
+                        "Enthalpy",
+                        "Vir-XX",
+                        "Vir-XY",
+                        "Vir-XZ",
+                        "Vir-YX",
+                        "Vir-YY",
+                        "Vir-YZ",
+                        "Vir-ZX",
+                        "Vir-ZY",
+                        "Vir-ZZ",
+                        "Pres-XX",
+                        "Pres-XY",
+                        "Pres-XZ",
+                        "Pres-YX",
+                        "Pres-YY",
+                        "Pres-YZ",
+                        "Pres-ZX",
+                        "Pres-ZY",
+                        "Pres-ZZ",
+                        "#Surf*SurfTen",
+                        "Box-Vel-XX",
+                        "Box-Vel-YY",
+                        "Box-Vel-ZZ",
+                        "Mu-X",
+                        "Mu-Y",
+                        "Mu-Z",
+                        "T-Protein",
+                        "T-non-Protein",
+                        "Lamb-Protein",
+                        "Lamb-non-Protein"
+                    ]
+                },
+                "gmx_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "[WF property] Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "[WF property] Do not execute if output files exist."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

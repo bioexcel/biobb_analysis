@@ -1,0 +1,2 @@
+name = "ambertools"
+__all__ = ["cpptraj_average", "cpptraj_bfactor", "cpptraj_convert", "cpptraj_dry", "cpptraj_image", "cpptraj_mask", "cpptraj_rgyr", "cpptraj_rms", "cpptraj_rmsf", "cpptraj_slice", "cpptraj_snapshot", "cpptraj_strip"]

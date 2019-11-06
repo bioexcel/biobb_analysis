@@ -16,10 +16,10 @@ class GMXTrjConvStrEns():
     Args:
         input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
         input_top_path (str): Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-        input_index_path (str): Path to the GROMACS index file. Accepted formats: ndx.
+        input_index_path (str)[Optional]: Path to the GROMACS index file. Accepted formats: ndx.
         output_str_ens_path (str): Path to the output file. Accepted formats: zip.
         properties (dic):
-            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not, values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **start** (*int*) - (0) Time of first frame to read from trajectory (default unit ps).
             * **end** (*int*) - (0) Time of last frame to read from trajectory (default unit ps).
             * **dt** (*int*) - (0) Only write frame when t MOD dt = first time (ps).

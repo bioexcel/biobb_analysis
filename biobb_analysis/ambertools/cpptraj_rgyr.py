@@ -21,7 +21,7 @@ class Rgyr():
         input_traj_path (str): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
         output_cpptraj_path (str): Path to the output analysis.
         properties (dic):
-            * **in_parameters** (*dict*) - (None) Parameters for input trajectory. Accepted parameters:
+            * **in_parameters** (*dic*) - (None) Parameters for input trajectory.
                 * **start** (*int*) - (1) Starting frame for slicing
                 * **end** (*int*) - (-1) Ending frame for slicing
                 * **step** (*int*) - (1) Step for slicing
