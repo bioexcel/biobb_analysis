@@ -67,7 +67,6 @@ class Rmsf():
     def create_instructions_file(self, out_log, err_log):
         """Creates an input file using the properties file settings"""
         instructions_list = []
-        #self.instructions_file = os.path.join(fu.create_unique_dir(), self.instructions_file)
         self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
         fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
 
@@ -128,7 +127,6 @@ class Rmsf():
         cmd = [self.cpptraj_path, '-i', self.instructions_file]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        #remove_tmp_files([os.path.dirname(self.instructions_file), 'MyAvg'], out_log, self.input_top_path_orig, self.input_top_path)
         remove_tmp_files([PurePath(self.instructions_file).parent], self.remove_tmp, out_log, self.input_top_path_orig, self.input_top_path)
         return returncode
 
