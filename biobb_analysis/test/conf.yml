@@ -14,6 +14,23 @@ gmx_cluster:
     method: linkage
     cutoff: 0.1
 
+gmx_cluster_docker:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_pdb_path: output_pdb.pdb
+    ref_output_pdb_path: file:test_reference_dir/gromacs/ref_cluster.pdb
+  properties:
+    fit_selection: System
+    output_selection: System
+    dista: False
+    method: linkage
+    cutoff: 0.1
+    container_path: docker
+    container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
 gmx_rms:
   paths:
     input_traj_path: file:test_data_dir/gromacs/trajectory.trr
@@ -132,6 +149,24 @@ cpptraj_average:
       mask: c-alpha
     out_parameters:
       format: pdb
+
+cpptraj_average_container:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.pdb
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.average.pdb
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: pdb
+    container_path: docker
+    container_image: afandiadib/ambertools:serial
+    container_volume_path: /tmp
 
 cpptraj_dry:
   paths:
@@ -333,6 +368,23 @@ cpptraj_bfactor_first:
       step: 1
       mask: c-alpha
       reference: first
+
+cpptraj_bfactor_container:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.first.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+      reference: first
+    container_path: docker
+    container_image: afandiadib/ambertools:serial
+    container_volume_path: /tmp
 
 cpptraj_bfactor_average:
   paths:

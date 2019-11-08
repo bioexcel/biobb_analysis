@@ -27,8 +27,7 @@
             "block" : "GMXEnergy", 
             "tool" : "gmx energy", 
             "desc" : "Extracts energy components from a given GROMACS energy file."
-        }, 
-        
+        },
         {
             "block" : "GMXImage", 
             "tool" : "gmx trjconv", 

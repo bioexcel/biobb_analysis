@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Module containing the GMX Cluster class and the command line interface."""
+import os
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
@@ -27,22 +28,37 @@ class GMXCluster():
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+            * **container_path** (*string*) - (None)  Path to the binary executable of your container.
+            * **container_image** (*string*) - ('gromacs/gromacs:latest') Container Image identifier. 
+            * **container_volume_path** (*string*) - ('/tmp') Path to an internal directory in the container.
+            * **container_user_id** (*string*) - (None) User number id to be mapped inside the container.
     """
 
     def __init__(self, input_structure_path, input_traj_path, output_pdb_path, input_index_path=None, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
-        self.input_structure_path = input_structure_path
-        self.input_traj_path = input_traj_path
-        self.input_index_path = input_index_path
-        self.output_pdb_path = output_pdb_path
+        self.io_dict = { 
+            "in": { "input_structure_path": input_structure_path, "input_traj_path": input_traj_path, "input_index_path": input_index_path }, 
+            "out": { "output_pdb_path": output_pdb_path } 
+        }
 
         # Properties specific for BB
         self.properties = properties
 
         # Properties common in all GROMACS BB
         self.gmx_path = get_binary_path(properties, 'gmx_path')
+        # Internal parameters
+        # TODO: create output_log_path as argument?
+        self.log_path = properties.get('log_path', 'cluster.log')
+        self.xvg_path = properties.get('xvg_path', 'rmsd-dist.xvg')
+        self.xpm_path = properties.get('xpm_path', 'rmsd-clust.xpm')
+
+        # container Specific
+        self.container_path = properties.get('container_path')
+        self.container_image = properties.get('container_image', 'gromacs/gromacs:latest')
+        self.container_volume_path = properties.get('container_volume_path', '/tmp')
+        self.container_user_id = properties.get('user_id', str(os.getuid()))
 
         # Properties common in all BB
         self.can_write_console_log = properties.get('can_write_console_log', True)
@@ -55,16 +71,16 @@ class GMXCluster():
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        self.input_structure_path = check_input_path(self.input_structure_path, out_log, self.__class__.__name__)
-        self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
-        self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
-        self.output_pdb_path = check_out_pdb_path(self.output_pdb_path, out_log, self.__class__.__name__)
-        if not self.input_index_path:
+        self.io_dict["in"]["input_structure_path"] = check_input_path(self.io_dict["in"]["input_structure_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
+        self.io_dict["out"]["output_pdb_path"] = check_out_pdb_path(self.io_dict["out"]["output_pdb_path"], out_log, self.__class__.__name__)
+        if not self.io_dict["in"]["input_index_path"]:
             self.fit_selection = get_image_selection(self.properties, 'fit_selection', out_log, self.__class__.__name__)
             self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
         else:
-            self.fit_selection = get_selection_index_file(self.properties, self.input_index_path, 'fit_selection', out_log, self.__class__.__name__)
-            self.output_selection = get_selection_index_file(self.properties, self.input_index_path, 'output_selection', out_log, self.__class__.__name__)
+            self.fit_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'fit_selection', out_log, self.__class__.__name__)
+            self.output_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'output_selection', out_log, self.__class__.__name__)
         self.dista = get_dista(self.properties, out_log, self.__class__.__name__)
         self.method = get_method(self.properties, out_log, self.__class__.__name__)
         self.cutoff = get_cutoff(self.properties, out_log, self.__class__.__name__)
@@ -84,26 +100,49 @@ class GMXCluster():
         fu.check_properties(self, self.properties)
 
         if self.restart:
-            output_file_list = [self.output_pdb_path]
+            output_file_list = [self.io_dict["out"]["output_pdb_path"]]
             if fu.check_complete_files(output_file_list):
                 fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
                 return 0
 
+        # copy inputs to container
+        container_io_dict = fu.copy_to_container(self.container_path, self.container_volume_path, self.io_dict)
+
+        # if container execution, add container_volume_path to log, xvg & xpm (because docker doesn't allow to write teses files out of the /tmp folder)
+        if self.container_path:
+            self.log_path = str(PurePath(self.container_volume_path).joinpath(self.log_path))
+            self.xvg_path = str(PurePath(self.container_volume_path).joinpath(self.xvg_path))
+            self.xpm_path = str(PurePath(self.container_volume_path).joinpath(self.xpm_path))
+
         cmd = ['echo', '\"' + self.fit_selection + '\" \"' + self.output_selection + '\"', '|',
                self.gmx_path, 'cluster',
-               '-s', self.input_structure_path,
-               '-f', self.input_traj_path,
-               '-cl', self.output_pdb_path,
+               '-g', self.log_path,
+               '-dist', self.xvg_path,
+               '-o', self.xpm_path,
+               '-s', container_io_dict["in"]["input_structure_path"],
+               '-f', container_io_dict["in"]["input_traj_path"],
+               '-cl', container_io_dict["out"]["output_pdb_path"],
                '-cutoff', str(self.cutoff),
                '-method', self.method]
 
-        if self.input_index_path:
-            cmd.extend(['-n', self.input_index_path])
+        if container_io_dict["in"]["input_index_path"]:
+            cmd.extend(['-n', container_io_dict["in"]["input_index_path"]])
 
         if self.dista:
             cmd.append('-dista')
 
-        return cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+        # create cmd and launch execution
+        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, host_volume=container_io_dict.get("unique_dir"), container_volume=self.container_volume_path, user_uid=self.container_user_id, container_image=self.container_image, out_log=out_log, global_log=self.global_log)
+        returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+
+        # copy output(s) to output(s) path(s) in case of container execution
+        fu.copy_to_host(self.container_path, container_io_dict, self.io_dict)
+
+        # if container execution, remove temporary folder
+        if self.container_path:
+            remove_tmp_files([container_io_dict['unique_dir']], out_log)
+
+        return returncode
 
 def main():
     parser = argparse.ArgumentParser(description="Creates cluster structures from a given GROMACS compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
