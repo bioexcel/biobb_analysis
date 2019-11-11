@@ -135,6 +135,24 @@ cpptraj_convert:
     out_parameters:
       format: netcdf
 
+cpptraj_convert_container:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.convert.nc
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+    container_path: docker
+    container_image: afandiadib/ambertools:serial
+    container_volume_path: /tmp
+
 cpptraj_average:
   paths:
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
@@ -183,6 +201,24 @@ cpptraj_dry:
     out_parameters:
       format: netcdf
 
+cpptraj_dry_container:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.dry.nc
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+    container_path: docker
+    container_image: afandiadib/ambertools:serial
+    container_volume_path: /tmp
+
 cpptraj_image:
   paths:
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
@@ -198,6 +234,24 @@ cpptraj_image:
     out_parameters:
       format: netcdf
 
+cpptraj_image_container:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.image.nc
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+    container_path: docker
+    container_image: afandiadib/ambertools:serial
+    container_volume_path: /tmp
+
 cpptraj_mask:
   paths:
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
@@ -212,6 +266,24 @@ cpptraj_mask:
       mask: c-alpha
     out_parameters:
       format: netcdf
+
+cpptraj_mask_container:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.nc
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.mask.nc
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    out_parameters:
+      format: netcdf
+    container_path: docker
+    container_image: afandiadib/ambertools:serial
+    container_volume_path: /tmp
 
 cpptraj_slice:
   paths:
@@ -268,6 +340,22 @@ cpptraj_rgyr:
       end: -1
       step: 1
       mask: c-alpha
+
+cpptraj_rgyr_container:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rgyr.dat
+  properties:
+    in_parameters:
+      start: 1
+      end: -1
+      step: 1
+      mask: c-alpha
+    container_path: docker
+    container_image: afandiadib/ambertools:serial
+    container_volume_path: /tmp
 
 cpptraj_rms_first:
   paths:

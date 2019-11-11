@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Module containing the Cpptraj Dry class and the command line interface."""
+import os
 import argparse
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -31,6 +32,10 @@ class Dry():
             * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+            * **container_path** (*string*) - (None) container path definition
+            * **container_image** (*string*) - ('afandiadib/ambertools:serial') container image definition
+            * **container_volume_path** (*string*) - ('/tmp') container volume path definition
+            * **container_user_id** (*string*) - (None) container user_id definition
     """
 
     def __init__(self, input_top_path, input_traj_path,
@@ -38,14 +43,21 @@ class Dry():
         properties = properties or {}
 
         # Input/Output files
-        self.input_top_path = input_top_path
-        self.input_traj_path = input_traj_path
-        self.output_cpptraj_path = output_cpptraj_path
+        self.io_dict = { 
+            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path }, 
+            "out": { "output_cpptraj_path": output_cpptraj_path } 
+        }
 
         # Properties specific for BB
         self.instructions_file = get_default_value('instructions_file')
         self.properties = properties
         self.cpptraj_path = get_binary_path(properties, 'cpptraj_path')
+
+        # container Specific
+        self.container_path = properties.get('container_path')
+        self.container_image = properties.get('container_image', 'afandiadib/ambertools:serial')
+        self.container_volume_path = properties.get('container_volume_path', '/tmp')
+        self.container_user_id = properties.get('user_id', str(os.getuid()))
 
         # Properties common in all BB
         self.can_write_console_log = properties.get('can_write_console_log', True)
@@ -58,24 +70,28 @@ class Dry():
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        self.input_top_path, self.input_top_path_orig = check_top_path(self.input_top_path, out_log, self.__class__.__name__)
-        self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
-        self.output_cpptraj_path = check_out_path(self.output_cpptraj_path, out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_top_path"], self.input_top_path_orig = check_top_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
+        self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
         self.in_parameters = get_parameters(self.properties, 'in_parameters', self.__class__.__name__, out_log)
         self.out_parameters = get_parameters(self.properties, 'out_parameters', self.__class__.__name__, out_log)
 
-    def create_instructions_file(self, out_log, err_log):
+    def create_instructions_file(self, container_io_dict, out_log, err_log):
         """Creates an input file using the properties file settings"""
         instructions_list = []
-        self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
+        # different path if container execution or not
+        if self.container_path:
+            self.instructions_file = str(PurePath(self.container_volume_path).joinpath(self.instructions_file))
+        else:
+            self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
         fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
 
         # parm
-        instructions_list.append('parm ' + self.input_top_path)
+        instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
 
         # trajin
         in_params = get_in_parameters(self.in_parameters, out_log)
-        instructions_list.append('trajin ' + self.input_traj_path + ' ' + in_params)
+        instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
 
         # dry
         mask_dry1 = get_negative_mask('solute', out_log)
@@ -91,7 +107,7 @@ class Dry():
 
         # trajout
         out_params = get_out_parameters(self.out_parameters, out_log)
-        instructions_list.append('trajout ' + self.output_cpptraj_path + ' ' + out_params)
+        instructions_list.append('trajout ' + container_io_dict["out"]["output_cpptraj_path"] + ' ' + out_params)
 
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
@@ -119,15 +135,30 @@ class Dry():
             if fu.check_complete_files(output_file_list):
                 fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
                 return 0
-        
+
+        # copy inputs to container
+        container_io_dict = fu.copy_to_container(self.container_path, self.container_volume_path, self.io_dict)
+
         # create instructions file
-        self.create_instructions_file(out_log, err_log) 
+        self.create_instructions_file(container_io_dict, out_log, err_log) 
 
-        # run command line
+        # if container execution, copy intructions file to container
+        if self.container_path:
+            copy_instructions_file_to_container(self.instructions_file, container_io_dict['unique_dir'])
+
+        # create cmd and launch execution
         cmd = [self.cpptraj_path, '-i', self.instructions_file]
-
+        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, host_volume=container_io_dict.get("unique_dir"), container_volume=self.container_volume_path, user_uid=self.container_user_id, container_image=self.container_image, out_log=out_log, global_log=self.global_log)
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        remove_tmp_files([PurePath(self.instructions_file).parent], self.remove_tmp, out_log, self.input_top_path_orig, self.input_top_path)
+
+        # copy output(s) to output(s) path(s) in case of container execution
+        fu.copy_to_host(self.container_path, container_io_dict, self.io_dict)
+
+        # remove temporary folder(s)
+        tmp_files = [PurePath(self.instructions_file).parent]
+        if self.container_path: tmp_files.append(container_io_dict['unique_dir'])
+        remove_tmp_files(tmp_files, self.remove_tmp, out_log, self.input_top_path_orig, self.io_dict["in"]["input_top_path"])
+
         return returncode
 
 def main():
