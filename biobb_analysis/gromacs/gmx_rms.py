@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Module containing the GMX Rms class and the command line interface."""
+import os
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
@@ -24,22 +25,32 @@ class GMXRms():
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+            * **container_path** (*string*) - (None)  Path to the binary executable of your container.
+            * **container_image** (*string*) - ('gromacs/gromacs:latest') Container Image identifier. 
+            * **container_volume_path** (*string*) - ('/tmp') Path to an internal directory in the container.
+            * **container_user_id** (*string*) - (None) User number id to be mapped inside the container.
     """
 
     def __init__(self, input_structure_path, input_traj_path, output_xvg_path, input_index_path=None, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
-        self.input_structure_path = input_structure_path
-        self.input_traj_path = input_traj_path
-        self.input_index_path = input_index_path
-        self.output_xvg_path = output_xvg_path
+        self.io_dict = { 
+            "in": { "input_structure_path": input_structure_path, "input_traj_path": input_traj_path, "input_index_path": input_index_path }, 
+            "out": { "output_xvg_path": output_xvg_path } 
+        }
 
         # Properties specific for BB
         self.properties = properties
 
         # Properties common in all GROMACS BB
         self.gmx_path = get_binary_path(properties, 'gmx_path')
+
+        # container Specific
+        self.container_path = properties.get('container_path')
+        self.container_image = properties.get('container_image', 'gromacs/gromacs:latest')
+        self.container_volume_path = properties.get('container_volume_path', '/tmp')
+        self.container_user_id = properties.get('user_id', str(os.getuid()))
 
         # Properties common in all BB
         self.can_write_console_log = properties.get('can_write_console_log', True)
@@ -52,15 +63,15 @@ class GMXRms():
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        self.input_structure_path = check_input_path(self.input_structure_path, out_log, self.__class__.__name__)
-        self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
-        self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
-        self.output_xvg_path = check_out_xvg_path(self.output_xvg_path, out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_structure_path"] = check_input_path(self.io_dict["in"]["input_structure_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
+        self.io_dict["out"]["output_xvg_path"] = check_out_xvg_path(self.io_dict["out"]["output_xvg_path"], out_log, self.__class__.__name__)
         self.xvg = get_xvg(self.properties, out_log, self.__class__.__name__)
-        if not self.input_index_path:
+        if not self.io_dict["in"]["input_index_path"]:
             self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
         else:
-            self.selection = get_selection_index_file(self.properties, self.input_index_path, 'selection', out_log, self.__class__.__name__)
+            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
 
     @launchlogger
     def launch(self):
@@ -83,17 +94,30 @@ class GMXRms():
                 fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
                 return 0
 
-        cmd = ['echo', '\"'+self.selection+' '+self.selection+'\"', '|',
+        # copy inputs to container
+        container_io_dict = fu.copy_to_container(self.container_path, self.container_volume_path, self.io_dict)
+
+        cmd = ['echo', '\''+self.selection+' '+self.selection+'\'', '|',
                self.gmx_path, 'rms',
-               '-s', self.input_structure_path,
-               '-f', self.input_traj_path,
-               '-o', self.output_xvg_path,
+               '-s', container_io_dict["in"]["input_structure_path"],
+               '-f', container_io_dict["in"]["input_traj_path"],
+               '-o', container_io_dict["out"]["output_xvg_path"],
                '-xvg', self.xvg]
 
-        if self.input_index_path:
-            cmd.extend(['-n', self.input_index_path])
+        if container_io_dict["in"]["input_index_path"]:
+            cmd.extend(['-n', container_io_dict["in"]["input_index_path"]])
 
+        # create cmd and launch execution
+        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, host_volume=container_io_dict.get("unique_dir"), container_volume=self.container_volume_path, user_uid=self.container_user_id, container_image=self.container_image, out_log=out_log, global_log=self.global_log)
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+
+        # copy output(s) to output(s) path(s) in case of container execution
+        fu.copy_to_host(self.container_path, container_io_dict, self.io_dict)
+
+        # if container execution, remove temporary folder
+        if self.container_path:
+            remove_tmp_files([container_io_dict['unique_dir']], out_log)
+
         return returncode
 
 def main():

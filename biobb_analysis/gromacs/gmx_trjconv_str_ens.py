@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Module containing the GMX TrjConvStr class and the command line interface."""
+import os
 import argparse
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
@@ -28,22 +29,32 @@ class GMXTrjConvStrEns():
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+            * **container_path** (*string*) - (None)  Path to the binary executable of your container.
+            * **container_image** (*string*) - ('gromacs/gromacs:latest') Container Image identifier. 
+            * **container_volume_path** (*string*) - ('/tmp') Path to an internal directory in the container.
+            * **container_user_id** (*string*) - (None) User number id to be mapped inside the container.
     """
 
     def __init__(self, input_traj_path, input_top_path, output_str_ens_path, input_index_path=None, properties=None, **kwargs):
         properties = properties or {}
 
         # Input/Output files
-        self.input_traj_path = input_traj_path
-        self.input_top_path = input_top_path
-        self.input_index_path = input_index_path
-        self.output_str_ens_path = output_str_ens_path
+        self.io_dict = { 
+            "in": { "input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path }, 
+            "out": { "output_str_ens_path": output_str_ens_path } 
+        }
 
         # Properties specific for BB
         self.properties = properties
 
         # Properties common in all GROMACS BB
         self.gmx_path = get_binary_path(properties, 'gmx_path')
+
+        # container Specific
+        self.container_path = properties.get('container_path')
+        self.container_image = properties.get('container_image', 'gromacs/gromacs:latest')
+        self.container_volume_path = properties.get('container_volume_path', '/tmp')
+        self.container_user_id = properties.get('user_id', str(os.getuid()))
 
         # Properties common in all BB
         self.can_write_console_log = properties.get('can_write_console_log', True)
@@ -56,14 +67,14 @@ class GMXTrjConvStrEns():
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        self.input_traj_path = check_traj_path(self.input_traj_path, out_log, self.__class__.__name__)
-        self.input_top_path = check_input_path(self.input_top_path, out_log, self.__class__.__name__)
-        self.input_index_path = check_index_path(self.input_index_path, out_log, self.__class__.__name__)
-        self.output_str_ens_path = check_out_str_ens_path(self.output_str_ens_path, out_log, self.__class__.__name__)
-        if not self.input_index_path:
+        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_top_path"] = check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
+        self.io_dict["out"]["output_str_ens_path"] = check_out_str_ens_path(self.io_dict["out"]["output_str_ens_path"], out_log, self.__class__.__name__)
+        if not self.io_dict["in"]["input_index_path"]:
             self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
         else:
-            self.selection = get_selection_index_file(self.properties, self.input_index_path, 'selection', out_log, self.__class__.__name__)
+            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
         self.start = get_start(self.properties, out_log, self.__class__.__name__)
         self.end = get_end(self.properties, out_log, self.__class__.__name__)
         self.dt = get_dt(self.properties, out_log, self.__class__.__name__)
@@ -91,27 +102,39 @@ class GMXTrjConvStrEns():
                 fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
                 return 0
 
-        # create temporary folder
-        self.tmp_folder = fu.create_unique_dir()
-        fu.log('Creating %s temporary folder' % self.tmp_folder, out_log)
+        # copy inputs to container
+        container_io_dict = fu.copy_to_container(self.container_path, self.container_volume_path, self.io_dict)
+
+        # if container execution, output to container_volume_path, else create temporary folder to put zip output
+        if self.container_path:
+            output = self.container_volume_path + '/' + self.output_name + '.' + self.output_type
+        else:
+            # create temporary folder
+            self.tmp_folder = fu.create_unique_dir()
+            fu.log('Creating %s temporary folder' % self.tmp_folder, out_log)
+            output = self.tmp_folder + '/' + self.output_name + '.' + self.output_type
 
         cmd = ['echo', '\"'+self.selection+'\"', '|',
                self.gmx_path, 'trjconv',
-               '-f', self.input_traj_path,
-               '-s', self.input_top_path,
+               '-f', container_io_dict["in"]["input_traj_path"],
+               '-s', container_io_dict["in"]["input_top_path"],
                '-b', self.start,
                '-e', self.end,
                '-dt', self.dt,
                '-sep',
-               '-o', self.tmp_folder + '/' + self.output_name + '.' + self.output_type]
+               '-o', output]
 
-        if self.input_index_path:
-            cmd.extend(['-n', self.input_index_path])
+        if container_io_dict["in"]["input_index_path"]:
+            cmd.extend(['-n', container_io_dict["in"]["input_index_path"]])
 
-        # execute cmd
+        # create cmd and launch execution
+        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, host_volume=container_io_dict.get("unique_dir"), container_volume=self.container_volume_path, user_uid=self.container_user_id, container_image=self.container_image, out_log=out_log, global_log=self.global_log)
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
-        # move files to output_str_ens_path and removes temporary folder
-        process_output_trjconv_str_ens(self.tmp_folder, self.remove_tmp, self.output_str_ens_path, out_log)
+
+        if self.container_path:
+            process_output_trjconv_str_ens(container_io_dict['unique_dir'], self.remove_tmp, self.io_dict["out"]["output_str_ens_path"], self.output_name + '*', out_log)
+        else:
+            process_output_trjconv_str_ens(self.tmp_folder, self.remove_tmp, container_io_dict["out"]["output_str_ens_path"], '*', out_log)
 
         return returncode
 
