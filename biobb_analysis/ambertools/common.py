@@ -338,7 +338,7 @@ def get_mask(key, out_log):
 
 	return mask
 
-def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output, classname):
+def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output, classname, out_log):
 	""" Gives reference instructions according to the given key """
 	instructions_list = []
 	if not ref or ref == 'None':
