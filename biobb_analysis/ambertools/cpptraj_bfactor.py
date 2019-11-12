@@ -108,7 +108,7 @@ class Bfactor():
         inp_exp_pth = None
         if "input_exp_path" in container_io_dict["in"]:
             inp_exp_pth = container_io_dict["in"]["input_exp_path"]
-        instructions_list += get_reference(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, False, self.__class__.__name__)
+        instructions_list += get_reference(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, False, self.__class__.__name__, out_log)
         instructions_list.append('atomicfluct out ' + container_io_dict["out"]["output_cpptraj_path"] + ' byres bfactor')
 
         # create .in file
