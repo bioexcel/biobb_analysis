@@ -14,13 +14,13 @@ gmx_cluster:
     method: linkage
     cutoff: 0.1
 
-gmx_cluster_container:
+gmx_cluster_docker:
   paths:
     input_structure_path: file:test_data_dir/gromacs/topology.tpr
     input_traj_path: file:test_data_dir/gromacs/trajectory.trr
     input_index_path: file:test_data_dir/gromacs/index.ndx
     output_pdb_path: output_pdb.pdb
-    ref_output_pdb_path: file:test_reference_dir/gromacs/ref_cluster.pdb
+    ref_output_pdb_path: file:test_reference_dir/gromacs/ref_cluster.container.pdb
   properties:
     fit_selection: System
     output_selection: System
@@ -29,6 +29,23 @@ gmx_cluster_container:
     cutoff: 0.1
     container_path: docker
     container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
+gmx_cluster_singularity:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_pdb_path: output_pdb.pdb
+    ref_output_pdb_path: file:test_reference_dir/gromacs/ref_cluster.container.pdb
+  properties:
+    fit_selection: System
+    output_selection: System
+    dista: False
+    method: linkage
+    cutoff: 0.1
+    container_path: singularity
+    container_image: michael-tn-gromacs-master-latest.simg
     container_volume_path: /tmp
 
 gmx_rms:
@@ -41,17 +58,30 @@ gmx_rms:
   properties:
     selection: System
 
-gmx_rms_container:
+gmx_rms_docker:
   paths:
     input_traj_path: file:test_data_dir/gromacs/trajectory.trr
     input_structure_path: file:test_data_dir/gromacs/topology.tpr
     input_index_path: file:test_data_dir/gromacs/index.ndx
     output_xvg_path: output.xvg
-    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.container.xvg
   properties:
     selection: System
     container_path: docker
     container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
+gmx_rms_singularity:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_xvg_path: output.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.container.xvg
+  properties:
+    selection: System
+    container_path: singularity
+    container_image: michael-tn-gromacs-master-latest.simg
     container_volume_path: /tmp
 
 gmx_energy:
@@ -62,15 +92,26 @@ gmx_energy:
   properties:
     terms: [Potential, Pressure]
 
-gmx_energy_container:
+gmx_energy_docker:
   paths:
     input_energy_path: file:test_data_dir/gromacs/energy.edr
     output_xvg_path: output.xvg
-    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_energy.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_energy.container.xvg
   properties:
     terms: [Potential, Pressure]
     container_path: docker
     container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
+gmx_energy_singularity:
+  paths:
+    input_energy_path: file:test_data_dir/gromacs/energy.edr
+    output_xvg_path: output.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_energy.container.xvg
+  properties:
+    terms: [Potential, Pressure]
+    container_path: singularity
+    container_image: michael-tn-gromacs-master-latest.simg
     container_volume_path: /tmp
 
 gmx_rgyr:
@@ -83,17 +124,30 @@ gmx_rgyr:
   properties:
     selection: System
 
-gmx_rgyr_container:
+gmx_rgyr_docker:
   paths:
     input_traj_path: file:test_data_dir/gromacs/trajectory.trr
     input_structure_path: file:test_data_dir/gromacs/topology.tpr
     input_index_path: file:test_data_dir/gromacs/index.ndx
     output_xvg_path: output.xvg
-    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rgyr.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rgyr.container.xvg
   properties:
     selection: System
     container_path: docker
     container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
+gmx_rgyr_singularity:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_xvg_path: output.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rgyr.container.xvg
+  properties:
+    selection: System
+    container_path: singularity
+    container_image: michael-tn-gromacs-master-latest.simg
     container_volume_path: /tmp
 
 gmx_trjconv_str:
@@ -106,17 +160,30 @@ gmx_trjconv_str:
   properties:
     selection: System
 
-gmx_trjconv_str_container:
+gmx_trjconv_str_docker:
   paths:
     input_structure_path: file:test_data_dir/gromacs/trajectory.trr
     input_top_path: file:test_data_dir/gromacs/topology.tpr
     input_index_path: file:test_data_dir/gromacs/index.ndx
     output_str_path: output.pdb
-    ref_output_str_path: file:test_reference_dir/gromacs/ref_trjconv.str.pdb
+    ref_output_str_path: file:test_reference_dir/gromacs/ref_trjconv.str.container.pdb
   properties:
     selection: System
     container_path: docker
     container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
+gmx_trjconv_str_singularity:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/trajectory.trr
+    input_top_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_str_path: output.pdb
+    ref_output_str_path: file:test_reference_dir/gromacs/ref_trjconv.str.container.pdb
+  properties:
+    selection: System
+    container_path: singularity
+    container_image: michael-tn-gromacs-master-latest.simg
     container_volume_path: /tmp
 
 gmx_trjconv_str_ens:
@@ -134,13 +201,13 @@ gmx_trjconv_str_ens:
     output_name: output
     output_type: pdb
 
-gmx_trjconv_str_ens_container:
+gmx_trjconv_str_ens_docker:
   paths:
     input_traj_path: file:test_data_dir/gromacs/trajectory.trr
     input_top_path: file:test_data_dir/gromacs/topology.tpr
     input_index_path: file:test_data_dir/gromacs/index.ndx
     output_str_ens_path: output.zip
-    ref_output_str_ens_path: file:test_reference_dir/gromacs/ref_trjconv.str.ens.zip
+    ref_output_str_ens_path: file:test_reference_dir/gromacs/ref_trjconv.str.ens.container.zip
   properties:
     selection: System
     start: 0
@@ -150,6 +217,24 @@ gmx_trjconv_str_ens_container:
     output_type: pdb
     container_path: docker
     container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
+gmx_trjconv_str_ens_singularity:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_top_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_str_ens_path: output.zip
+    ref_output_str_ens_path: file:test_reference_dir/gromacs/ref_trjconv.str.ens.container.zip
+  properties:
+    selection: System
+    start: 0
+    end: 10
+    dt: 1
+    output_name: output
+    output_type: pdb
+    container_path: singularity
+    container_image: michael-tn-gromacs-master-latest.simg
     container_volume_path: /tmp
 
 gmx_trjconv_trj:
@@ -164,12 +249,12 @@ gmx_trjconv_trj:
     end: 0
     dt: 0
 
-gmx_trjconv_trj_container:
+gmx_trjconv_trj_docker:
   paths:
     input_traj_path: file:test_data_dir/gromacs/trajectory.trr
     input_index_path: file:test_data_dir/gromacs/index.ndx
     output_traj_path: output.xtc
-    ref_output_traj_path: file:test_reference_dir/gromacs/ref_trjconv.trj.xtc
+    ref_output_traj_path: file:test_reference_dir/gromacs/ref_trjconv.trj.container.xtc
   properties:
     selection: System
     start: 0
@@ -177,6 +262,21 @@ gmx_trjconv_trj_container:
     dt: 0
     container_path: docker
     container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
+gmx_trjconv_trj_singularity:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_traj_path: output.xtc
+    ref_output_traj_path: file:test_reference_dir/gromacs/ref_trjconv.trj.container.xtc
+  properties:
+    selection: System
+    start: 0
+    end: 0
+    dt: 0
+    container_path: singularity
+    container_image: michael-tn-gromacs-master-latest.simg
     container_volume_path: /tmp
 
 gmx_image:
@@ -195,13 +295,13 @@ gmx_image:
     fit: rot+trans
     ur: compact
 
-gmx_image_container:
+gmx_image_docker:
   paths:
     input_traj_path: file:test_data_dir/gromacs/trajectory.trr
     input_top_path: file:test_data_dir/gromacs/topology.tpr
     input_index_path: file:test_data_dir/gromacs/index.ndx
     output_traj_path: output.xtc
-    ref_output_traj_path: file:test_reference_dir/gromacs/ref_image.xtc
+    ref_output_traj_path: file:test_reference_dir/gromacs/ref_image.container.xtc
   properties:
     fit_selection: System
     center_selection: System
@@ -212,6 +312,25 @@ gmx_image_container:
     ur: compact
     container_path: docker
     container_image: gromacs/gromacs:latest
+    container_volume_path: /tmp
+
+gmx_image_singularity:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_top_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_traj_path: output.xtc
+    ref_output_traj_path: file:test_reference_dir/gromacs/ref_image.container.xtc
+  properties:
+    fit_selection: System
+    center_selection: System
+    output_selection: System
+    pbc: mol
+    center: True
+    fit: rot+trans
+    ur: compact
+    container_path: singularity
+    container_image: michael-tn-gromacs-master-latest.simg
     container_volume_path: /tmp
 
 cpptraj_input:
