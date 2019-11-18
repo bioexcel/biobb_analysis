@@ -27,11 +27,12 @@ class GMXCluster():
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
-            * **container_path** (*string*) - (None)  Path to the binary executable of your container.
-            * **container_image** (*string*) - ('gromacs/gromacs:latest') Container Image identifier. 
-            * **container_volume_path** (*string*) - ('/tmp') Path to an internal directory in the container.
-            * **container_working_dir** (*string*) - (None) container working directory definition.
-            * **container_user_id** (*string*) - (None) User number id to be mapped inside the container.
+            * **container_path** (*string*) - (None) Container path definition.
+            * **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+            * **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+            * **container_working_dir** (*string*) - (None) Container working directory definition.
+            * **container_user_id** (*string*) - (None) Container user_id definition.
+            * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
     """
 
     def __init__(self, input_structure_path, input_traj_path, output_pdb_path, input_index_path=None, properties=None, **kwargs):
@@ -59,7 +60,8 @@ class GMXCluster():
         self.container_image = properties.get('container_image', 'gromacs/gromacs:latest')
         self.container_volume_path = properties.get('container_volume_path', '/tmp')
         self.container_working_dir = properties.get('container_working_dir')
-        self.container_user_id = properties.get('user_id')
+        self.container_user_id = properties.get('container_user_id')
+        self.container_shell_path = properties.get('container_shell_path', '/bin/bash')
 
         # Properties common in all BB
         self.can_write_console_log = properties.get('can_write_console_log', True)
@@ -133,7 +135,7 @@ class GMXCluster():
             cmd.append('-dista')
 
         # create cmd and launch execution
-        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, host_volume=container_io_dict.get("unique_dir"), container_volume=self.container_volume_path, container_working_dir=self.container_working_dir, container_user_uid=self.container_user_id, container_image=self.container_image, out_log=out_log, global_log=self.global_log)
+        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, host_volume=container_io_dict.get("unique_dir"), container_volume=self.container_volume_path, container_working_dir=self.container_working_dir, container_user_uid=self.container_user_id, container_image=self.container_image, container_shell_path=self.container_shell_path, out_log=out_log, global_log=self.global_log)
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
 
         # copy output(s) to output(s) path(s) in case of container execution
