@@ -53,7 +53,7 @@ gromacs.gmx_trjconv_str module
     :show-inheritance:
 
 gromacs.gmx_trjconv_str_ens module
-------------------------------
+-----------------------------------
 
 .. automodule:: gromacs.gmx_trjconv_str_ens
     :members:

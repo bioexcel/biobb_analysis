@@ -6,7 +6,7 @@ Submodules
 
 
 ambertools.cpptraj_input module
---------------------------
+--------------------------------
 
 .. automodule:: ambertools.cpptraj_input
     :members:
