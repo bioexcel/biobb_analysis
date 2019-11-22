@@ -70,6 +70,14 @@ Config parameters for this building block:
 * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
     * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -182,6 +190,14 @@ Config parameters for this building block:
     * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
     * **reference** (*string*) - ("first") Reference definition. Values: first, average, experimental.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -289,6 +305,14 @@ Config parameters for this building block:
 * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
     * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -399,6 +423,14 @@ Config parameters for this building block:
 * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
     * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -509,6 +541,14 @@ Config parameters for this building block:
 * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
     * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -606,6 +646,8 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 Config parameters for this building block:
 
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
 
 ### Instructions file
 
@@ -713,6 +755,14 @@ Config parameters for this building block:
 * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
     * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -821,6 +871,14 @@ Config parameters for this building block:
     * **step** (*int*) - (1) Step for slicing
     * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -928,6 +986,14 @@ Config parameters for this building block:
     * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
     * **reference** (*string*) - ("first") Reference definition. Values: first, average, experimental.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1037,6 +1103,14 @@ Config parameters for this building block:
     * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
     * **reference** (*string*) - ("first") Reference definition. Values: first, average, experimental.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1144,6 +1218,14 @@ Config parameters for this building block:
 * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
     * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1252,6 +1334,14 @@ Config parameters for this building block:
 * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
     * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1358,6 +1448,14 @@ Config parameters for this building block:
 * **out_parameters** (*dict*) - (None) Parameters for output trajectory.
     * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1469,6 +1567,14 @@ Config parameters for this building block:
 * **method** (*str*) - ("linkage") Method for cluster determination. Values: linkage, jarvis-patrick, monte-carlo, diagonalization, gromos
 * **cutoff** (*float*) - (0.1) RMSD cut-off (nm) for two structures to be neighbor
 * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1565,6 +1671,14 @@ Config parameters for this building block:
 * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
 * **terms** (*list*) - (["Potential"]) Energy terms. Select one or more from values: Angle, Proper-Dih., Improper-Dih., LJ-14, Coulomb-14, LJ-(SR), Coulomb-(SR), Coul.-recip., Position-Rest., Potential, Kinetic-En., Total-Energy, Temperature, Pressure,  Constr.-rmsd, Box-X, Box-Y,  Box-Z, Volume, Density, pV, Enthalpy, Vir-XX, Vir-XY, Vir-XZ, Vir-YX, Vir-YY, Vir-YZ, Vir-ZX, Vir-ZY, Vir-ZZ, Pres-XX, Pres-XY, Pres-XZ, Pres-YX, Pres-YY,  Pres-YZ, Pres-ZX, Pres-ZY, Pres-ZZ, #Surf*SurfTen, Box-Vel-XX, Box-Vel-YY, Box-Vel-ZZ, Mu-X, Mu-Y, Mu-Z, T-Protein, T-non-Protein, Lamb-Protein, Lamb-non-Protein
 * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1664,6 +1778,14 @@ Config parameters for this building block:
 * **ur** (*str*) - ("compact") Unit-cell representation. Values: rect, tric, compact.
 * **fit** (*str*) - ("none") Fit molecule to ref structure in the structure file. Values: none, rot+trans, rotxy+transxy, translation, transxy, progressive.
 * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1770,6 +1892,14 @@ Config parameters for this building block:
 * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
 * **selection** (*str*) - ("System") Group where the rgyr will be performed. If **input_index_path** provided, check the file for the accepted values, if not, values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
 * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1865,6 +1995,14 @@ Config parameters for this building block:
 * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
 * **selection** (*str*) - ("System") Group where the rms will be performed. If **input_index_path** provided, check the file for the accepted values, if not, values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
 * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -1958,6 +2096,14 @@ Config parameters for this building block:
 
 * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values, if not, values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
 * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -2057,6 +2203,14 @@ Config parameters for this building block:
 * **output_name** (*str*) - ("output") File name for ensemble of output files.
 * **output_type** (*str*) - ("pdb") File type for ensemble of output files. Values: gro, g96, pdb.
 * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
@@ -2160,6 +2314,14 @@ Config parameters for this building block:
 * **end** (*int*) - (0) Time of last frame to read from trajectory (default unit ps).
 * **dt** (*int*) - (0) Only write frame when t MOD dt = first time (ps).
 * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+* **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
+* **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+* **container_path** (*string*) - (None) Container path definition.
+* **container_image** (*string*) - ('gromacs/gromacs:latest') Container image definition.
+* **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
+* **container_working_dir** (*string*) - (None) Container working directory definition.
+* **container_user_id** (*string*) - (None) Container user_id definition.
+* **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
 ### YAML file config
 
