@@ -12,7 +12,7 @@ from biobb_analysis.ambertools.common import *
 class Average():
     """Calculates a structure average of a given cpptraj compatible trajectory.
     Wrapper of the Ambertools Cpptraj module.
-    Cpptraj (the successor of ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
+    Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
     The parameter names and defaults are the same as the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
 
     Args:
