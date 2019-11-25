@@ -201,7 +201,7 @@ cpptraj_average --config data/conf/average.yml --input_top_path data/input/cpptr
 }
 ```
 
-Command:
+#### Command line
 
 
 ```python
@@ -277,9 +277,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-bfactor.yml:
+#### Common config file
 
 
 ```python
@@ -292,16 +292,48 @@ properties:
     reference: first
 ```
 
-Command:
+#### Docker config file
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+    reference: first
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity config file
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+    reference: first
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line 
 
 
 ```python
 cpptraj_bfactor --config data/conf/bfactor.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.bfactor.dat
 ```
 
-### JSON file config
+### JSON
 
-bfactor.json:
+#### Common file config
 
 
 ```python
@@ -318,7 +350,47 @@ bfactor.json:
 }
 ```
 
-Command:
+#### Docker config file
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha",
+      "reference": "first"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity config file
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha",
+      "reference": "first"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -392,9 +464,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-convert.yml:
+#### Common file config
 
 
 ```python
@@ -408,16 +480,50 @@ properties:
     format: netcdf
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_convert --config data/conf/convert.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.convert.netcdf
 ```
 
-### JSON file config
+### JSON file
 
-convert.json:
+#### Common file config
 
 
 ```python
@@ -436,7 +542,51 @@ convert.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -510,9 +660,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-dry.yml:
+##### Common file config
 
 
 ```python
@@ -526,16 +676,50 @@ properties:
     format: netcdf
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_dry --config data/conf/dry.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.dry.netcdf
 ```
 
-### JSON file config
+### JSON
 
-dry.json:
+#### Common file config
 
 
 ```python
@@ -554,7 +738,51 @@ dry.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    }
+  },
+  "container_path": "docker",
+  "container_image": "afandiadib/ambertools:serial",
+  "container_volume_path": "/tmp"
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -628,9 +856,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-image.yml:
+#### Common file config
 
 
 ```python
@@ -644,16 +872,50 @@ properties:
     format: netcdf
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Common file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_image --config data/conf/image.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.image.netcdf
 ```
 
-### JSON file config
+### JSON
 
-image.json:
+#### Common file config
 
 
 ```python
@@ -672,7 +934,51 @@ image.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    }
+  },
+  "container_path": "docker",
+  "container_image": "afandiadib/ambertools:serial",
+  "container_volume_path": "/tmp"
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    }
+  },
+  "container_path": "singularity",
+  "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+  "container_volume_path": "/tmp"
+}
+```
+
+#### Command line
 
 
 ```python
@@ -738,9 +1044,9 @@ trajin data/input/cpptraj.convert.dcd
 trajout data/output/output.netcdf netcdf
 ```
 
-### YAML file config
+### YAML
 
-input.yml:
+#### Common file config
 
 
 ```python
@@ -748,16 +1054,38 @@ properties:
   cpptraj_path: cpptraj
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  cpptraj_path: cpptraj
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  cpptraj_path: cpptraj
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_input --config data/conf/input.yml --input_instructions_path data/input/input.in
 ```
 
-### JSON file config
+### JSON
 
-image.json:
+#### Common file config
 
 
 ```python
@@ -768,7 +1096,35 @@ image.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "cpptraj_path": "cpptraj",
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "cpptraj_path": "cpptraj",
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -842,9 +1198,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-mask.yml:
+#### Common file config
 
 
 ```python
@@ -858,16 +1214,50 @@ properties:
     format: netcdf
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_mask --config data/conf/mask.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.mask.netcdf
 ```
 
-### JSON file config
+### JSON
 
-mask.json:
+#### Common file config
 
 
 ```python
@@ -886,7 +1276,51 @@ mask.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -958,9 +1392,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-rgyr.yml:
+#### Common file config
 
 
 ```python
@@ -972,16 +1406,46 @@ properties:
     mask: c-alpha
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_rgyr --config data/conf/rgyr.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.rgyr.dat
 ```
 
-### JSON file config
+### JSON
 
-rgyr.json:
+#### Common file config
 
 
 ```python
@@ -997,7 +1461,45 @@ rgyr.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1073,9 +1575,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-rms.yml:
+#### Common file config
 
 
 ```python
@@ -1088,16 +1590,48 @@ properties:
     reference: first
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+    reference: first
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+    reference: first
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_rms --config data/conf/rms.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.rms.dat
 ```
 
-### JSON file config
+### JSON
 
-rms.json:
+#### Common file config
 
 
 ```python
@@ -1114,7 +1648,47 @@ rms.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha",
+      "reference": "first"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha",
+      "reference": "first"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1190,9 +1764,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-rmsf.yml:
+#### Common file config
 
 
 ```python
@@ -1205,16 +1779,48 @@ properties:
     reference: first
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+    reference: first
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+    reference: first
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_rmsf --config data/conf/rmsf.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.rmsf.dat
 ```
 
-### JSON file config
+### JSON
 
-rmsf.json:
+#### Common file config
 
 
 ```python
@@ -1231,7 +1837,47 @@ rmsf.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha",
+      "reference": "first"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha",
+      "reference": "first"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1305,9 +1951,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-slice.yml:
+#### Common file config
 
 
 ```python
@@ -1321,16 +1967,50 @@ properties:
     format: netcdf
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 2
+    end: 20
+    step: 2
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 2
+    end: 20
+    step: 2
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_slice --config data/conf/slice.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.slice.netcdf
 ```
 
-### JSON file config
+### JSON
 
-slice.json:
+#### Common file config
 
 
 ```python
@@ -1349,7 +2029,51 @@ slice.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1421,9 +2145,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-snapshot.yml:
+#### Common file config
 
 
 ```python
@@ -1435,16 +2159,46 @@ properties:
     format: pdb
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    snapshot: 12
+    mask: c-alpha
+  out_parameters:
+    format: pdb
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    snapshot: 12
+    mask: c-alpha
+  out_parameters:
+    format: pdb
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_snapshot --config data/conf/snapshot.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.snapshot.pdb
 ```
 
-### JSON file config
+### JSON
 
-snapshot.json:
+#### Common file config
 
 
 ```python
@@ -1461,7 +2215,47 @@ snapshot.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "snapshot": 12,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "pdb"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "snapshot": 12,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "pdb"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1535,9 +2329,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-strip.yml:
+#### Common file config
 
 
 ```python
@@ -1551,16 +2345,50 @@ properties:
     format: netcdf
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 2
+    end: 20
+    step: 2
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  in_parameters:
+    start: 2
+    end: 20
+    step: 2
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_strip --config data/conf/strip.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.strip.netcdf
 ```
 
-### JSON file config
+### JSON
 
-strip.json:
+#### Common file config
 
 
 ```python
@@ -1579,7 +2407,51 @@ strip.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+      "format": "netcdf"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1654,9 +2526,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-cluster.yml:
+#### Common file config
 
 
 ```python
@@ -1668,16 +2540,46 @@ properties:
   cutoff: 0.1
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  fit_selection: System
+  output_selection: System
+  dista: False
+  method: linkage
+  cutoff: 0.1
+  container_path: docker
+  container_image: gromacs/gromacs:latest
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  fit_selection: System
+  output_selection: System
+  dista: False
+  method: linkage
+  cutoff: 0.1
+  container_path: singularity
+  container_image: michael-tn-gromacs-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 gmx_cluster --config data/conf/cluster.yml --input_structure_path data/input/cluster.gro --input_traj_path data/input/cluster.trr --output_pdb_path data/output/output.cluster.pdb
 ```
 
-### JSON file config
+### JSON
 
-cluster.json:
+#### Common file config
 
 
 ```python
@@ -1692,7 +2594,43 @@ cluster.json:
 }
 ```
 
-Command:
+#### Common file config
+
+
+```python
+{
+  "properties": {
+    "fit_selection": "System",
+    "output_selection": "System",
+    "dista": false,
+    "method": "linkage",
+    "cutoff": 0.1,
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Common file config
+
+
+```python
+{
+  "properties": {
+    "fit_selection": "System",
+    "output_selection": "System",
+    "dista": false,
+    "method": "linkage",
+    "cutoff": 0.1,
+    "container_path": "singularity",
+    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1758,9 +2696,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-energy.yml:
+#### Common file config
 
 
 ```python
@@ -1768,16 +2706,38 @@ properties:
   terms: [Potential, Pressure]
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  terms: [Potential, Pressure]
+  container_path: docker
+  container_image: gromacs/gromacs:latest
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  terms: [Potential, Pressure]
+  container_path: singularity
+  container_image: michael-tn-gromacs-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 gmx_energy --config data/conf/energy.yml --input_energy_path data/input/energy.edr --output_xvg_path data/output/output.energy.xvg
 ```
 
-### JSON file config
+### JSON
 
-energy.json:
+#### Common file config
 
 
 ```python
@@ -1788,7 +2748,35 @@ energy.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "terms": ["Potential", "Pressure"],
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "terms": ["Potential", "Pressure"],
+    "container_path": "singularity",
+    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1865,9 +2853,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-gmx_image.yml:
+#### Common file config
 
 
 ```python
@@ -1881,16 +2869,50 @@ properties:
   ur: compact
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  fit_selection: System
+  center_selection: System
+  output_selection: System
+  pbc: mol
+  center: True
+  fit: rot+trans
+  ur: compact
+  container_path: docker
+  container_image: gromacs/gromacs:latest
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  fit_selection: System
+  center_selection: System
+  output_selection: System
+  pbc: mol
+  center: True
+  fit: rot+trans
+  ur: compact
+  container_path: singularity
+  container_image: michael-tn-gromacs-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 gmx_image --config data/conf/gmx_image.yml --input_traj_path data/input/image.trr --input_top_path data/input/image.gro --output_traj_path data/output/output.image.xtc
 ```
 
-### JSON file config
+### JSON
 
-gmx_image.json:
+#### Common file config
 
 
 ```python
@@ -1907,7 +2929,47 @@ gmx_image.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "fit_selection": "System",
+    "center_selection": "System",
+    "output_selection": "System",
+    "pbc": "mol",
+    "center": true,
+    "fit": "rot+trans",
+    "ur": "compact",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "fit_selection": "System",
+    "center_selection": "System",
+    "output_selection": "System",
+    "pbc": "mol",
+    "center": true,
+    "fit": "rot+trans",
+    "ur": "compact",
+    "container_path": "singularity",
+    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -1979,9 +3041,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-gmx_rgyr.yml:
+#### Common file config
 
 
 ```python
@@ -1989,16 +3051,38 @@ properties:
   selection: System
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  selection: System
+  container_path: docker
+  container_image: gromacs/gromacs:latest
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  selection: System
+  container_path: singularity
+  container_image: michael-tn-gromacs-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 gmx_rgyr --config data/conf/gmx_rgyr.yml --input_structure_path data/input/rgyr.gro --input_traj_path data/input/rgyr.trr --output_xvg_path data/output/output.rgyr.xvg
 ```
 
-### JSON file config
+### JSON
 
-gmx_rgyr.json:
+#### Common file config
 
 
 ```python
@@ -2009,7 +3093,35 @@ gmx_rgyr.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "singularity",
+    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -2082,9 +3194,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-gmx_rms.yml:
+#### Common file config
 
 
 ```python
@@ -2092,16 +3204,38 @@ properties:
   selection: System
 ```
 
-Command:
+#### Common file config
+
+
+```python
+properties:
+  selection: System
+  container_path: docker
+  container_image: gromacs/gromacs:latest
+  container_volume_path: /tmp
+```
+
+#### Common file config
+
+
+```python
+properties:
+  selection: System
+  container_path: singularity
+  container_image: michael-tn-gromacs-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 gmx_rms --config data/conf/gmx_rms.yml --input_structure_path data/input/rgyr.gro --input_traj_path data/input/rgyr.trr --output_xvg_path data/output/output.rms.xvg
 ```
 
-### JSON file config
+### JSON
 
-gmx_rgyr.json:
+#### Common file config
 
 
 ```python
@@ -2112,7 +3246,35 @@ gmx_rgyr.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "singularity",
+    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -2183,9 +3345,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-gmx_trjconv_str.yml:
+#### Common file config
 
 
 ```python
@@ -2193,16 +3355,38 @@ properties:
   selection: System
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  selection: System
+  container_path: docker
+  container_image: gromacs/gromacs:latest
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  selection: System
+  container_path: singularity
+  container_image: michael-tn-gromacs-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 gmx_trjconv_str --config data/conf/gmx_trjconv_str.yml --input_structure_path data/input/trjconv.str.gro --input_top_path data/input/trjconv.str.gro --output_str_path data/output/output.trjconv.str.pdb
 ```
 
-### JSON file config
+### JSON
 
-gmx_rgyr.json:
+#### Common file config
 
 
 ```python
@@ -2213,7 +3397,35 @@ gmx_rgyr.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "singularity",
+    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -2290,9 +3502,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-gmx_trjconv_str_ens.yml:
+#### Common file config
 
 
 ```python
@@ -2305,16 +3517,48 @@ properties:
   output_type: pdb
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  selection: System
+  start: 0
+  end: 10
+  dt: 1
+  output_name: output
+  output_type: pdb
+  container_path: docker
+  container_image: gromacs/gromacs:latest
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  selection: System
+  start: 0
+  end: 10
+  dt: 1
+  output_name: output
+  output_type: pdb
+  container_path: singularity
+  container_image: michael-tn-gromacs-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 gmx_trjconv_str_ens --config data/conf/gmx_trjconv_str_ens.yml --input_traj_path data/input/trjconv.str.ens.trr --input_top_path data/input/trjconv.str.ens.gro --output_str_ens_path data/output/output.trjconv.str.ens.zip
 ```
 
-### JSON file config
+### JSON
 
-gmx_rgyr.json:
+#### Common file config
 
 
 ```python
@@ -2330,7 +3574,45 @@ gmx_rgyr.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "start": 0,
+    "end": 10,
+    "dt": 1,
+    "output_name": "output",
+    "output_type": "pdb",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "start": 0,
+    "end": 10,
+    "dt": 1,
+    "output_name": "output",
+    "output_type": "pdb",
+    "container_path": "singularity",
+    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
@@ -2401,9 +3683,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-gmx_trjconv_trj.yml:
+#### Common file config
 
 
 ```python
@@ -2414,16 +3696,44 @@ properties:
   dt: 0
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+properties:
+  selection: System
+  start: 0
+  end: 0
+  dt: 0
+  container_path: docker
+  container_image: gromacs/gromacs:latest
+  container_volume_path: /tmp
+```
+
+#### Singularity file config
+
+
+```python
+properties:
+  selection: System
+  start: 0
+  end: 0
+  dt: 0
+  container_path: singularity
+  container_image: michael-tn-gromacs-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 gmx_trjconv_trj --config data/conf/gmx_trjconv_trj.yml --input_traj_path data/input/trjconv.trj.trr --output_traj_path data/output/output.trjconv.trj.xtc
 ```
 
-### JSON file config
+### JSON
 
-gmx_rgyr.json:
+#### Common file config
 
 
 ```python
@@ -2437,7 +3747,41 @@ gmx_rgyr.json:
 }
 ```
 
-Command:
+#### Docker file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "start": 0,
+    "end": 0,
+    "dt": 0,
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity file config
+
+
+```python
+{
+  "properties": {
+    "selection": "System",
+    "start": 0,
+    "end": 0,
+    "dt": 0,
+    "container_path": "singularity",
+    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Command line
 
 
 ```python
