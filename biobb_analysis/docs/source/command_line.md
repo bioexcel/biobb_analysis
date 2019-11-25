@@ -79,9 +79,9 @@ Config parameters for this building block:
 * **container_user_id** (*string*) - (None) Container user_id definition.
 * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
 
-### YAML file config
+### YAML
 
-average.yml:
+#### Common config file
 
 
 ```python
@@ -95,16 +95,50 @@ properties:
     format: netcdf
 ```
 
-Command:
+#### Docker config file
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: docker
+  container_image: afandiadib/ambertools:serial
+  container_volume_path: /tmp
+```
+
+#### Singularity config file
+
+
+```python
+properties:
+  in_parameters:
+    start: 1
+    end: -1
+    step: 1
+    mask: c-alpha
+  out_parameters:
+    format: netcdf
+  container_path: singularity
+  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_volume_path: /tmp
+```
+
+#### Command line
 
 
 ```python
 cpptraj_average --config data/conf/average.yml --input_top_path data/input/cpptraj.parm.top --input_traj_path data/input/cpptraj.traj.dcd --output_cpptraj_path data/output/output.average.netcdf
 ```
 
-### JSON file config
+### JSON
 
-average.json:
+#### Common config file
 
 
 ```python
@@ -119,6 +153,50 @@ average.json:
     "out_parameters": {
        "format": "netcdf"
     }
+  }
+}
+```
+
+#### Docker config file
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+       "format": "netcdf"
+    },
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+
+#### Singularity config file
+
+
+```python
+{
+  "properties": {
+    "in_parameters": {
+      "start": 1,
+      "end": -1,
+      "step": 1,
+      "mask": "c-alpha"
+    },
+    "out_parameters": {
+       "format": "netcdf"
+    },
+    "container_path": "singularity",
+    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_volume_path": "/tmp"
   }
 }
 ```
