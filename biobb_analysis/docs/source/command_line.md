@@ -662,7 +662,7 @@ Config parameters for this building block:
 
 ### YAML
 
-##### Common file config
+#### Common file config
 
 
 ```python
@@ -2594,7 +2594,7 @@ gmx_cluster --config data/conf/cluster.yml --input_structure_path data/input/clu
 }
 ```
 
-#### Common file config
+#### Docker file config
 
 
 ```python
@@ -2612,7 +2612,7 @@ gmx_cluster --config data/conf/cluster.yml --input_structure_path data/input/clu
 }
 ```
 
-#### Common file config
+#### Singularity file config
 
 
 ```python
@@ -3204,7 +3204,7 @@ properties:
   selection: System
 ```
 
-#### Common file config
+#### Docker file config
 
 
 ```python
@@ -3215,7 +3215,7 @@ properties:
   container_volume_path: /tmp
 ```
 
-#### Common file config
+#### Singularity file config
 
 
 ```python
