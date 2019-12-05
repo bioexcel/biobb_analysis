@@ -16,7 +16,7 @@ class GMXCluster():
     Args:
         input_structure_path (str): Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
         input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_index_path (str)\[Optional\]: Path to the GROMACS index file. Accepted formats: ndx.
+        input_index_path (str) (Optional): Path to the GROMACS index file. Accepted formats: ndx.
         output_pdb_path (str): Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
         properties (dic):
             * **fit_selection** (*str*) - ("System") Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.

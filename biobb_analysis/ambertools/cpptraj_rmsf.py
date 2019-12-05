@@ -19,7 +19,7 @@ class Rmsf():
     Args:
         input_top_path (str): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
         input_traj_path (str): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-        input_exp_path (str)[Optional]: Path to the experimental reference file (required if reference = experimental).
+        input_exp_path (str) (Optional): Path to the experimental reference file (required if reference = experimental).
         output_cpptraj_path (str): Path to the output processed analysis.
         properties (dic):
             * **in_parameters** (*dic*) - (None) Parameters for input trajectory.

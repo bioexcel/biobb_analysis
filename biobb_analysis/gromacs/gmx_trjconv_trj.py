@@ -15,7 +15,7 @@ class GMXTrjConvTrj():
 
     Args:
         input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_index_path (str)[Optional]: Path to the GROMACS index file. Accepted formats: ndx.
+        input_index_path (str) (Optional): Path to the GROMACS index file. Accepted formats: ndx.
         output_traj_path (str): Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
         properties (dic):
             * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.

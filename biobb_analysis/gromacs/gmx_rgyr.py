@@ -16,7 +16,7 @@ class GMXRgyr():
     Args:
         input_structure_path (str): Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
         input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_index_path (str)[Optional]: Path to the GROMACS index file. Accepted formats: ndx.
+        input_index_path (str) (Optional): Path to the GROMACS index file. Accepted formats: ndx.
         output_xvg_path (str): Path to the XVG output file. Accepted formats: xvg.
         properties (dic):
             * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
