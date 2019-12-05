@@ -47,12 +47,7 @@
             "block" : "GMXTrjconvTrj", 
             "tool" : "gmx trjconv", 
             "desc" : "Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms."
-        }, 
-        {
-            "block" : "CpptrajInput", 
-            "tool" : "Ambertools cpptraj", 
-            "desc" : "Performs multiple analysis and trajectory operations of a given trajectory."
-        }, 
+        },
         {
             "block" : "Average", 
             "tool" : "Ambertools cpptraj", 
