@@ -11,102 +11,122 @@
         {
             "block" : "GMXCluster", 
             "tool" : "gmx cluster", 
-            "desc" : "Creates cluster structures from a given GROMACS compatible trajectory."
+            "desc" : "Creates cluster structures from a given GROMACS compatible trajectory.",
+            "exec" : "gmx_cluster"
         }, 
         {
             "block" : "GMXRms", 
             "tool" : "gmx rms", 
-            "desc" : "Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory."
+            "desc" : "Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.",
+            "exec" : "gmx_rms"
         }, 
         {
             "block" : "GMXRgyr", 
             "tool" : "gmx gyrate", 
-            "desc" : "Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory."
+            "desc" : "Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.",
+            "exec" : "gmx_rgyr"
         }, 
         {
             "block" : "GMXEnergy", 
             "tool" : "gmx energy", 
-            "desc" : "Extracts energy components from a given GROMACS energy file."
+            "desc" : "Extracts energy components from a given GROMACS energy file.",
+            "exec" : "gmx_energy"
         },
         {
             "block" : "GMXImage", 
             "tool" : "gmx trjconv", 
-            "desc" : "Corrects periodicity (image) from a given GROMACS compatible trajectory file."
+            "desc" : "Corrects periodicity (image) from a given GROMACS compatible trajectory file.",
+            "exec" : "gmx_image"
         }, 
         {
             "block" : "GMXTrjconvStr", 
             "tool" : "gmx trjconv", 
-            "desc" : "Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms."
+            "desc" : "Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.",
+            "exec" : "gmx_trjconv_str"
         }, 
         {
             "block" : "GMXTrjconvStrEns", 
             "tool" : "gmx trjconv", 
-            "desc" : "Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files."
+            "desc" : "Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.",
+            "exec" : "gmx_trjconv_str_ens"
         },
         {
             "block" : "GMXTrjconvTrj", 
             "tool" : "gmx trjconv", 
-            "desc" : "Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms."
+            "desc" : "Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.",
+            "exec" : "gmx_trjconv_trj"
         },
         {
             "block" : "Average", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Calculates a structure average of a given cpptraj compatible trajectory."
+            "desc" : "Calculates a structure average of a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_average"
         }, 
         {
             "block" : "Bfactor", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory."
+            "desc" : "Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_bfactor"
         }, 
         {
             "block" : "Rms", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory."
+            "desc" : "Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_rms"
         }, 
         {
             "block" : "Rmsf", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Calculates the Root Mean Square fluctuations (RMSf) of a given cpptraj compatible trajectory."
+            "desc" : "Calculates the Root Mean Square fluctuations (RMSf) of a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_rmsf"
         },
         {
             "block" : "Rgyr", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Computes the radius of gyration (Rgyr) from a given cpptraj compatible trajectory."
+            "desc" : "Computes the radius of gyration (Rgyr) from a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_rgyr"
         }, 
         {
             "block" : "Dry", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Dehydrates a given cpptraj compatible trajectory stripping out solvent molecules and ions."
+            "desc" : "Dehydrates a given cpptraj compatible trajectory stripping out solvent molecules and ions.",
+            "exec" : "cpptraj_dry"
         }, 
         {
             "block" : "Strip", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory."
+            "desc" : "Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_strip"
         },
         {
             "block" : "Snapshot", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Extracts a particular snapshot from a given cpptraj compatible trajectory."
+            "desc" : "Extracts a particular snapshot from a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_snapshot"
         }, 
         {
             "block" : "Slice", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Extracts a particular trajectory slice from a given cpptraj compatible trajectory."
+            "desc" : "Extracts a particular trajectory slice from a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_slice"
         }, 
         {
             "block" : "Convert", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames."
+            "desc" : "Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames.",
+            "exec" : "cpptraj_convert"
         }, 
         {
             "block" : "Mask", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Extracts a selection of atoms from a given cpptraj compatible trajectory."
+            "desc" : "Extracts a selection of atoms from a given cpptraj compatible trajectory.",
+            "exec" : "cpptraj_mask"
         }, 
         {
             "block" : "Image", 
             "tool" : "Ambertools cpptraj", 
-            "desc" : "Corrects periodicity (image) from a given cpptraj trajectory file."
+            "desc" : "Corrects periodicity (image) from a given cpptraj trajectory file.",
+            "exec" : "cpptraj_image"
         }
     ],
     "dep_pypi" : [
