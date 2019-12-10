@@ -11,7 +11,7 @@
         {
             "block" : "GMXCluster", 
             "tool" : "gmx cluster", 
-            "desc" : "Creates cluster structures from a given GROMACS compatible trajectory.",
+            "desc" : "Creates cluster structures from a given GROMACS compatible trajectory",
             "exec" : "gmx_cluster"
         }, 
         {
