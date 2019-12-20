@@ -1,4 +1,4 @@
-# v2.0.1(.1)
 Bootstrap: docker
-From: biobb_analysis:latest
-Namespace: mmbirb
+From: biobb_analysis:2.0.2--py_0
+Registry: quay.io
+Namespace: biocontainers
