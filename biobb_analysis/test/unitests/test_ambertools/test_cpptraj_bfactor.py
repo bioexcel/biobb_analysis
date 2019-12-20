@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_bfactor import Bfactor
+from biobb_analysis.ambertools.cpptraj_bfactor import CpptrajBfactor
 
 
 class TestCpptrajBfactorFirst():
@@ -11,7 +11,7 @@ class TestCpptrajBfactorFirst():
         pass
 
     def test_bfactor_first(self):
-        Bfactor(properties=self.properties, **self.paths).launch()
+        CpptrajBfactor(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,7 +24,7 @@ class TestCpptrajBfactorAverage():
         pass
 
     def test_bfactor_average(self):
-        Bfactor(properties=self.properties, **self.paths).launch()
+        CpptrajBfactor(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -37,6 +37,6 @@ class TestCpptrajBfactorExperimental():
         pass
 
     def test_bfactor_experimental(self):
-        Bfactor(properties=self.properties, **self.paths).launch()
+        CpptrajBfactor(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

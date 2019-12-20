@@ -9,7 +9,7 @@ from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import *
 
 
-class Slice():
+class CpptrajSlice():
     """Extracts a particular trajectory slice from a given cpptraj compatible trajectory.
     Wrapper of the Ambertools Cpptraj module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
@@ -128,7 +128,7 @@ class Slice():
         fu.check_properties(self, self.properties)
 
         if self.restart:
-            output_file_list = [self.output_cpptraj_path]
+            output_file_list = [self.io_dict["out"]["output_cpptraj_path"]]
             if fu.check_complete_files(output_file_list):
                 fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
                 return 0
@@ -177,7 +177,7 @@ def main():
         properties = properties[args.step]
 
     # Specific call of each building block
-    Slice(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
+    CpptrajSlice(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

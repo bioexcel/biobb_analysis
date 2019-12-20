@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_mask import Mask
+from biobb_analysis.ambertools.cpptraj_mask import CpptrajMask
 
 
 class TestCpptrajMaskDocker():
@@ -11,7 +11,7 @@ class TestCpptrajMaskDocker():
         pass
 
     def test_mask_docker(self):
-        Mask(properties=self.properties, **self.paths).launch()
+        CpptrajMask(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,6 +24,6 @@ class TestCpptrajMaskSingularity():
         pass
 
     def test_mask_singularity(self):
-        Mask(properties=self.properties, **self.paths).launch()
+        CpptrajMask(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

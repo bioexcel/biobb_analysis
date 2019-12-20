@@ -9,7 +9,7 @@ from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import *
 
 
-class Average():
+class CpptrajAverage():
     """Calculates a structure average of a given cpptraj compatible trajectory.
     Wrapper of the Ambertools Cpptraj module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
@@ -179,7 +179,7 @@ def main():
         properties = properties[args.step]
 
     # Specific call of each building block
-    Average(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
+    CpptrajAverage(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
 
 if __name__ == '__main__':
     main()

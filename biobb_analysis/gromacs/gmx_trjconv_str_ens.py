@@ -100,7 +100,7 @@ class GMXTrjConvStrEns():
 
         # Restart
         if self.restart:
-            output_file_list = [self.output_str_ens_path]
+            output_file_list = [self.io_dict["out"]["output_str_ens_path"]]
             if fu.check_complete_files(output_file_list):
                 fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
                 return 0

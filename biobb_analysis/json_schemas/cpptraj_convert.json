@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/cpptraj_convert",
-    "title": "Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames",
+    "title": "Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames.",
     "type": "object",
     "required": [
         "input_top_path",

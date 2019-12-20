@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_rgyr import Rgyr
+from biobb_analysis.ambertools.cpptraj_rgyr import CpptrajRgyr
 
 
 class TestCpptrajRgyrDocker():
@@ -11,7 +11,7 @@ class TestCpptrajRgyrDocker():
         pass
 
     def test_rgyr_docker(self):
-        Rgyr(properties=self.properties, **self.paths).launch()
+        CpptrajRgyr(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,6 +24,6 @@ class TestCpptrajRgyrSingularity():
         pass
 
     def test_rgyr_singularity(self):
-        Rgyr(properties=self.properties, **self.paths).launch()
+        CpptrajRgyr(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

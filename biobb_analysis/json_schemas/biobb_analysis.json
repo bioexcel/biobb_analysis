@@ -6,7 +6,7 @@
     "conda": "https://anaconda.org/bioconda/biobb_analysis",
     "docker": "https://hub.docker.com/r/mmbirb/biobb_analysis",
     "singularity": "https://www.singularity-hub.org/collections/2423/usage",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "tools" : [
         {
             "block" : "GMXCluster", 
@@ -57,73 +57,73 @@
             "exec" : "gmx_trjconv_trj"
         },
         {
-            "block" : "Average", 
+            "block" : "CpptrajAverage", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Calculates a structure average of a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_average"
         }, 
         {
-            "block" : "Bfactor", 
+            "block" : "CpptrajBfactor", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_bfactor"
         }, 
         {
-            "block" : "Rms", 
+            "block" : "CpptrajRms", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_rms"
         }, 
         {
-            "block" : "Rmsf", 
+            "block" : "CpptrajRmsf", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Calculates the Root Mean Square fluctuations (RMSf) of a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_rmsf"
         },
         {
-            "block" : "Rgyr", 
+            "block" : "CpptrajRgyr", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Computes the radius of gyration (Rgyr) from a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_rgyr"
         }, 
         {
-            "block" : "Dry", 
+            "block" : "CpptrajDry", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Dehydrates a given cpptraj compatible trajectory stripping out solvent molecules and ions.",
             "exec" : "cpptraj_dry"
         }, 
         {
-            "block" : "Strip", 
+            "block" : "CpptrajStrip", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_strip"
         },
         {
-            "block" : "Snapshot", 
+            "block" : "CpptrajSnapshot", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Extracts a particular snapshot from a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_snapshot"
         }, 
         {
-            "block" : "Slice", 
+            "block" : "CpptrajSlice", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Extracts a particular trajectory slice from a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_slice"
         }, 
         {
-            "block" : "Convert", 
+            "block" : "CpptrajConvert", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames.",
             "exec" : "cpptraj_convert"
         }, 
         {
-            "block" : "Mask", 
+            "block" : "CpptrajMask", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Extracts a selection of atoms from a given cpptraj compatible trajectory.",
             "exec" : "cpptraj_mask"
         }, 
         {
-            "block" : "Image", 
+            "block" : "CpptrajImage", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Corrects periodicity (image) from a given cpptraj trajectory file.",
             "exec" : "cpptraj_image"
@@ -136,10 +136,8 @@
     "dep_conda" : [
         "python ==3.6.*", 
         "biobb_common ==2.0.1", 
-        "gromacs ==2019.1"
-    ],
-    "dep_conda_extra" : [
-        "conda install -y  -c ambermd ambertools==18.0"
+        "gromacs ==2019.1",
+        "ambertools ==19.10"
     ],
     "keywords" : [
         "analysis", 

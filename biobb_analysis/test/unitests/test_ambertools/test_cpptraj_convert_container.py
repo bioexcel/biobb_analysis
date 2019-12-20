@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_convert import Convert
+from biobb_analysis.ambertools.cpptraj_convert import CpptrajConvert
 
 
 class TestCpptrajConvertDocker():
@@ -11,7 +11,7 @@ class TestCpptrajConvertDocker():
         pass
 
     def test_convert_docker(self):
-        Convert(properties=self.properties, **self.paths).launch()
+        CpptrajConvert(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,6 +24,6 @@ class TestCpptrajConvertSingularity():
         pass
 
     def test_convert_singularity(self):
-        Convert(properties=self.properties, **self.paths).launch()
+        CpptrajConvert(properties=self.properties, **self.paths).launch()
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
