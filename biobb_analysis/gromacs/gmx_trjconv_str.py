@@ -116,7 +116,7 @@ class GMXTrjConvStr():
 
         # if container execution, remove temporary folder
         if self.container_path:
-            remove_tmp_files([container_io_dict['unique_dir']], out_log)
+            remove_tmp_files([container_io_dict['unique_dir']], self.remove_tmp, out_log)
 
         return returncode
 

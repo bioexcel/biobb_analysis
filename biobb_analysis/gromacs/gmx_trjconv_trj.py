@@ -122,7 +122,7 @@ class GMXTrjConvTrj():
 
         # if container execution, remove temporary folder
         if self.container_path:
-            remove_tmp_files([container_io_dict['unique_dir']], out_log)
+            remove_tmp_files([container_io_dict['unique_dir']], self.remove_tmp, out_log)
 
         #returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         return returncode
