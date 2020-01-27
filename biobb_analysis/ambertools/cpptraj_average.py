@@ -16,7 +16,7 @@ class CpptrajAverage():
     The parameter names and defaults are the same as the ones in the official `Cpptraj manual <https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml>`_.
 
     Args:
-        input_top_path (str) (path): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
+        input_top_path (str) [Link test][1]: Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
         input_traj_path (str) (path): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
         output_cpptraj_path (str) (path): Path to the output processed structure.
         properties (dic):
