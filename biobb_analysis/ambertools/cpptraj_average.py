@@ -13,10 +13,10 @@ class CpptrajAverage():
     """Calculates a structure average of a given cpptraj compatible trajectory.
     Wrapper of the Ambertools Cpptraj module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
-    The parameter names and defaults are the same as the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
+    The parameter names and defaults are the same as the ones in the official [Cpptraj manual](https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml)
 
     Args:
-        input_top_path (str) (`Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top>`_): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
+        input_top_path (str) (file_in): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
         input_traj_path (str) (<path>): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
         output_cpptraj_path (str) (<path>): Path to the output processed structure.
         properties (dic):
