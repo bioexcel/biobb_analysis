@@ -16,7 +16,7 @@ class CpptrajAverage():
     The parameter names and defaults are the same as the ones in the official `Cpptraj manual <https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml>`_.
 
     Args:
-        input_top_path (str) [Link test][1]: Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
+        input_top_path (str) [file_input:https://bit.ly/2RvioCZ]: Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
         input_traj_path (str) (path): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
         output_cpptraj_path (str) (path): Path to the output processed structure.
         properties (dic):
@@ -36,9 +36,6 @@ class CpptrajAverage():
             * **container_working_dir** (*string*) - (None) Container working directory definition.
             * **container_user_id** (*string*) - (None) Container user_id definition.
             * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
-
-    .. _PEP 484:
-        https://www.python.org/dev/peps/pep-0484/
     """
 
     def __init__(self, input_top_path, input_traj_path,
