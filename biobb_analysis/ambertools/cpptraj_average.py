@@ -36,6 +36,9 @@ class CpptrajAverage():
             * **container_working_dir** (*string*) - (None) Container working directory definition.
             * **container_user_id** (*string*) - (None) Container user_id definition.
             * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
+
+    .. _PEP 484:
+        https://www.python.org/dev/peps/pep-0484/
     """
 
     def __init__(self, input_top_path, input_traj_path,
