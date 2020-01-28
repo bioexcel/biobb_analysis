@@ -10,14 +10,18 @@
     "properties": {
         "input_energy_path": {
             "type": "string",
-            "description": "Path to the input EDR file.",
+            "description": "Path to the input EDR file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr",
             "enum": [
                 ".*\\.edr$"
             ]
         },
         "output_xvg_path": {
             "type": "string",
-            "description": "Path to the XVG output file.",
+            "description": "Path to the XVG output file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_energy.xvg",
             "enum": [
                 ".*\\.xvg$"
             ]

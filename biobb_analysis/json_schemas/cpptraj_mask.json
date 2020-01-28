@@ -11,7 +11,9 @@
     "properties": {
         "input_top_path": {
             "type": "string",
-            "description": "Path to the input structure or topology file.",
+            "description": "Path to the input structure or topology file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top",
             "enum": [
                 ".*\\.top$",
                 ".*\\.pdb$",
@@ -22,7 +24,9 @@
         },
         "input_traj_path": {
             "type": "string",
-            "description": "Path to the input trajectory to be processed.",
+            "description": "Path to the input trajectory to be processed",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd",
             "enum": [
                 ".*\\.crd$",
                 ".*\\.cdf$",
@@ -48,7 +52,9 @@
         },
         "output_cpptraj_path": {
             "type": "string",
-            "description": "Path to the output processed trajectory."
+            "description": "Path to the output processed trajectory",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.mask.nc"
         },
         "properties": {
             "type": "object",

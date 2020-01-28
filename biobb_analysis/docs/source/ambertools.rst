@@ -5,14 +5,6 @@ Submodules
 -----------
 
 
-ambertools.cpptraj_input module
---------------------------------
-
-.. automodule:: ambertools.cpptraj_input
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 ambertools.cpptraj_average module
 ----------------------------------
 
@@ -105,6 +97,14 @@ ambertools.cpptraj_strip module
 --------------------------------
 
 .. automodule:: ambertools.cpptraj_strip
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+ambertools.cpptraj_input module
+--------------------------------
+
+.. automodule:: ambertools.cpptraj_input
     :members:
     :undoc-members:
     :show-inheritance:

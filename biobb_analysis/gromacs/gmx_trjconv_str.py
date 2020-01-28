@@ -11,13 +11,13 @@ from biobb_analysis.gromacs.common import *
 
 class GMXTrjConvStr():
     """Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.
-    Wrapper of the GROMACS trjconv (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-trjconv.html) module.
+    Wrapper of the `GROMACS trjconv <http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-trjconv.html>`_ module.
 
     Args:
-        input_structure_path (str): Path to the input structure file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_top_path (str): Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-        input_index_path (str) (Optional): Path to the GROMACS index file. Accepted formats: ndx.
-        output_str_path (str): Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
+        input_structure_path (str): Path to the input structure file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr>`_. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_top_path (str): Path to the GROMACS input topology file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr>`_. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+        input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx.
+        output_str_path (str): Path to the output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.str.pdb>`_. Accepted formats: xtc, trr, gro, g96, pdb, tng.
         properties (dic):
             * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.

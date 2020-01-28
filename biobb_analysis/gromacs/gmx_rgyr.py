@@ -11,13 +11,13 @@ from biobb_analysis.gromacs.common import *
 
 class GMXRgyr():
     """Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.
-    Wrapper of the GROMACS rgyr (http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-gyrate.html) module.
+    Wrapper of the `GROMACS rgyr <http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-gyrate.html>`_ module.
 
     Args:
-        input_structure_path (str): Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-        input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_index_path (str) (Optional): Path to the GROMACS index file. Accepted formats: ndx.
-        output_xvg_path (str): Path to the XVG output file. Accepted formats: xvg.
+        input_structure_path (str): Path to the input structure file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr>`_. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+        input_traj_path (str): Path to the GROMACS trajectory file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr>`_. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx.
+        output_xvg_path (str): Path to the XVG output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_rgyr.xvg>`_. Accepted formats: xvg.
         properties (dic):
             * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
             * **selection** (*str*) - ("System") Group where the rgyr will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.

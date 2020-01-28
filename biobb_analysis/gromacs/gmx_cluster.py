@@ -11,13 +11,13 @@ from biobb_analysis.gromacs.common import *
 
 class GMXCluster():
     """Creates cluster structures from a given GROMACS compatible trajectory.
-    Wrapper class for the GROMACS cluster (http://manual.gromacs.org/current/onlinehelp/gmx-cluster.html) module.
+    Wrapper class for the `GROMACS cluster <http://manual.gromacs.org/current/onlinehelp/gmx-cluster.html>`_ module.
 
     Args:
-        input_structure_path (str): Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-        input_traj_path (str): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_index_path (str) (Optional): Path to the GROMACS index file. Accepted formats: ndx.
-        output_pdb_path (str): Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_structure_path (str): Path to the input structure file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr>`_. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+        input_traj_path (str): Path to the GROMACS trajectory file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr>`_. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+        input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx.
+        output_pdb_path (str): Path to the output cluster file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_cluster.pdb>`_. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
         properties (dic):
             * **fit_selection** (*str*) - ("System") Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
             * **output_selection** (*str*) - ("System") Group that is going to be written in the output trajectory. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.

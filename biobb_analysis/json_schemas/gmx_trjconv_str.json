@@ -11,7 +11,9 @@
     "properties": {
         "input_structure_path": {
             "type": "string",
-            "description": "Path to the input structure file.",
+            "description": "Path to the input structure file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr",
             "enum": [
                 ".*\\.xtc$",
                 ".*\\.trr$",
@@ -24,7 +26,9 @@
         },
         "input_top_path": {
             "type": "string",
-            "description": "Path to the GROMACS input topology file.",
+            "description": "Path to the GROMACS input topology file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr",
             "enum": [
                 ".*\\.tpr$",
                 ".*\\.gro$",
@@ -36,14 +40,18 @@
         },
         "input_index_path": {
             "type": "string",
-            "description": "Path to the GROMACS index file.",
+            "description": "Path to the GROMACS index file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx",
             "enum": [
                 ".*\\.ndx$"
             ]
         },
         "output_str_path": {
             "type": "string",
-            "description": "Path to the output file.",
+            "description": "Path to the output file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.str.pdb",
             "enum": [
                 ".*\\.xtc$",
                 ".*\\.trr$",

@@ -11,11 +11,11 @@ from biobb_analysis.gromacs.common import *
 
 class GMXEnergy():
     """Extracts energy components from a given GROMACS energy file.
-    Wrapper of the GROMACS energy (http://manual.gromacs.org/current/onlinehelp/gmx-energy.html) module.
+    Wrapper of the `GROMACS energy <http://manual.gromacs.org/current/onlinehelp/gmx-energy.html>`_ module.
 
     Args:
-        input_energy_path (str): Path to the input EDR file. Accepted formats: edr.
-        output_xvg_path (str): Path to the XVG output file. Accepted formats: xvg.
+        input_energy_path (str): Path to the input EDR file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr>`_. Accepted formats: edr.
+        output_xvg_path (str): Path to the XVG output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_energy.xvg>`_. Accepted formats: xvg.
         properties (dic):
             * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
             * **terms** (*list*) - (["Potential"]) Energy terms. Values: Angle, Proper-Dih., Improper-Dih., LJ-14, Coulomb-14, LJ-(SR), Coulomb-(SR), Coul.-recip., Position-Rest., Potential, Kinetic-En., Total-Energy, Temperature, Pressure,  Constr.-rmsd, Box-X, Box-Y,  Box-Z, Volume, Density, pV, Enthalpy, Vir-XX, Vir-XY, Vir-XZ, Vir-YX, Vir-YY, Vir-YZ, Vir-ZX, Vir-ZY, Vir-ZZ, Pres-XX, Pres-XY, Pres-XZ, Pres-YX, Pres-YY,  Pres-YZ, Pres-ZX, Pres-ZY, Pres-ZZ, #Surf*SurfTen, Box-Vel-XX, Box-Vel-YY, Box-Vel-ZZ, Mu-X, Mu-Y, Mu-Z, T-Protein, T-non-Protein, Lamb-Protein, Lamb-non-Protein.
