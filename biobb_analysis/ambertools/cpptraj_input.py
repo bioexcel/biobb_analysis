@@ -13,11 +13,10 @@ class CpptrajInput():
     """Performs multiple analysis and trajectory operations of a given trajectory.
     Wrapper of the Ambertools Cpptraj module.
     Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files.
-    The parameter names and defaults are the same as
-    the ones in the official Cpptraj manual: https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml
+    The parameter names and defaults are the same as the ones in the official `Cpptraj manual <https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml>`_.
 
     Args:
-        input_instructions_path (str): Path of the instructions file.
+        input_instructions_path (str): Path of the instructions file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.in>`_.
         properties (dic):
             * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
