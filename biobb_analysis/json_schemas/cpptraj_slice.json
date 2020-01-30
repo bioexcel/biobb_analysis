@@ -54,7 +54,20 @@
             "type": "string",
             "description": "Path to the output processed trajectory",
             "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.slice.nc"
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.slice.nc",
+            "enum": [
+                ".*\\.crd$",
+                ".*\\.netcdf$",
+                ".*\\.rst7$",
+                ".*\\.ncrst$",
+                ".*\\.dcd$",
+                ".*\\.pdb$",
+                ".*\\.mol2$",
+                ".*\\.binpos$",
+                ".*\\.trr$",
+                ".*\\.xtc$",
+                ".*\\.sqm$"
+            ]
         },
         "properties": {
             "type": "object",

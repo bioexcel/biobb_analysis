@@ -54,7 +54,13 @@
             "type": "string",
             "description": "Path to the output analysis",
             "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rgyr.dat"
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rgyr.dat",
+            "enum": [
+                ".*\\.dat$",
+                ".*\\.agr$",
+                ".*\\.xmgr$",
+                ".*\\.gnu$"
+            ]
         },
         "properties": {
             "type": "object",

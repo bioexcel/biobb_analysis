@@ -1,0 +1,13 @@
+{
+    "properties": {
+        "in_parameters": {
+            "start": 1,
+            "end": -1,
+            "step": 1,
+            "mask": "c-alpha"
+        },
+        "out_parameters": {
+            "format": "pdb"
+        }
+    }
+}

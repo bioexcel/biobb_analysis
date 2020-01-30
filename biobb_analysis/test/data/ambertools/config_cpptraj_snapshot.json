@@ -1,0 +1,11 @@
+{
+    "properties": {
+        "in_parameters": {
+            "snapshot": 12,
+            "mask": "c-alpha"
+        },
+        "out_parameters": {
+            "format": "pdb"
+        }
+    }
+}

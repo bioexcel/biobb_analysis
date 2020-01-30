@@ -60,7 +60,13 @@
             "type": "string",
             "description": "Path to the output processed analysis",
             "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rmsf.first.dat"
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rmsf.first.dat",
+            "enum": [
+                ".*\\.dat$",
+                ".*\\.agr$",
+                ".*\\.xmgr$",
+                ".*\\.gnu$"
+            ]
         },
         "properties": {
             "type": "object",
