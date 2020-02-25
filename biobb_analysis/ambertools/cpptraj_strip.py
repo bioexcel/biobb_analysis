@@ -24,18 +24,18 @@ class CpptrajStrip():
                 * **start** (*int*) - (1) Starting frame for slicing
                 * **end** (*int*) - (-1) Ending frame for slicing
                 * **step** (*int*) - (1) Step for slicing
-                * **mask** (*string*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
+                * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha, backbone, all-atoms, heavy-atoms, side-chain, solute, ions, solvent.
             * **out_parameters** (*dic*) - (None) Parameters for output trajectory.
                 * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
             * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
-            * **container_path** (*string*) - (None) Container path definition.
-            * **container_image** (*string*) - ('afandiadib/ambertools:serial') Container image definition.
-            * **container_volume_path** (*string*) - ('/tmp') Container volume path definition.
-            * **container_working_dir** (*string*) - (None) Container working directory definition.
-            * **container_user_id** (*string*) - (None) Container user_id definition.
-            * **container_shell_path** (*string*) - ('/bin/bash') Path to default shell inside the container.
+            * **container_path** (*str*) - (None) Container path definition.
+            * **container_image** (*str*) - ('afandiadib/ambertools:serial') Container image definition.
+            * **container_volume_path** (*str*) - ('/tmp') Container volume path definition.
+            * **container_working_dir** (*str*) - (None) Container working directory definition.
+            * **container_user_id** (*str*) - (None) Container user_id definition.
+            * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
     """
 
     def __init__(self, input_top_path, input_traj_path,
@@ -149,7 +149,14 @@ class CpptrajStrip():
 
         # create cmd and launch execution
         cmd = [self.cpptraj_path, '-i', self.instructions_file]
-        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, host_volume=container_io_dict.get("unique_dir"), container_volume=self.container_volume_path, container_working_dir=self.container_working_dir, container_user_uid=self.container_user_id, container_image=self.container_image, container_shell_path=self.container_shell_path, out_log=out_log, global_log=self.global_log)
+        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, 
+                                 host_volume=container_io_dict.get("unique_dir"), 
+                                 container_volume=self.container_volume_path, 
+                                 container_working_dir=self.container_working_dir, 
+                                 container_user_uid=self.container_user_id, 
+                                 container_image=self.container_image, 
+                                 container_shell_path=self.container_shell_path, 
+                                 out_log=out_log, global_log=self.global_log)
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
 
         # copy output(s) to output(s) path(s) in case of container execution
@@ -165,8 +172,6 @@ class CpptrajStrip():
 def main():
     parser = argparse.ArgumentParser(description="Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
-    parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
-    parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
@@ -176,12 +181,12 @@ def main():
 
     args = parser.parse_args()
     args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
-    if args.step:
-        properties = properties[args.step]
+    properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    CpptrajStrip(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, output_cpptraj_path=args.output_cpptraj_path, properties=properties).launch()
+    CpptrajStrip(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, 
+                 output_cpptraj_path=args.output_cpptraj_path, 
+                 properties=properties).launch()
 
 if __name__ == '__main__':
     main()

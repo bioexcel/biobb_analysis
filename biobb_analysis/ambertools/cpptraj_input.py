@@ -80,17 +80,13 @@ class CpptrajInput():
 def main():
     parser = argparse.ArgumentParser(description="Performs multiple analysis and trajectory operations of a given trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
-    parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
-    parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_instructions_path', required=True, help='Path of the instructions file.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config, system=args.system).get_prop_dic()
-    if args.step:
-        properties = properties[args.step]
+    properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
     CpptrajInput(input_instructions_path=args.input_instructions_path, properties=properties).launch()
