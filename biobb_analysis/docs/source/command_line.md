@@ -120,7 +120,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -190,7 +190,7 @@ cpptraj_average --config data/conf/average.yml --input_top_path data/input/cpptr
        "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -313,7 +313,7 @@ properties:
     mask: c-alpha
     reference: first
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -377,7 +377,7 @@ cpptraj_bfactor --config data/conf/bfactor.yml --input_top_path data/input/cpptr
       "reference": "first"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -501,7 +501,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -571,7 +571,7 @@ cpptraj_convert --config data/conf/convert.yml --input_top_path data/input/cpptr
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -695,7 +695,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -765,7 +765,7 @@ cpptraj_dry --config data/conf/dry.yml --input_top_path data/input/cpptraj.parm.
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -889,7 +889,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -960,7 +960,7 @@ cpptraj_image --config data/conf/image.yml --input_top_path data/input/cpptraj.p
     }
   },
   "container_path": "singularity",
-  "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+  "container_image": "ambertools.sif",
   "container_volume_path": "/tmp"
 }
 ```
@@ -1057,7 +1057,7 @@ properties:
 properties:
   cpptraj_path: cpptraj
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1103,7 +1103,7 @@ cpptraj_input --config data/conf/input.yml --input_instructions_path data/input/
   "properties": {
     "cpptraj_path": "cpptraj",
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1227,7 +1227,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1297,7 +1297,7 @@ cpptraj_mask --config data/conf/mask.yml --input_top_path data/input/cpptraj.par
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1413,7 +1413,7 @@ properties:
     step: 1
     mask: c-alpha
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1474,7 +1474,7 @@ cpptraj_rgyr --config data/conf/rgyr.yml --input_top_path data/input/cpptraj.par
       "mask": "c-alpha"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1597,7 +1597,7 @@ properties:
     mask: c-alpha
     reference: first
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1661,7 +1661,7 @@ cpptraj_rms --config data/conf/rms.yml --input_top_path data/input/cpptraj.parm.
       "reference": "first"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1784,7 +1784,7 @@ properties:
     mask: c-alpha
     reference: first
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1848,7 +1848,7 @@ cpptraj_rmsf --config data/conf/rmsf.yml --input_top_path data/input/cpptraj.par
       "reference": "first"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1972,7 +1972,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -2042,7 +2042,7 @@ cpptraj_slice --config data/conf/slice.yml --input_top_path data/input/cpptraj.p
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2158,7 +2158,7 @@ properties:
   out_parameters:
     format: pdb
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -2222,7 +2222,7 @@ cpptraj_snapshot --config data/conf/snapshot.yml --input_top_path data/input/cpp
       "format": "pdb"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2346,7 +2346,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -2416,7 +2416,7 @@ cpptraj_strip --config data/conf/strip.yml --input_top_path data/input/cpptraj.p
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2535,7 +2535,7 @@ properties:
   method: linkage
   cutoff: 0.1
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -2593,7 +2593,7 @@ gmx_cluster --config data/conf/cluster.yml --input_structure_path data/input/clu
     "method": "linkage",
     "cutoff": 0.1,
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2691,7 +2691,7 @@ properties:
 properties:
   terms: [Potential, Pressure]
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -2737,7 +2737,7 @@ gmx_energy --config data/conf/energy.yml --input_energy_path data/input/energy.e
   "properties": {
     "terms": ["Potential", "Pressure"],
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2864,7 +2864,7 @@ properties:
   fit: rot+trans
   ur: compact
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -2928,7 +2928,7 @@ gmx_image --config data/conf/gmx_image.yml --input_traj_path data/input/image.tr
     "fit": "rot+trans",
     "ur": "compact",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3032,7 +3032,7 @@ properties:
 properties:
   selection: System
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3078,7 +3078,7 @@ gmx_rgyr --config data/conf/gmx_rgyr.yml --input_structure_path data/input/rgyr.
   "properties": {
     "selection": "System",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3183,7 +3183,7 @@ properties:
 properties:
   selection: System
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3229,7 +3229,7 @@ gmx_rms --config data/conf/gmx_rms.yml --input_structure_path data/input/rgyr.gr
   "properties": {
     "selection": "System",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3332,7 +3332,7 @@ properties:
 properties:
   selection: System
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3378,7 +3378,7 @@ gmx_trjconv_str --config data/conf/gmx_trjconv_str.yml --input_structure_path da
   "properties": {
     "selection": "System",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3502,7 +3502,7 @@ properties:
   output_name: output
   output_type: pdb
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3563,7 +3563,7 @@ gmx_trjconv_str_ens --config data/conf/gmx_trjconv_str_ens.yml --input_traj_path
     "output_name": "output",
     "output_type": "pdb",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3675,7 +3675,7 @@ properties:
   end: 0
   dt: 0
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3730,7 +3730,7 @@ gmx_trjconv_trj --config data/conf/gmx_trjconv_trj.yml --input_traj_path data/in
     "end": 0,
     "dt": 0,
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
