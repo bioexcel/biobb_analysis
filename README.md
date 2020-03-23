@@ -15,14 +15,14 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
-v2.0.2 2019.4
+v2.0.3 2020.1
 
 ### Installation
 Using PIP:
 * Installation:
 
 
-        pip install "biobb_analysis>=2.0.2"
+        pip install "biobb_analysis>=2.0.3"
 
 
 * Usage: [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html)
@@ -32,7 +32,7 @@ Using ANACONDA:
 * Installation:
 
 
-        conda install -c bioconda "biobb_analysis>=2.0.2"
+        conda install -c bioconda "biobb_analysis>=2.0.3"
 
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-analysis.readthedocs.io/en/latest/command_line.html)
@@ -42,13 +42,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_analysis:2.0.2--py_0
+        docker pull quay.io/biocontainers/biobb_analysis:2.0.3--py_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_analysis:2.0.2--py_0 <command>
+        docker run quay.io/biocontainers/biobb_analysis:2.0.3--py_0 <command>
 
 
 Using SINGULARITY:
@@ -56,13 +56,13 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull shub://bioexcel/biobb_analysis
+        singularity pull --name biobb_analysis.sif shub://bioexcel/biobb_analysis
 
 
 * Usage:
 
 
-        singularity exec bioexcel-biobb_analysis-master-latest.simg <command>
+        singularity exec biobb_analysis.sif <command>
 
 
 The command list and specification can be found at the [Command Line documentation](https://biobb-analysis.readthedocs.io/en/latest/command_line.html).
@@ -70,8 +70,8 @@ The command list and specification can be found at the [Command Line documentati
 ### Copyright & Licensing
 This software has been developed in the [MMB group](http://mmb.irbbarcelona.org) at the [BSC](http://www.bsc.es/) & [IRB](https://www.irbbarcelona.org/) for the [European BioExcel](http://bioexcel.eu/), funded by the European Commission (EU H2020 [823830](http://cordis.europa.eu/projects/823830), EU H2020 [675728](http://cordis.europa.eu/projects/675728)).
 
-* (c) 2015-2019 [Barcelona Supercomputing Center](https://www.bsc.es/)
-* (c) 2015-2019 [Institute for Research in Biomedicine](https://www.irbbarcelona.org/)
+* (c) 2015-2020 [Barcelona Supercomputing Center](https://www.bsc.es/)
+* (c) 2015-2020 [Institute for Research in Biomedicine](https://www.irbbarcelona.org/)
 
 Licensed under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), see the file LICENSE for details.

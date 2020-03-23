@@ -1,14 +1,11 @@
-
 # BioBB Analysis Command Line Help
 
 Generic usage:
 
 
 ```python
-biobb_command [-h] --config CONFIG [--system SYSTEM] [--step STEP] --input_file(s) <input_file(s)> --output_file <output_file>
+biobb_command [-h] --config CONFIG --input_file(s) <input_file(s)> --output_file <output_file>
 ```
-
-Please refer to the [system & step documentation](https://biobb-common.readthedocs.io/en/latest/system_step.html) for more information of these two parameters.
 
 -----------------
 
@@ -27,15 +24,13 @@ cpptraj_average -h
 
 
 ```python
-usage: cpptraj_average [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_average [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Calculates a structure average of a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -125,7 +120,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -195,7 +190,7 @@ cpptraj_average --config data/conf/average.yml --input_top_path data/input/cpptr
        "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -223,15 +218,13 @@ cpptraj_bfactor -h
 
 
 ```python
-usage: cpptraj_bfactor [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_bfactor [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_exp_path INPUT_EXP_PATH
                         Path to the experimental reference file (required if reference = experimental).
 
@@ -320,7 +313,7 @@ properties:
     mask: c-alpha
     reference: first
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -384,7 +377,7 @@ cpptraj_bfactor --config data/conf/bfactor.yml --input_top_path data/input/cpptr
       "reference": "first"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -412,15 +405,13 @@ cpptraj_convert -h
 
 
 ```python
-usage: cpptraj_convert [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_convert [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -510,7 +501,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -580,7 +571,7 @@ cpptraj_convert --config data/conf/convert.yml --input_top_path data/input/cpptr
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -608,15 +599,13 @@ cpptraj_dry -h
 
 
 ```python
-usage: cpptraj_dry [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_dry [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Dehydrates a given cpptraj compatible trajectory stripping out solvent molecules and ions.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -706,7 +695,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -776,7 +765,7 @@ cpptraj_dry --config data/conf/dry.yml --input_top_path data/input/cpptraj.parm.
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -804,15 +793,13 @@ cpptraj_image -h
 
 
 ```python
-usage: cpptraj_image [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_image [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Corrects periodicity (image) from a given cpptraj trajectory file.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -902,7 +889,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -973,7 +960,7 @@ cpptraj_image --config data/conf/image.yml --input_top_path data/input/cpptraj.p
     }
   },
   "container_path": "singularity",
-  "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+  "container_image": "ambertools.sif",
   "container_volume_path": "/tmp"
 }
 ```
@@ -1000,15 +987,13 @@ cpptraj_input -h
 
 
 ```python
-usage: cpptraj_input [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_instructions_path INPUT_INSTRUCTIONS_PATH
+usage: cpptraj_input [-h] [--config CONFIG] --input_instructions_path INPUT_INSTRUCTIONS_PATH
 
 Performs multiple analysis and trajectory operations of a given trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_instructions_path INPUT_INSTRUCTIONS_PATH
@@ -1072,7 +1057,7 @@ properties:
 properties:
   cpptraj_path: cpptraj
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1118,7 +1103,7 @@ cpptraj_input --config data/conf/input.yml --input_instructions_path data/input/
   "properties": {
     "cpptraj_path": "cpptraj",
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1146,15 +1131,13 @@ cpptraj_mask -h
 
 
 ```python
-usage: cpptraj_mask [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_mask [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Extracts a selection of atoms from a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -1244,7 +1227,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1314,7 +1297,7 @@ cpptraj_mask --config data/conf/mask.yml --input_top_path data/input/cpptraj.par
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1342,15 +1325,13 @@ cpptraj_rgyr -h
 
 
 ```python
-usage: cpptraj_rgyr [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_rgyr [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Computes the radius of gyration (Rgyr) from a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -1432,7 +1413,7 @@ properties:
     step: 1
     mask: c-alpha
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1493,7 +1474,7 @@ cpptraj_rgyr --config data/conf/rgyr.yml --input_top_path data/input/cpptraj.par
       "mask": "c-alpha"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1521,15 +1502,13 @@ cpptraj_rms -h
 
 
 ```python
-usage: cpptraj_rms [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_rms [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_exp_path INPUT_EXP_PATH
                         Path to the experimental reference file (required if reference = experimental).
 
@@ -1618,7 +1597,7 @@ properties:
     mask: c-alpha
     reference: first
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1682,7 +1661,7 @@ cpptraj_rms --config data/conf/rms.yml --input_top_path data/input/cpptraj.parm.
       "reference": "first"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1710,15 +1689,13 @@ cpptraj_rmsf -h
 
 
 ```python
-usage: cpptraj_rmsf [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_rmsf [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Calculates the Root Mean Square fluctuations (RMSf) of a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_exp_path INPUT_EXP_PATH
                         Path to the experimental reference file (required if reference = experimental).
 
@@ -1807,7 +1784,7 @@ properties:
     mask: c-alpha
     reference: first
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -1871,7 +1848,7 @@ cpptraj_rmsf --config data/conf/rmsf.yml --input_top_path data/input/cpptraj.par
       "reference": "first"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -1899,15 +1876,13 @@ cpptraj_slice -h
 
 
 ```python
-usage: cpptraj_slice [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_slice [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Extracts a particular trajectory slice from a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -1997,7 +1972,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -2067,7 +2042,7 @@ cpptraj_slice --config data/conf/slice.yml --input_top_path data/input/cpptraj.p
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2095,15 +2070,13 @@ cpptraj_snapshot -h
 
 
 ```python
-usage: cpptraj_snapshot [-h] --config CONFIG [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_snapshot [-h] --config CONFIG --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Extracts a particular snapshot from a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -2185,7 +2158,7 @@ properties:
   out_parameters:
     format: pdb
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -2249,7 +2222,7 @@ cpptraj_snapshot --config data/conf/snapshot.yml --input_top_path data/input/cpp
       "format": "pdb"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2277,15 +2250,13 @@ cpptraj_strip -h
 
 
 ```python
-usage: cpptraj_strip [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+usage: cpptraj_strip [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
 
 Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_top_path INPUT_TOP_PATH
@@ -2375,7 +2346,7 @@ properties:
   out_parameters:
     format: netcdf
   container_path: singularity
-  container_image: bioexcel-ambertools_singularity-master-latest.simg
+  container_image: ambertools.sif
   container_volume_path: /tmp
 ```
 
@@ -2445,7 +2416,7 @@ cpptraj_strip --config data/conf/strip.yml --input_top_path data/input/cpptraj.p
       "format": "netcdf"
     },
     "container_path": "singularity",
-    "container_image": "bioexcel-ambertools_singularity-master-latest.simg",
+    "container_image": "ambertools.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2473,15 +2444,13 @@ gmx_cluster -h
 
 
 ```python
-usage: gmx_cluster [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_pdb_path OUTPUT_PDB_PATH
+usage: gmx_cluster [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_pdb_path OUTPUT_PDB_PATH
 
 Creates cluster structures from a given GROMACS compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
                         Path to the GROMACS index file. Accepted formats: ndx.
 
@@ -2566,7 +2535,7 @@ properties:
   method: linkage
   cutoff: 0.1
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -2624,7 +2593,7 @@ gmx_cluster --config data/conf/cluster.yml --input_structure_path data/input/clu
     "method": "linkage",
     "cutoff": 0.1,
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2652,15 +2621,13 @@ gmx_energy -h
 
 
 ```python
-usage: gmx_energy [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_energy_path INPUT_ENERGY_PATH --output_xvg_path OUTPUT_XVG_PATH
+usage: gmx_energy [-h] [--config CONFIG] --input_energy_path INPUT_ENERGY_PATH --output_xvg_path OUTPUT_XVG_PATH
 
 Extracts energy components from a given GROMACS energy file.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
 
 required arguments:
   --input_energy_path INPUT_ENERGY_PATH
@@ -2724,7 +2691,7 @@ properties:
 properties:
   terms: [Potential, Pressure]
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -2770,7 +2737,7 @@ gmx_energy --config data/conf/energy.yml --input_energy_path data/input/energy.e
   "properties": {
     "terms": ["Potential", "Pressure"],
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2798,15 +2765,13 @@ gmx_image -h
 
 
 ```python
-usage: gmx_image [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_traj_path INPUT_TRAJ_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_traj_path OUTPUT_TRAJ_PATH
+usage: gmx_image [-h] [--config CONFIG] --input_traj_path INPUT_TRAJ_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_traj_path OUTPUT_TRAJ_PATH
 
 Corrects periodicity (image) from a given GROMACS compatible trajectory file.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
                         Path to the GROMACS index file. Accepted formats: ndx.
 
@@ -2899,7 +2864,7 @@ properties:
   fit: rot+trans
   ur: compact
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -2963,7 +2928,7 @@ gmx_image --config data/conf/gmx_image.yml --input_traj_path data/input/image.tr
     "fit": "rot+trans",
     "ur": "compact",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -2991,15 +2956,13 @@ gmx_rgyr -h
 
 
 ```python
-usage: gmx_rgyr [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_xvg_path OUTPUT_XVG_PATH
+usage: gmx_rgyr [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_xvg_path OUTPUT_XVG_PATH
 
 Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
                         Path to the GROMACS index file. Accepted formats: ndx.
 
@@ -3069,7 +3032,7 @@ properties:
 properties:
   selection: System
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3115,7 +3078,7 @@ gmx_rgyr --config data/conf/gmx_rgyr.yml --input_structure_path data/input/rgyr.
   "properties": {
     "selection": "System",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3143,15 +3106,13 @@ gmx_rms -h
 
 
 ```python
-usage: gmx_rms [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_xvg_path OUTPUT_XVG_PATH
+usage: gmx_rms [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_xvg_path OUTPUT_XVG_PATH
 
 Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
                         Path to the GROMACS index file. Accepted formats: ndx.
 
@@ -3222,7 +3183,7 @@ properties:
 properties:
   selection: System
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3268,7 +3229,7 @@ gmx_rms --config data/conf/gmx_rms.yml --input_structure_path data/input/rgyr.gr
   "properties": {
     "selection": "System",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3296,15 +3257,13 @@ gmx_trjconv_str -h
 
 
 ```python
-usage: gmx_trjconv_str [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_structure_path INPUT_STRUCTURE_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_str_path OUTPUT_STR_PATH
+usage: gmx_trjconv_str [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_str_path OUTPUT_STR_PATH
 
 Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
                         Path to the GROMACS index file. Accepted formats: ndx.
 
@@ -3373,7 +3332,7 @@ properties:
 properties:
   selection: System
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3419,7 +3378,7 @@ gmx_trjconv_str --config data/conf/gmx_trjconv_str.yml --input_structure_path da
   "properties": {
     "selection": "System",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3447,15 +3406,13 @@ gmx_trjconv_str_ens -h
 
 
 ```python
-usage: gmx_trjconv_str_ens [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_traj_path INPUT_TRAJ_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_str_ens_path OUTPUT_STR_ENS_PATH
+usage: gmx_trjconv_str_ens [-h] [--config CONFIG] --input_traj_path INPUT_TRAJ_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_str_ens_path OUTPUT_STR_ENS_PATH
 
 Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
                         Path to the GROMACS index file. Accepted formats: ndx.
 
@@ -3545,7 +3502,7 @@ properties:
   output_name: output
   output_type: pdb
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3606,7 +3563,7 @@ gmx_trjconv_str_ens --config data/conf/gmx_trjconv_str_ens.yml --input_traj_path
     "output_name": "output",
     "output_type": "pdb",
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
@@ -3634,15 +3591,13 @@ gmx_trjconv_trj -h
 
 
 ```python
-usage: gmx_trjconv_trj [-h] [--config CONFIG] [--system SYSTEM] [--step STEP] --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_traj_path OUTPUT_TRAJ_PATH
+usage: gmx_trjconv_trj [-h] [--config CONFIG] --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_traj_path OUTPUT_TRAJ_PATH
 
 Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.
 
 optional arguments:
   -h, --help            show this help message and exit
   --config CONFIG       Configuration file
-  --system SYSTEM       Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
-  --step STEP           Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help
   --input_index_path INPUT_INDEX_PATH
                         Path to the GROMACS index file. Accepted formats: ndx.
 
@@ -3720,7 +3675,7 @@ properties:
   end: 0
   dt: 0
   container_path: singularity
-  container_image: michael-tn-gromacs-master-latest.simg
+  container_image: gromacs.sif
   container_volume_path: /tmp
 ```
 
@@ -3775,7 +3730,7 @@ gmx_trjconv_trj --config data/conf/gmx_trjconv_trj.yml --input_traj_path data/in
     "end": 0,
     "dt": 0,
     "container_path": "singularity",
-    "container_image": "michael-tn-gromacs-master-latest.simg",
+    "container_image": "gromacs.sif",
     "container_volume_path": "/tmp"
   }
 }
