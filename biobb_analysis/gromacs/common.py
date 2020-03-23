@@ -104,6 +104,7 @@ def check_out_str_ens_path(path, out_log, classname):
 		raise SystemExit(classname + ': Format %s in output file is not compatible' % file_extension[1:])
 	return path
 
+
 def get_default_value(key):
 	""" Gives default values according to the given key """
 	default_values = {
@@ -117,15 +118,16 @@ def get_default_value(key):
 		"cutoff": 0.1,
 		"fit_selection": "System",
 		"center_selection": "System",
-	  	"output_selection": "System",
-	  	"pbc": "mol",
-	  	"center": True,
-	  	"fit": "none",
-	  	"ur": "compact",
-	  	"start": 0,
-	  	"end": 0,
-	  	"dt": 0,
-	  	"ot_str_ens": "pdb"
+		"output_selection": "System",
+		"pbc": "mol",
+		"center": True,
+		"fit": "none",
+		"ur": "compact",
+		"skip": 1,
+		"start": 0,
+		"end": 0,
+		"dt": 0,
+		"ot_str_ens": "pdb"
 	}
 
 	return default_values[key]
@@ -211,6 +213,14 @@ def get_fit(properties, out_log, classname):
 		fu.log(classname + ': Incorrect fit provided, exiting', out_log)
 		raise SystemExit(classname + ': Incorrect fit provided')
 	return fit
+
+def get_skip(properties, out_log, classname):
+	""" Gets skip """
+	skip = properties.get('skip', get_default_value('skip'))
+	if not is_valid_int(skip):
+		fu.log(classname + ': Incorrect skip provided, exiting', out_log)
+		raise SystemExit(classname + ': Incorrect start provided')
+	return str(skip)
 
 def get_start(properties, out_log, classname):
 	""" Gets start """
