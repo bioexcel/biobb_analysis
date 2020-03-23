@@ -2,14 +2,14 @@
 
 """Module containing the GMX TrjConvStr class and the command line interface."""
 import argparse
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
 
 
-class GMXTrjConvStrEns():
+class GMXTrjConvStrEns:
     """Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.
     Wrapper of the `GROMACS trjconv <http://manual.gromacs.org/documentation/2018/onlinehelp/gmx-trjconv.html>`_ module.
 
@@ -20,6 +20,7 @@ class GMXTrjConvStrEns():
         output_str_ens_path (str): Path to the output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.str.ens.zip>`_. Accepted formats: zip.
         properties (dic):
             * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+            * **skip** (*int*) - (1) Only write every nr-th frame.
             * **start** (*int*) - (0) Time of first frame to read from trajectory (default unit ps).
             * **end** (*int*) - (0) Time of last frame to read from trajectory (default unit ps).
             * **dt** (*int*) - (0) Only write frame when t MOD dt = first time (ps).
@@ -78,6 +79,7 @@ class GMXTrjConvStrEns():
             self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
         else:
             self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
+        self.skip = get_skip(self.properties, out_log, self.__class__.__name__)
         self.start = get_start(self.properties, out_log, self.__class__.__name__)
         self.end = get_end(self.properties, out_log, self.__class__.__name__)
         self.dt = get_dt(self.properties, out_log, self.__class__.__name__)
@@ -121,11 +123,14 @@ class GMXTrjConvStrEns():
                self.gmx_path, 'trjconv',
                '-f', container_io_dict["in"]["input_traj_path"],
                '-s', container_io_dict["in"]["input_top_path"],
+               '-skip', self.skip,
                '-b', self.start,
-               '-e', self.end,
                '-dt', self.dt,
                '-sep',
                '-o', output]
+        if not str(self.end)=="0":
+            cmd.append('-e')
+            cmd.append(self.end)
 
         if container_io_dict["in"]["input_index_path"]:
             cmd.extend(['-n', container_io_dict["in"]["input_index_path"]])
@@ -147,7 +152,7 @@ def main():
     parser.add_argument('--system', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
     parser.add_argument('--step', required=False, help="Check 'https://biobb-common.readthedocs.io/en/latest/system_step.html' for help")
 
-    #Specific args of each building block
+    # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
     required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
@@ -160,7 +165,7 @@ def main():
     if args.step:
         properties = properties[args.step]
 
-    #Specific call of each building block
+    # Specific call of each building block
     GMXTrjConvStrEns(input_traj_path=args.input_traj_path, input_top_path=args.input_top_path, output_str_ens_path=args.output_str_ens_path, input_index_path=args.input_index_path, properties=properties).launch()
 
 if __name__ == '__main__':
