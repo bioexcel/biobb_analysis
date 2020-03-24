@@ -128,7 +128,9 @@ class GMXTrjConvStrEns:
                '-dt', self.dt,
                '-sep',
                '-o', output]
-        if not str(self.end)=="0":
+
+        # checking 'end' gromacs 'bug'
+        if not str(self.end) =="0":
             cmd.append('-e')
             cmd.append(self.end)
 
