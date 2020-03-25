@@ -53,7 +53,7 @@ Using DOCKER:
 
 Using SINGULARITY:
 
-As Singularity fails in some versions of macOS, we strongly recommend to use docker when running BioBBs with containers in macOS.
+**MacOS users**: it's strongly recommended to avoid Singularity and use **Docker** as containerization system.
 
 * Installation:
 
