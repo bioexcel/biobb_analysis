@@ -36,10 +36,13 @@ class CpptrajAverage():
             * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
+
+    Returns:
+        Returns object class.
     """
 
     def __init__(self, input_top_path, input_traj_path,
-                 output_cpptraj_path, properties=None, **kwargs):
+                 output_cpptraj_path, properties=None, **kwargs) -> object:
         properties = properties or {}
 
         # Input/Output files
