@@ -36,13 +36,10 @@ class CpptrajAverage():
             * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
-
-    Returns:
-        object: Returns object class.
     """
 
     def __init__(self, input_top_path, input_traj_path,
-                 output_cpptraj_path, properties=None, **kwargs):
+                 output_cpptraj_path, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -119,7 +116,7 @@ class CpptrajAverage():
         return self.instructions_file
 
     @launchlogger
-    def launch(self):
+    def launch(self) -> int:
         """Launches the execution of the Ambertools cpptraj module."""
 
         # Get local loggers from launchlogger decorator

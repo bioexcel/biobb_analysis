@@ -39,7 +39,7 @@ class CpptrajMask():
     """
 
     def __init__(self, input_top_path, input_traj_path,
-                 output_cpptraj_path, properties=None, **kwargs):
+                 output_cpptraj_path, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -118,7 +118,7 @@ class CpptrajMask():
         return self.instructions_file
 
     @launchlogger
-    def launch(self):
+    def launch(self) -> int:
         """Launches the execution of the Ambertools cpptraj module."""
         
         # Get local loggers from launchlogger decorator

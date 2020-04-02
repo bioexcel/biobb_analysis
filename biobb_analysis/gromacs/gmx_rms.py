@@ -32,7 +32,8 @@ class GMXRms():
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
     """
 
-    def __init__(self, input_structure_path, input_traj_path, output_xvg_path, input_index_path=None, properties=None, **kwargs):
+    def __init__(self, input_structure_path, input_traj_path, 
+                 output_xvg_path, input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -77,7 +78,7 @@ class GMXRms():
             self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
 
     @launchlogger
-    def launch(self):
+    def launch(self) -> int:
         """Launches the execution of the GROMACS rms module."""
 
         # Get local loggers from launchlogger decorator

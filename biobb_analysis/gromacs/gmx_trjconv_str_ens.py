@@ -37,7 +37,8 @@ class GMXTrjConvStrEns:
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
     """
 
-    def __init__(self, input_traj_path, input_top_path, output_str_ens_path, input_index_path=None, properties=None, **kwargs):
+    def __init__(self, input_traj_path, input_top_path, 
+                 output_str_ens_path, input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -87,7 +88,7 @@ class GMXTrjConvStrEns:
         self.output_type = get_ot_str_ens(self.properties, out_log, self.__class__.__name__)
 
     @launchlogger
-    def launch(self):
+    def launch(self) -> int:
         """Launches the execution of the GROMACS rgyr module."""
 
         # Get local loggers from launchlogger decorator

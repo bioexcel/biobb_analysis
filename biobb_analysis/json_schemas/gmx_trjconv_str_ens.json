@@ -85,6 +85,11 @@
                         "Water_and_ions"
                     ]
                 },
+                "skip": {
+                    "type": "number",
+                    "default": 1,
+                    "description": "Only write every nr-th frame."
+                },
                 "start": {
                     "type": "number",
                     "default": 0,

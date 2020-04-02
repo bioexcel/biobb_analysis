@@ -30,7 +30,8 @@ class GMXEnergy():
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
     """
 
-    def __init__(self, input_energy_path, output_xvg_path, properties=None, **kwargs):
+    def __init__(self, input_energy_path, 
+                 output_xvg_path, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -92,7 +93,7 @@ class GMXEnergy():
         return self.instructions_file
 
     @launchlogger
-    def launch(self):
+    def launch(self) -> int:
         """Launches the execution of the GROMACS energy module."""
 
         # Get local loggers from launchlogger decorator

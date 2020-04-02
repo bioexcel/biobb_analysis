@@ -23,7 +23,7 @@ class CpptrajInput():
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
     """
 
-    def __init__(self, input_instructions_path=None, properties=None, **kwargs):
+    def __init__(self, input_instructions_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Properties specific for BB
@@ -58,7 +58,7 @@ class CpptrajInput():
 
         return output_instructions_path
 
-    def launch(self):
+    def launch(self) -> int:
         """Launches the execution of the Ambertools cpptraj module."""
         
         # Get local loggers from launchlogger decorator
