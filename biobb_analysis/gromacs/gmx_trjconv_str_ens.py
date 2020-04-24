@@ -7,6 +7,7 @@ from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
+from logging import Logger
 
 
 class GMXTrjConvStrEns:
@@ -37,8 +38,13 @@ class GMXTrjConvStrEns:
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
     """
 
+<<<<<<< HEAD
     def __init__(self, input_traj_path, input_top_path, 
                  output_str_ens_path, input_index_path=None, properties=None, **kwargs) -> None:
+=======
+    def __init__(self, input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+        # Why return type None: https://www.python.org/dev/peps/pep-0484/#the-meaning-of-annotations
+>>>>>>> cb8e77c2ea359ae2ac02d38b069f32c4e58019ff
         properties = properties or {}
 
         # Input/Output files
@@ -70,7 +76,7 @@ class GMXTrjConvStrEns:
         self.remove_tmp = properties.get('remove_tmp', True)
         self.restart = properties.get('restart', False)
 
-    def check_data_params(self, out_log, err_log):
+    def check_data_params(self, out_log: Logger):
         """ Checks all the input/output paths and parameters """
         self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
         self.io_dict["in"]["input_top_path"] = check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
@@ -160,8 +166,10 @@ class GMXTrjConvStrEns:
 
         return returncode
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
+    parser = argparse.ArgumentParser(description="Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.",
+                                     formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
     # Specific args of each building block
