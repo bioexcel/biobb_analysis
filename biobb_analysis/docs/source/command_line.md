@@ -47,9 +47,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed structure.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output processed structure. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.average.pdb). Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 
 ### Config
 
@@ -243,9 +243,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **input_exp_path** (*str*): Path to the experimental reference file (required if reference = experimental).
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **input_exp_path** (*str*) (Optional): Path to the experimental reference file (required if reference = experimental). File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/experimental.1e5t.pdb). 
 * **output_cpptraj_path** (*str*): Path to the output processed analysis.
 
 ### Config
@@ -428,9 +428,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed structure.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output processed trajectory. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.convert.netcdf). Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 
 ### Config
 
@@ -622,9 +622,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed trajectory.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output processed trajectory. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.dry.netcdf). Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 
 ### Config
 
@@ -816,9 +816,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed trajectory.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output processed trajectory. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.image.netcdf). Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 
 ### Config
 
@@ -1006,7 +1006,7 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_instructions_path** (*str*): Path of the instructions file.
+* **input_instructions_path** (*str*): Path of the instructions file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.in).
 
 ### Config
 
@@ -1154,9 +1154,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed trajectory.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output processed trajectory. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.mask.netcdf). Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 
 ### Config
 
@@ -1348,9 +1348,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed analysis.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output analysis. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rgyr.dat). Accepted formats: dat, agr, xmgr, gnu.
 
 ### Config
 
@@ -1527,10 +1527,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **input_exp_path** (*str*): Path to the experimental reference file (required if reference = experimental).
-* **output_cpptraj_path** (*str*): Path to the output processed analysis.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **input_exp_path** (*str*) (Optional): Path to the experimental reference file (required if reference = experimental). File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/experimental.1e5t.pdb). 
+* **output_cpptraj_path** (*str*): Path to the output processed analysis. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rms.first.dat). Accepted formats: dat, agr, xmgr, gnu.
 
 ### Config
 
@@ -1714,10 +1714,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **input_exp_path** (*str*): Path to the experimental reference file (required if reference = experimental).
-* **output_cpptraj_path** (*str*): Path to the output processed analysis.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **input_exp_path** (*str*) (Optional): Path to the experimental reference file (required if reference = experimental). File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/experimental.1e5t.pdb).
+* **output_cpptraj_path** (*str*): Path to the output processed analysis. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rmsf.first.dat). Accepted formats: dat, agr, xmgr, gnu.
 
 ### Config
 
@@ -1899,9 +1899,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed trajectory.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output processed trajectory. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.slice.netcdf). Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 
 ### Config
 
@@ -2093,9 +2093,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed structure.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output processed structure. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.snapshot.pdb). Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 
 ### Config
 
@@ -2273,9 +2273,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_top_path** (*str*): Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
-* **input_traj_path** (*str*): Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-* **output_cpptraj_path** (*str*): Path to the output processed trajectory.
+* **input_top_path** (*str*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: top, pdb, prmtop, parmtop, zip.
+* **input_traj_path** (*str*): Path to the input trajectory to be processed.  File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+* **output_cpptraj_path** (*str*): Path to the output processed trajectory. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.strip.netcdf). Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 
 ### Config
 
@@ -2469,10 +2469,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_structure_path** (*str*): Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-* **input_traj_path** (*str*): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-* **input_index_path** (*str*): Path to the GROMACS index file. Accepted formats: ndx.
-* **output_pdb_path** (*str*): Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+* **input_structure_path** (*str*): Path to the input structure file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: tpr, gro, g96, pdb, brk, ent.
+* **input_traj_path** (*str*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+* **input_index_path** (*str*) (Optional): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: ndx.
+* **output_pdb_path** (*str*): Path to the output cluster file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_cluster.pdb). Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
 
 ### Config
 
@@ -2642,8 +2642,8 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_energy_path** (*str*): Path to the input EDR file. Accepted formats: edr.
-* **output_xvg_path** (*str*): Path to the XVG output file. Accepted formats: xvg.
+* **input_energy_path** (*str*): Path to the input EDR file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr). Accepted formats: edr.
+* **output_xvg_path** (*str*): Path to the XVG output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_energy.xvg). Accepted formats: xvg.
 
 ### Config
 
@@ -2790,10 +2790,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_traj_path** (*str*): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-* **input_top_path** (*str*): Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-* **input_index_path** (*str*): Path to the GROMACS index file. Accepted formats: ndx.
-* **output_traj_path** (*str*): Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
+* **input_traj_path** (*str*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+* **input_top_path** (*str*): Path to the GROMACS input topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: tpr, gro, g96, pdb, brk, ent.
+* **input_index_path** (*str*) (Optional): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: ndx.
+* **output_traj_path** (*str*): Path to the output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_image.xtc)_. Accepted formats: xtc, trr, gro, g96, pdb, tng.
 
 ### Config
 
@@ -2981,10 +2981,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_structure_path** (*str*): Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-* **input_traj_path** (*str*): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-* **input_index_path** (*str*): Path to the GROMACS index file. Accepted formats: ndx.
-* **output_xvg_path** (*str*): Path to the XVG output file. Accepted formats: xvg.
+* **input_structure_path** (*str*): Path to the input structure file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: tpr, gro, g96, pdb, brk, ent.
+* **input_traj_path** (*str*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+* **input_index_path** (*str*) (Optional): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: ndx.
+* **output_xvg_path** (*str*): Path to the XVG output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_rgyr.xvg). Accepted formats: xvg.
 
 ### Config
 
@@ -3132,10 +3132,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_structure_path** (*str*): Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-* **input_traj_path** (*str*): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-* **input_index_path** (*str*): Path to the GROMACS index file. Accepted formats: ndx.
-* **output_xvg_path** (*str*): Path to the XVG output file. Accepted formats: xvg.
+* **input_structure_path** (*str*): Path to the input structure file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: tpr, gro, g96, pdb, brk, ent.
+* **input_traj_path** (*str*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+* **input_index_path** (*str*) (Optional): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: ndx.
+* **output_xvg_path** (*str*): Path to the XVG output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_rms.xvg). Accepted formats: xvg.
 
 ### Config
 
@@ -3282,10 +3282,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_structure_path** (*str*): Path to the input structure file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-* **input_top_path** (*str*): Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-* **input_index_path** (*str*): Path to the GROMACS index file. Accepted formats: ndx.
-* **output_str_path** (*str*): Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
+* **input_structure_path** (*str*): Path to the input structure file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+* **input_top_path** (*str*): Path to the GROMACS input topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: tpr, gro, g96, pdb, brk, ent.
+* **input_index_path** (*str*) (Optional): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: ndx.
+* **output_str_path** (*str*): Path to the output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.str.pdb). Accepted formats: xtc, trr, gro, g96, pdb, tng.
 
 ### Config
 
@@ -3432,10 +3432,10 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_traj_path** (*str*): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-* **input_top_path** (*str*): Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-* **input_index_path** (*str*): Path to the GROMACS index file. Accepted formats: ndx.
-* **output_str_ens_path** (*str*): Path to the output file. Accepted formats: zip.
+* **input_traj_path** (*str*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+* **input_top_path** (*str*): Path to the GROMACS input topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: tpr, gro, g96, pdb, brk, ent.
+* **input_index_path** (*str*) (Optional): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: ndx.
+* **output_str_ens_path** (*str*): Path to the output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.str.ens.zip). Accepted formats: zip.
 
 ### Config
 
@@ -3614,9 +3614,9 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 
-* **input_traj_path** (*str*): Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-* **input_index_path** (*str*): Path to the GROMACS index file. Accepted formats: ndx.
-* **output_traj_path** (*str*): Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
+* **input_traj_path** (*str*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+* **input_index_path** (*str*) (Optional): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: ndx.
+* **output_traj_path** (*str*): Path to the output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.trj.xtc). Accepted formats: xtc, trr, gro, g96, pdb, tng.
 
 ### Config
 
