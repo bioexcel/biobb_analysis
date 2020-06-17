@@ -45,7 +45,7 @@ gmx_cluster_singularity:
     method: linkage
     cutoff: 0.1
     container_path: singularity
-    container_image: gromacs.sif
+    container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
 gmx_rms:
@@ -81,7 +81,7 @@ gmx_rms_singularity:
   properties:
     selection: System
     container_path: singularity
-    container_image: gromacs.sif
+    container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
 gmx_energy:
@@ -111,7 +111,7 @@ gmx_energy_singularity:
   properties:
     terms: [Potential, Pressure]
     container_path: singularity
-    container_image: gromacs.sif
+    container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
 gmx_rgyr:
@@ -147,7 +147,7 @@ gmx_rgyr_singularity:
   properties:
     selection: System
     container_path: singularity
-    container_image: gromacs.sif
+    container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
 gmx_trjconv_str:
@@ -183,7 +183,7 @@ gmx_trjconv_str_singularity:
   properties:
     selection: System
     container_path: singularity
-    container_image: gromacs.sif
+    container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
 gmx_trjconv_str_ens:
@@ -234,7 +234,7 @@ gmx_trjconv_str_ens_singularity:
     output_name: output
     output_type: pdb
     container_path: singularity
-    container_image: gromacs.sif
+    container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
 gmx_trjconv_trj:
@@ -276,7 +276,7 @@ gmx_trjconv_trj_singularity:
     end: 0
     dt: 0
     container_path: singularity
-    container_image: gromacs.sif
+    container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
 gmx_image:
@@ -330,7 +330,7 @@ gmx_image_singularity:
     fit: rot+trans
     ur: compact
     container_path: singularity
-    container_image: gromacs.sif
+    container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
 cpptraj_input:
@@ -388,7 +388,7 @@ cpptraj_convert_singularity:
     out_parameters:
       format: netcdf
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_average:
@@ -439,7 +439,7 @@ cpptraj_average_singularity:
     out_parameters:
       format: pdb
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_dry:
@@ -490,7 +490,7 @@ cpptraj_dry_singularity:
     out_parameters:
       format: netcdf
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_image:
@@ -541,7 +541,7 @@ cpptraj_image_singularity:
     out_parameters:
       format: netcdf
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_mask:
@@ -592,7 +592,7 @@ cpptraj_mask_singularity:
     out_parameters:
       format: netcdf
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_slice:
@@ -643,7 +643,7 @@ cpptraj_slice_singularity:
     out_parameters:
       format: netcdf
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_snapshot:
@@ -688,7 +688,7 @@ cpptraj_snapshot_singularity:
     out_parameters:
       format: pdb
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_strip:
@@ -739,7 +739,7 @@ cpptraj_strip_singularity:
     out_parameters:
       format: netcdf
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_rgyr:
@@ -784,7 +784,7 @@ cpptraj_rgyr_singularity:
       step: 1
       mask: c-alpha
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_rms_first:
@@ -832,7 +832,7 @@ cpptraj_rms_first_singularity:
       mask: c-alpha
       reference: first
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_rms_average:
@@ -880,7 +880,7 @@ cpptraj_rms_average_singularity:
       mask: c-alpha
       reference: average
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_rms_experimental:
@@ -931,7 +931,7 @@ cpptraj_rms_experimental_singularity:
       mask: c-alpha
       reference: experimental
   container_path: singularity
-  container_image: ambertools.sif
+  container_image: shub://bioexcel/ambertools_singularity
   container_volume_path: /tmp
 
 cpptraj_rmsf_first:
@@ -979,7 +979,7 @@ cpptraj_rmsf_first_singularity:
       mask: c-alpha
       reference: first
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_rmsf_average:
@@ -1027,7 +1027,7 @@ cpptraj_rmsf_average_singularity:
       mask: c-alpha
       reference: average
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_rmsf_experimental:
@@ -1078,7 +1078,7 @@ cpptraj_rmsf_experimental_singularity:
       mask: c-alpha
       reference: experimental
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_bfactor_first:
@@ -1126,7 +1126,7 @@ cpptraj_bfactor_first_singularity:
       mask: c-alpha
       reference: first
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_bfactor_average:
@@ -1174,7 +1174,7 @@ cpptraj_bfactor_average_singularity:
       mask: c-alpha
       reference: average
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
 cpptraj_bfactor_experimental:
@@ -1225,6 +1225,6 @@ cpptraj_bfactor_experimental_singularity:
       mask: c-alpha
       reference: experimental
     container_path: singularity
-    container_image: ambertools.sif
+    container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
