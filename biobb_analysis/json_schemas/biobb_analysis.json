@@ -12,121 +12,141 @@
             "block" : "GMXCluster", 
             "tool" : "gmx cluster", 
             "desc" : "Creates cluster structures from a given GROMACS compatible trajectory.",
-            "exec" : "gmx_cluster"
+            "exec" : "gmx_cluster",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_cluster"
         }, 
         {
             "block" : "GMXRms", 
             "tool" : "gmx rms", 
             "desc" : "Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.",
-            "exec" : "gmx_rms"
+            "exec" : "gmx_rms",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_rms"
         }, 
         {
             "block" : "GMXRgyr", 
             "tool" : "gmx gyrate", 
             "desc" : "Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.",
-            "exec" : "gmx_rgyr"
+            "exec" : "gmx_rgyr",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_rgyr"
         }, 
         {
             "block" : "GMXEnergy", 
             "tool" : "gmx energy", 
             "desc" : "Extracts energy components from a given GROMACS energy file.",
-            "exec" : "gmx_energy"
+            "exec" : "gmx_energy",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_energy"
         },
         {
             "block" : "GMXImage", 
             "tool" : "gmx trjconv", 
             "desc" : "Corrects periodicity (image) from a given GROMACS compatible trajectory file.",
-            "exec" : "gmx_image"
+            "exec" : "gmx_image",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_image"
         }, 
         {
             "block" : "GMXTrjconvStr", 
             "tool" : "gmx trjconv", 
             "desc" : "Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.",
-            "exec" : "gmx_trjconv_str"
+            "exec" : "gmx_trjconv_str",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_trjconv_str"
         }, 
         {
             "block" : "GMXTrjconvStrEns", 
             "tool" : "gmx trjconv", 
             "desc" : "Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.",
-            "exec" : "gmx_trjconv_str_ens"
+            "exec" : "gmx_trjconv_str_ens",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_trjconv_str_ens"
         },
         {
             "block" : "GMXTrjconvTrj", 
             "tool" : "gmx trjconv", 
             "desc" : "Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.",
-            "exec" : "gmx_trjconv_trj"
+            "exec" : "gmx_trjconv_trj",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_trjconv_trj"
         },
         {
             "block" : "CpptrajAverage", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Calculates a structure average of a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_average"
+            "exec" : "cpptraj_average",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_average"
         }, 
         {
             "block" : "CpptrajBfactor", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_bfactor"
+            "exec" : "cpptraj_bfactor",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_bfactor"
         }, 
         {
             "block" : "CpptrajRms", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_rms"
+            "exec" : "cpptraj_rms",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_rms"
         }, 
         {
             "block" : "CpptrajRmsf", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Calculates the Root Mean Square fluctuations (RMSf) of a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_rmsf"
+            "exec" : "cpptraj_rmsf",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_rmsf"
         },
         {
             "block" : "CpptrajRgyr", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Computes the radius of gyration (Rgyr) from a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_rgyr"
+            "exec" : "cpptraj_rgyr",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_rgyr"
         }, 
         {
             "block" : "CpptrajDry", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Dehydrates a given cpptraj compatible trajectory stripping out solvent molecules and ions.",
-            "exec" : "cpptraj_dry"
+            "exec" : "cpptraj_dry",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_dry"
         }, 
         {
             "block" : "CpptrajStrip", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_strip"
+            "exec" : "cpptraj_strip",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_strip"
         },
         {
             "block" : "CpptrajSnapshot", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Extracts a particular snapshot from a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_snapshot"
+            "exec" : "cpptraj_snapshot",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_snapshot"
         }, 
         {
             "block" : "CpptrajSlice", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Extracts a particular trajectory slice from a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_slice"
+            "exec" : "cpptraj_slice",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_slice"
         }, 
         {
             "block" : "CpptrajConvert", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames.",
-            "exec" : "cpptraj_convert"
+            "exec" : "cpptraj_convert",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_convert"
         }, 
         {
             "block" : "CpptrajMask", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Extracts a selection of atoms from a given cpptraj compatible trajectory.",
-            "exec" : "cpptraj_mask"
+            "exec" : "cpptraj_mask",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_mask"
         }, 
         {
             "block" : "CpptrajImage", 
             "tool" : "Ambertools cpptraj", 
             "desc" : "Corrects periodicity (image) from a given cpptraj trajectory file.",
-            "exec" : "cpptraj_image"
+            "exec" : "cpptraj_image",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_image"
         }
     ],
     "dep_pypi" : [
