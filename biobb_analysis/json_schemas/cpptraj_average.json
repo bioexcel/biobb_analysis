@@ -1,8 +1,21 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/cpptraj_average",
-    "title": "Calculates a structure average of a given cpptraj compatible trajectory.",
+    "name": "biobb_analysis CpptrajAverage",
+    "title": "Wrapper of the Ambertools Cpptraj module for calculating a structure average of a given cpptraj compatible trajectory.",
+    "description": "Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files. The parameter names and defaults are the same as the ones in the official Cpptraj manual.",
     "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "Ambertools Cpptraj",
+            "version": ">=20.0",
+            "license": "GNU"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
     "required": [
         "input_top_path",
         "input_traj_path",
@@ -20,6 +33,33 @@
                 ".*\\.prmtop$",
                 ".*\\.parmtop$",
                 ".*\\.zip$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.top$",
+                    "description": "Path to the input structure or topology file",
+                    "edam": "format_3881"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the input structure or topology file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.prmtop$",
+                    "description": "Path to the input structure or topology file",
+                    "edam": "format_3881"
+                },
+                {
+                    "extension": ".*\\.parmtop$",
+                    "description": "Path to the input structure or topology file",
+                    "edam": "format_3881"
+                },
+                {
+                    "extension": ".*\\.zip$",
+                    "description": "Path to the input structure or topology file",
+                    "edam": "format_3987"
+                }
             ]
         },
         "input_traj_path": {
@@ -48,6 +88,108 @@
                 ".*\\.sqm$",
                 ".*\\.sdf$",
                 ".*\\.conflib$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.crd$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3878"
+                },
+                {
+                    "extension": ".*\\.cdf$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.netcdf$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.restart$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3886"
+                },
+                {
+                    "extension": ".*\\.ncrestart$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3886"
+                },
+                {
+                    "extension": ".*\\.restartnc$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3886"
+                },
+                {
+                    "extension": ".*\\.dcd$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3878"
+                },
+                {
+                    "extension": ".*\\.charmm$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3887"
+                },
+                {
+                    "extension": ".*\\.cor$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.mol2$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3816"
+                },
+                {
+                    "extension": ".*\\.trr$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3910"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.binpos$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3885"
+                },
+                {
+                    "extension": ".*\\.xtc$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3875"
+                },
+                {
+                    "extension": ".*\\.cif$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_1477"
+                },
+                {
+                    "extension": ".*\\.arc$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.sqm$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.sdf$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3814"
+                },
+                {
+                    "extension": ".*\\.conflib$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_2033"
+                }
             ]
         },
         "output_cpptraj_path": {
@@ -67,121 +209,307 @@
                 ".*\\.trr$",
                 ".*\\.xtc$",
                 ".*\\.sqm$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.crd$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_3878"
+                },
+                {
+                    "extension": ".*\\.netcdf$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.rst7$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_3886"
+                },
+                {
+                    "extension": ".*\\.ncrst$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.dcd$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_3878"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.mol2$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_3816"
+                },
+                {
+                    "extension": ".*\\.binpos$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_3885"
+                },
+                {
+                    "extension": ".*\\.trr$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_3910"
+                },
+                {
+                    "extension": ".*\\.xtc$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_3875"
+                },
+                {
+                    "extension": ".*\\.sqm$",
+                    "description": "Path to the output processed structure",
+                    "edam": "format_2033"
+                }
             ]
         },
         "properties": {
             "type": "object",
             "properties": {
-                "in_parameters": {
-                    "type": "object",
-                    "parameters": {
-                        "start": {
-                            "type": "number",
-                            "default": 1,
-                            "description": "Starting frame for slicing."
-                        },
-                        "end": {
-                            "type": "number",
-                            "default": -1,
-                            "description": "Ending frame for slicing."
-                        },
-                        "step": {
-                            "type": "number",
-                            "default": 1,
-                            "description": "Step for slicing."
-                        },
-                        "mask": {
-                            "type": "string",
-                            "default": "all-atoms",
-                            "description": "Mask definition.",
-                            "enum": [
-                                "c-alpha",
-                                "backbone",
-                                "all-atoms",
-                                "heavy-atoms",
-                                "side-chain",
-                                "solute",
-                                "ions",
-                                "solvent"
-                            ]
-                        }
-                    }
+                "start": {
+                    "type": "integer",
+                    "default": 1,
+                    "wf_prop": false,
+                    "description": "Starting frame for slicing.",
+                    "min": 1,
+                    "max": 100000,
+                    "step": 1
                 },
-                "out_parameters": {
-                    "type": "object",
-                    "parameters": {
-                        "format": {
-                            "type": "string",
-                            "default": "netcdf",
-                            "description": "Output trajectory format.",
-                            "enum": [
-                                "crd",
-                                "cdf",
-                                "netcdf",
-                                "restart",
-                                "ncrestart",
-                                "restartnc",
-                                "dcd",
-                                "charmm",
-                                "cor",
-                                "pdb",
-                                "mol2",
-                                "trr",
-                                "gro",
-                                "binpos",
-                                "xtc",
-                                "cif",
-                                "arc",
-                                "sqm",
-                                "sdf",
-                                "conflib"
-                            ]
+                "end": {
+                    "type": "integer",
+                    "default": -1,
+                    "wf_prop": false,
+                    "description": "Ending frame for slicing.",
+                    "min": -1,
+                    "max": 100000,
+                    "step": 1
+                },
+                "in_step": {
+                    "type": "integer",
+                    "default": 1,
+                    "wf_prop": false,
+                    "description": "Step for slicing.",
+                    "min": 1,
+                    "max": 100000,
+                    "step": 1
+                },
+                "mask": {
+                    "type": "string",
+                    "default": "all-atoms",
+                    "wf_prop": false,
+                    "description": "Mask definition. ",
+                    "enum": [
+                        "c-alpha",
+                        "backbone",
+                        "all-atoms",
+                        "heavy-atoms",
+                        "side-chain",
+                        "solute",
+                        "ions",
+                        "solvent"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "c-alpha",
+                            "description": "All c-alpha atoms; protein only"
+                        },
+                        {
+                            "name": "backbone",
+                            "description": "Backbone atoms"
+                        },
+                        {
+                            "name": "all-atoms",
+                            "description": "All system atoms"
+                        },
+                        {
+                            "name": "heavy-atoms",
+                            "description": "System heavy atoms; not hydrogen"
+                        },
+                        {
+                            "name": "side-chain",
+                            "description": "All not backbone atoms"
+                        },
+                        {
+                            "name": "solute",
+                            "description": "All system atoms except solvent atoms"
+                        },
+                        {
+                            "name": "ions",
+                            "description": "All ion molecules"
+                        },
+                        {
+                            "name": "solvent",
+                            "description": "All solvent atoms"
                         }
-                    }
+                    ]
+                },
+                "format": {
+                    "type": "string",
+                    "default": "netcdf",
+                    "wf_prop": false,
+                    "description": "Output trajectory format. ",
+                    "enum": [
+                        "crd",
+                        "cdf",
+                        "netcdf",
+                        "restart",
+                        "ncrestart",
+                        "restartnc",
+                        "dcd",
+                        "charmm",
+                        "cor",
+                        "pdb",
+                        "mol2",
+                        "trr",
+                        "gro",
+                        "binpos",
+                        "xtc",
+                        "cif",
+                        "arc",
+                        "sqm",
+                        "sdf",
+                        "conflib"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "crd",
+                            "description": "AMBER trajectory format"
+                        },
+                        {
+                            "name": "cdf",
+                            "description": "Format used by netCDF software library for writing and reading chromatography-MS data files"
+                        },
+                        {
+                            "name": "netcdf",
+                            "description": "Format used by netCDF software library for writing and reading chromatography-MS data files"
+                        },
+                        {
+                            "name": "restart",
+                            "description": "AMBER coordinate/restart file with 6 coordinates per line"
+                        },
+                        {
+                            "name": "ncrestart",
+                            "description": "AMBER coordinate/restart file with 6 coordinates per line"
+                        },
+                        {
+                            "name": "restartnc",
+                            "description": "AMBER coordinate/restart file with 6 coordinates per line"
+                        },
+                        {
+                            "name": "dcd",
+                            "description": "AMBER trajectory format"
+                        },
+                        {
+                            "name": "charmm",
+                            "description": "Format of CHARMM Residue Topology Files (RTF)"
+                        },
+                        {
+                            "name": "cor",
+                            "description": "Charmm COR"
+                        },
+                        {
+                            "name": "pdb",
+                            "description": "Protein Data Bank format"
+                        },
+                        {
+                            "name": "mol2",
+                            "description": "Complete and portable representation of a SYBYL molecule"
+                        },
+                        {
+                            "name": "trr",
+                            "description": "Trajectory of a simulation experiment used by GROMACS"
+                        },
+                        {
+                            "name": "gro",
+                            "description": "GROMACS structure"
+                        },
+                        {
+                            "name": "binpos",
+                            "description": "Translation of the ASCII atom coordinate format to binary code"
+                        },
+                        {
+                            "name": "xtc",
+                            "description": "Portable binary format for trajectories produced by GROMACS package"
+                        },
+                        {
+                            "name": "cif",
+                            "description": "Entry format of PDB database in mmCIF format"
+                        },
+                        {
+                            "name": "arc",
+                            "description": "Tinker ARC"
+                        },
+                        {
+                            "name": "sqm",
+                            "description": "SQM Input"
+                        },
+                        {
+                            "name": "sdf",
+                            "description": "One of a family of chemical-data file formats developed by MDL Information Systems"
+                        },
+                        {
+                            "name": "conflib",
+                            "description": "LMOD Conflib"
+                        }
+                    ]
                 },
                 "cpptraj_path": {
                     "type": "string",
                     "default": "cpptraj",
+                    "wf_prop": false,
                     "description": "Path to the cpptraj executable binary."
                 },
                 "remove_tmp": {
                     "type": "boolean",
                     "default": true,
-                    "description": "[WF property] Remove temporal files."
+                    "wf_prop": true,
+                    "description": "Remove temporal files."
                 },
                 "restart": {
                     "type": "boolean",
                     "default": false,
-                    "description": "[WF property] Do not execute if output files exist."
+                    "wf_prop": true,
+                    "description": "Do not execute if output files exist."
                 },
                 "container_path": {
                     "type": "string",
                     "default": null,
+                    "wf_prop": false,
                     "description": "Container path definition."
                 },
                 "container_image": {
                     "type": "string",
-                    "default": "'afandiadib/ambertools:serial'",
+                    "default": "afandiadib/ambertools:serial",
+                    "wf_prop": false,
                     "description": "Container image definition."
                 },
                 "container_volume_path": {
                     "type": "string",
-                    "default": "'/tmp'",
+                    "default": "/tmp",
+                    "wf_prop": false,
                     "description": "Container volume path definition."
                 },
                 "container_working_dir": {
                     "type": "string",
                     "default": null,
+                    "wf_prop": false,
                     "description": "Container working directory definition."
                 },
                 "container_user_id": {
                     "type": "string",
                     "default": null,
+                    "wf_prop": false,
                     "description": "Container user_id definition."
                 },
                 "container_shell_path": {
                     "type": "string",
-                    "default": "'/bin/bash'",
+                    "default": "/bin/bash",
+                    "wf_prop": false,
                     "description": "Path to default shell inside the container."
                 }
             }

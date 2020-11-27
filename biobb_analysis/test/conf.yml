@@ -398,13 +398,11 @@ cpptraj_average:
     output_cpptraj_path: output.pdb
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.average.pdb
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: pdb
+    start: 1
+    end: -1
+    in_step: 1
+    mask: c-alpha
+    format: pdb
 
 cpptraj_average_docker:
   paths:

@@ -118,3 +118,5 @@ biobb_analysis/docs/jupyter/log.*
 biobb_analysis/docs/jupyter/*.xpm
 biobb_analysis/docs/jupyter/*.xvg
 biobb_analysis/docs/jupyter/.ipynb_checkpoints/
+
+*.bk
