@@ -10,13 +10,15 @@ from biobb_analysis.gromacs.common import *
 
 
 class GMXEnergy():
-    """Extracts energy components from a given GROMACS energy file.
-    Wrapper of the `GROMACS energy <http://manual.gromacs.org/current/onlinehelp/gmx-energy.html>`_ module.
+    """
+    | biobb_analysis GMXEnergy
+    | Wrapper of the GROMACS energy module for extracting energy components from a given GROMACS energy file.
+    | `GROMACS energy <http://manual.gromacs.org/current/onlinehelp/gmx-energy.html>`_ extracts energy components from an energy file. The user is prompted to interactively select the desired energy terms.    
 
     Args:
-        input_energy_path (str): Path to the input EDR file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr>`_. Accepted formats: edr.
-        output_xvg_path (str): Path to the XVG output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_energy.xvg>`_. Accepted formats: xvg.
-        properties (dic):
+        input_energy_path (str): Path to the input EDR file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr>`_. Accepted formats: edr (edam:format_2333).
+        output_xvg_path (str): Path to the XVG output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_energy.xvg>`_. Accepted formats: xvg (edam:format_2033).
+        properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
             * **terms** (*list*) - (["Potential"]) Energy terms. Values: Angle, Proper-Dih., Improper-Dih., LJ-14, Coulomb-14, LJ-(SR), Coulomb-(SR), Coul.-recip., Position-Rest., Potential, Kinetic-En., Total-Energy, Temperature, Pressure,  Constr.-rmsd, Box-X, Box-Y,  Box-Z, Volume, Density, pV, Enthalpy, Vir-XX, Vir-XY, Vir-XZ, Vir-YX, Vir-YY, Vir-YZ, Vir-ZX, Vir-ZY, Vir-ZZ, Pres-XX, Pres-XY, Pres-XZ, Pres-YX, Pres-YY,  Pres-YZ, Pres-ZX, Pres-ZY, Pres-ZZ, #Surf*SurfTen, Box-Vel-XX, Box-Vel-YY, Box-Vel-ZZ, Mu-X, Mu-Y, Mu-Z, T-Protein, T-non-Protein, Lamb-Protein, Lamb-non-Protein.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
@@ -28,6 +30,16 @@ class GMXEnergy():
             * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
+    
+    Info:
+        * wrapped_software:
+            * name: GROMACS energy
+            * version: >=2019.1
+            * license: LGPL 2.1
+        * ontology:
+            * name: EDAM
+            * schema: http://edamontology.org/EDAM.owl
+
     """
 
     def __init__(self, input_energy_path, 

@@ -1,0 +1,407 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/gmx_energy",
+    "name": "biobb_analysis GMXEnergy",
+    "title": "Wrapper of the GROMACS energy module for extracting energy components from a given GROMACS energy file.",
+    "description": "GROMACS energy extracts energy components from an energy file. The user is prompted to interactively select the desired energy terms.",
+    "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "GROMACS energy",
+            "version": ">=2019.1",
+            "license": "LGPL 2.1"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
+    "required": [
+        "input_energy_path",
+        "output_xvg_path"
+    ],
+    "properties": {
+        "input_energy_path": {
+            "type": "string",
+            "description": "Path to the input EDR file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr",
+            "enum": [
+                ".*\\.edr$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.edr$",
+                    "description": "Path to the input EDR file",
+                    "edam": "format_2333"
+                }
+            ]
+        },
+        "output_xvg_path": {
+            "type": "string",
+            "description": "Path to the XVG output file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_energy.xvg",
+            "enum": [
+                ".*\\.xvg$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.xvg$",
+                    "description": "Path to the XVG output file",
+                    "edam": "format_2033"
+                }
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "xvg": {
+                    "type": "string",
+                    "default": "none",
+                    "wf_prop": false,
+                    "description": "XVG plot formatting. ",
+                    "enum": [
+                        "xmgrace",
+                        "xmgr",
+                        "none"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "xmgrace",
+                            "description": null
+                        },
+                        {
+                            "name": "xmgr",
+                            "description": null
+                        },
+                        {
+                            "name": "none",
+                            "description": null
+                        }
+                    ]
+                },
+                "terms": {
+                    "type": "array",
+                    "default": "[Potential]",
+                    "wf_prop": false,
+                    "description": "Energy terms. ",
+                    "enum": [
+                        "Angle",
+                        "Proper-Dih.",
+                        "Improper-Dih.",
+                        "LJ-14",
+                        "Coulomb-14",
+                        "LJ-",
+                        "Coulomb-",
+                        "Coul.-recip.",
+                        "Position-Rest.",
+                        "Potential",
+                        "Kinetic-En.",
+                        "Total-Energy",
+                        "Temperature",
+                        "Pressure",
+                        " Constr.-rmsd",
+                        "Box-X",
+                        "Box-Y",
+                        " Box-Z",
+                        "Volume",
+                        "Density",
+                        "pV",
+                        "Enthalpy",
+                        "Vir-XX",
+                        "Vir-XY",
+                        "Vir-XZ",
+                        "Vir-YX",
+                        "Vir-YY",
+                        "Vir-YZ",
+                        "Vir-ZX",
+                        "Vir-ZY",
+                        "Vir-ZZ",
+                        "Pres-XX",
+                        "Pres-XY",
+                        "Pres-XZ",
+                        "Pres-YX",
+                        "Pres-YY",
+                        " Pres-YZ",
+                        "Pres-ZX",
+                        "Pres-ZY",
+                        "Pres-ZZ",
+                        "Surf",
+                        "Box-Vel-XX",
+                        "Box-Vel-YY",
+                        "Box-Vel-ZZ",
+                        "Mu-X",
+                        "Mu-Y",
+                        "Mu-Z",
+                        "T-Protein",
+                        "T-non-Protein",
+                        "Lamb-Protein",
+                        "Lamb-non-Protein"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "Angle",
+                            "description": null
+                        },
+                        {
+                            "name": "Proper-Dih.",
+                            "description": null
+                        },
+                        {
+                            "name": "Improper-Dih.",
+                            "description": null
+                        },
+                        {
+                            "name": "LJ-14",
+                            "description": null
+                        },
+                        {
+                            "name": "Coulomb-14",
+                            "description": null
+                        },
+                        {
+                            "name": "LJ-",
+                            "description": "SR"
+                        },
+                        {
+                            "name": "Coulomb-",
+                            "description": "SR"
+                        },
+                        {
+                            "name": "Coul.-recip.",
+                            "description": null
+                        },
+                        {
+                            "name": "Position-Rest.",
+                            "description": null
+                        },
+                        {
+                            "name": "Potential",
+                            "description": null
+                        },
+                        {
+                            "name": "Kinetic-En.",
+                            "description": null
+                        },
+                        {
+                            "name": "Total-Energy",
+                            "description": null
+                        },
+                        {
+                            "name": "Temperature",
+                            "description": null
+                        },
+                        {
+                            "name": "Pressure",
+                            "description": null
+                        },
+                        {
+                            "name": " Constr.-rmsd",
+                            "description": null
+                        },
+                        {
+                            "name": "Box-X",
+                            "description": null
+                        },
+                        {
+                            "name": "Box-Y",
+                            "description": null
+                        },
+                        {
+                            "name": " Box-Z",
+                            "description": null
+                        },
+                        {
+                            "name": "Volume",
+                            "description": null
+                        },
+                        {
+                            "name": "Density",
+                            "description": null
+                        },
+                        {
+                            "name": "pV",
+                            "description": null
+                        },
+                        {
+                            "name": "Enthalpy",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-XX",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-XY",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-XZ",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-YX",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-YY",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-YZ",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-ZX",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-ZY",
+                            "description": null
+                        },
+                        {
+                            "name": "Vir-ZZ",
+                            "description": null
+                        },
+                        {
+                            "name": "Pres-XX",
+                            "description": null
+                        },
+                        {
+                            "name": "Pres-XY",
+                            "description": null
+                        },
+                        {
+                            "name": "Pres-XZ",
+                            "description": null
+                        },
+                        {
+                            "name": "Pres-YX",
+                            "description": null
+                        },
+                        {
+                            "name": "Pres-YY",
+                            "description": null
+                        },
+                        {
+                            "name": " Pres-YZ",
+                            "description": null
+                        },
+                        {
+                            "name": "Pres-ZX",
+                            "description": null
+                        },
+                        {
+                            "name": "Pres-ZY",
+                            "description": null
+                        },
+                        {
+                            "name": "Pres-ZZ",
+                            "description": null
+                        },
+                        {
+                            "name": "Surf",
+                            "description": null
+                        },
+                        {
+                            "name": "Box-Vel-XX",
+                            "description": null
+                        },
+                        {
+                            "name": "Box-Vel-YY",
+                            "description": null
+                        },
+                        {
+                            "name": "Box-Vel-ZZ",
+                            "description": null
+                        },
+                        {
+                            "name": "Mu-X",
+                            "description": null
+                        },
+                        {
+                            "name": "Mu-Y",
+                            "description": null
+                        },
+                        {
+                            "name": "Mu-Z",
+                            "description": null
+                        },
+                        {
+                            "name": "T-Protein",
+                            "description": null
+                        },
+                        {
+                            "name": "T-non-Protein",
+                            "description": null
+                        },
+                        {
+                            "name": "Lamb-Protein",
+                            "description": null
+                        },
+                        {
+                            "name": "Lamb-non-Protein",
+                            "description": null
+                        }
+                    ]
+                },
+                "gmx_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "wf_prop": false,
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": true,
+                    "description": "Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": true,
+                    "description": "Do not execute if output files exist."
+                },
+                "container_path": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container path definition."
+                },
+                "container_image": {
+                    "type": "string",
+                    "default": "gromacs/gromacs:latest",
+                    "wf_prop": false,
+                    "description": "Container image definition."
+                },
+                "container_volume_path": {
+                    "type": "string",
+                    "default": "/tmp",
+                    "wf_prop": false,
+                    "description": "Container volume path definition."
+                },
+                "container_working_dir": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container working directory definition."
+                },
+                "container_user_id": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container user_id definition."
+                },
+                "container_shell_path": {
+                    "type": "string",
+                    "default": "/bin/bash",
+                    "wf_prop": false,
+                    "description": "Path to default shell inside the container."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

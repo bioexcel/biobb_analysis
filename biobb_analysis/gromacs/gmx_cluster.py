@@ -10,20 +10,22 @@ from biobb_analysis.gromacs.common import *
 
 
 class GMXCluster():
-    """Creates cluster structures from a given GROMACS compatible trajectory.
-    Wrapper class for the `GROMACS cluster <http://manual.gromacs.org/current/onlinehelp/gmx-cluster.html>`_ module.
+    """
+    | biobb_analysis GMXCluster
+    | Wrapper of the GROMACS cluster module for clustering structures from a given GROMACS compatible trajectory.
+    | `GROMACS cluster <http://manual.gromacs.org/current/onlinehelp/gmx-cluster.html>`_ can cluster structures using several different methods. Distances between structures can be determined from a trajectory. RMS deviation after fitting or RMS deviation of atom-pair distances can be used to define the distance between structures.
 
     Args:
-        input_structure_path (str): Path to the input structure file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr>`_. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-        input_traj_path (str): Path to the GROMACS trajectory file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr>`_. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-        input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx.
-        output_pdb_path (str): Path to the output cluster file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_cluster.pdb>`_. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-        properties (dic):
-            * **fit_selection** (*str*) - ("System") Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
-            * **output_selection** (*str*) - ("System") Group that is going to be written in the output trajectory. If **input_index_path** provided, check the file for the accepted values. Values: System, Protein, Protein-H, C-alpha, Backbone, MainChain, MainChain+Cb, MainChain+H, SideChain, SideChain-H, Prot-Masses, non-Protein, Water, SOL, non-Water, Ion, NA, CL, Water_and_ions.
+        input_structure_path (str): Path to the input structure file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr>`_. Accepted formats: tpr (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), brk (edam:format_2033), ent (edam:format_1476).
+        input_traj_path (str): Path to the GROMACS trajectory file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr>`_. Accepted formats: xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), tng (edam:format_3876).
+        input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx (edam:format_2033).
+        output_pdb_path (str): Path to the output cluster file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_cluster.pdb>`_. Accepted formats: xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), tng (edam:format_3876).
+        properties (dic - Python dictionary object containing the tool parameters, not input/output files):
+            * **fit_selection** (*str*) - ("System") Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (Cα atoms), Backbone (protein backbone atoms: N; Cα and C), MainChain (protein main chain atoms: N; Cα; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including Cβ), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; Cα; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups).
+            * **output_selection** (*str*) - ("System") Group that is going to be written in the output trajectory. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (Cα atoms), Backbone (protein backbone atoms: N; Cα and C), MainChain (protein main chain atoms: N; Cα; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including Cβ), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; Cα; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups).
             * **dista** (*bool*) - (False) Use RMSD of distances instead of RMS deviation.
-            * **method** (*str*) - ("linkage") Method for cluster determination. Values: linkage, jarvis-patrick, monte-carlo, diagonalization, gromos.
-            * **cutoff** (*float*) - (0.1) RMSD cut-off (nm) for two structures to be neighbor.
+            * **method** (*str*) - ("linkage") Method for cluster determination. Values: linkage (Add a structure to a cluster when its distance to any element of the cluster is less than cutoff), jarvis-patrick (Add a structure to a cluster when this structure and a structure in the cluster have each other as neighbors and they have a least P neighbors in common), monte-carlo (Reorder the RMSD matrix using Monte Carlo such that the order of the frames is using the smallest possible increments), diagonalization (Diagonalize the RMSD matrix), gromos (Count number of neighbors using cut-off and take structure with largest number of neighbors with all its neighbors as cluster and eliminate it from the pool of clusters).
+            * **cutoff** (*float*) - (0.1) [0~10|0.1] RMSD cut-off (nm) for two structures to be neighbor.
             * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -33,6 +35,16 @@ class GMXCluster():
             * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
+
+    Info:
+        * wrapped_software:
+            * name: GROMACS cluster
+            * version: >=2019.1
+            * license: LGPL 2.1
+        * ontology:
+            * name: EDAM
+            * schema: http://edamontology.org/EDAM.owl
+
     """
 
     def __init__(self, input_structure_path, input_traj_path, 

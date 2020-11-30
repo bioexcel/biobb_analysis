@@ -347,13 +347,11 @@ cpptraj_convert:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.convert.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
 
 cpptraj_convert_docker:
   paths:
@@ -362,13 +360,11 @@ cpptraj_convert_docker:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.convert.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -380,13 +376,11 @@ cpptraj_convert_singularity:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.convert.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -400,7 +394,7 @@ cpptraj_average:
   properties:
     start: 1
     end: -1
-    in_step: 1
+    steps: 1
     mask: c-alpha
     format: pdb
 
@@ -411,13 +405,11 @@ cpptraj_average_docker:
     output_cpptraj_path: output.pdb
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.average.container.pdb
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: pdb
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: pdb
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -429,13 +421,11 @@ cpptraj_average_singularity:
     output_cpptraj_path: output.pdb
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.average.container.pdb
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: pdb
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: pdb
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -447,13 +437,11 @@ cpptraj_dry:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.dry.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
 
 cpptraj_dry_docker:
   paths:
@@ -462,13 +450,11 @@ cpptraj_dry_docker:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.dry.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -480,13 +466,11 @@ cpptraj_dry_singularity:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.dry.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -498,13 +482,11 @@ cpptraj_image:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.image.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
 
 cpptraj_image_docker:
   paths:
@@ -513,13 +495,11 @@ cpptraj_image_docker:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.image.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -531,13 +511,11 @@ cpptraj_image_singularity:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.image.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -549,13 +527,11 @@ cpptraj_mask:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.mask.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
 
 cpptraj_mask_docker:
   paths:
@@ -564,13 +540,11 @@ cpptraj_mask_docker:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.mask.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -582,13 +556,11 @@ cpptraj_mask_singularity:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.mask.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -600,13 +572,11 @@ cpptraj_slice:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.slice.netcdf
   properties:
-    in_parameters:
-      start: 2
-      end: 20
-      step: 2
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 2
+    end: 20
+    steps: 2
+    mask: c-alpha
+    format: netcdf
 
 cpptraj_slice_docker:
   paths:
@@ -615,13 +585,11 @@ cpptraj_slice_docker:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.slice.container.netcdf
   properties:
-    in_parameters:
-      start: 2
-      end: 20
-      step: 2
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 2
+    end: 20
+    steps: 2
+    mask: c-alpha
+    format: netcdf
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -633,13 +601,11 @@ cpptraj_slice_singularity:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.slice.container.netcdf
   properties:
-    in_parameters:
-      start: 2
-      end: 20
-      step: 2
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 2
+    end: 20
+    steps: 2
+    mask: c-alpha
+    format: netcdf
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -651,11 +617,9 @@ cpptraj_snapshot:
     output_cpptraj_path: output.pdb
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.snapshot.pdb
   properties:
-    in_parameters:
-      snapshot: 12
-      mask: c-alpha
-    out_parameters:
-      format: pdb
+    snapshot: 12
+    mask: c-alpha
+    format: pdb
 
 cpptraj_snapshot_docker:
   paths:
@@ -664,11 +628,9 @@ cpptraj_snapshot_docker:
     output_cpptraj_path: output.pdb
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.snapshot.container.pdb
   properties:
-    in_parameters:
-      snapshot: 12
-      mask: c-alpha
-    out_parameters:
-      format: pdb
+    snapshot: 12
+    mask: c-alpha
+    format: pdb
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -680,11 +642,9 @@ cpptraj_snapshot_singularity:
     output_cpptraj_path: output.pdb
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.snapshot.container.pdb
   properties:
-    in_parameters:
-      snapshot: 12
-      mask: c-alpha
-    out_parameters:
-      format: pdb
+    snapshot: 12
+    mask: c-alpha
+    format: pdb
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -696,13 +656,11 @@ cpptraj_strip:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.strip.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
 
 cpptraj_strip_docker:
   paths:
@@ -711,13 +669,11 @@ cpptraj_strip_docker:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.strip.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -729,13 +685,11 @@ cpptraj_strip_singularity:
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.strip.container.netcdf
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-    out_parameters:
-      format: netcdf
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    format: netcdf
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -747,11 +701,10 @@ cpptraj_rgyr:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rgyr.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
 
 cpptraj_rgyr_docker:
   paths:
@@ -760,11 +713,10 @@ cpptraj_rgyr_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rgyr.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -776,11 +728,10 @@ cpptraj_rgyr_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rgyr.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -792,12 +743,11 @@ cpptraj_rms_first:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
 
 cpptraj_rms_first_docker:
   paths:
@@ -806,12 +756,11 @@ cpptraj_rms_first_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -823,12 +772,11 @@ cpptraj_rms_first_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -840,12 +788,11 @@ cpptraj_rms_average:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
 
 cpptraj_rms_average_docker:
   paths:
@@ -854,12 +801,11 @@ cpptraj_rms_average_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -871,12 +817,11 @@ cpptraj_rms_average_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -889,12 +834,11 @@ cpptraj_rms_experimental:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
 
 cpptraj_rms_experimental_docker:
   paths:
@@ -904,15 +848,14 @@ cpptraj_rms_experimental_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
-  container_path: docker
-  container_image: afandiadib/ambertools:serial
-  container_volume_path: /tmp
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
+    container_path: docker
+    container_image: afandiadib/ambertools:serial
+    container_volume_path: /tmp
 
 cpptraj_rms_experimental_singularity:
   paths:
@@ -922,15 +865,14 @@ cpptraj_rms_experimental_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
-  container_path: singularity
-  container_image: shub://bioexcel/ambertools_singularity
-  container_volume_path: /tmp
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
+    container_path: singularity
+    container_image: shub://bioexcel/ambertools_singularity
+    container_volume_path: /tmp
 
 cpptraj_rmsf_first:
   paths:
@@ -939,12 +881,11 @@ cpptraj_rmsf_first:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.first.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
 
 cpptraj_rmsf_first_docker:
   paths:
@@ -953,12 +894,11 @@ cpptraj_rmsf_first_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.first.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -970,12 +910,11 @@ cpptraj_rmsf_first_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.first.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -987,12 +926,11 @@ cpptraj_rmsf_average:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.average.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
 
 cpptraj_rmsf_average_docker:
   paths:
@@ -1001,12 +939,11 @@ cpptraj_rmsf_average_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.average.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -1018,12 +955,11 @@ cpptraj_rmsf_average_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.average.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -1036,12 +972,11 @@ cpptraj_rmsf_experimental:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.experimental.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
 
 cpptraj_rmsf_experimental_docker:
   paths:
@@ -1051,12 +986,11 @@ cpptraj_rmsf_experimental_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.experimental.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -1069,12 +1003,11 @@ cpptraj_rmsf_experimental_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.experimental.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -1086,12 +1019,11 @@ cpptraj_bfactor_first:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.first.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
 
 cpptraj_bfactor_first_docker:
   paths:
@@ -1100,12 +1032,11 @@ cpptraj_bfactor_first_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.first.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -1117,12 +1048,11 @@ cpptraj_bfactor_first_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.first.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: first
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -1134,12 +1064,11 @@ cpptraj_bfactor_average:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.average.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
 
 cpptraj_bfactor_average_docker:
   paths:
@@ -1148,12 +1077,11 @@ cpptraj_bfactor_average_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.average.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -1165,12 +1093,11 @@ cpptraj_bfactor_average_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.average.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: average
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: average
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
@@ -1183,12 +1110,11 @@ cpptraj_bfactor_experimental:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.experimental.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
 
 cpptraj_bfactor_experimental_docker:
   paths:
@@ -1198,12 +1124,11 @@ cpptraj_bfactor_experimental_docker:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.experimental.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
     container_path: docker
     container_image: afandiadib/ambertools:serial
     container_volume_path: /tmp
@@ -1216,12 +1141,11 @@ cpptraj_bfactor_experimental_singularity:
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.experimental.container.dat
   properties:
-    in_parameters:
-      start: 1
-      end: -1
-      step: 1
-      mask: c-alpha
-      reference: experimental
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: experimental
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp

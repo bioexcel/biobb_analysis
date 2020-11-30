@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/cpptraj_average",
-    "name": "biobb_analysis CpptrajAverage",
-    "title": "Wrapper of the Ambertools Cpptraj module for calculating a structure average of a given cpptraj compatible trajectory.",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/cpptraj_bfactor",
+    "name": "biobb_analysis CpptrajBfactor",
+    "title": "Wrapper of the Ambertools Cpptraj module for calculating the Bfactor fluctuations of a given cpptraj compatible trajectory.",
     "description": "Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files. The parameter names and defaults are the same as the ones in the official Cpptraj manual.",
     "type": "object",
     "info": {
@@ -192,78 +192,52 @@
                 }
             ]
         },
-        "output_cpptraj_path": {
+        "input_exp_path": {
             "type": "string",
-            "description": "Path to the output processed structure",
-            "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.average.pdb",
+            "description": "Path to the experimental reference file (required if reference = experimental)",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/experimental.1e5t.pdb",
             "enum": [
-                ".*\\.crd$",
-                ".*\\.netcdf$",
-                ".*\\.rst7$",
-                ".*\\.ncrst$",
-                ".*\\.dcd$",
-                ".*\\.pdb$",
-                ".*\\.mol2$",
-                ".*\\.binpos$",
-                ".*\\.trr$",
-                ".*\\.xtc$",
-                ".*\\.sqm$"
+                ".*\\.pdb$"
             ],
             "file_formats": [
                 {
-                    "extension": ".*\\.crd$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_3878"
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the experimental reference file (required if reference = experimental)",
+                    "edam": "format_1476"
+                }
+            ]
+        },
+        "output_cpptraj_path": {
+            "type": "string",
+            "description": "Path to the output processed analysis",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.bfactor.first.dat",
+            "enum": [
+                ".*\\.dat$",
+                ".*\\.agr$",
+                ".*\\.xmgr$",
+                ".*\\.gnu$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.dat$",
+                    "description": "Path to the output processed analysis",
+                    "edam": "format_1637"
                 },
                 {
-                    "extension": ".*\\.netcdf$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_3650"
-                },
-                {
-                    "extension": ".*\\.rst7$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_3886"
-                },
-                {
-                    "extension": ".*\\.ncrst$",
-                    "description": "Path to the output processed structure",
+                    "extension": ".*\\.agr$",
+                    "description": "Path to the output processed analysis",
                     "edam": "format_2033"
                 },
                 {
-                    "extension": ".*\\.dcd$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_3878"
+                    "extension": ".*\\.xmgr$",
+                    "description": "Path to the output processed analysis",
+                    "edam": "format_2033"
                 },
                 {
-                    "extension": ".*\\.pdb$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_1476"
-                },
-                {
-                    "extension": ".*\\.mol2$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_3816"
-                },
-                {
-                    "extension": ".*\\.binpos$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_3885"
-                },
-                {
-                    "extension": ".*\\.trr$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_3910"
-                },
-                {
-                    "extension": ".*\\.xtc$",
-                    "description": "Path to the output processed structure",
-                    "edam": "format_3875"
-                },
-                {
-                    "extension": ".*\\.sqm$",
-                    "description": "Path to the output processed structure",
+                    "extension": ".*\\.gnu$",
+                    "description": "Path to the output processed analysis",
                     "edam": "format_2033"
                 }
             ]
@@ -275,7 +249,7 @@
                     "type": "integer",
                     "default": 1,
                     "wf_prop": false,
-                    "description": "Starting frame for slicing.",
+                    "description": "Starting frame for slicing",
                     "min": 1,
                     "max": 100000,
                     "step": 1
@@ -284,7 +258,7 @@
                     "type": "integer",
                     "default": -1,
                     "wf_prop": false,
-                    "description": "Ending frame for slicing.",
+                    "description": "Ending frame for slicing",
                     "min": -1,
                     "max": 100000,
                     "step": 1
@@ -293,7 +267,7 @@
                     "type": "integer",
                     "default": 1,
                     "wf_prop": false,
-                    "description": "Step for slicing.",
+                    "description": "Step for slicing",
                     "min": 1,
                     "max": 100000,
                     "step": 1
@@ -348,113 +322,28 @@
                         }
                     ]
                 },
-                "format": {
+                "reference": {
                     "type": "string",
-                    "default": "netcdf",
+                    "default": "first",
                     "wf_prop": false,
-                    "description": "Output trajectory format. ",
+                    "description": "Reference definition. ",
                     "enum": [
-                        "crd",
-                        "cdf",
-                        "netcdf",
-                        "restart",
-                        "ncrestart",
-                        "restartnc",
-                        "dcd",
-                        "charmm",
-                        "cor",
-                        "pdb",
-                        "mol2",
-                        "trr",
-                        "gro",
-                        "binpos",
-                        "xtc",
-                        "cif",
-                        "arc",
-                        "sqm",
-                        "sdf",
-                        "conflib"
+                        "first",
+                        "average",
+                        "experimental"
                     ],
                     "property_formats": [
                         {
-                            "name": "crd",
-                            "description": "AMBER trajectory format"
+                            "name": "first",
+                            "description": "Use the first trajectory frame as reference"
                         },
                         {
-                            "name": "cdf",
-                            "description": "Format used by netCDF software library for writing and reading chromatography-MS data files"
+                            "name": "average",
+                            "description": "Use the average of all trajectory frames as reference"
                         },
                         {
-                            "name": "netcdf",
-                            "description": "Format used by netCDF software library for writing and reading chromatography-MS data files"
-                        },
-                        {
-                            "name": "restart",
-                            "description": "AMBER coordinate/restart file with 6 coordinates per line"
-                        },
-                        {
-                            "name": "ncrestart",
-                            "description": "AMBER coordinate/restart file with 6 coordinates per line"
-                        },
-                        {
-                            "name": "restartnc",
-                            "description": "AMBER coordinate/restart file with 6 coordinates per line"
-                        },
-                        {
-                            "name": "dcd",
-                            "description": "AMBER trajectory format"
-                        },
-                        {
-                            "name": "charmm",
-                            "description": "Format of CHARMM Residue Topology Files (RTF)"
-                        },
-                        {
-                            "name": "cor",
-                            "description": "Charmm COR"
-                        },
-                        {
-                            "name": "pdb",
-                            "description": "Protein Data Bank format"
-                        },
-                        {
-                            "name": "mol2",
-                            "description": "Complete and portable representation of a SYBYL molecule"
-                        },
-                        {
-                            "name": "trr",
-                            "description": "Trajectory of a simulation experiment used by GROMACS"
-                        },
-                        {
-                            "name": "gro",
-                            "description": "GROMACS structure"
-                        },
-                        {
-                            "name": "binpos",
-                            "description": "Translation of the ASCII atom coordinate format to binary code"
-                        },
-                        {
-                            "name": "xtc",
-                            "description": "Portable binary format for trajectories produced by GROMACS package"
-                        },
-                        {
-                            "name": "cif",
-                            "description": "Entry format of PDB database in mmCIF format"
-                        },
-                        {
-                            "name": "arc",
-                            "description": "Tinker ARC"
-                        },
-                        {
-                            "name": "sqm",
-                            "description": "SQM Input"
-                        },
-                        {
-                            "name": "sdf",
-                            "description": "One of a family of chemical-data file formats developed by MDL Information Systems"
-                        },
-                        {
-                            "name": "conflib",
-                            "description": "LMOD Conflib"
+                            "name": "experimental",
+                            "description": "Use the experimental structure as reference"
                         }
                     ]
                 },

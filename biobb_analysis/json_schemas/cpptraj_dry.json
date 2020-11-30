@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/cpptraj_average",
-    "name": "biobb_analysis CpptrajAverage",
-    "title": "Wrapper of the Ambertools Cpptraj module for calculating a structure average of a given cpptraj compatible trajectory.",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/cpptraj_dry",
+    "name": "biobb_analysis CpptrajDry",
+    "title": "Wrapper of the Ambertools Cpptraj module for dehydrating a given cpptraj compatible trajectory stripping out solvent molecules and ions.",
     "description": "Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files. The parameter names and defaults are the same as the ones in the official Cpptraj manual.",
     "type": "object",
     "info": {
@@ -194,9 +194,9 @@
         },
         "output_cpptraj_path": {
             "type": "string",
-            "description": "Path to the output processed structure",
+            "description": "Path to the output processed trajectory",
             "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.average.pdb",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.dry.netcdf",
             "enum": [
                 ".*\\.crd$",
                 ".*\\.netcdf$",
@@ -213,57 +213,57 @@
             "file_formats": [
                 {
                     "extension": ".*\\.crd$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_3878"
                 },
                 {
                     "extension": ".*\\.netcdf$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_3650"
                 },
                 {
                     "extension": ".*\\.rst7$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_3886"
                 },
                 {
                     "extension": ".*\\.ncrst$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.dcd$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_3878"
                 },
                 {
                     "extension": ".*\\.pdb$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_1476"
                 },
                 {
                     "extension": ".*\\.mol2$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_3816"
                 },
                 {
                     "extension": ".*\\.binpos$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_3885"
                 },
                 {
                     "extension": ".*\\.trr$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_3910"
                 },
                 {
                     "extension": ".*\\.xtc$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_3875"
                 },
                 {
                     "extension": ".*\\.sqm$",
-                    "description": "Path to the output processed structure",
+                    "description": "Path to the output processed trajectory",
                     "edam": "format_2033"
                 }
             ]

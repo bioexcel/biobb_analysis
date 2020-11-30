@@ -1,0 +1,346 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/gmx_rms",
+    "name": "biobb_analysis GMXCluster",
+    "title": "Wrapper of the GROMACS rms module for performing a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.",
+    "description": "GROMACS rms compares two structures by computing the root mean square deviation (RMSD), the size-independent rho similarity parameter (rho) or the scaled rho (rhosc).",
+    "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "GROMACS rms",
+            "version": ">=2019.1",
+            "license": "LGPL 2.1"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
+    "required": [
+        "input_structure_path",
+        "input_traj_path",
+        "output_xvg_path"
+    ],
+    "properties": {
+        "input_structure_path": {
+            "type": "string",
+            "description": "Path to the input structure file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr",
+            "enum": [
+                ".*\\.tpr$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.brk$",
+                ".*\\.ent$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the input structure file",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the input structure file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.g96$",
+                    "description": "Path to the input structure file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the input structure file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.brk$",
+                    "description": "Path to the input structure file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.ent$",
+                    "description": "Path to the input structure file",
+                    "edam": "format_1476"
+                }
+            ]
+        },
+        "input_traj_path": {
+            "type": "string",
+            "description": "Path to the GROMACS trajectory file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr",
+            "enum": [
+                ".*\\.xtc$",
+                ".*\\.trr$",
+                ".*\\.cpt$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.tng$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.xtc$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3875"
+                },
+                {
+                    "extension": ".*\\.trr$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3910"
+                },
+                {
+                    "extension": ".*\\.cpt$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.g96$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.tng$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3876"
+                }
+            ]
+        },
+        "input_index_path": {
+            "type": "string",
+            "description": "Path to the GROMACS index file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx",
+            "enum": [
+                ".*\\.ndx$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.ndx$",
+                    "description": "Path to the GROMACS index file",
+                    "edam": "format_2033"
+                }
+            ]
+        },
+        "output_xvg_path": {
+            "type": "string",
+            "description": "Path to the XVG output file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_rms.xvg",
+            "enum": [
+                ".*\\.xvg$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.xvg$",
+                    "description": "Path to the XVG output file",
+                    "edam": "format_2033"
+                }
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "xvg": {
+                    "type": "string",
+                    "default": "none",
+                    "wf_prop": false,
+                    "description": "XVG plot formatting. ",
+                    "enum": [
+                        "xmgrace",
+                        "xmgr",
+                        "none"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "xmgrace",
+                            "description": null
+                        },
+                        {
+                            "name": "xmgr",
+                            "description": null
+                        },
+                        {
+                            "name": "none",
+                            "description": null
+                        }
+                    ]
+                },
+                "selection": {
+                    "type": "string",
+                    "default": "System",
+                    "wf_prop": false,
+                    "description": "Group where the rms will be performed. If **input_index_path** provided, check the file for the accepted values. ",
+                    "enum": [
+                        "System",
+                        "Protein",
+                        "Protein-H",
+                        "C-alpha",
+                        "Backbone",
+                        "MainChain",
+                        "MainChain+Cb",
+                        "MainChain+H",
+                        "SideChain",
+                        "SideChain-H",
+                        "Prot-Masses",
+                        "non-Protein",
+                        "Water",
+                        "SOL",
+                        "non-Water",
+                        "Ion",
+                        "NA",
+                        "CL",
+                        "Water_and_ions"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "System",
+                            "description": "all atoms in the system"
+                        },
+                        {
+                            "name": "Protein",
+                            "description": "all protein atoms"
+                        },
+                        {
+                            "name": "Protein-H",
+                            "description": "protein atoms excluding hydrogens"
+                        },
+                        {
+                            "name": "C-alpha",
+                            "description": "C\u03b1 atoms"
+                        },
+                        {
+                            "name": "Backbone",
+                            "description": "protein backbone atoms: N; C\u03b1 and C"
+                        },
+                        {
+                            "name": "MainChain",
+                            "description": "protein main chain atoms: N; C\u03b1; C and O; including oxygens in C-terminus"
+                        },
+                        {
+                            "name": "MainChain+Cb",
+                            "description": "protein main chain atoms including C\u03b2"
+                        },
+                        {
+                            "name": "MainChain+H",
+                            "description": "protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus"
+                        },
+                        {
+                            "name": "SideChain",
+                            "description": "protein side chain atoms: that is all atoms except N; C\u03b1; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus"
+                        },
+                        {
+                            "name": "SideChain-H",
+                            "description": "protein side chain atoms excluding all hydrogens"
+                        },
+                        {
+                            "name": "Prot-Masses",
+                            "description": "protein atoms excluding dummy masses"
+                        },
+                        {
+                            "name": "non-Protein",
+                            "description": "all non-protein atoms"
+                        },
+                        {
+                            "name": "Water",
+                            "description": "water molecules"
+                        },
+                        {
+                            "name": "SOL",
+                            "description": "water molecules"
+                        },
+                        {
+                            "name": "non-Water",
+                            "description": "anything not covered by the Water group"
+                        },
+                        {
+                            "name": "Ion",
+                            "description": "any name matching an Ion entry in residuetypes.dat"
+                        },
+                        {
+                            "name": "NA",
+                            "description": "all NA atoms"
+                        },
+                        {
+                            "name": "CL",
+                            "description": "all CL atoms"
+                        },
+                        {
+                            "name": "Water_and_ions",
+                            "description": "combination of the Water and Ions groups"
+                        }
+                    ]
+                },
+                "gmx_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "wf_prop": false,
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": true,
+                    "description": "Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": true,
+                    "description": "Do not execute if output files exist."
+                },
+                "container_path": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container path definition."
+                },
+                "container_image": {
+                    "type": "string",
+                    "default": "gromacs/gromacs:latest",
+                    "wf_prop": false,
+                    "description": "Container image definition."
+                },
+                "container_volume_path": {
+                    "type": "string",
+                    "default": "/tmp",
+                    "wf_prop": false,
+                    "description": "Container volume path definition."
+                },
+                "container_working_dir": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container working directory definition."
+                },
+                "container_user_id": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container user_id definition."
+                },
+                "container_shell_path": {
+                    "type": "string",
+                    "default": "/bin/bash",
+                    "wf_prop": false,
+                    "description": "Path to default shell inside the container."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}
