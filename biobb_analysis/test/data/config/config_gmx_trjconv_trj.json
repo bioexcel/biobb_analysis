@@ -1,8 +1,8 @@
 {
-    "properties": {
-        "selection": "System",
-        "start": 0,
-        "end": 0,
-        "dt": 0
-    }
+  "properties": {
+    "selection": "System",
+    "start": 0,
+    "end": 0,
+    "dt": 0
+  }
 }

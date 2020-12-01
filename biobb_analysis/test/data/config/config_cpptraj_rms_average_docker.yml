@@ -1,0 +1,9 @@
+properties:
+  container_image: afandiadib/ambertools:serial
+  container_path: docker
+  container_volume_path: /tmp
+  end: -1
+  mask: c-alpha
+  reference: average
+  start: 1
+  steps: 1

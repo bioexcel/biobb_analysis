@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "singularity",
+    "container_image": "shub://michael-tn/gromacs",
+    "container_volume_path": "/tmp"
+  }
+}

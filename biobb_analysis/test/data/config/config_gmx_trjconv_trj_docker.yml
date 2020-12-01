@@ -1,0 +1,8 @@
+properties:
+  container_image: gromacs/gromacs:latest
+  container_path: docker
+  container_volume_path: /tmp
+  dt: 0
+  end: 0
+  selection: System
+  start: 0

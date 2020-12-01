@@ -1,0 +1,14 @@
+{
+  "properties": {
+    "fit_selection": "System",
+    "center_selection": "System",
+    "output_selection": "System",
+    "pbc": "mol",
+    "center": true,
+    "fit": "rot+trans",
+    "ur": "compact",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}

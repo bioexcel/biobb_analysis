@@ -1,0 +1,6 @@
+properties:
+  end: -1
+  format: netcdf
+  mask: c-alpha
+  start: 1
+  steps: 1

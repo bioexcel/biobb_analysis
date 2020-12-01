@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "snapshot": 12,
+    "mask": "c-alpha",
+    "format": "pdb",
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}

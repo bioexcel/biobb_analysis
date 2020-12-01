@@ -1,0 +1,9 @@
+properties:
+  container_image: shub://bioexcel/ambertools_singularity
+  container_path: singularity
+  container_volume_path: /tmp
+  end: -1
+  mask: c-alpha
+  reference: experimental
+  start: 1
+  steps: 1

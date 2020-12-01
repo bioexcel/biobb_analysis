@@ -1,0 +1,9 @@
+properties:
+  container_image: shub://bioexcel/ambertools_singularity
+  container_path: singularity
+  container_volume_path: /tmp
+  end: 20
+  format: netcdf
+  mask: c-alpha
+  start: 2
+  steps: 2

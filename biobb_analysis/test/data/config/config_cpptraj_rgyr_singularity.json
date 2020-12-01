@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "start": 1,
+    "end": -1,
+    "steps": 1,
+    "mask": "c-alpha",
+    "container_path": "singularity",
+    "container_image": "shub://bioexcel/ambertools_singularity",
+    "container_volume_path": "/tmp"
+  }
+}

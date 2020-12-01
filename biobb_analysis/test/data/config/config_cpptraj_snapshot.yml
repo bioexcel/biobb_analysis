@@ -1,0 +1,4 @@
+properties:
+  format: pdb
+  mask: c-alpha
+  snapshot: 12

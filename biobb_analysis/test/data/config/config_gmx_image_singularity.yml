@@ -1,0 +1,11 @@
+properties:
+  center: true
+  center_selection: System
+  container_image: shub://michael-tn/gromacs
+  container_path: singularity
+  container_volume_path: /tmp
+  fit: rot+trans
+  fit_selection: System
+  output_selection: System
+  pbc: mol
+  ur: compact

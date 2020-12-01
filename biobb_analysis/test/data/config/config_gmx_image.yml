@@ -1,0 +1,8 @@
+properties:
+  center: true
+  center_selection: System
+  fit: rot+trans
+  fit_selection: System
+  output_selection: System
+  pbc: mol
+  ur: compact

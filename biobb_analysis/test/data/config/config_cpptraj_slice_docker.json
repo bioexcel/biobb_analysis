@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "start": 2,
+    "end": 20,
+    "steps": 2,
+    "mask": "c-alpha",
+    "format": "netcdf",
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}

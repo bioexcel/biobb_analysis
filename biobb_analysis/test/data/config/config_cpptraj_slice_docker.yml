@@ -1,0 +1,9 @@
+properties:
+  container_image: afandiadib/ambertools:serial
+  container_path: docker
+  container_volume_path: /tmp
+  end: 20
+  format: netcdf
+  mask: c-alpha
+  start: 2
+  steps: 2

@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "selection": "System",
+    "start": 0,
+    "end": 10,
+    "dt": 1,
+    "output_name": "output",
+    "output_type": "pdb",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}

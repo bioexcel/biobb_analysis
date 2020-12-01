@@ -1,0 +1,5 @@
+properties:
+  container_image: shub://michael-tn/gromacs
+  container_path: singularity
+  container_volume_path: /tmp
+  selection: System

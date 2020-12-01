@@ -1,9 +1,9 @@
 {
-    "properties": {
-        "fit_selection": "System",
-        "output_selection": "System",
-        "dista": false,
-        "method": "linkage",
-        "cutoff": 0.1
-    }
+  "properties": {
+    "fit_selection": "System",
+    "output_selection": "System",
+    "dista": false,
+    "method": "linkage",
+    "cutoff": 0.1
+  }
 }

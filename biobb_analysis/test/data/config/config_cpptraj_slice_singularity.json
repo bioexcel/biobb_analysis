@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "start": 2,
+    "end": 20,
+    "steps": 2,
+    "mask": "c-alpha",
+    "format": "netcdf",
+    "container_path": "singularity",
+    "container_image": "shub://bioexcel/ambertools_singularity",
+    "container_volume_path": "/tmp"
+  }
+}

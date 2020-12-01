@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "fit_selection": "System",
+    "output_selection": "System",
+    "dista": false,
+    "method": "linkage",
+    "cutoff": 0.1,
+    "container_path": "singularity",
+    "container_image": "shub://michael-tn/gromacs",
+    "container_volume_path": "/tmp"
+  }
+}

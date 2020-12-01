@@ -339,6 +339,8 @@ cpptraj_input:
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.netcdf
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.in.netcdf
+  properties:
+    remove_tmp: True
 
 cpptraj_convert:
   paths:
@@ -736,6 +738,19 @@ cpptraj_rgyr_singularity:
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
+cpptraj_rms:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.dat
+  properties:
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
+
 cpptraj_rms_first:
   paths:
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
@@ -874,6 +889,19 @@ cpptraj_rms_experimental_singularity:
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
 
+cpptraj_rmsf:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rmsf.first.dat
+  properties:
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
+
 cpptraj_rmsf_first:
   paths:
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
@@ -1011,6 +1039,19 @@ cpptraj_rmsf_experimental_singularity:
     container_path: singularity
     container_image: shub://bioexcel/ambertools_singularity
     container_volume_path: /tmp
+
+cpptraj_bfactor:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.bfactor.first.dat
+  properties:
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    reference: first
 
 cpptraj_bfactor_first:
   paths:

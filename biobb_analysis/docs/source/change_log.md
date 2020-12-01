@@ -1,5 +1,16 @@
 # Biobb Analysis changelog
 
+## What's new in version [3.0.3](https://github.com/bioexcel/biobb_analysis/releases/tag/v3.0.3)?
+In version 3.0.3 there have been implemented the new version of docstrings, therefore the JSON Schemas have been modified.
+
+### New features
+
+* New extended and improved JSON schemas (Galaxy and CWL-compliant)
+
+### Other changes
+
+* New docstrings
+
 ## What's new in version [3.0.2](https://github.com/bioexcel/biobb_analysis/releases/tag/v3.0.2)?
 In version 3.0.2 the dependency biobb_common has been updated to 3.0.1 version.
 

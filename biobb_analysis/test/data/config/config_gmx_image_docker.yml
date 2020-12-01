@@ -1,0 +1,11 @@
+properties:
+  center: true
+  center_selection: System
+  container_image: gromacs/gromacs:latest
+  container_path: docker
+  container_volume_path: /tmp
+  fit: rot+trans
+  fit_selection: System
+  output_selection: System
+  pbc: mol
+  ur: compact

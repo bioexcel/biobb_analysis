@@ -1,13 +1,9 @@
 {
-    "properties": {
-        "in_parameters": {
-            "start": 2,
-            "end": 20,
-            "step": 2,
-            "mask": "c-alpha"
-        },
-        "out_parameters": {
-            "format": "netcdf"
-        }
-    }
+  "properties": {
+    "start": 2,
+    "end": 20,
+    "steps": 2,
+    "mask": "c-alpha",
+    "format": "netcdf"
+  }
 }

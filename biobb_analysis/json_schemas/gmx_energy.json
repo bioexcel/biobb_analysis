@@ -92,8 +92,8 @@
                         "Improper-Dih.",
                         "LJ-14",
                         "Coulomb-14",
-                        "LJ-",
-                        "Coulomb-",
+                        "LJ-****SR++++",
+                        "Coulomb-****SR++++",
                         "Coul.-recip.",
                         "Position-Rest.",
                         "Potential",
@@ -101,10 +101,10 @@
                         "Total-Energy",
                         "Temperature",
                         "Pressure",
-                        " Constr.-rmsd",
+                        "Constr.-rmsd",
                         "Box-X",
                         "Box-Y",
-                        " Box-Z",
+                        "Box-Z",
                         "Volume",
                         "Density",
                         "pV",
@@ -123,11 +123,11 @@
                         "Pres-XZ",
                         "Pres-YX",
                         "Pres-YY",
-                        " Pres-YZ",
+                        "Pres-YZ",
                         "Pres-ZX",
                         "Pres-ZY",
                         "Pres-ZZ",
-                        "Surf",
+                        "#Surf*SurfTen",
                         "Box-Vel-XX",
                         "Box-Vel-YY",
                         "Box-Vel-ZZ",
@@ -161,12 +161,12 @@
                             "description": null
                         },
                         {
-                            "name": "LJ-",
-                            "description": "SR"
+                            "name": "LJ-(SR)",
+                            "description": null
                         },
                         {
-                            "name": "Coulomb-",
-                            "description": "SR"
+                            "name": "Coulomb-(SR)",
+                            "description": null
                         },
                         {
                             "name": "Coul.-recip.",
@@ -197,7 +197,7 @@
                             "description": null
                         },
                         {
-                            "name": " Constr.-rmsd",
+                            "name": "Constr.-rmsd",
                             "description": null
                         },
                         {
@@ -209,7 +209,7 @@
                             "description": null
                         },
                         {
-                            "name": " Box-Z",
+                            "name": "Box-Z",
                             "description": null
                         },
                         {
@@ -285,7 +285,7 @@
                             "description": null
                         },
                         {
-                            "name": " Pres-YZ",
+                            "name": "Pres-YZ",
                             "description": null
                         },
                         {
@@ -301,7 +301,7 @@
                             "description": null
                         },
                         {
-                            "name": "Surf",
+                            "name": "#Surf*SurfTen",
                             "description": null
                         },
                         {

@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:latest",
+    "container_volume_path": "/tmp"
+  }
+}

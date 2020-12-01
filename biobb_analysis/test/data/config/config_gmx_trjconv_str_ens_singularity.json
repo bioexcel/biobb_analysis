@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "selection": "System",
+    "start": 0,
+    "end": 10,
+    "dt": 1,
+    "output_name": "output",
+    "output_type": "pdb",
+    "container_path": "singularity",
+    "container_image": "shub://michael-tn/gromacs",
+    "container_volume_path": "/tmp"
+  }
+}

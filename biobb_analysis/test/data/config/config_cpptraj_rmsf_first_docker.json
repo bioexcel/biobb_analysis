@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "start": 1,
+    "end": -1,
+    "steps": 1,
+    "mask": "c-alpha",
+    "reference": "first",
+    "container_path": "docker",
+    "container_image": "afandiadib/ambertools:serial",
+    "container_volume_path": "/tmp"
+  }
+}

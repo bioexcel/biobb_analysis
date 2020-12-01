@@ -1,0 +1,9 @@
+properties:
+  container_image: gromacs/gromacs:latest
+  container_path: docker
+  container_volume_path: /tmp
+  cutoff: 0.1
+  dista: false
+  fit_selection: System
+  method: linkage
+  output_selection: System

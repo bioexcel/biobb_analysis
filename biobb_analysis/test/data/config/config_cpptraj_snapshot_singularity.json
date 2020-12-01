@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "snapshot": 12,
+    "mask": "c-alpha",
+    "format": "pdb",
+    "container_path": "singularity",
+    "container_image": "shub://bioexcel/ambertools_singularity",
+    "container_volume_path": "/tmp"
+  }
+}

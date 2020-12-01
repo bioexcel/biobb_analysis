@@ -1,0 +1,10 @@
+properties:
+  container_image: shub://michael-tn/gromacs
+  container_path: singularity
+  container_volume_path: /tmp
+  dt: 1
+  end: 10
+  output_name: output
+  output_type: pdb
+  selection: System
+  start: 0
