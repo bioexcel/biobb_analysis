@@ -132,7 +132,16 @@ class CpptrajMask():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the Ambertools cpptraj module."""
+        """Launches the execution of the CpptrajMask module.
+
+        Examples:
+            This is a use example of how to use the CpptrajMask module from Python
+
+            >>> from biobb_analysis.ambertools.cpptraj_mask import CpptrajMask
+            >>> prop = { 'start': 1, 'end': -1, 'steps': 1, 'mask': 'c-alpha', 'format': 'netcdf' }
+            >>> CpptrajMask(input_top_path='/path/to/myTopology.top', input_traj_path='/path/to/myTrajectory.dcd', output_cpptraj_path='/path/to/newTrajectory.netcdf', properties=prop).launch()
+
+        """
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)

@@ -123,7 +123,16 @@ class CpptrajSnapshot():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the Ambertools cpptraj module."""
+        """Launches the execution of the CpptrajSnapshot module.
+
+        Examples:
+            This is a use example of how to use the CpptrajSnapshot module from Python
+
+            >>> from biobb_analysis.ambertools.cpptraj_snapshot import CpptrajSnapshot
+            >>> prop = { 'snapshot': 12, 'mask': 'c-alpha', 'format': 'pdb' }
+            >>> CpptrajSnapshot(input_top_path='/path/to/myTopology.top', input_traj_path='/path/to/myTrajectory.dcd', output_cpptraj_path='/path/to/newStructure.pdb', properties=prop).launch()
+
+        """
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)

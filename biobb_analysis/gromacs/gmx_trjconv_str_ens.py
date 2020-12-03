@@ -21,7 +21,7 @@ class GMXTrjConvStrEns:
         input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx (edam:format_2033).
         output_str_ens_path (str): Path to the output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.str.ens.zip>`_. Accepted formats: zip (edam:format_3987).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
-            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (Cα atoms), Backbone (protein backbone atoms: N; Cα and C), MainChain (protein main chain atoms: N; Cα; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including Cβ), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; Cα; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups).
+            * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (C-alpha atoms), Backbone (protein backbone atoms: N; C-alpha and C), MainChain (protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including C-beta), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups).
             * **skip** (*int*) - (1) [0~10000|1] Only write every nr-th frame.
             * **start** (*int*) - (0) [0~10000|1] Time of first frame to read from trajectory (default unit ps).
             * **end** (*int*) - (0) [0~10000|1] Time of last frame to read from trajectory (default unit ps).
@@ -101,7 +101,16 @@ class GMXTrjConvStrEns:
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the GROMACS rgyr module."""
+        """Launches the execution of the GMXTrjConvStrEns module.
+
+        Examples:
+            This is a use example of how to use the GMXTrjConvStrEns module from Python
+
+            >>> from biobb_analysis.gromacs.gmx_trjconv_str_ens import GMXTrjConvStrEns
+            >>> prop = { 'selection': 'System', 'start': 0, 'end': 10, 'dt': 1 }
+            >>> GMXTrjConvStrEns(input_traj_path='/path/to/myStructure.trr', input_top_path='/path/to/myTopology.tpr', input_index_path='/path/to/myIndex.ndx', output_str_ens_path='/path/to/newStructureEnsemble.zip', properties=prop).launch()
+
+        """
 
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)

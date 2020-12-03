@@ -69,7 +69,16 @@ class CpptrajInput():
         return output_instructions_path
 
     def launch(self) -> int:
-        """Launches the execution of the Ambertools cpptraj module."""
+        """Launches the execution of the CpptrajInput module.
+
+        Examples:
+            This is a use example of how to use the CpptrajInput module from Python
+
+            >>> from biobb_analysis.ambertools.cpptraj_input import CpptrajInput
+            >>> prop = { }
+            >>> CpptrajInput(input_top_path='/path/to/myTopology.top', input_traj_path='/path/to/myTrajectory.dcd', output_cpptraj_path='/path/to/newTrajectory.netcdf', properties=prop).launch()
+
+        """
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)

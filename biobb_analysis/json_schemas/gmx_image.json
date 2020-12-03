@@ -232,19 +232,19 @@
                         },
                         {
                             "name": "C-alpha",
-                            "description": "C\u03b1 atoms"
+                            "description": "C-alpha atoms"
                         },
                         {
                             "name": "Backbone",
-                            "description": "protein backbone atoms: N; C\u03b1 and C"
+                            "description": "protein backbone atoms: N; C-alpha and C"
                         },
                         {
                             "name": "MainChain",
-                            "description": "protein main chain atoms: N; C\u03b1; C and O; including oxygens in C-terminus"
+                            "description": "protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus"
                         },
                         {
                             "name": "MainChain+Cb",
-                            "description": "protein main chain atoms including C\u03b2"
+                            "description": "protein main chain atoms including C-beta"
                         },
                         {
                             "name": "MainChain+H",
@@ -252,7 +252,7 @@
                         },
                         {
                             "name": "SideChain",
-                            "description": "protein side chain atoms: that is all atoms except N; C\u03b1; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus"
+                            "description": "protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus"
                         },
                         {
                             "name": "SideChain-H",
@@ -337,19 +337,19 @@
                         },
                         {
                             "name": "C-alpha",
-                            "description": "C\u03b1 atoms"
+                            "description": "C-alpha atoms"
                         },
                         {
                             "name": "Backbone",
-                            "description": "protein backbone atoms: N; C\u03b1 and C"
+                            "description": "protein backbone atoms: N; C-alpha and C"
                         },
                         {
                             "name": "MainChain",
-                            "description": "protein main chain atoms: N; C\u03b1; C and O; including oxygens in C-terminus"
+                            "description": "protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus"
                         },
                         {
                             "name": "MainChain+Cb",
-                            "description": "protein main chain atoms including C\u03b2"
+                            "description": "protein main chain atoms including C-beta"
                         },
                         {
                             "name": "MainChain+H",
@@ -357,7 +357,7 @@
                         },
                         {
                             "name": "SideChain",
-                            "description": "protein side chain atoms: that is all atoms except N; C\u03b1; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus"
+                            "description": "protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus"
                         },
                         {
                             "name": "SideChain-H",
@@ -442,19 +442,19 @@
                         },
                         {
                             "name": "C-alpha",
-                            "description": "C\u03b1 atoms"
+                            "description": "C-alpha atoms"
                         },
                         {
                             "name": "Backbone",
-                            "description": "protein backbone atoms: N; C\u03b1 and C"
+                            "description": "protein backbone atoms: N; C-alpha and C"
                         },
                         {
                             "name": "MainChain",
-                            "description": "protein main chain atoms: N; C\u03b1; C and O; including oxygens in C-terminus"
+                            "description": "protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus"
                         },
                         {
                             "name": "MainChain+Cb",
-                            "description": "protein main chain atoms including C\u03b2"
+                            "description": "protein main chain atoms including C-beta"
                         },
                         {
                             "name": "MainChain+H",
@@ -462,7 +462,7 @@
                         },
                         {
                             "name": "SideChain",
-                            "description": "protein side chain atoms: that is all atoms except N; C\u03b1; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus"
+                            "description": "protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus"
                         },
                         {
                             "name": "SideChain-H",

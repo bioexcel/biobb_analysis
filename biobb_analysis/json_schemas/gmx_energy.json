@@ -33,7 +33,7 @@
                 {
                     "extension": ".*\\.edr$",
                     "description": "Path to the input EDR file",
-                    "edam": "format_2333"
+                    "edam": "format_2330"
                 }
             ]
         },
@@ -49,7 +49,7 @@
                 {
                     "extension": ".*\\.xvg$",
                     "description": "Path to the XVG output file",
-                    "edam": "format_2033"
+                    "edam": "format_2030"
                 }
             ]
         },
@@ -92,8 +92,8 @@
                         "Improper-Dih.",
                         "LJ-14",
                         "Coulomb-14",
-                        "LJ-****SR++++",
-                        "Coulomb-****SR++++",
+                        "LJ-(SR)",
+                        "Coulomb-(SR)",
                         "Coul.-recip.",
                         "Position-Rest.",
                         "Potential",
