@@ -32,6 +32,19 @@ class GMXTrjConvStr():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.gromacs.gmx_trjconv_str import gmx_trjconv_str
+            prop = { 
+                'selection': 'System' 
+            }
+            gmx_trjconv_str(input_structure_path='/path/to/myStructure.trr', 
+                            input_top_path='/path/to/myTopology.tpr', 
+                            output_str_path='/path/to/newStructure.pdb', 
+                            input_index_path='/path/to/myIndex.ndx', 
+                            properties=prop)
+
     Info:
         * wrapped_software:
             * name: GROMACS trjconv
@@ -43,8 +56,8 @@ class GMXTrjConvStr():
 
     """
 
-    def __init__(self, input_structure_path, input_top_path, 
-                 output_str_path, input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path, input_top_path, output_str_path, 
+                input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -89,16 +102,7 @@ class GMXTrjConvStr():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the GMXTrjConvStr module.
-    
-        Examples:
-            This is a use example of how to use the GMXTrjConvStr module from Python
-
-            >>> from biobb_analysis.gromacs.gmx_trjconv_str import GMXTrjConvStr
-            >>> prop = { 'selection': 'System' }
-            >>> GMXTrjConvStr(input_structure_path='/path/to/myStructure.trr', input_top_path='/path/to/myTopology.tpr', input_index_path='/path/to/myIndex.ndx', output_str_path='/path/to/newStructure.pdb', properties=prop).launch()
-
-        """
+        """Execute the :class:`GMXTrjConvStr <gromacs.gmx_trjconv_str.GMXTrjConvStr>` gromacs.gmx_trjconv_str.GMXTrjConvStr object."""
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -149,7 +153,18 @@ class GMXTrjConvStr():
 
         return returncode
 
+def gmx_trjconv_str(input_structure_path: str, input_top_path: str, output_str_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`GMXTrjConvStr <gromacs.gmx_trjconv_str.GMXTrjConvStr>` class and
+    execute the :meth:`launch() <gromacs.gmx_trjconv_str.GMXTrjConvStr.launch> method."""
+
+    return GMXTrjConvStr(input_structure_path=input_structure_path, 
+                    input_top_path = input_top_path,
+                    output_str_path=output_str_path,
+                    input_index_path=input_index_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -165,9 +180,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXTrjConvStr(input_structure_path=args.input_structure_path, input_top_path=args.input_top_path, 
-                  output_str_path=args.output_str_path, input_index_path=args.input_index_path, 
-                  properties=properties).launch()
+    GMXTrjConvStr(input_structure_path=args.input_structure_path, 
+                    input_top_path=args.input_top_path, 
+                    output_str_path=args.output_str_path, 
+                    input_index_path=args.input_index_path, 
+                    properties=properties).launch()
 
 if __name__ == '__main__':
     main()

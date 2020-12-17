@@ -33,6 +33,20 @@ class GMXRgyr():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.gromacs.gmx_rgyr import gmx_rgyr
+            prop = { 
+                'xvg': 'xmgr', 
+                'selection': 'Water_and_ions' 
+            }
+            gmx_rgyr(input_structure_path='/path/to/myStructure.tpr', 
+                    input_traj_path='/path/to/myTrajectory.trr', 
+                    output_xvg_path='/path/to/newXVG.xvg', 
+                    input_index_path='/path/to/myIndex.ndx', 
+                    properties=prop)
+
     Info:
         * wrapped_software:
             * name: GROMACS gyrate
@@ -44,8 +58,8 @@ class GMXRgyr():
 
     """
 
-    def __init__(self, input_structure_path, input_traj_path, 
-                 output_xvg_path, input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path, input_traj_path, output_xvg_path, 
+                input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -91,16 +105,7 @@ class GMXRgyr():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the GMXRgyr module.
-    
-        Examples:
-            This is a use example of how to use the GMXRgyr module from Python
-
-            >>> from biobb_analysis.gromacs.gmx_rgyr import GMXRgyr
-            >>> prop = { 'xvg': 'xmgr', 'selection': 'Water_and_ions' }
-            >>> GMXRgyr(input_structure_path='/path/to/myStructure.tpr', input_traj_path='/path/to/myTrajectory.trr', input_index_path='/path/to/myIndex.ndx', output_xvg_path='/path/to/newXVG.xvg', properties=prop).launch()
-
-        """
+        """Execute the :class:`GMXRgyr <gromacs.gmx_rgyr.GMXRgyr>` gromacs.gmx_rgyr.GMXRgyr object."""
 
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -152,7 +157,18 @@ class GMXRgyr():
 
         return returncode
 
+def gmx_rgyr(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`GMXRgyr <gromacs.gmx_rgyr.GMXRgyr>` class and
+    execute the :meth:`launch() <gromacs.gmx_rgyr.GMXRgyr.launch> method."""
+
+    return GMXRgyr(input_structure_path=input_structure_path, 
+                    input_traj_path = input_traj_path,
+                    output_xvg_path=output_xvg_path,
+                    input_index_path=input_index_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -168,8 +184,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXRgyr(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, 
-            output_xvg_path=args.output_xvg_path, input_index_path=args.input_index_path, 
+    GMXRgyr(input_structure_path=args.input_structure_path, 
+            input_traj_path=args.input_traj_path, 
+            output_xvg_path=args.output_xvg_path, 
+            input_index_path=args.input_index_path, 
             properties=properties).launch()
 
 if __name__ == '__main__':

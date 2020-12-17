@@ -38,6 +38,22 @@ class GMXTrjConvStrEns:
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.gromacs.gmx_trjconv_str_ens import gmx_trjconv_str_ens
+            prop = { 
+                'selection': 'System', 
+                'start': 0, 
+                'end': 10, 
+                'dt': 1 
+            }
+            gmx_trjconv_str_ens(input_traj_path='/path/to/myStructure.trr', 
+                                input_top_path='/path/to/myTopology.tpr', 
+                                output_str_ens_path='/path/to/newStructureEnsemble.zip', 
+                                input_index_path='/path/to/myIndex.ndx', 
+                                properties=prop)
+
     Info:
         * wrapped_software:
             * name: GROMACS trjconv
@@ -49,8 +65,8 @@ class GMXTrjConvStrEns:
             
     """
 
-    def __init__(self, input_traj_path, input_top_path, 
-                 output_str_ens_path, input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_traj_path, input_top_path, output_str_ens_path, 
+                input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -101,16 +117,7 @@ class GMXTrjConvStrEns:
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the GMXTrjConvStrEns module.
-
-        Examples:
-            This is a use example of how to use the GMXTrjConvStrEns module from Python
-
-            >>> from biobb_analysis.gromacs.gmx_trjconv_str_ens import GMXTrjConvStrEns
-            >>> prop = { 'selection': 'System', 'start': 0, 'end': 10, 'dt': 1 }
-            >>> GMXTrjConvStrEns(input_traj_path='/path/to/myStructure.trr', input_top_path='/path/to/myTopology.tpr', input_index_path='/path/to/myIndex.ndx', output_str_ens_path='/path/to/newStructureEnsemble.zip', properties=prop).launch()
-
-        """
+        """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns object."""
 
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -181,7 +188,18 @@ class GMXTrjConvStrEns:
 
         return returncode
 
+def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` class and
+    execute the :meth:`launch() <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns.launch> method."""
+
+    return GMXTrjConvStrEns(input_traj_path=input_traj_path, 
+                    input_top_path = input_top_path,
+                    output_str_ens_path=output_str_ens_path,
+                    input_index_path=input_index_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -197,9 +215,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    GMXTrjConvStrEns(input_traj_path=args.input_traj_path, input_top_path=args.input_top_path, 
-                     output_str_ens_path=args.output_str_ens_path, input_index_path=args.input_index_path, 
-                     properties=properties).launch()
+    GMXTrjConvStrEns(input_traj_path=args.input_traj_path, 
+                    input_top_path=args.input_top_path, 
+                    output_str_ens_path=args.output_str_ens_path,
+                    input_index_path=args.input_index_path, 
+                    properties=properties).launch()
 
 
 if __name__ == '__main__':

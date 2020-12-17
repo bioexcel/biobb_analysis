@@ -34,6 +34,20 @@ class GMXTrjConvTrj():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
     
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.gromacs.gmx_trjconv_trj import gmx_trjconv_trj
+            prop = { 
+                'selection': 'System', 
+                'start': 0, 
+                'end': 0 
+            }
+            gmx_trjconv_trj(input_traj_path='/path/to/myStructure.trr', 
+                            output_traj_path='/path/to/newTrajectory.xtc',
+                            input_index_path='/path/to/myIndex.ndx',  
+                            properties=prop)
+
     Info:
         * wrapped_software:
             * name: GROMACS trjconv
@@ -93,16 +107,7 @@ class GMXTrjConvTrj():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the GMXTrjConvTrj module.
-
-        Examples:
-            This is a use example of how to use the GMXTrjConvTrj module from Python
-
-            >>> from biobb_analysis.gromacs.gmx_trjconv_trj import GMXTrjConvTrj
-            >>> prop = { 'selection': 'System', 'start': 0, 'end': 0 }
-            >>> GMXTrjConvTrj(input_traj_path='/path/to/myStructure.trr', input_index_path='/path/to/myIndex.ndx', output_traj_path='/path/to/newTrajectory.xtc', properties=prop).launch()
-
-        """
+        """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` gromacs.gmx_trjconv_trj.GMXTrjConvTrj object."""
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -156,7 +161,17 @@ class GMXTrjConvTrj():
         #returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         return returncode
 
+def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` class and
+    execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch> method."""
+
+    return GMXTrjConvTrj(input_traj_path=input_traj_path, 
+                    output_traj_path=output_traj_path,
+                    input_index_path=input_index_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -171,9 +186,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXTrjConvTrj(input_traj_path=args.input_traj_path, output_traj_path=args.output_traj_path, 
-                  input_index_path=args.input_index_path, 
-                  properties=properties).launch()
+    GMXTrjConvTrj(input_traj_path=args.input_traj_path, 
+                    output_traj_path=args.output_traj_path, 
+                    input_index_path=args.input_index_path, 
+                    properties=properties).launch()
 
 if __name__ == '__main__':
     main()

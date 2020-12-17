@@ -31,6 +31,18 @@ class GMXEnergy():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
     
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.gromacs.gmx_energy import gmx_energy
+            prop = { 
+                'xvg': 'xmgr', 
+                'terms': ['Potential', 'Pressure'] 
+            }
+            gmx_energy(input_energy_path='/path/to/myEnergyFile.edr', 
+                        output_xvg_path='/path/to/newXVG.xvg', 
+                        properties=prop)
+
     Info:
         * wrapped_software:
             * name: GROMACS energy
@@ -42,8 +54,8 @@ class GMXEnergy():
 
     """
 
-    def __init__(self, input_energy_path, 
-                 output_xvg_path, properties=None, **kwargs) -> None:
+    def __init__(self, input_energy_path, output_xvg_path,
+                properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -106,16 +118,7 @@ class GMXEnergy():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the GMXEnergy module.
-    
-        Examples:
-            This is a use example of how to use the GMXEnergy module from Python
-
-            >>> from biobb_analysis.gromacs.gmx_energy import GMXEnergy
-            >>> prop = { 'xvg': 'xmgr', 'terms': ['Potential', 'Pressure'] }
-            >>> GMXEnergy(input_energy_path='/path/to/myEnergyFile.edr', output_xvg_path='/path/to/newXVG.xvg', properties=prop).launch()
-
-        """
+        """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` gromacs.gmx_energy.GMXEnergy object."""
 
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -173,7 +176,16 @@ class GMXEnergy():
 
         return returncode
 
+def gmx_energy(input_energy_path: str, output_xvg_path: str, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
+    execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch> method."""
+
+    return GMXEnergy(input_energy_path=input_energy_path, 
+                    output_xvg_path=output_xvg_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Extracts energy components from a given GROMACS energy file.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -187,8 +199,9 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXEnergy(input_energy_path=args.input_energy_path, output_xvg_path=args.output_xvg_path, 
-              properties=properties).launch()
+    GMXEnergy(input_energy_path=args.input_energy_path, 
+                output_xvg_path=args.output_xvg_path, 
+                properties=properties).launch()
 
 if __name__ == '__main__':
     main()

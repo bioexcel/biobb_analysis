@@ -16,11 +16,19 @@ class CpptrajInput():
     | Cpptraj (the successor to ptraj) is the main program in Ambertools for processing coordinate trajectories and data files. The parameter names and defaults are the same as the ones in the official `Cpptraj manual <https://amber-md.github.io/cpptraj/CPPTRAJ.xhtml>`_.
 
     Args:
-        input_instructions_path (str): Path of the instructions file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.in>`_.
+        input_instructions_path (str): Path of the instructions file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.in>`_. Accepted formats: in (edam:format_2033).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
+
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.ambertools.cpptraj_input import cpptraj_input
+            prop = { }
+            cpptraj_input(input_instructions_path='/path/to/myInstructions.in', 
+                            properties=prop)
 
     Info:
         * wrapped_software:
@@ -69,16 +77,7 @@ class CpptrajInput():
         return output_instructions_path
 
     def launch(self) -> int:
-        """Launches the execution of the CpptrajInput module.
-
-        Examples:
-            This is a use example of how to use the CpptrajInput module from Python
-
-            >>> from biobb_analysis.ambertools.cpptraj_input import CpptrajInput
-            >>> prop = { }
-            >>> CpptrajInput(input_top_path='/path/to/myTopology.top', input_traj_path='/path/to/myTrajectory.dcd', output_cpptraj_path='/path/to/newTrajectory.netcdf', properties=prop).launch()
-
-        """
+        """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` ambertools.cpptraj_input.CpptrajInput object."""
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -96,7 +95,15 @@ class CpptrajInput():
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         return returncode
 
+def cpptraj_input(input_instructions_path: str, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
+    execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch> method."""
+
+    return CpptrajInput(input_instructions_path=input_instructions_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Performs multiple analysis and trajectory operations of a given trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -108,7 +115,8 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    CpptrajInput(input_instructions_path=args.input_instructions_path, properties=properties).launch()
+    CpptrajInput(input_instructions_path=args.input_instructions_path, 
+                properties=properties).launch()
 
 if __name__ == '__main__':
     main()

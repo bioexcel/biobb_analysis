@@ -36,6 +36,21 @@ class GMXCluster():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.gromacs.gmx_cluster import gmx_cluster
+            prop = { 
+                'fit_selection': 'System', 
+                'output_selection': 'System', 
+                'method': 'linkage' 
+            }
+            gmx_cluster(input_structure_path='/path/to/myStructure.tpr', 
+                        input_traj_path='/path/to/myTrajectory.trr', 
+                        input_index_path='/path/to/myIndex.ndx', 
+                        output_pdb_path='/path/to/newStructure.pdb', 
+                        properties=prop)
+
     Info:
         * wrapped_software:
             * name: GROMACS cluster
@@ -47,8 +62,8 @@ class GMXCluster():
 
     """
 
-    def __init__(self, input_structure_path, input_traj_path, 
-                 output_pdb_path, input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path, input_traj_path, output_pdb_path, 
+                input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -103,16 +118,7 @@ class GMXCluster():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the GMXCluster module.
-
-        Examples:
-            This is a use example of how to use the GMXCluster module from Python
-
-            >>> from biobb_analysis.gromacs.gmx_cluster import GMXCluster
-            >>> prop = { 'fit_selection': 'System', 'output_selection': 'System', 'method': 'linkage' }
-            >>> GMXCluster(input_structure_path='/path/to/myStructure.tpr', input_traj_path='/path/to/myTrajectory.trr', input_index_path='/path/to/myIndex.ndx', output_pdb_path='/path/to/newStructure.pdb', properties=prop).launch()
-
-        """
+        """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` gromacs.gmx_cluster.GMXCluster object."""
 
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -176,7 +182,18 @@ class GMXCluster():
 
         return returncode
 
+def gmx_cluster(input_structure_path: str, input_traj_path: str, output_pdb_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` class and
+    execute the :meth:`launch() <gromacs.gmx_cluster.GMXCluster.launch> method."""
+
+    return GMXCluster(input_structure_path=input_structure_path, 
+                    input_traj_path=input_traj_path, 
+                    output_pdb_path=output_pdb_path,
+                    input_index_path=input_index_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Creates cluster structures from a given GROMACS compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -192,9 +209,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXCluster(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, 
-               output_pdb_path=args.output_pdb_path, input_index_path=args.input_index_path, 
-               properties=properties).launch()
+    GMXCluster(input_structure_path=args.input_structure_path, 
+                input_traj_path=args.input_traj_path, 
+                output_pdb_path=args.output_pdb_path, 
+                input_index_path=args.input_index_path, 
+                properties=properties).launch()
 
 if __name__ == '__main__':
     main()

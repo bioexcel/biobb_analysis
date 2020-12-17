@@ -35,6 +35,22 @@ class CpptrajSlice():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.ambertools.cpptraj_slice import cpptraj_slice
+            prop = { 
+                'start': 1, 
+                'end': -1, 
+                'steps': 1, 
+                'mask': 'c-alpha', 
+                'format': 'netcdf' 
+            }
+            cpptraj_slice(input_top_path='/path/to/myTopology.top', 
+                        input_traj_path='/path/to/myTrajectory.dcd', 
+                        output_cpptraj_path='/path/to/newTrajectory.netcdf', 
+                        properties=prop)
+
     Info:
         * wrapped_software:
             * name: Ambertools Cpptraj
@@ -46,8 +62,8 @@ class CpptrajSlice():
 
     """
 
-    def __init__(self, input_top_path, input_traj_path,
-                 output_cpptraj_path, properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
+                properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -127,16 +143,7 @@ class CpptrajSlice():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the CpptrajSlice module.
-
-        Examples:
-            This is a use example of how to use the CpptrajSlice module from Python
-
-            >>> from biobb_analysis.ambertools.cpptraj_slice import CpptrajSlice
-            >>> prop = { 'start': 1, 'end': -1, 'steps': 1, 'mask': 'c-alpha', 'format': 'netcdf' }
-            >>> CpptrajSlice(input_top_path='/path/to/myTopology.top', input_traj_path='/path/to/myTrajectory.dcd', output_cpptraj_path='/path/to/newTrajectory.netcdf', properties=prop).launch()
-
-        """
+        """Execute the :class:`CpptrajSlice <ambertools.cpptraj_slice.CpptrajSlice>` ambertools.cpptraj_slice.CpptrajSlice object."""
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -186,7 +193,17 @@ class CpptrajSlice():
 
         return returncode
 
+def cpptraj_slice(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`CpptrajSlice <ambertools.cpptraj_slice.CpptrajSlice>` class and
+    execute the :meth:`launch() <ambertools.cpptraj_slice.CpptrajSlice.launch> method."""
+
+    return CpptrajSlice(input_top_path=input_top_path, 
+                    input_traj_path=input_traj_path, 
+                    output_cpptraj_path=output_cpptraj_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Extracts a particular trajectory slice from a given cpptraj compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -201,9 +218,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    CpptrajSlice(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, 
-                 output_cpptraj_path=args.output_cpptraj_path, 
-                 properties=properties).launch()
+    CpptrajSlice(input_top_path=args.input_top_path, 
+                input_traj_path=args.input_traj_path, 
+                output_cpptraj_path=args.output_cpptraj_path, 
+                properties=properties).launch()
 
 if __name__ == '__main__':
     main()

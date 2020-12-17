@@ -33,6 +33,20 @@ class CpptrajSnapshot():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.ambertools.cpptraj_snapshot import cpptraj_snapshot
+            prop = { 
+                'snapshot': 12, 
+                'mask': 'c-alpha', 
+                'format': 'pdb' 
+            }
+            cpptraj_snapshot(input_top_path='/path/to/myTopology.top', 
+                            input_traj_path='/path/to/myTrajectory.dcd', 
+                            output_cpptraj_path='/path/to/newStructure.pdb', 
+                            properties=prop)
+
     Info:
         * wrapped_software:
             * name: Ambertools Cpptraj
@@ -44,8 +58,8 @@ class CpptrajSnapshot():
 
     """
 
-    def __init__(self, input_top_path, input_traj_path,
-                 output_cpptraj_path, properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
+                properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -123,16 +137,7 @@ class CpptrajSnapshot():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the CpptrajSnapshot module.
-
-        Examples:
-            This is a use example of how to use the CpptrajSnapshot module from Python
-
-            >>> from biobb_analysis.ambertools.cpptraj_snapshot import CpptrajSnapshot
-            >>> prop = { 'snapshot': 12, 'mask': 'c-alpha', 'format': 'pdb' }
-            >>> CpptrajSnapshot(input_top_path='/path/to/myTopology.top', input_traj_path='/path/to/myTrajectory.dcd', output_cpptraj_path='/path/to/newStructure.pdb', properties=prop).launch()
-
-        """
+        """Execute the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` ambertools.cpptraj_snapshot.CpptrajSnapshot object."""
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -182,7 +187,17 @@ class CpptrajSnapshot():
 
         return returncode
 
+def cpptraj_snapshot(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` class and
+    execute the :meth:`launch() <ambertools.cpptraj_snapshot.CpptrajSnapshot.launch> method."""
+
+    return CpptrajSnapshot(input_top_path=input_top_path, 
+                            input_traj_path=input_traj_path, 
+                            output_cpptraj_path=output_cpptraj_path,
+                            properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Extracts a particular snapshot from a given cpptraj compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=True, help='Configuration file')
 
@@ -197,7 +212,8 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    CpptrajSnapshot(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, 
+    CpptrajSnapshot(input_top_path=args.input_top_path, 
+                    input_traj_path=args.input_traj_path, 
                     output_cpptraj_path=args.output_cpptraj_path, 
                     properties=properties).launch()
 

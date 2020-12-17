@@ -33,6 +33,20 @@ class GMXRms():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.gromacs.gmx_rms import gmx_rms
+            prop = { 
+                'xvg': 'xmgr', 
+                'selection': 'Water_and_ions' 
+            }
+            gmx_rms(input_structure_path='/path/to/myStructure.tpr', 
+                    input_traj_path='/path/to/myTrajectory.trr', 
+                    output_xvg_path='/path/to/newXVG.xvg', 
+                    input_index_path='/path/to/myIndex.ndx', 
+                    properties=prop)
+
     Info:
         * wrapped_software:
             * name: GROMACS rms
@@ -44,8 +58,8 @@ class GMXRms():
             
     """
 
-    def __init__(self, input_structure_path, input_traj_path, 
-                 output_xvg_path, input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path, input_traj_path,  output_xvg_path, 
+                input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -91,16 +105,7 @@ class GMXRms():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the GMXRms module.
-
-        Examples:
-            This is a use example of how to use the GMXRms module from Python
-
-            >>> from biobb_analysis.gromacs.gmx_rms import GMXRms
-            >>> prop = { 'xvg': 'xmgr', 'selection': 'Water_and_ions' }
-            >>> GMXRms(input_structure_path='/path/to/myStructure.tpr', input_traj_path='/path/to/myTrajectory.trr', input_index_path='/path/to/myIndex.ndx', output_xvg_path='/path/to/newXVG.xvg', properties=prop).launch()
-
-        """
+        """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` gromacs.gmx_rms.GMXRms object."""
 
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -152,7 +157,18 @@ class GMXRms():
 
         return returncode
 
+def gmx_rms(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` class and
+    execute the :meth:`launch() <gromacs.gmx_rms.GMXRms.launch> method."""
+
+    return GMXRms(input_structure_path=input_structure_path, 
+                    input_traj_path = input_traj_path,
+                    output_xvg_path=output_xvg_path,
+                    input_index_path=input_index_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -169,9 +185,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXRms(input_structure_path=args.input_structure_path, input_traj_path=args.input_traj_path, 
-           output_xvg_path=args.output_xvg_path, input_index_path=args.input_index_path, 
-           properties=properties).launch()
+    GMXRms(input_structure_path=args.input_structure_path, 
+            input_traj_path=args.input_traj_path, 
+            output_xvg_path=args.output_xvg_path, 
+            input_index_path=args.input_index_path, 
+            properties=properties).launch()
 
 if __name__ == '__main__':
     main()

@@ -35,6 +35,22 @@ class CpptrajStrip():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.ambertools.cpptraj_strip import cpptraj_strip
+            prop = { 
+                'start': 1, 
+                'end': -1, 
+                'steps': 1, 
+                'mask': 'c-alpha', 
+                'format': 'netcdf' 
+            }
+            cpptraj_strip(input_top_path='/path/to/myTopology.top', 
+                        input_traj_path='/path/to/myTrajectory.dcd', 
+                        output_cpptraj_path='/path/to/newTrajectory.netcdf', 
+                        properties=prop)
+
     Info:
         * wrapped_software:
             * name: Ambertools Cpptraj
@@ -46,8 +62,8 @@ class CpptrajStrip():
 
     """
 
-    def __init__(self, input_top_path, input_traj_path,
-                 output_cpptraj_path, properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
+                properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -132,16 +148,7 @@ class CpptrajStrip():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the CpptrajStrip module.
-
-        Examples:
-            This is a use example of how to use the CpptrajStrip module from Python
-
-            >>> from biobb_analysis.ambertools.cpptraj_strip import CpptrajStrip
-            >>> prop = { 'start': 1, 'end': -1, 'steps': 1, 'mask': 'c-alpha', 'format': 'netcdf' }
-            >>> CpptrajStrip(input_top_path='/path/to/myTopology.top', input_traj_path='/path/to/myTrajectory.dcd', output_cpptraj_path='/path/to/newTrajectory.netcdf', properties=prop).launch()
-
-        """
+        """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` ambertools.cpptraj_strip.CpptrajStrip object."""
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -191,7 +198,17 @@ class CpptrajStrip():
 
         return returncode
 
+def cpptraj_strip(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` class and
+    execute the :meth:`launch() <ambertools.cpptraj_strip.CpptrajStrip.launch> method."""
+
+    return CpptrajStrip(input_top_path=input_top_path, 
+                            input_traj_path=input_traj_path, 
+                            output_cpptraj_path=output_cpptraj_path,
+                            properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -206,9 +223,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    CpptrajStrip(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, 
-                 output_cpptraj_path=args.output_cpptraj_path, 
-                 properties=properties).launch()
+    CpptrajStrip(input_top_path=args.input_top_path, 
+                input_traj_path=args.input_traj_path, 
+                output_cpptraj_path=args.output_cpptraj_path, 
+                properties=properties).launch()
 
 if __name__ == '__main__':
     main()

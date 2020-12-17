@@ -36,6 +36,23 @@ class CpptrajRmsf():
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
+    Examples:
+        This is a use example of how to use the building block from Python::
+
+            from biobb_analysis.ambertools.cpptraj_rmsf import cpptraj_rmsf
+            prop = { 
+                'start': 1,
+                'end': -1,
+                'steps': 1, 
+                'mask': 'c-alpha', 
+                'reference': 'first' 
+            }
+            cpptraj_rmsf(input_top_path='/path/to/myTopology.top', 
+                        input_traj_path='/path/to/myTrajectory.dcd', 
+                        output_cpptraj_path='/path/to/newAnalysis.dat', 
+                        input_exp_path= '/path/to/myExpStructure.pdb',
+                        properties=prop)
+
     Info:
         * wrapped_software:
             * name: Ambertools Cpptraj
@@ -47,8 +64,8 @@ class CpptrajRmsf():
             
     """
 
-    def __init__(self, input_top_path, input_traj_path,
-                 output_cpptraj_path, input_exp_path = None, properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
+                input_exp_path = None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Input/Output files
@@ -136,16 +153,7 @@ class CpptrajRmsf():
 
     @launchlogger
     def launch(self) -> int:
-        """Launches the execution of the CpptrajRmsf module.
-
-        Examples:
-            This is a use example of how to use the CpptrajRmsf module from Python
-
-            >>> from biobb_analysis.ambertools.cpptraj_rmsf import CpptrajRmsf
-            >>> prop = { 'start': 1, 'end': -1, 'steps': 1, 'mask': 'c-alpha', 'reference': 'first' }
-            >>> CpptrajRmsf(input_top_path='/path/to/myTopology.top', input_traj_path='/path/to/myTrajectory.dcd', output_cpptraj_path='/path/to/newAnalysis.dat', properties=prop).launch()
-
-        """
+        """Execute the :class:`CpptrajRmsf <ambertools.cpptraj_rmsf.CpptrajRmsf>` ambertools.cpptraj_rmsf.CpptrajRmsf object."""
         
         # Get local loggers from launchlogger decorator
         out_log = getattr(self, 'out_log', None)
@@ -196,7 +204,18 @@ class CpptrajRmsf():
 
         return returncode
 
+def cpptraj_rmsf(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, properties: dict = None, **kwargs) -> None:
+    """Execute the :class:`CpptrajRmsf <ambertools.cpptraj_rmsf.CpptrajRmsf>` class and
+    execute the :meth:`launch() <ambertools.cpptraj_rmsf.CpptrajRmsf.launch> method."""
+
+    return CpptrajRmsf(input_top_path=input_top_path, 
+                    input_traj_path=input_traj_path, 
+                    output_cpptraj_path=output_cpptraj_path,
+                    input_exp_path=input_exp_path,
+                    properties=properties).launch()
+
 def main():
+    """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Calculates the Root Mean Square fluctuations (RMSf) of a given cpptraj compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
@@ -212,8 +231,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    CpptrajRmsf(input_top_path=args.input_top_path, input_traj_path=args.input_traj_path, 
-                output_cpptraj_path=args.output_cpptraj_path, input_exp_path=args.input_exp_path, 
+    CpptrajRmsf(input_top_path=args.input_top_path, 
+                input_traj_path=args.input_traj_path, 
+                output_cpptraj_path=args.output_cpptraj_path, 
+                input_exp_path=args.input_exp_path, 
                 properties=properties).launch()
 
 if __name__ == '__main__':
