@@ -201,7 +201,7 @@ class CpptrajImage():
 
 def cpptraj_image(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajImage <ambertools.cpptraj_image.CpptrajImage>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_image.CpptrajImage.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_image.CpptrajImage.launch>` method."""
 
     return CpptrajImage(input_top_path=input_top_path, 
                     input_traj_path=input_traj_path, 

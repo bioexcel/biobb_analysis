@@ -205,7 +205,7 @@ class CpptrajBfactor():
 
 def cpptraj_bfactor(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajBfactor <ambertools.cpptraj_bfactor.CpptrajBfactor>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_bfactor.CpptrajBfactor.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_bfactor.CpptrajBfactor.launch>` method."""
 
     return CpptrajBfactor(input_top_path=input_top_path, 
                     input_traj_path=input_traj_path, 

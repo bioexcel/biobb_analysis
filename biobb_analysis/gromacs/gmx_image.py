@@ -186,7 +186,7 @@ class GMXImage():
 
 def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and
-    execute the :meth:`launch() <gromacs.gmx_image.GMXImage.launch> method."""
+    execute the :meth:`launch() <gromacs.gmx_image.GMXImage.launch>` method."""
 
     return GMXImage(input_traj_path=input_traj_path, 
                     input_top_path = input_top_path,

@@ -193,7 +193,7 @@ class CpptrajRgyr():
 
 def cpptraj_rgyr(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajRgyr <ambertools.cpptraj_rgyr.CpptrajRgyr>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_rgyr.CpptrajRgyr.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_rgyr.CpptrajRgyr.launch>` method."""
 
     return CpptrajRgyr(input_top_path=input_top_path, 
                     input_traj_path=input_traj_path, 

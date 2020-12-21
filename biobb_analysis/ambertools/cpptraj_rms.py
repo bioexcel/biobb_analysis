@@ -204,7 +204,7 @@ class CpptrajRms():
 
 def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
 
     return CpptrajRms(input_top_path=input_top_path, 
                     input_traj_path=input_traj_path, 

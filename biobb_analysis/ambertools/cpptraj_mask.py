@@ -200,7 +200,7 @@ class CpptrajMask():
 
 def cpptraj_mask(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajMask <ambertools.cpptraj_mask.CpptrajMask>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_mask.CpptrajMask.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_mask.CpptrajMask.launch>` method."""
 
     return CpptrajMask(input_top_path=input_top_path, 
                     input_traj_path=input_traj_path, 

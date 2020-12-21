@@ -159,7 +159,7 @@ class GMXRgyr():
 
 def gmx_rgyr(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`GMXRgyr <gromacs.gmx_rgyr.GMXRgyr>` class and
-    execute the :meth:`launch() <gromacs.gmx_rgyr.GMXRgyr.launch> method."""
+    execute the :meth:`launch() <gromacs.gmx_rgyr.GMXRgyr.launch>` method."""
 
     return GMXRgyr(input_structure_path=input_structure_path, 
                     input_traj_path = input_traj_path,

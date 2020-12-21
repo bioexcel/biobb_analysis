@@ -200,7 +200,7 @@ class CpptrajStrip():
 
 def cpptraj_strip(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_strip.CpptrajStrip.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_strip.CpptrajStrip.launch>` method."""
 
     return CpptrajStrip(input_top_path=input_top_path, 
                             input_traj_path=input_traj_path, 

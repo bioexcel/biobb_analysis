@@ -195,7 +195,7 @@ class CpptrajSlice():
 
 def cpptraj_slice(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajSlice <ambertools.cpptraj_slice.CpptrajSlice>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_slice.CpptrajSlice.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_slice.CpptrajSlice.launch>` method."""
 
     return CpptrajSlice(input_top_path=input_top_path, 
                     input_traj_path=input_traj_path, 

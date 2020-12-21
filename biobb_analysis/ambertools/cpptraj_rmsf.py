@@ -206,7 +206,7 @@ class CpptrajRmsf():
 
 def cpptraj_rmsf(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajRmsf <ambertools.cpptraj_rmsf.CpptrajRmsf>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_rmsf.CpptrajRmsf.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_rmsf.CpptrajRmsf.launch>` method."""
 
     return CpptrajRmsf(input_top_path=input_top_path, 
                     input_traj_path=input_traj_path, 

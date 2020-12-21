@@ -189,7 +189,7 @@ class CpptrajSnapshot():
 
 def cpptraj_snapshot(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_snapshot.CpptrajSnapshot.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_snapshot.CpptrajSnapshot.launch>` method."""
 
     return CpptrajSnapshot(input_top_path=input_top_path, 
                             input_traj_path=input_traj_path, 

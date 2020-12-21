@@ -163,7 +163,7 @@ class GMXTrjConvTrj():
 
 def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` class and
-    execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch> method."""
+    execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch>` method."""
 
     return GMXTrjConvTrj(input_traj_path=input_traj_path, 
                     output_traj_path=output_traj_path,

@@ -178,7 +178,7 @@ class GMXEnergy():
 
 def gmx_energy(input_energy_path: str, output_xvg_path: str, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
-    execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch> method."""
+    execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch>` method."""
 
     return GMXEnergy(input_energy_path=input_energy_path, 
                     output_xvg_path=output_xvg_path,

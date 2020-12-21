@@ -97,7 +97,7 @@ class CpptrajInput():
 
 def cpptraj_input(input_instructions_path: str, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch> method."""
+    execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch>` method."""
 
     return CpptrajInput(input_instructions_path=input_instructions_path,
                     properties=properties).launch()
