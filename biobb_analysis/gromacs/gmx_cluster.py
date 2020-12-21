@@ -184,7 +184,7 @@ class GMXCluster():
 
 def gmx_cluster(input_structure_path: str, input_traj_path: str, output_pdb_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
     """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` class and
-    execute the :meth:`launch() <gromacs.gmx_cluster.GMXCluster.launch> method."""
+    execute the :meth:`launch() <gromacs.gmx_cluster.GMXCluster.launch>` method."""
 
     return GMXCluster(input_structure_path=input_structure_path, 
                     input_traj_path=input_traj_path, 
