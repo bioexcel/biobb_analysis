@@ -184,7 +184,7 @@ class GMXImage():
 
         return returncode
 
-def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and
     execute the :meth:`launch() <gromacs.gmx_image.GMXImage.launch>` method."""
 
@@ -192,7 +192,7 @@ def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, 
                     input_top_path = input_top_path,
                     output_traj_path=output_traj_path,
                     input_index_path=input_index_path,
-                    properties=properties).launch()
+                    properties=properties, **kwargs).launch()
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -211,11 +211,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXImage(input_traj_path=args.input_traj_path, 
+    gmx_image(input_traj_path=args.input_traj_path, 
             input_top_path=args.input_top_path, 
             output_traj_path=args.output_traj_path, 
             input_index_path=args.input_index_path, 
-            properties=properties).launch()
+            properties=properties)
 
 if __name__ == '__main__':
     main()

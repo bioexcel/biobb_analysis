@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_image import CpptrajImage
+from biobb_analysis.ambertools.cpptraj_image import cpptraj_image
 
 
 class TestCpptrajImageDocker():
@@ -11,7 +11,7 @@ class TestCpptrajImageDocker():
         pass
 
     def test_image_docker(self):
-        CpptrajImage(properties=self.properties, **self.paths).launch()
+        cpptraj_image(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,6 +24,6 @@ class TestCpptrajImageSingularity():
         pass
 
     def test_image_singularity(self):
-        CpptrajImage(properties=self.properties, **self.paths).launch()
+        cpptraj_image(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

@@ -161,14 +161,14 @@ class GMXTrjConvTrj():
         #returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
         return returncode
 
-def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch>` method."""
 
     return GMXTrjConvTrj(input_traj_path=input_traj_path, 
                     output_traj_path=output_traj_path,
                     input_index_path=input_index_path,
-                    properties=properties).launch()
+                    properties=properties, **kwargs).launch()
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -186,10 +186,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXTrjConvTrj(input_traj_path=args.input_traj_path, 
+    gmx_trjconv_trj(input_traj_path=args.input_traj_path, 
                     output_traj_path=args.output_traj_path, 
                     input_index_path=args.input_index_path, 
-                    properties=properties).launch()
+                    properties=properties)
 
 if __name__ == '__main__':
     main()

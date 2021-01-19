@@ -93,14 +93,15 @@ class CpptrajInput():
         cmd = [self.cpptraj_path, '-i', output_instructions_path]
 
         returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+
         return returncode
 
-def cpptraj_input(input_instructions_path: str, properties: dict = None, **kwargs) -> None:
+def cpptraj_input(input_instructions_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
     execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch>` method."""
 
     return CpptrajInput(input_instructions_path=input_instructions_path,
-                    properties=properties).launch()
+                        properties=properties, **kwargs).launch()
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -115,8 +116,8 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    CpptrajInput(input_instructions_path=args.input_instructions_path, 
-                properties=properties).launch()
+    cpptraj_input(input_instructions_path=args.input_instructions_path, 
+                properties=properties)
 
 if __name__ == '__main__':
     main()

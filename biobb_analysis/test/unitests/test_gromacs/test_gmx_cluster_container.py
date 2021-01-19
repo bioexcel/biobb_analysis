@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.gromacs.gmx_cluster import GMXCluster
+from biobb_analysis.gromacs.gmx_cluster import gmx_cluster
 
 
 class TestGMXClusterDocker():
@@ -11,7 +11,7 @@ class TestGMXClusterDocker():
         pass
 
     def test_cluster_docker(self):
-        GMXCluster(properties=self.properties, **self.paths).launch()
+        gmx_cluster(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_pdb_path'])
         assert fx.equal(self.paths['output_pdb_path'], self.paths['ref_output_pdb_path'])
 
@@ -24,6 +24,6 @@ class TestGMXClusterSingularity():
         pass
 
     def test_cluster_singularity(self):
-        GMXCluster(properties=self.properties, **self.paths).launch()
+        gmx_cluster(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_pdb_path'])
         assert fx.equal(self.paths['output_pdb_path'], self.paths['ref_output_pdb_path'])

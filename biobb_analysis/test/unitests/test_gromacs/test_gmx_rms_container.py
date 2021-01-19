@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.gromacs.gmx_rms import GMXRms
+from biobb_analysis.gromacs.gmx_rms import gmx_rms
 
 
 class TestGMXRmsDocker():
@@ -11,7 +11,7 @@ class TestGMXRmsDocker():
         pass
 
     def test_rms_docker(self):
-        GMXRms(properties=self.properties, **self.paths).launch()
+        gmx_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_xvg_path'])
         assert fx.equal(self.paths['output_xvg_path'], self.paths['ref_output_xvg_path'])
 
@@ -24,6 +24,6 @@ class TestGMXRmsSingularity():
         pass
 
     def test_rms_singularity(self):
-        GMXRms(properties=self.properties, **self.paths).launch()
+        gmx_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_xvg_path'])
         assert fx.equal(self.paths['output_xvg_path'], self.paths['ref_output_xvg_path'])

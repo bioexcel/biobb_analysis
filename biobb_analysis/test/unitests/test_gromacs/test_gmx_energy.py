@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.gromacs.gmx_energy import GMXEnergy
+from biobb_analysis.gromacs.gmx_energy import gmx_energy
 
 
 class TestGMXEnergy():
@@ -11,6 +11,6 @@ class TestGMXEnergy():
         pass
 
     def test_energy(self):
-        GMXEnergy(properties=self.properties, **self.paths).launch()
+        gmx_energy(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_xvg_path'])
         assert fx.equal(self.paths['output_xvg_path'], self.paths['ref_output_xvg_path'])

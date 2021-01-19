@@ -153,7 +153,7 @@ class GMXTrjConvStr():
 
         return returncode
 
-def gmx_trjconv_str(input_structure_path: str, input_top_path: str, output_str_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+def gmx_trjconv_str(input_structure_path: str, input_top_path: str, output_str_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvStr <gromacs.gmx_trjconv_str.GMXTrjConvStr>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_str.GMXTrjConvStr.launch>` method."""
 
@@ -161,7 +161,7 @@ def gmx_trjconv_str(input_structure_path: str, input_top_path: str, output_str_p
                     input_top_path = input_top_path,
                     output_str_path=output_str_path,
                     input_index_path=input_index_path,
-                    properties=properties).launch()
+                    properties=properties, **kwargs).launch()
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -180,11 +180,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXTrjConvStr(input_structure_path=args.input_structure_path, 
+    gmx_trjconv_str(input_structure_path=args.input_structure_path, 
                     input_top_path=args.input_top_path, 
                     output_str_path=args.output_str_path, 
                     input_index_path=args.input_index_path, 
-                    properties=properties).launch()
+                    properties=properties)
 
 if __name__ == '__main__':
     main()

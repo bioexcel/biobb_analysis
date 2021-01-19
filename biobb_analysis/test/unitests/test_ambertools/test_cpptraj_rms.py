@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_rms import CpptrajRms
+from biobb_analysis.ambertools.cpptraj_rms import cpptraj_rms
 
 
 class TestCpptrajRmsFirst():
@@ -11,7 +11,7 @@ class TestCpptrajRmsFirst():
         pass
 
     def test_rms_first(self):
-        CpptrajRms(properties=self.properties, **self.paths).launch()
+        cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,7 +24,7 @@ class TestCpptrajRmsAverage():
         pass
 
     def test_rms_average(self):
-        CpptrajRms(properties=self.properties, **self.paths).launch()
+        cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -37,6 +37,6 @@ class TestCpptrajRmsExperimental():
         pass
 
     def test_rms_experimental(self):
-        CpptrajRms(properties=self.properties, **self.paths).launch()
+        cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

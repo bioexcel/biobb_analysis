@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_rgyr import CpptrajRgyr
+from biobb_analysis.ambertools.cpptraj_rgyr import cpptraj_rgyr
 
 
 class TestCpptrajRgyr():
@@ -11,6 +11,6 @@ class TestCpptrajRgyr():
         pass
 
     def test_rgyr(self):
-        CpptrajRgyr(properties=self.properties, **self.paths).launch()
+        cpptraj_rgyr(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

@@ -157,7 +157,7 @@ class GMXRgyr():
 
         return returncode
 
-def gmx_rgyr(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+def gmx_rgyr(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXRgyr <gromacs.gmx_rgyr.GMXRgyr>` class and
     execute the :meth:`launch() <gromacs.gmx_rgyr.GMXRgyr.launch>` method."""
 
@@ -165,7 +165,7 @@ def gmx_rgyr(input_structure_path: str, input_traj_path: str, output_xvg_path: s
                     input_traj_path = input_traj_path,
                     output_xvg_path=output_xvg_path,
                     input_index_path=input_index_path,
-                    properties=properties).launch()
+                    properties=properties, **kwargs).launch()
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -184,11 +184,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXRgyr(input_structure_path=args.input_structure_path, 
+    gmx_rgyr(input_structure_path=args.input_structure_path, 
             input_traj_path=args.input_traj_path, 
             output_xvg_path=args.output_xvg_path, 
             input_index_path=args.input_index_path, 
-            properties=properties).launch()
+            properties=properties)
 
 if __name__ == '__main__':
     main()

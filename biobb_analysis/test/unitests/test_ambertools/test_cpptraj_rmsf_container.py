@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_rmsf import CpptrajRmsf
+from biobb_analysis.ambertools.cpptraj_rmsf import cpptraj_rmsf
 
 
 class TestCpptrajRmsfFirstDocker():
@@ -11,7 +11,7 @@ class TestCpptrajRmsfFirstDocker():
         pass
 
     def test_rmsf_first_docker(self):
-        CpptrajRmsf(properties=self.properties, **self.paths).launch()
+        cpptraj_rmsf(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,7 +24,7 @@ class TestCpptrajRmsfAverageDocker():
         pass
 
     def test_rmsf_average_docker(self):
-        CpptrajRmsf(properties=self.properties, **self.paths).launch()
+        cpptraj_rmsf(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -37,7 +37,7 @@ class TestCpptrajRmsfExperimentalDocker():
         pass
 
     def test_rmsf_experimental_docker(self):
-        CpptrajRmsf(properties=self.properties, **self.paths).launch()
+        cpptraj_rmsf(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -50,7 +50,7 @@ class TestCpptrajRmsfFirstSingularity():
         pass
 
     def test_rmsf_first_singularity(self):
-        CpptrajRmsf(properties=self.properties, **self.paths).launch()
+        cpptraj_rmsf(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -63,7 +63,7 @@ class TestCpptrajRmsfAverageSingularity():
         pass
 
     def test_rmsf_average_singularity(self):
-        CpptrajRmsf(properties=self.properties, **self.paths).launch()
+        cpptraj_rmsf(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -76,6 +76,6 @@ class TestCpptrajRmsfExperimentalSingularity():
         pass
 
     def test_rmsf_experimental_singularity(self):
-        CpptrajRmsf(properties=self.properties, **self.paths).launch()
+        cpptraj_rmsf(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

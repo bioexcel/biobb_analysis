@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.gromacs.gmx_trjconv_str_ens import GMXTrjConvStrEns
+from biobb_analysis.gromacs.gmx_trjconv_str_ens import gmx_trjconv_str_ens
 
 
 class TestGMXTrjConvStrEnsDocker():
@@ -11,7 +11,7 @@ class TestGMXTrjConvStrEnsDocker():
         pass
 
     def test_trjconv_str_ens_docker(self):
-        GMXTrjConvStrEns(properties=self.properties, **self.paths).launch()
+        gmx_trjconv_str_ens(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_str_ens_path'])
         assert fx.equal(self.paths['output_str_ens_path'], self.paths['ref_output_str_ens_path'])
 
@@ -24,6 +24,6 @@ class TestGMXTrjConvStrEnsSingularity():
         pass
 
     def test_trjconv_str_ens_singularity(self):
-        GMXTrjConvStrEns(properties=self.properties, **self.paths).launch()
+        gmx_trjconv_str_ens(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_str_ens_path'])
         assert fx.equal(self.paths['output_str_ens_path'], self.paths['ref_output_str_ens_path'])

@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.gromacs.gmx_rgyr import GMXRgyr
+from biobb_analysis.gromacs.gmx_rgyr import gmx_rgyr
 
 
 class TestGMXRgyr():
@@ -11,6 +11,6 @@ class TestGMXRgyr():
         pass
 
     def test_rgyr(self):
-        GMXRgyr(properties=self.properties, **self.paths).launch()
+        gmx_rgyr(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_xvg_path'])
         assert fx.equal(self.paths['output_xvg_path'], self.paths['ref_output_xvg_path'])

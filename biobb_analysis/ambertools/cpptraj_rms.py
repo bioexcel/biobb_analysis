@@ -202,7 +202,7 @@ class CpptrajRms():
 
         return returncode
 
-def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, properties: dict = None, **kwargs) -> None:
+def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
     execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
 
@@ -210,7 +210,7 @@ def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: 
                     input_traj_path=input_traj_path, 
                     output_cpptraj_path=output_cpptraj_path,
                     input_exp_path=input_exp_path,
-                    properties=properties).launch()
+                    properties=properties, **kwargs).launch()
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -229,11 +229,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    CpptrajRms(input_top_path=args.input_top_path, 
+    cpptraj_rms(input_top_path=args.input_top_path, 
                 input_traj_path=args.input_traj_path, 
                 output_cpptraj_path=args.output_cpptraj_path, 
                 input_exp_path=args.input_exp_path, 
-                properties=properties).launch()
+                properties=properties)
 
 if __name__ == '__main__':
     main()

@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_slice import CpptrajSlice
+from biobb_analysis.ambertools.cpptraj_slice import cpptraj_slice
 
 
 class TestCpptrajSliceDocker():
@@ -11,7 +11,7 @@ class TestCpptrajSliceDocker():
         pass
 
     def test_slice_docker(self):
-        CpptrajSlice(properties=self.properties, **self.paths).launch()
+        cpptraj_slice(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,6 +24,6 @@ class TestCpptrajSliceSingularity():
         pass
 
     def test_slice_singularity(self):
-        CpptrajSlice(properties=self.properties, **self.paths).launch()
+        cpptraj_slice(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

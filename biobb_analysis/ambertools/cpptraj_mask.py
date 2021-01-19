@@ -198,14 +198,14 @@ class CpptrajMask():
 
         return returncode
 
-def cpptraj_mask(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> None:
+def cpptraj_mask(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajMask <ambertools.cpptraj_mask.CpptrajMask>` class and
     execute the :meth:`launch() <ambertools.cpptraj_mask.CpptrajMask.launch>` method."""
 
     return CpptrajMask(input_top_path=input_top_path, 
                     input_traj_path=input_traj_path, 
                     output_cpptraj_path=output_cpptraj_path,
-                    properties=properties).launch()
+                    properties=properties, **kwargs).launch()
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -223,10 +223,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    CpptrajMask(input_top_path=args.input_top_path, 
+    cpptraj_mask(input_top_path=args.input_top_path, 
                 input_traj_path=args.input_traj_path, 
                 output_cpptraj_path=args.output_cpptraj_path, 
-                properties=properties).launch()
+                properties=properties)
 
 if __name__ == '__main__':
     main()

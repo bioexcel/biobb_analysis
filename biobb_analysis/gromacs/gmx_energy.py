@@ -176,13 +176,13 @@ class GMXEnergy():
 
         return returncode
 
-def gmx_energy(input_energy_path: str, output_xvg_path: str, properties: dict = None, **kwargs) -> None:
+def gmx_energy(input_energy_path: str, output_xvg_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
     execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch>` method."""
 
     return GMXEnergy(input_energy_path=input_energy_path, 
                     output_xvg_path=output_xvg_path,
-                    properties=properties).launch()
+                    properties=properties, **kwargs).launch()
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -199,9 +199,9 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     #Specific call of each building block
-    GMXEnergy(input_energy_path=args.input_energy_path, 
+    gmx_energy(input_energy_path=args.input_energy_path, 
                 output_xvg_path=args.output_xvg_path, 
-                properties=properties).launch()
+                properties=properties)
 
 if __name__ == '__main__':
     main()

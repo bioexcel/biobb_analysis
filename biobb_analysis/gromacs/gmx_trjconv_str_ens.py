@@ -188,7 +188,7 @@ class GMXTrjConvStrEns:
 
         return returncode
 
-def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> None:
+def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns.launch>` method."""
 
@@ -215,11 +215,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    GMXTrjConvStrEns(input_traj_path=args.input_traj_path, 
-                    input_top_path=args.input_top_path, 
-                    output_str_ens_path=args.output_str_ens_path,
-                    input_index_path=args.input_index_path, 
-                    properties=properties).launch()
+    gmx_trjconv_str_ens(input_traj_path=args.input_traj_path, 
+                        input_top_path=args.input_top_path, 
+                        output_str_ens_path=args.output_str_ens_path,
+                        input_index_path=args.input_index_path, 
+                        properties=properties)
 
 
 if __name__ == '__main__':

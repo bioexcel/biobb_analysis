@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_mask import CpptrajMask
+from biobb_analysis.ambertools.cpptraj_mask import cpptraj_mask
 
 
 class TestCpptrajMask():
@@ -11,6 +11,6 @@ class TestCpptrajMask():
         pass
 
     def test_mask(self):
-        CpptrajMask(properties=self.properties, **self.paths).launch()
+        cpptraj_mask(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])

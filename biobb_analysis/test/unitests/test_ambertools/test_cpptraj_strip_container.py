@@ -1,5 +1,5 @@
 from biobb_common.tools import test_fixtures as fx
-from biobb_analysis.ambertools.cpptraj_strip import CpptrajStrip
+from biobb_analysis.ambertools.cpptraj_strip import cpptraj_strip
 
 
 class TestCpptrajStripDocker():
@@ -11,7 +11,7 @@ class TestCpptrajStripDocker():
         pass
 
     def test_strip_docker(self):
-        CpptrajStrip(properties=self.properties, **self.paths).launch()
+        cpptraj_strip(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
@@ -24,6 +24,6 @@ class TestCpptrajStripSingularity():
         pass
 
     def test_strip_singularity(self):
-        CpptrajStrip(properties=self.properties, **self.paths).launch()
+        cpptraj_strip(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
