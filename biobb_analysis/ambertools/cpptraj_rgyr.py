@@ -46,7 +46,7 @@ class CpptrajRgyr():
             }
             cpptraj_rgyr(input_top_path='/path/to/myTopology.top', 
                         input_traj_path='/path/to/myTrajectory.dcd', 
-                        output_cpptraj_path='/path/to/newAnalysis.dat', 
+                        output_cpptraj_path='/path/to/newAnalysis.dat',
                         properties=prop)
 
     Info:
