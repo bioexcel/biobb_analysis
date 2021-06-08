@@ -1,6 +1,6 @@
 {
     "_id": "biobb_analysis",
-    "desc": "Biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations",
+    "desc": "Biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.",
     "github": "https://github.com/bioexcel/biobb_analysis",
     "readthedocs": "https://biobb-analysis.readthedocs.io/en/latest/",
     "conda": "https://anaconda.org/bioconda/biobb_analysis",
