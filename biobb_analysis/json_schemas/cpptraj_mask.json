@@ -68,6 +68,7 @@
             "filetype": "input",
             "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd",
             "enum": [
+                ".*\\.mdcrd$",
                 ".*\\.crd$",
                 ".*\\.cdf$",
                 ".*\\.netcdf$",
@@ -90,6 +91,11 @@
                 ".*\\.conflib$"
             ],
             "file_formats": [
+                {
+                    "extension": ".*\\.mdcrd$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3878"
+                },
                 {
                     "extension": ".*\\.crd$",
                     "description": "Path to the input trajectory to be processed",
@@ -198,6 +204,7 @@
             "filetype": "output",
             "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.mask.netcdf",
             "enum": [
+                ".*\\.mdcrd$",
                 ".*\\.crd$",
                 ".*\\.netcdf$",
                 ".*\\.rst7$",
@@ -211,6 +218,11 @@
                 ".*\\.sqm$"
             ],
             "file_formats": [
+                {
+                    "extension": ".*\\.mdcrd$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3878"
+                },
                 {
                     "extension": ".*\\.crd$",
                     "description": "Path to the output processed trajectory",
