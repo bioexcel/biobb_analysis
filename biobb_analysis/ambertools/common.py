@@ -242,7 +242,7 @@ def get_mask_atoms(key):
 		"all-atoms": ":*",
 		"heavy-atoms": "!@H*,1H*,2H*,3H*",
 		"side-chain": "!@CA,C,N,O,H,HA,C3',O3',C4',C5',O5',P",
-		"solute": "!:WAT,HOH,SOL,TIP3,TP3",
+		"solute": "!:WAT,HOH,SOL,TIP3,TP3,SOD,CLA,Na+,Cl-,NA,CL,K+,K",
 		"ions": ":SOD,CLA,Na+,Cl-,NA,CL,K+,K",
 		"solvent": ":WAT,HOH,SOL,TIP3,TP3"
 	}
