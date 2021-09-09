@@ -9,9 +9,9 @@ from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
 
 
-class GMXRms():
+class GMXRms:
     """
-    | biobb_analysis GMXCluster
+    | biobb_analysis GMXRms
     | Wrapper of the GROMACS rms module for performing a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.
     | `GROMACS rms <http://manual.gromacs.org/current/onlinehelp/gmx-rms.html>`_ compares two structures by computing the root mean square deviation (RMSD), the size-independent rho similarity parameter (rho) or the scaled rho (rhosc).
 
