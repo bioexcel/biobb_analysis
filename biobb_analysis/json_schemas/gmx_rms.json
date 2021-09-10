@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/gmx_rms",
-    "name": "biobb_analysis GMXCluster",
+    "name": "biobb_analysis GMXRms",
     "title": "Wrapper of the GROMACS rms module for performing a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.",
     "description": "GROMACS rms compares two structures by computing the root mean square deviation (RMSD), the size-independent rho similarity parameter (rho) or the scaled rho (rhosc).",
     "type": "object",
