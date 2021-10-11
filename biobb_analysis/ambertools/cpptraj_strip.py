@@ -2,14 +2,14 @@
 
 """Module containing the Cpptraj Strip class and the command line interface."""
 import argparse
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import *
 
 
-class CpptrajStrip():
+class CpptrajStrip(BiobbObject):
     """
     | biobb_analysis CpptrajStrip
     | Wrapper of the Ambertools Cpptraj module for stripping a defined set of atoms (mask) from a given cpptraj compatible trajectory.
@@ -66,6 +66,9 @@ class CpptrajStrip():
                 properties=None, **kwargs) -> None:
         properties = properties or {}
 
+        # Call parent class constructor
+        super().__init__(properties)
+
         # Input/Output files
         self.io_dict = { 
             "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path }, 
@@ -82,22 +85,8 @@ class CpptrajStrip():
         self.properties = properties
         self.cpptraj_path = get_binary_path(properties, 'cpptraj_path')
 
-        # container Specific
-        self.container_path = properties.get('container_path')
-        self.container_image = properties.get('container_image', 'afandiadib/ambertools:serial')
-        self.container_volume_path = properties.get('container_volume_path', '/tmp')
-        self.container_working_dir = properties.get('container_working_dir')
-        self.container_user_id = properties.get('container_user_id')
-        self.container_shell_path = properties.get('container_shell_path', '/bin/bash')
-
-        # Properties common in all BB
-        self.can_write_console_log = properties.get('can_write_console_log', True)
-        self.global_log = properties.get('global_log', None)
-        self.prefix = properties.get('prefix', None)
-        self.step = properties.get('step', None)
-        self.path = properties.get('path', '')
-        self.remove_tmp = properties.get('remove_tmp', True)
-        self.restart = properties.get('restart', False)
+        # Check the properties
+        self.check_properties(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -150,53 +139,35 @@ class CpptrajStrip():
     def launch(self) -> int:
         """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` ambertools.cpptraj_strip.CpptrajStrip object."""
         
-        # Get local loggers from launchlogger decorator
-        out_log = getattr(self, 'out_log', None)
-        err_log = getattr(self, 'err_log', None)
-
         # check input/output paths and parameters
-        self.check_data_params(out_log, err_log)
+        self.check_data_params(self.out_log, self.err_log)
 
-        # Check the properties
-        fu.check_properties(self, self.properties)
-
-        if self.restart:
-            output_file_list = [self.io_dict["out"]["output_cpptraj_path"]]
-            if fu.check_complete_files(output_file_list):
-                fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
-                return 0
-
-        # copy inputs to container
-        container_io_dict = fu.copy_to_container(self.container_path, self.container_volume_path, self.io_dict)
+        # Setup Biobb
+        if self.check_restart(): return 0
+        self.stage_files()
 
         # create instructions file
-        self.create_instructions_file(container_io_dict, out_log, err_log) 
+        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log) 
 
         # if container execution, copy intructions file to container
         if self.container_path:
-            copy_instructions_file_to_container(self.instructions_file, container_io_dict['unique_dir'])
+            copy_instructions_file_to_container(self.instructions_file, self.stage_io_dict['unique_dir'])
 
         # create cmd and launch execution
-        cmd = [self.cpptraj_path, '-i', self.instructions_file]
-        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, 
-                                 host_volume=container_io_dict.get("unique_dir"), 
-                                 container_volume=self.container_volume_path, 
-                                 container_working_dir=self.container_working_dir, 
-                                 container_user_uid=self.container_user_id, 
-                                 container_image=self.container_image, 
-                                 container_shell_path=self.container_shell_path, 
-                                 out_log=out_log, global_log=self.global_log)
-        returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+        self.cmd = [self.cpptraj_path, '-i', self.instructions_file]
 
-        # copy output(s) to output(s) path(s) in case of container execution
-        fu.copy_to_host(self.container_path, container_io_dict, self.io_dict)
+        # Run Biobb block
+        self.run_biobb()
+
+        # Copy files to host
+        self.copy_to_host()
 
         # remove temporary folder(s)
-        tmp_files = [PurePath(self.instructions_file).parent]
-        if self.container_path: tmp_files.append(container_io_dict['unique_dir'])
-        remove_tmp_files(tmp_files, self.remove_tmp, out_log, self.input_top_path_orig, self.io_dict["in"]["input_top_path"])
+        self.tmp_files = [PurePath(self.instructions_file).parent]
+        if self.container_path: self.tmp_files.append(self.stage_io_dict['unique_dir'])
+        remove_tmp_files(self.tmp_files, self.remove_tmp, self.out_log, self.input_top_path_orig, self.io_dict["in"]["input_top_path"])
 
-        return returncode
+        return self.return_code
 
 def cpptraj_strip(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` class and

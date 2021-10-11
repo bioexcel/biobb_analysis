@@ -2,14 +2,14 @@
 
 """Module containing the GMX Energy class and the command line interface."""
 import argparse
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
 
 
-class GMXEnergy():
+class GMXEnergy(BiobbObject):
     """
     | biobb_analysis GMXEnergy
     | Wrapper of the GROMACS energy module for extracting energy components from a given GROMACS energy file.
@@ -58,6 +58,9 @@ class GMXEnergy():
                 properties=None, **kwargs) -> None:
         properties = properties or {}
 
+        # Call parent class constructor
+        super().__init__(properties)
+
         # Input/Output files
         self.io_dict = { 
             "in": { "input_energy_path": input_energy_path }, 
@@ -65,28 +68,16 @@ class GMXEnergy():
         }
 
         # Properties specific for BB
+        self.xvg = properties.get('xvg', "none")
+        self.terms = properties.get('terms', ["Potential"])
         self.instructions_file = get_default_value('instructions_file')
         self.properties = properties
 
         # Properties common in all GROMACS BB
         self.gmx_path = get_binary_path(properties, 'gmx_path')
 
-        # container Specific
-        self.container_path = properties.get('container_path')
-        self.container_image = properties.get('container_image', 'gromacs/gromacs:latest')
-        self.container_volume_path = properties.get('container_volume_path', '/tmp')
-        self.container_working_dir = properties.get('container_working_dir')
-        self.container_user_id = properties.get('container_user_id')
-        self.container_shell_path = properties.get('container_shell_path', '/bin/bash')
-
-        # Properties common in all BB
-        self.can_write_console_log = properties.get('can_write_console_log', True)
-        self.global_log = properties.get('global_log', None)
-        self.prefix = properties.get('prefix', None)
-        self.step = properties.get('step', None)
-        self.path = properties.get('path', '')
-        self.remove_tmp = properties.get('remove_tmp', True)
-        self.restart = properties.get('restart', False)
+        # Check the properties
+        self.check_properties(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -120,61 +111,42 @@ class GMXEnergy():
     def launch(self) -> int:
         """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` gromacs.gmx_energy.GMXEnergy object."""
 
-        # Get local loggers from launchlogger decorator
-        out_log = getattr(self, 'out_log', None)
-        err_log = getattr(self, 'err_log', None)
-
         # check input/output paths and parameters
-        self.check_data_params(out_log, err_log)
+        self.check_data_params(self.out_log, self.err_log)
 
-        # Check the properties
-        fu.check_properties(self, self.properties)
-
-        # Restart
-        if self.restart:
-            output_file_list = [self.io_dict["out"]["output_xvg_path"]]
-            if fu.check_complete_files(output_file_list):
-                fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
-                return 0
-
-        # copy inputs to container
-        container_io_dict = fu.copy_to_container(self.container_path, self.container_volume_path, self.io_dict)
+        # Setup Biobb
+        if self.check_restart(): return 0
+        self.stage_files()
 
         # create instructions file
         self.create_instructions_file()
 
         # if container execution, copy intructions file to container
         if self.container_path:
-            copy_instructions_file_to_container(self.instructions_file, container_io_dict['unique_dir'])
+            copy_instructions_file_to_container(self.instructions_file, self.stage_io_dict.get("unique_dir"))
 
-        cmd = [self.gmx_path, 'energy',
-               '-f', container_io_dict["in"]["input_energy_path"],
-               '-o', container_io_dict["out"]["output_xvg_path"],
+        self.cmd = [self.gmx_path, 'energy',
+               '-f', self.stage_io_dict["in"]["input_energy_path"],
+               '-o', self.stage_io_dict["out"]["output_xvg_path"],
                '-xvg', self.xvg,
                '<', self.instructions_file]
 
-        # create cmd and launch execution
-        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, 
-                                 host_volume=container_io_dict.get("unique_dir"), 
-                                 container_volume=self.container_volume_path, 
-                                 container_working_dir=self.container_working_dir, 
-                                 container_user_uid=self.container_user_id, 
-                                 container_image=self.container_image, 
-                                 container_shell_path=self.container_shell_path, 
-                                 out_log=out_log, global_log=self.global_log)
-        returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+        # Run Biobb block
+        self.run_biobb()
 
-        # copy output(s) to output(s) path(s) in case of container execution
-        fu.copy_to_host(self.container_path, container_io_dict, self.io_dict)
+        # Copy files to host
+        self.copy_to_host()
 
         # if container execution, remove temporary folder
         if self.container_path:
-            remove_tmp_files([container_io_dict['unique_dir']], self.remove_tmp, out_log)
+            self.tmp_files.append(self.stage_io_dict.get("unique_dir"))
+            self.remove_tmp_files()
 
         if self.remove_tmp:
-            remove_tmp_files([PurePath(self.instructions_file).parent], self.remove_tmp, out_log)
+            self.tmp_files.append(str(PurePath(self.instructions_file).parent))
+            self.remove_tmp_files()
 
-        return returncode
+        return self.return_code
 
 def gmx_energy(input_energy_path: str, output_xvg_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and

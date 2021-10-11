@@ -30,6 +30,7 @@ gmx_cluster_docker:
     container_path: docker
     container_image: gromacs/gromacs:latest
     container_volume_path: /tmp
+    container_user_id: "1001"
 
 gmx_cluster_singularity:
   paths:
@@ -70,6 +71,7 @@ gmx_rms_docker:
     container_path: docker
     container_image: gromacs/gromacs:latest
     container_volume_path: /tmp
+    container_user_id: "1001"
 
 gmx_rms_singularity:
   paths:
@@ -102,6 +104,7 @@ gmx_energy_docker:
     container_path: docker
     container_image: gromacs/gromacs:latest
     container_volume_path: /tmp
+    container_user_id: "1001"
 
 gmx_energy_singularity:
   paths:
@@ -136,6 +139,7 @@ gmx_rgyr_docker:
     container_path: docker
     container_image: gromacs/gromacs:latest
     container_volume_path: /tmp
+    container_user_id: "1001"
 
 gmx_rgyr_singularity:
   paths:
@@ -172,6 +176,7 @@ gmx_trjconv_str_docker:
     container_path: docker
     container_image: gromacs/gromacs:latest
     container_volume_path: /tmp
+    container_user_id: "1001"
 
 gmx_trjconv_str_singularity:
   paths:
@@ -218,6 +223,7 @@ gmx_trjconv_str_ens_docker:
     container_path: docker
     container_image: gromacs/gromacs:latest
     container_volume_path: /tmp
+    container_user_id: "1001"
 
 gmx_trjconv_str_ens_singularity:
   paths:
@@ -263,6 +269,7 @@ gmx_trjconv_trj_docker:
     container_path: docker
     container_image: gromacs/gromacs:latest
     container_volume_path: /tmp
+    container_user_id: "1001"
 
 gmx_trjconv_trj_singularity:
   paths:
@@ -313,6 +320,7 @@ gmx_image_docker:
     container_path: docker
     container_image: gromacs/gromacs:latest
     container_volume_path: /tmp
+    container_user_id: "1001"
 
 gmx_image_singularity:
   paths:

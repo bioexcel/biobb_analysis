@@ -2,14 +2,14 @@
 
 """Module containing the Cpptraj Input class and the command line interface."""
 import argparse
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import  settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.ambertools.common import *
 
 
-class CpptrajInput():
+class CpptrajInput(BiobbObject):
     """
     | biobb_analysis CpptrajInput
     | Wrapper of the Ambertools Cpptraj module for performing multiple analysis and trajectory operations of a given trajectory.
@@ -44,6 +44,9 @@ class CpptrajInput():
     def __init__(self, input_instructions_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
+        # Call parent class constructor
+        super().__init__(properties)
+
         # Properties specific for BB
         self.input_instructions_path = input_instructions_path
         self.input_top_path = kwargs.get('input_top_path')
@@ -52,14 +55,8 @@ class CpptrajInput():
         self.properties = properties
         self.cpptraj_path = properties.get('cpptraj_path', 'cpptraj')
 
-        # Properties common in all BB
-        self.can_write_console_log = properties.get('can_write_console_log', True)
-        self.global_log = properties.get('global_log', None)
-        self.prefix = properties.get('prefix', None)
-        self.step = properties.get('step', None)
-        self.path = properties.get('path', '')
-        self.remove_tmp = properties.get('remove_tmp', True)
-        self.restart = properties.get('restart', False)
+        # Check the properties
+        self.check_properties(properties)
 
     def create_instrucions_file(self):
         """ Creates an input file using paths provideed in the configuration file (only used for test purposes) """
@@ -76,25 +73,29 @@ class CpptrajInput():
 
         return output_instructions_path
 
+    @launchlogger
     def launch(self) -> int:
         """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` ambertools.cpptraj_input.CpptrajInput object."""
         
         # Get local loggers from launchlogger decorator
-        out_log = getattr(self, 'out_log', None)
-        err_log = getattr(self, 'err_log', None)
 
-        # Check the properties
-        fu.check_properties(self, self.properties)
+        # Setup Biobb
+        if self.check_restart(): return 0
+        self.stage_files()
 
         output_instructions_path = self.create_instrucions_file() if not self.input_instructions_path else self.input_instructions_path
-        check_in_path(output_instructions_path, out_log, self.__class__.__name__)
+        check_in_path(output_instructions_path, self.out_log, self.__class__.__name__)
 
-        # run command line
-        cmd = [self.cpptraj_path, '-i', output_instructions_path]
+        # create cmd and launch execution
+        self.cmd = [self.cpptraj_path, '-i', output_instructions_path]
 
-        returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+        # Run Biobb block
+        self.run_biobb()
 
-        return returncode
+        # Copy files to host
+        self.copy_to_host()
+
+        return self.return_code
 
 def cpptraj_input(input_instructions_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and

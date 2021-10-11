@@ -2,14 +2,13 @@
 
 """Module containing the GMX TrjConvStr class and the command line interface."""
 import argparse
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import  settings
-from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
 
 
-class GMXImage():
+class GMXImage(BiobbObject):
     """
     | biobb_analysis GMXImage
     | Wrapper of the GROMACS trjconv module for correcting periodicity (image) from a given GROMACS compatible trajectory file.
@@ -69,6 +68,9 @@ class GMXImage():
                 input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
+        # Call parent class constructor
+        super().__init__(properties)
+
         # Input/Output files
         self.io_dict = { 
             "in": { "input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path }, 
@@ -76,27 +78,20 @@ class GMXImage():
         }
 
         # Properties specific for BB
+        self.fit_selection = properties.get('fit_selection', "System")
+        self.center_selection = properties.get('center_selection', "System")
+        self.output_selection = properties.get('output_selection', "System")
+        self.pbc = properties.get('pbc', "mol")
+        self.center = properties.get('dista', True)
+        self.ur = properties.get('ur', "compact")
+        self.fit = properties.get('fit', "none")
         self.properties = properties
 
         # Properties common in all GROMACS BB
         self.gmx_path = get_binary_path(properties, 'gmx_path')
 
-        # container Specific
-        self.container_path = properties.get('container_path')
-        self.container_image = properties.get('container_image', 'gromacs/gromacs:latest')
-        self.container_volume_path = properties.get('container_volume_path', '/tmp')
-        self.container_working_dir = properties.get('container_working_dir')
-        self.container_user_id = properties.get('container_user_id')
-        self.container_shell_path = properties.get('container_shell_path', '/bin/bash')
-
-        # Properties common in all BB
-        self.can_write_console_log = properties.get('can_write_console_log', True)
-        self.global_log = properties.get('global_log', None)
-        self.prefix = properties.get('prefix', None)
-        self.step = properties.get('step', None)
-        self.path = properties.get('path', '')
-        self.remove_tmp = properties.get('remove_tmp', True)
-        self.restart = properties.get('restart', False)
+        # Check the properties
+        self.check_properties(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -121,24 +116,12 @@ class GMXImage():
     def launch(self) -> int:
         """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` gromacs.gmx_image.GMXImage object."""
 
-        # Get local loggers from launchlogger decorator
-        out_log = getattr(self, 'out_log', None)
-        err_log = getattr(self, 'err_log', None)
-
         # check input/output paths and parameters
-        self.check_data_params(out_log, err_log)
+        self.check_data_params(self.out_log, self.err_log)
 
-        # Check the properties
-        fu.check_properties(self, self.properties)
-
-        if self.restart:
-            output_file_list = [self.io_dict["out"]["output_traj_path"]]
-            if fu.check_complete_files(output_file_list):
-                fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
-                return 0
-
-        # copy inputs to container
-        container_io_dict = fu.copy_to_container(self.container_path, self.container_volume_path, self.io_dict)
+        # Setup Biobb
+        if self.check_restart(): return 0
+        self.stage_files()
 
         # If fitting provided, echo fit_selection
         if self.fit == 'none':
@@ -146,43 +129,36 @@ class GMXImage():
         else:
             selections = '\"' + self.fit_selection + '\" \"' + self.center_selection + '\" \"' + self.output_selection + '\"'
 
-        cmd = ['echo', selections, '|',
+        self.cmd = ['echo', selections, '|',
                self.gmx_path, 'trjconv',
-               '-f', container_io_dict["in"]["input_traj_path"],
-               '-s', container_io_dict["in"]["input_top_path"],
+               '-f', self.stage_io_dict["in"]["input_traj_path"],
+               '-s', self.stage_io_dict["in"]["input_top_path"],
                '-fit', self.fit,
-               '-o', container_io_dict["out"]["output_traj_path"]]
+               '-o', self.stage_io_dict["out"]["output_traj_path"]]
 
-        if container_io_dict["in"]["input_index_path"]:
-            cmd.extend(['-n', container_io_dict["in"]["input_index_path"]])
+        if self.stage_io_dict["in"]["input_index_path"]:
+            self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
 
         # Unit-cell representation, PBC tratment and atoms center are incompatible with fitting
         if self.fit == 'none':
-            cmd.append('-center' if self.center else '-nocenter')
-            cmd.append('-pbc')
-            cmd.append(self.pbc)
-            cmd.append('-ur')
-            cmd.append(self.ur)
+            self.cmd.append('-center' if self.center else '-nocenter')
+            self.cmd.append('-pbc')
+            self.cmd.append(self.pbc)
+            self.cmd.append('-ur')
+            self.cmd.append(self.ur)
 
-        # create cmd and launch execution
-        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, 
-                                 host_volume=container_io_dict.get("unique_dir"), 
-                                 container_volume=self.container_volume_path, 
-                                 container_working_dir=self.container_working_dir, 
-                                 container_user_uid=self.container_user_id, 
-                                 container_image=self.container_image, 
-                                 container_shell_path=self.container_shell_path, 
-                                 out_log=out_log, global_log=self.global_log)
-        returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+        # Run Biobb block
+        self.run_biobb()
 
-        # copy output(s) to output(s) path(s) in case of container execution
-        fu.copy_to_host(self.container_path, container_io_dict, self.io_dict)
+        # Copy files to host
+        self.copy_to_host()
 
         # if container execution, remove temporary folder
         if self.container_path:
-            remove_tmp_files([container_io_dict['unique_dir']], self.remove_tmp, out_log)
+            self.tmp_files.append(self.stage_io_dict.get("unique_dir"))
+            self.remove_tmp_files()
 
-        return returncode
+        return self.return_code
 
 def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and

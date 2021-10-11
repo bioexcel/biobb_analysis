@@ -2,14 +2,14 @@
 
 """Module containing the GMX TrjConvStr class and the command line interface."""
 import argparse
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_common.command_wrapper import cmd_wrapper
 from biobb_analysis.gromacs.common import *
 
 
-class GMXTrjConvStrEns:
+class GMXTrjConvStrEns(BiobbObject):
     """
     | biobb_analysis GMXTrjConvStrEns
     | Wrapper of the GROMACS trjconv module for extracting an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.
@@ -69,6 +69,9 @@ class GMXTrjConvStrEns:
                 input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
+        # Call parent class constructor
+        super().__init__(properties)
+
         # Input/Output files
         self.io_dict = { 
             "in": { "input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path }, 
@@ -76,27 +79,20 @@ class GMXTrjConvStrEns:
         }
 
         # Properties specific for BB
+        self.fit_selection = properties.get('fit_selection', "System")
+        self.skip = properties.get('skip', 1)
+        self.start = properties.get('start', 0)
+        self.end = properties.get('end', 0)
+        self.dt = properties.get('dt', 0)
+        self.output_name = properties.get('output_name', "output")
+        self.output_type = properties.get('output_type', "pdb")
         self.properties = properties
 
         # Properties common in all GROMACS BB
         self.gmx_path = get_binary_path(properties, 'gmx_path')
 
-        # container Specific
-        self.container_path = properties.get('container_path')
-        self.container_image = properties.get('container_image', 'gromacs/gromacs:latest')
-        self.container_volume_path = properties.get('container_volume_path', '/tmp')
-        self.container_working_dir = properties.get('container_working_dir')
-        self.container_user_id = properties.get('container_user_id')
-        self.container_shell_path = properties.get('container_shell_path', '/bin/bash')
-
-        # Properties common in all BB
-        self.can_write_console_log = properties.get('can_write_console_log', True)
-        self.global_log = properties.get('global_log', None)
-        self.prefix = properties.get('prefix', None)
-        self.step = properties.get('step', None)
-        self.path = properties.get('path', '')
-        self.remove_tmp = properties.get('remove_tmp', True)
-        self.restart = properties.get('restart', False)
+        # Check the properties
+        self.check_properties(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -119,25 +115,12 @@ class GMXTrjConvStrEns:
     def launch(self) -> int:
         """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns object."""
 
-        # Get local loggers from launchlogger decorator
-        out_log = getattr(self, 'out_log', None)
-        err_log = getattr(self, 'err_log', None)
-
         # check input/output paths and parameters
-        self.check_data_params(out_log, err_log)
+        self.check_data_params(self.out_log, self.err_log)
 
-        # Check the properties
-        fu.check_properties(self, self.properties)
-
-        # Restart
-        if self.restart:
-            output_file_list = [self.io_dict["out"]["output_str_ens_path"]]
-            if fu.check_complete_files(output_file_list):
-                fu.log('Restart is enabled, this step: %s will the skipped' % self.step, out_log, self.global_log)
-                return 0
-
-        # copy inputs to container
-        container_io_dict = fu.copy_to_container(self.container_path, self.container_volume_path, self.io_dict)
+        # Setup Biobb
+        if self.check_restart(): return 0
+        self.stage_files()
 
         # if container execution, output to container_volume_path, else create temporary folder to put zip output
         if self.container_path:
@@ -145,13 +128,13 @@ class GMXTrjConvStrEns:
         else:
             # create temporary folder
             self.tmp_folder = fu.create_unique_dir()
-            fu.log('Creating %s temporary folder' % self.tmp_folder, out_log)
+            fu.log('Creating %s temporary folder' % self.tmp_folder, self.out_log)
             output = self.tmp_folder + '/' + self.output_name + '.' + self.output_type
 
-        cmd = ['echo', '\"'+self.selection+'\"', '|',
+        self.cmd = ['echo', '\"'+self.selection+'\"', '|',
                self.gmx_path, 'trjconv',
-               '-f', container_io_dict["in"]["input_traj_path"],
-               '-s', container_io_dict["in"]["input_top_path"],
+               '-f', self.stage_io_dict["in"]["input_traj_path"],
+               '-s', self.stage_io_dict["in"]["input_top_path"],
                '-skip', self.skip,
                '-b', self.start,
                '-dt', self.dt,
@@ -160,33 +143,28 @@ class GMXTrjConvStrEns:
 
         # checking 'end' gromacs 'bug'
         if not str(self.end) =="0":
-            cmd.append('-e')
-            cmd.append(self.end)
+            self.cmd.append('-e')
+            self.cmd.append(self.end)
 
-        if container_io_dict["in"]["input_index_path"]:
-            cmd.extend(['-n', container_io_dict["in"]["input_index_path"]])
+        if self.stage_io_dict["in"]["input_index_path"]:
+            self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
 
-        # create cmd and launch execution
-        cmd = fu.create_cmd_line(cmd, container_path=self.container_path, 
-                                 host_volume=container_io_dict.get("unique_dir"), 
-                                 container_volume=self.container_volume_path, 
-                                 container_working_dir=self.container_working_dir, 
-                                 container_user_uid=self.container_user_id, 
-                                 container_image=self.container_image, 
-                                 container_shell_path=self.container_shell_path, 
-                                 out_log=out_log, global_log=self.global_log)
-        returncode = cmd_wrapper.CmdWrapper(cmd, out_log, err_log, self.global_log).launch()
+        # Run Biobb block
+        self.run_biobb()
+
+        # Copy files to host
+        self.copy_to_host()
 
         if self.container_path:
-            process_output_trjconv_str_ens(container_io_dict['unique_dir'], 
+            process_output_trjconv_str_ens(self.stage_io_dict['unique_dir'], 
                                            self.remove_tmp, self.io_dict["out"]["output_str_ens_path"], 
-                                           self.output_name + '*', out_log)
+                                           self.output_name + '*', self.out_log)
         else:
             process_output_trjconv_str_ens(self.tmp_folder, 
-                                           self.remove_tmp, container_io_dict["out"]["output_str_ens_path"], 
-                                           '*', out_log)
+                                           self.remove_tmp, self.stage_io_dict["out"]["output_str_ens_path"], 
+                                           '*', self.out_log)
 
-        return returncode
+        return self.return_code
 
 def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` class and
