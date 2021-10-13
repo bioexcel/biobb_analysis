@@ -4,9 +4,9 @@
     "github": "https://github.com/bioexcel/biobb_analysis",
     "readthedocs": "https://biobb-analysis.readthedocs.io/en/latest/",
     "conda": "https://anaconda.org/bioconda/biobb_analysis",
-    "docker": "https://quay.io/biocontainers/biobb_analysis:3.6.0--pyhdfd78af_0",
+    "docker": "https://quay.io/biocontainers/biobb_analysis:3.7.0--pyhdfd78af_0",
     "singularity": "https://www.singularity-hub.org/collections/2423/usage",
-    "version": "3.6.0",
+    "version": "3.7.0",
     "tools" : [
         {
             "block" : "GMXCluster", 
@@ -150,12 +150,12 @@
         }
     ],
     "dep_pypi" : [
-        "install_requires=['biobb_common==3.6.0']", 
+        "install_requires=['biobb_common==3.7.0']", 
         "python_requires='==3.7.*'"
     ], 
     "dep_conda" : [
         "python ==3.7.*", 
-        "biobb_common ==3.6.0", 
+        "biobb_common ==3.7.0", 
         "gromacs ==2019.1",
         "ambertools ==20.0"
     ],
