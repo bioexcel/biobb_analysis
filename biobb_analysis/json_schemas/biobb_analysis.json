@@ -15,7 +15,7 @@
             "desc" : "Wrapper of the GROMACS cluster module for clustering structures from a given GROMACS compatible trajectory.",
             "exec" : "gmx_cluster",
             "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_cluster",
-            "rest": false
+            "rest": true
         }, 
         {
             "block" : "GMXRms", 
