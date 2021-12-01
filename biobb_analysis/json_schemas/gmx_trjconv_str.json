@@ -142,15 +142,20 @@
             "filetype": "output",
             "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.str.pdb",
             "enum": [
+                ".*\\.pdb$",
                 ".*\\.xtc$",
                 ".*\\.trr$",
                 ".*\\.cpt$",
                 ".*\\.gro$",
                 ".*\\.g96$",
-                ".*\\.pdb$",
                 ".*\\.tng$"
             ],
             "file_formats": [
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the output file",
+                    "edam": "format_1476"
+                },
                 {
                     "extension": ".*\\.xtc$",
                     "description": "Path to the output file",
@@ -175,11 +180,6 @@
                     "extension": ".*\\.g96$",
                     "description": "Path to the output file",
                     "edam": "format_2033"
-                },
-                {
-                    "extension": ".*\\.pdb$",
-                    "description": "Path to the output file",
-                    "edam": "format_1476"
                 },
                 {
                     "extension": ".*\\.tng$",

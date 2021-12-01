@@ -132,7 +132,7 @@
                 {
                     "extension": ".*\\.ndx$",
                     "description": "Path to the GROMACS index file",
-                    "edam": "format_2033"
+                    "edam": "format_2030"
                 }
             ]
         },
