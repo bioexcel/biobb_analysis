@@ -375,7 +375,7 @@ def is_valid_term(iterms):
 
 def is_valid_selection(ext):
 	""" Checks if selection is correct """
-	formats = ['System', 'Protein', 'Protein-H', 'C-alpha', 'Backbone', 'MainChain', 'MainChain+Cb', 'MainChain+H', 'SideChain', 'SideChain-H', 'Prot-Masses', 'non-Protein', 'Water', 'SOL', 'non-Water', 'Ion', 'NA', 'CL', 'Water_and_ions']
+	formats = ['System', 'Protein', 'Protein-H', 'C-alpha', 'Backbone', 'MainChain', 'MainChain+Cb', 'MainChain+H', 'SideChain', 'SideChain-H', 'Prot-Masses', 'non-Protein', 'Water', 'SOL', 'non-Water', 'Ion', 'NA', 'CL', 'Water_and_ions', 'DNA', 'RNA', 'Protein_DNA', 'Protein_RNA', 'Protein_DNA_RNA', 'DNA_RNA']
 	return ext in formats
 
 def copy_instructions_file_to_container(instructions_file, unique_dir):
