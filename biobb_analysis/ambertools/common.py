@@ -226,7 +226,7 @@ def is_valid_topology(ext):
 
 def is_valid_trajectory(traj):
 	""" Checks if trajectory format is compatible with Cpptraj """
-	formats = 'mdcrd', 'crd', 'cdf', 'netcdf', 'restart', 'ncrestart', 'restartnc', 'dcd', 'charmm', 'cor', 'pdb', 'mol2', 'trr', 'gro', 'binpos', 'xtc', 'cif', 'arc', 'sqm', 'sdf', 'conflib'
+	formats = 'mdcrd', 'crd', 'cdf', 'netcdf', 'nc', 'restart', 'ncrestart', 'restartnc', 'dcd', 'charmm', 'cor', 'pdb', 'mol2', 'trr', 'gro', 'binpos', 'xtc', 'cif', 'arc', 'sqm', 'sdf', 'conflib'
 	return traj in formats
 
 def is_valid_reference(ref):

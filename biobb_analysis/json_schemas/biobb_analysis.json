@@ -20,7 +20,7 @@
         {
             "block" : "GMXRms", 
             "tool" : "gmx rms", 
-            "desc" : "Wrapper of the Ambertools Cpptraj module for calculating the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.",
+            "desc" : "Wrapper of the GROMACS module for calculating the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.",
             "exec" : "gmx_rms",
             "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_rms",
             "rest": true
