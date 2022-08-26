@@ -79,7 +79,7 @@ class GMXTrjConvStrEns(BiobbObject):
         }
 
         # Properties specific for BB
-        self.fit_selection = properties.get('fit_selection', "System")
+        self.selection = properties.get('selection', "System")
         self.skip = properties.get('skip', 1)
         self.start = properties.get('start', 0)
         self.end = properties.get('end', 0)
