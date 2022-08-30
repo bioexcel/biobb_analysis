@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_analysis",
-    version="3.7.0",
+    version="3.8.0",
     author="Biobb developers",
     author_email="genis.bayarri@irbbarcelona.org",
     description="Biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.",
@@ -18,8 +18,8 @@ setuptools.setup(
         "Bioexcel": "https://bioexcel.eu/"
     },
     packages=setuptools.find_packages(exclude=['docs', 'test']),
-    install_requires=['biobb_common==3.7.0'],
-    python_requires='==3.7.*',
+    install_requires=['biobb_common==3.8.1'],
+    python_requires='>=3.7',
     entry_points={
         "console_scripts": [
             "cpptraj_average = biobb_analysis.ambertools.cpptraj_average:main",
