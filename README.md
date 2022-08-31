@@ -44,13 +44,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_analysis:3.8.0--pyhdfd78af_1
+        docker pull quay.io/biocontainers/biobb_analysis:3.8.0--pyhdfd78af_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_analysis:3.8.0--pyhdfd78af_1 <command>
+        docker run quay.io/biocontainers/biobb_analysis:3.8.0--pyhdfd78af_0 <command>
 
 
 Using SINGULARITY:
