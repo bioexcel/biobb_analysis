@@ -1,11 +1,13 @@
 # Biobb Analysis changelog
 
 ## What's new in version [3.8.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v3.8.0)?
-In version 3.8.0 the dependency biobb_common has been updated to 3.8.1 version. 
+In version 3.8.0 the dependency biobb_common has been updated to 3.8.1 version. Also GROMACS has been updated from 2019.1 to 2022.2. Ambertools has been updated from 20.0 to 22.0 as well.
 
 ### New features
 
 * Update to biobb_common 3.8.1 (general)
+* Update to GROMACS 2022.2 (gromacs module)
+* Update to Ambertools 22.0 (ambertools module)
 
 ## What's new in version [3.7.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v3.7.0)?
 In version 3.7.0 the dependency biobb_common has been updated to 3.7.0 version. 

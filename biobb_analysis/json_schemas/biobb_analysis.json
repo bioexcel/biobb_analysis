@@ -177,8 +177,8 @@
     "dep_conda" : [
         "python >=3.7", 
         "biobb_common ==3.8.1", 
-        "gromacs ==2019.1",
-        "ambertools ==20.0"
+        "gromacs ==2022.2",
+        "ambertools ==22.0"
     ],
     "keywords" : [
         "analysis", 
