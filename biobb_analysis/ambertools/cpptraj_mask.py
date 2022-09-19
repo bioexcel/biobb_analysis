@@ -25,7 +25,7 @@ class CpptrajMask(BiobbObject):
             * **steps** (*int*) - (1) [1~100000|1] Step for slicing.
             * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms).
             * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd (AMBER trajectory format), cdf (Format used by netCDF software library for writing and reading chromatography-MS data files), netcdf (Format used by netCDF software library for writing and reading chromatography-MS data files), nc (Format used by netCDF software library for writing and reading chromatography-MS data files), restart (AMBER coordinate/restart file with 6 coordinates per line), ncrestart (AMBER coordinate/restart file with 6 coordinates per line), restartnc (AMBER coordinate/restart file with 6 coordinates per line), dcd (AMBER trajectory format), charmm (Format of CHARMM Residue Topology Files (RTF)), cor (Charmm COR), pdb (Protein Data Bank format), mol2 (Complete and portable representation of a SYBYL molecule), trr (Trajectory of a simulation experiment used by GROMACS), gro (GROMACS structure), binpos (Translation of the ASCII atom coordinate format to binary code), xtc (Portable binary format for trajectories produced by GROMACS package), cif (Entry format of PDB database in mmCIF format), arc (Tinker ARC), sqm (SQM Input), sdf (One of a family of chemical-data file formats developed by MDL Information Systems), conflib (LMOD Conflib).
-            * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+            * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None) Container path definition.
@@ -83,7 +83,7 @@ class CpptrajMask(BiobbObject):
         self.mask = properties.get('mask', 'all-atoms')
         self.format = properties.get('format', 'netcdf')
         self.properties = properties
-        self.cpptraj_path = get_binary_path(properties, 'cpptraj_path')
+        self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
         self.check_properties(properties)
@@ -154,7 +154,7 @@ class CpptrajMask(BiobbObject):
             copy_instructions_file_to_container(self.instructions_file, self.stage_io_dict['unique_dir'])
 
         # create cmd and launch execution
-        self.cmd = [self.cpptraj_path, '-i', self.instructions_file]
+        self.cmd = [self.binary_path, '-i', self.instructions_file]
 
         # Run Biobb block
         self.run_biobb()

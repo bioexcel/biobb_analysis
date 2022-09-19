@@ -3,10 +3,10 @@ from biobb_analysis.gromacs.gmx_image import gmx_image
 
 
 class TestGMXImage():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'gmx_image')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

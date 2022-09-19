@@ -3,10 +3,10 @@ from biobb_analysis.ambertools.cpptraj_image import cpptraj_image
 
 
 class TestCpptrajImageDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_image_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -15,11 +15,13 @@ class TestCpptrajImageDocker():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+import pytest
+@pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajImageSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_image_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

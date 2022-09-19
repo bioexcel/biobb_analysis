@@ -3,10 +3,10 @@ from biobb_analysis.ambertools.cpptraj_input import CpptrajInput
 
 
 class TestCpptrajInput():
-	def setUp(self):
+	def setup_class(self):
 		fx.test_setup(self,'cpptraj_input')
 
-	def tearDown(self):
+	def teardown_class(self):
 		fx.test_teardown(self)
 		pass
 

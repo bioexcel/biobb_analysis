@@ -26,7 +26,7 @@ class CpptrajRmsf(BiobbObject):
             * **steps** (*int*) - (1) [1~100000|1] Step for slicing
             * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms).
             * **reference** (*str*) - ("first") Reference definition. Values: first (Use the first trajectory frame as reference), average (Use the average of all trajectory frames as reference), experimental (Use the experimental structure as reference).
-            * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+            * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None) Container path definition.
@@ -85,7 +85,7 @@ class CpptrajRmsf(BiobbObject):
         self.mask = properties.get('mask', 'all-atoms')
         self.reference = properties.get('reference', 'first')
         self.properties = properties
-        self.cpptraj_path = get_binary_path(properties, 'cpptraj_path')
+        self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
         self.check_properties(properties)
@@ -159,7 +159,7 @@ class CpptrajRmsf(BiobbObject):
             copy_instructions_file_to_container(self.instructions_file, self.stage_io_dict['unique_dir'])
 
         # create cmd and launch execution
-        self.cmd = [self.cpptraj_path, '-i', self.instructions_file]
+        self.cmd = [self.binary_path, '-i', self.instructions_file]
 
         # Run Biobb block
         self.run_biobb()

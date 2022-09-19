@@ -3,10 +3,10 @@ from biobb_analysis.ambertools.cpptraj_rmsf import cpptraj_rmsf
 
 
 class TestCpptrajRmsfFirst():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rmsf_first')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -16,10 +16,10 @@ class TestCpptrajRmsfFirst():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 class TestCpptrajRmsfAverage():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rmsf_average')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -29,10 +29,10 @@ class TestCpptrajRmsfAverage():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 class TestCpptrajRmsfExperimental():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rmsf_experimental')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

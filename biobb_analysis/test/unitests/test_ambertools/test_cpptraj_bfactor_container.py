@@ -3,10 +3,10 @@ from biobb_analysis.ambertools.cpptraj_bfactor import cpptraj_bfactor
 
 
 class TestCpptrajBfactorFirstDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_bfactor_first_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -15,11 +15,13 @@ class TestCpptrajBfactorFirstDocker():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+import pytest
+@pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajBfactorFirstSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_bfactor_first_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -29,10 +31,10 @@ class TestCpptrajBfactorFirstSingularity():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 class TestCpptrajBfactorAverageDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_bfactor_average_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -41,11 +43,12 @@ class TestCpptrajBfactorAverageDocker():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+@pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajBfactorAverageSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_bfactor_average_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -55,10 +58,10 @@ class TestCpptrajBfactorAverageSingularity():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 class TestCpptrajBfactorExperimentalDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_bfactor_experimental_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -67,11 +70,12 @@ class TestCpptrajBfactorExperimentalDocker():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+@pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajBfactorExperimentalSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_bfactor_experimental_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

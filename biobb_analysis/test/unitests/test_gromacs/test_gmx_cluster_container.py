@@ -3,10 +3,10 @@ from biobb_analysis.gromacs.gmx_cluster import gmx_cluster
 
 
 class TestGMXClusterDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'gmx_cluster_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -15,11 +15,13 @@ class TestGMXClusterDocker():
         assert fx.not_empty(self.paths['output_pdb_path'])
         assert fx.equal(self.paths['output_pdb_path'], self.paths['ref_output_pdb_path'])
 
+import pytest
+@pytest.mark.skip(reason="singularity currently not available")
 class TestGMXClusterSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'gmx_cluster_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

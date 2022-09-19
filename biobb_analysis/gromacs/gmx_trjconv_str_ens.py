@@ -28,7 +28,7 @@ class GMXTrjConvStrEns(BiobbObject):
             * **dt** (*int*) - (0) [0~10000|1] Only write frame when t MOD dt = first time (ps).
             * **output_name** (*str*) - ("output") File name for ensemble of output files.
             * **output_type** (*str*) - ("pdb") File type for ensemble of output files. Values: gro (Contains a molecular structure in Gromos87 format), g96 (Can be a GROMOS-96 initial/final configuration file or a coordinate trajectory file or a combination of both), pdb (Molecular structure files in the protein databank file format).
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None) Container path definition.
@@ -89,7 +89,7 @@ class GMXTrjConvStrEns(BiobbObject):
         self.properties = properties
 
         # Properties common in all GROMACS BB
-        self.gmx_path = get_binary_path(properties, 'gmx_path')
+        self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
         self.check_properties(properties)
@@ -132,7 +132,7 @@ class GMXTrjConvStrEns(BiobbObject):
             output = self.tmp_folder + '/' + self.output_name + '.' + self.output_type
 
         self.cmd = ['echo', '\"'+self.selection+'\"', '|',
-               self.gmx_path, 'trjconv',
+               self.binary_path, 'trjconv',
                '-f', self.stage_io_dict["in"]["input_traj_path"],
                '-s', self.stage_io_dict["in"]["input_top_path"],
                '-skip', self.skip,

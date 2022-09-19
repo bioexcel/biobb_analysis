@@ -22,7 +22,7 @@ class GMXRgyr(BiobbObject):
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
             * **selection** (*str*) - ("System") Group where the rgyr will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (C-alpha atoms), Backbone (protein backbone atoms: N; C-alpha and C), MainChain (protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including C-beta), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups), DNA (all DNA atoms), RNA (all RNA atoms), Protein_DNA (all Protein-DNA complex atoms), Protein_RNA (all Protein-RNA complex atoms), Protein_DNA_RNA (all Protein-DNA-RNA complex atoms), DNA_RNA (all DNA-RNA complex atoms).
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None) Container path definition.
@@ -76,7 +76,7 @@ class GMXRgyr(BiobbObject):
         self.properties = properties
 
         # Properties common in all GROMACS BB
-        self.gmx_path = get_binary_path(properties, 'gmx_path')
+        self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
         self.check_properties(properties)
@@ -105,7 +105,7 @@ class GMXRgyr(BiobbObject):
         self.stage_files()
 
         self.cmd = ['echo', '\"'+self.selection+'\"', '|',
-               self.gmx_path, 'gyrate',
+               self.binary_path, 'gyrate',
                '-s', self.stage_io_dict["in"]["input_structure_path"],
                '-f', self.stage_io_dict["in"]["input_traj_path"],
                '-o', self.stage_io_dict["out"]["output_xvg_path"],

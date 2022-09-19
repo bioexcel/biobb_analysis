@@ -3,10 +3,10 @@ from biobb_analysis.gromacs.gmx_rgyr import gmx_rgyr
 
 
 class TestGMXRgyr():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'gmx_rgyr')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

@@ -18,7 +18,7 @@ class CpptrajInput(BiobbObject):
     Args:
         input_instructions_path (str): Path of the instructions file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.in>`_. Accepted formats: in (edam:format_2033).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
-            * **cpptraj_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
+            * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
 
@@ -53,7 +53,7 @@ class CpptrajInput(BiobbObject):
         self.input_traj_path = kwargs.get('input_traj_path')
         self.output_cpptraj_path = kwargs.get('output_cpptraj_path')
         self.properties = properties
-        self.cpptraj_path = properties.get('cpptraj_path', 'cpptraj')
+        self.binary_path = properties.get('binary_path', 'cpptraj')
 
         # Check the properties
         self.check_properties(properties)
@@ -87,7 +87,7 @@ class CpptrajInput(BiobbObject):
         check_in_path(output_instructions_path, self.out_log, self.__class__.__name__)
 
         # create cmd and launch execution
-        self.cmd = [self.cpptraj_path, '-i', output_instructions_path]
+        self.cmd = [self.binary_path, '-i', output_instructions_path]
 
         # Run Biobb block
         self.run_biobb()

@@ -27,7 +27,7 @@ class GMXTrjConvStr(BiobbObject):
             * **center** (*bool*) - (True) Center atoms in box.
             * **ur** (*str*) - ("compact") Unit-cell representation. Values: rect (It's the ordinary brick shape), tric (It's the triclinic unit cell), compact (Puts all atoms at the closest distance from the center of the box).
             * **fit** (*str*) - ("none") Fit molecule to ref structure in the structure file. Values: none, rot+trans, rotxy+transxy, translation, transxy, progressive.
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None) Container path definition.
@@ -83,7 +83,7 @@ class GMXTrjConvStr(BiobbObject):
         self.properties = properties
 
         # Properties common in all GROMACS BB
-        self.gmx_path = get_binary_path(properties, 'gmx_path')
+        self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
         self.check_properties(properties)
@@ -111,7 +111,7 @@ class GMXTrjConvStr(BiobbObject):
         self.stage_files()
 
         self.cmd = ['echo', '\"'+self.selection+'\"', '|',
-               self.gmx_path, 'trjconv',
+               self.binary_path, 'trjconv',
                '-f', self.stage_io_dict["in"]["input_structure_path"],
                '-s', self.stage_io_dict["in"]["input_top_path"],
                '-o', self.stage_io_dict["out"]["output_str_path"]]

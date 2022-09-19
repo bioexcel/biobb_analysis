@@ -81,7 +81,7 @@ def get_default_value(key):
 		"reference": "first",
 		"average": "MyAvg",
 		"instructions_file": "instructions.in",
-		"cpptraj_path": "cpptraj",
+		"binary_path": "cpptraj",
 		# default conf for Average
 		"Average": {
 			"in_parameters": {

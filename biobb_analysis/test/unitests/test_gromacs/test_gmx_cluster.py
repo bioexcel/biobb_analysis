@@ -3,10 +3,10 @@ from biobb_analysis.gromacs.gmx_cluster import gmx_cluster
 
 
 class TestGMXCluster():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'gmx_cluster')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

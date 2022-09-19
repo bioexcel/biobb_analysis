@@ -23,7 +23,7 @@ class GMXTrjConvTrj(BiobbObject):
             * **start** (*int*) - (0) [0~10000|1] Time of first frame to read from trajectory (default unit ps).
             * **end** (*int*) - (0) [0~10000|1] Time of last frame to read from trajectory (default unit ps).
             * **dt** (*int*) - (0) [0~10000|1] Only write frame when t MOD dt = first time (ps).
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None) Container path definition.
@@ -79,7 +79,7 @@ class GMXTrjConvTrj(BiobbObject):
         self.properties = properties
 
         # Properties common in all GROMACS BB
-        self.gmx_path = get_binary_path(properties, 'gmx_path')
+        self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
         self.check_properties(properties)
@@ -109,7 +109,7 @@ class GMXTrjConvTrj(BiobbObject):
         self.stage_files()
 
         self.cmd = ['echo', '\"'+self.selection+'\"', '|',
-               self.gmx_path, 'trjconv',
+               self.binary_path, 'trjconv',
                '-f', self.stage_io_dict["in"]["input_traj_path"],
                '-b', self.start,
                '-e', self.end,

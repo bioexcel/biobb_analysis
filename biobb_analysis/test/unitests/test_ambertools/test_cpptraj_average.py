@@ -3,10 +3,10 @@ from biobb_analysis.ambertools.cpptraj_average import cpptraj_average
 
 
 class TestCpptrajAverage():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_average')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

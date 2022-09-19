@@ -3,10 +3,10 @@ from biobb_analysis.ambertools.cpptraj_rms import cpptraj_rms
 
 
 class TestCpptrajRmsFirstDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rms_first_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -16,10 +16,10 @@ class TestCpptrajRmsFirstDocker():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 class TestCpptrajRmsAverageDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rms_average_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -29,10 +29,10 @@ class TestCpptrajRmsAverageDocker():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 class TestCpptrajRmsExperimentalDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rms_experimental_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -41,11 +41,13 @@ class TestCpptrajRmsExperimentalDocker():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+import pytest
+@pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajRmsFirstSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rms_first_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -54,11 +56,12 @@ class TestCpptrajRmsFirstSingularity():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+@pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajRmsAverageSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rms_average_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -67,11 +70,12 @@ class TestCpptrajRmsAverageSingularity():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+@pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajRmsExperimentalSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_rms_experimental_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

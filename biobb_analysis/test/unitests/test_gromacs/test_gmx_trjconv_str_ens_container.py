@@ -3,10 +3,10 @@ from biobb_analysis.gromacs.gmx_trjconv_str_ens import gmx_trjconv_str_ens
 
 
 class TestGMXTrjConvStrEnsDocker():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'gmx_trjconv_str_ens_docker')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 
@@ -15,11 +15,13 @@ class TestGMXTrjConvStrEnsDocker():
         assert fx.not_empty(self.paths['output_str_ens_path'])
         assert fx.equal(self.paths['output_str_ens_path'], self.paths['ref_output_str_ens_path'])
 
+import pytest
+@pytest.mark.skip(reason="singularity currently not available")
 class TestGMXTrjConvStrEnsSingularity():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'gmx_trjconv_str_ens_singularity')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

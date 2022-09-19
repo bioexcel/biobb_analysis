@@ -21,7 +21,7 @@ class GMXEnergy(BiobbObject):
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **xvg** (*str*) - ("none") XVG plot formatting. Values: xmgrace, xmgr, none.
             * **terms** (*list*) - (["Potential"]) Energy terms. Values: Angle, Proper-Dih., Improper-Dih., LJ-14, Coulomb-14, LJ-\(SR\), Coulomb-\(SR\), Coul.-recip., Position-Rest., Potential, Kinetic-En., Total-Energy, Temperature, Pressure,  Constr.-rmsd, Box-X, Box-Y,  Box-Z, Volume, Density, pV, Enthalpy, Vir-XX, Vir-XY, Vir-XZ, Vir-YX, Vir-YY, Vir-YZ, Vir-ZX, Vir-ZY, Vir-ZZ, Pres-XX, Pres-XY, Pres-XZ, Pres-YX, Pres-YY,  Pres-YZ, Pres-ZX, Pres-ZY, Pres-ZZ, #Surf*SurfTen, Box-Vel-XX, Box-Vel-YY, Box-Vel-ZZ, Mu-X, Mu-Y, Mu-Z, T-Protein, T-non-Protein, Lamb-Protein, Lamb-non-Protein.
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None) Container path definition.
@@ -74,7 +74,7 @@ class GMXEnergy(BiobbObject):
         self.properties = properties
 
         # Properties common in all GROMACS BB
-        self.gmx_path = get_binary_path(properties, 'gmx_path')
+        self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
         self.check_properties(properties)
@@ -125,7 +125,7 @@ class GMXEnergy(BiobbObject):
         if self.container_path:
             copy_instructions_file_to_container(self.instructions_file, self.stage_io_dict.get("unique_dir"))
 
-        self.cmd = [self.gmx_path, 'energy',
+        self.cmd = [self.binary_path, 'energy',
                '-f', self.stage_io_dict["in"]["input_energy_path"],
                '-o', self.stage_io_dict["out"]["output_xvg_path"],
                '-xvg', self.xvg,

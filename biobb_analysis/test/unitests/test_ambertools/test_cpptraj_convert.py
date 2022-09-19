@@ -3,10 +3,10 @@ from biobb_analysis.ambertools.cpptraj_convert import cpptraj_convert
 
 
 class TestCpptrajConvert():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_convert')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

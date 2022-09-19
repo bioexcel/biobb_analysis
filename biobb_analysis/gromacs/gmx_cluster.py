@@ -26,7 +26,7 @@ class GMXCluster(BiobbObject):
             * **dista** (*bool*) - (False) Use RMSD of distances instead of RMS deviation.
             * **method** (*str*) - ("linkage") Method for cluster determination. Values: linkage (Add a structure to a cluster when its distance to any element of the cluster is less than cutoff), jarvis-patrick (Add a structure to a cluster when this structure and a structure in the cluster have each other as neighbors and they have a least P neighbors in common), monte-carlo (Reorder the RMSD matrix using Monte Carlo such that the order of the frames is using the smallest possible increments), diagonalization (Diagonalize the RMSD matrix), gromos (Count number of neighbors using cut-off and take structure with largest number of neighbors with all its neighbors as cluster and eliminate it from the pool of clusters).
             * **cutoff** (*float*) - (0.1) [0~10|0.1] RMSD cut-off (nm) for two structures to be neighbor.
-            * **gmx_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
+            * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
             * **container_path** (*str*) - (None) Container path definition.
@@ -84,7 +84,7 @@ class GMXCluster(BiobbObject):
         self.properties = properties
 
         # Properties common in all GROMACS BB
-        self.gmx_path = get_binary_path(properties, 'gmx_path')
+        self.binary_path = get_binary_path(properties, 'binary_path')
         
         # Check the properties
         self.check_properties(properties)
@@ -128,7 +128,7 @@ class GMXCluster(BiobbObject):
             self.xpm_path = str(PurePath(self.container_volume_path).joinpath(self.xpm_path))
 
         self.cmd = ['echo', '\"' + self.fit_selection + '\" \"' + self.output_selection + '\"', '|',
-               self.gmx_path, 'cluster',
+               self.binary_path, 'cluster',
                '-g', self.log_path,
                '-dist', self.xvg_path,
                '-o', self.xpm_path,

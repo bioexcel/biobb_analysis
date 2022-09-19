@@ -3,10 +3,10 @@ from biobb_analysis.ambertools.cpptraj_snapshot import cpptraj_snapshot
 
 
 class TestCpptrajSnapshot():
-    def setUp(self):
+    def setup_class(self):
         fx.test_setup(self,'cpptraj_snapshot')
 
-    def tearDown(self):
+    def teardown_class(self):
         fx.test_teardown(self)
         pass
 

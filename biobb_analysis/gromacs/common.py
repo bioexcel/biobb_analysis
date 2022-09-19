@@ -109,7 +109,7 @@ def get_default_value(key):
 	""" Gives default values according to the given key """
 	default_values = {
 		"instructions_file": "instructions.in",
-		"gmx_path": "gmx",
+		"binary_path": "gmx",
 		"terms": ["Potential"],
 		"selection": "System",
 		"xvg": "none",
@@ -171,11 +171,11 @@ def get_image_selection(properties, key, out_log, classname):
 
 def get_selection_index_file(properties, index, key, out_log, classname):
 	""" Gets selection items from provided index file """
-	pattern = re.compile("\[.*\]")
+	pattern = re.compile(r"\[.*\]")
 	selection = []
 	for i, line in enumerate(open(index)):
 		for match in re.finditer(pattern, line):
-			selection.append(re.sub('[\[\] ]', '', match.group()))
+			selection.append(re.sub(r'[\[\] ]', '', match.group()))
 	sel = properties.get(key, get_default_value(key))
 	if not sel in selection:
 		fu.log(classname + ': Incorrect selection provided, exiting', out_log)
