@@ -72,6 +72,7 @@
                 ".*\\.crd$",
                 ".*\\.cdf$",
                 ".*\\.netcdf$",
+                ".*\\.nc$",
                 ".*\\.restart$",
                 ".*\\.ncrestart$",
                 ".*\\.restartnc$",
@@ -108,6 +109,11 @@
                 },
                 {
                     "extension": ".*\\.netcdf$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.nc$",
                     "description": "Path to the input trajectory to be processed",
                     "edam": "format_3650"
                 },
@@ -207,6 +213,7 @@
                 ".*\\.mdcrd$",
                 ".*\\.crd$",
                 ".*\\.netcdf$",
+                ".*\\.nc$",
                 ".*\\.rst7$",
                 ".*\\.ncrst$",
                 ".*\\.dcd$",
@@ -230,6 +237,11 @@
                 },
                 {
                     "extension": ".*\\.netcdf$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.nc$",
                     "description": "Path to the output processed trajectory",
                     "edam": "format_3650"
                 },
@@ -369,6 +381,7 @@
                         "crd",
                         "cdf",
                         "netcdf",
+                        "nc",
                         "restart",
                         "ncrestart",
                         "restartnc",
@@ -398,6 +411,10 @@
                         },
                         {
                             "name": "netcdf",
+                            "description": "Format used by netCDF software library for writing and reading chromatography-MS data files"
+                        },
+                        {
+                            "name": "nc",
                             "description": "Format used by netCDF software library for writing and reading chromatography-MS data files"
                         },
                         {
@@ -470,7 +487,7 @@
                         }
                     ]
                 },
-                "cpptraj_path": {
+                "binary_path": {
                     "type": "string",
                     "default": "cpptraj",
                     "wf_prop": false,

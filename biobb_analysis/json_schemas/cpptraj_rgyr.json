@@ -72,6 +72,7 @@
                 ".*\\.crd$",
                 ".*\\.cdf$",
                 ".*\\.netcdf$",
+                ".*\\.nc$",
                 ".*\\.restart$",
                 ".*\\.ncrestart$",
                 ".*\\.restartnc$",
@@ -108,6 +109,11 @@
                 },
                 {
                     "extension": ".*\\.netcdf$",
+                    "description": "Path to the input trajectory to be processed",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.nc$",
                     "description": "Path to the input trajectory to be processed",
                     "edam": "format_3650"
                 },
@@ -312,7 +318,7 @@
                         }
                     ]
                 },
-                "cpptraj_path": {
+                "binary_path": {
                     "type": "string",
                     "default": "cpptraj",
                     "wf_prop": false,

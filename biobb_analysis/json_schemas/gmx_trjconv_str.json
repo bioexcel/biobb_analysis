@@ -215,7 +215,13 @@
                         "Ion",
                         "NA",
                         "CL",
-                        "Water_and_ions"
+                        "Water_and_ions",
+                        "DNA",
+                        "RNA",
+                        "Protein_DNA",
+                        "Protein_RNA",
+                        "Protein_DNA_RNA",
+                        "DNA_RNA"
                     ],
                     "property_formats": [
                         {
@@ -293,10 +299,150 @@
                         {
                             "name": "Water_and_ions",
                             "description": "combination of the Water and Ions groups"
+                        },
+                        {
+                            "name": "DNA",
+                            "description": "all DNA atoms"
+                        },
+                        {
+                            "name": "RNA",
+                            "description": "all RNA atoms"
+                        },
+                        {
+                            "name": "Protein_DNA",
+                            "description": "all Protein-DNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_RNA",
+                            "description": "all Protein-RNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_DNA_RNA",
+                            "description": "all Protein-DNA-RNA complex atoms"
+                        },
+                        {
+                            "name": "DNA_RNA",
+                            "description": "all DNA-RNA complex atoms"
                         }
                     ]
                 },
-                "gmx_path": {
+                "pbc": {
+                    "type": "string",
+                    "default": "mol) PBC treatment (see help text for full description",
+                    "wf_prop": false,
+                    "description": ". ",
+                    "enum": [
+                        "none",
+                        "mol",
+                        "res",
+                        "atom",
+                        "nojump",
+                        "cluster",
+                        "whole"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "none",
+                            "description": "No PBC treatment"
+                        },
+                        {
+                            "name": "mol",
+                            "description": "Puts the center of mass of molecules in the box"
+                        },
+                        {
+                            "name": "res",
+                            "description": "Puts the center of mass of residues in the box"
+                        },
+                        {
+                            "name": "atom",
+                            "description": "Puts all the atoms in the box"
+                        },
+                        {
+                            "name": "nojump",
+                            "description": "Checks if atoms jump across the box and then puts them back"
+                        },
+                        {
+                            "name": "cluster",
+                            "description": "Clusters all the atoms in the selected index such that they are all closest to the center of mass of the cluster which is iteratively updated"
+                        },
+                        {
+                            "name": "whole",
+                            "description": "Only makes broken molecules whole"
+                        }
+                    ]
+                },
+                "center": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": false,
+                    "description": "Center atoms in box."
+                },
+                "ur": {
+                    "type": "string",
+                    "default": "compact",
+                    "wf_prop": false,
+                    "description": "Unit-cell representation. ",
+                    "enum": [
+                        "rect",
+                        "tric",
+                        "compact"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "rect",
+                            "description": "It's the ordinary brick shape"
+                        },
+                        {
+                            "name": "tric",
+                            "description": "It's the triclinic unit cell"
+                        },
+                        {
+                            "name": "compact",
+                            "description": "Puts all atoms at the closest distance from the center of the box"
+                        }
+                    ]
+                },
+                "fit": {
+                    "type": "string",
+                    "default": "none",
+                    "wf_prop": false,
+                    "description": "Fit molecule to ref structure in the structure file. ",
+                    "enum": [
+                        "none",
+                        "rot+trans",
+                        "rotxy+transxy",
+                        "translation",
+                        "transxy",
+                        "progressive"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "none",
+                            "description": null
+                        },
+                        {
+                            "name": "rot+trans",
+                            "description": null
+                        },
+                        {
+                            "name": "rotxy+transxy",
+                            "description": null
+                        },
+                        {
+                            "name": "translation",
+                            "description": null
+                        },
+                        {
+                            "name": "transxy",
+                            "description": null
+                        },
+                        {
+                            "name": "progressive",
+                            "description": null
+                        }
+                    ]
+                },
+                "binary_path": {
                     "type": "string",
                     "default": "gmx",
                     "wf_prop": false,

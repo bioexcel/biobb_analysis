@@ -346,7 +346,7 @@
                         }
                     ]
                 },
-                "gmx_path": {
+                "binary_path": {
                     "type": "string",
                     "default": "gmx",
                     "wf_prop": false,

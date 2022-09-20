@@ -215,7 +215,13 @@
                         "Ion",
                         "NA",
                         "CL",
-                        "Water_and_ions"
+                        "Water_and_ions",
+                        "DNA",
+                        "RNA",
+                        "Protein_DNA",
+                        "Protein_RNA",
+                        "Protein_DNA_RNA",
+                        "DNA_RNA"
                     ],
                     "property_formats": [
                         {
@@ -293,6 +299,30 @@
                         {
                             "name": "Water_and_ions",
                             "description": "combination of the Water and Ions groups"
+                        },
+                        {
+                            "name": "DNA",
+                            "description": "all DNA atoms"
+                        },
+                        {
+                            "name": "RNA",
+                            "description": "all RNA atoms"
+                        },
+                        {
+                            "name": "Protein_DNA",
+                            "description": "all Protein-DNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_RNA",
+                            "description": "all Protein-RNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_DNA_RNA",
+                            "description": "all Protein-DNA-RNA complex atoms"
+                        },
+                        {
+                            "name": "DNA_RNA",
+                            "description": "all DNA-RNA complex atoms"
                         }
                     ]
                 },
@@ -320,7 +350,13 @@
                         "Ion",
                         "NA",
                         "CL",
-                        "Water_and_ions"
+                        "Water_and_ions",
+                        "DNA",
+                        "RNA",
+                        "Protein_DNA",
+                        "Protein_RNA",
+                        "Protein_DNA_RNA",
+                        "DNA_RNA"
                     ],
                     "property_formats": [
                         {
@@ -398,6 +434,30 @@
                         {
                             "name": "Water_and_ions",
                             "description": "combination of the Water and Ions groups"
+                        },
+                        {
+                            "name": "DNA",
+                            "description": "all DNA atoms"
+                        },
+                        {
+                            "name": "RNA",
+                            "description": "all RNA atoms"
+                        },
+                        {
+                            "name": "Protein_DNA",
+                            "description": "all Protein-DNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_RNA",
+                            "description": "all Protein-RNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_DNA_RNA",
+                            "description": "all Protein-DNA-RNA complex atoms"
+                        },
+                        {
+                            "name": "DNA_RNA",
+                            "description": "all DNA-RNA complex atoms"
                         }
                     ]
                 },
@@ -425,7 +485,13 @@
                         "Ion",
                         "NA",
                         "CL",
-                        "Water_and_ions"
+                        "Water_and_ions",
+                        "DNA",
+                        "RNA",
+                        "Protein_DNA",
+                        "Protein_RNA",
+                        "Protein_DNA_RNA",
+                        "DNA_RNA"
                     ],
                     "property_formats": [
                         {
@@ -503,6 +569,30 @@
                         {
                             "name": "Water_and_ions",
                             "description": "combination of the Water and Ions groups"
+                        },
+                        {
+                            "name": "DNA",
+                            "description": "all DNA atoms"
+                        },
+                        {
+                            "name": "RNA",
+                            "description": "all RNA atoms"
+                        },
+                        {
+                            "name": "Protein_DNA",
+                            "description": "all Protein-DNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_RNA",
+                            "description": "all Protein-RNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_DNA_RNA",
+                            "description": "all Protein-DNA-RNA complex atoms"
+                        },
+                        {
+                            "name": "DNA_RNA",
+                            "description": "all DNA-RNA complex atoms"
                         }
                     ]
                 },
@@ -622,7 +712,7 @@
                         }
                     ]
                 },
-                "gmx_path": {
+                "binary_path": {
                     "type": "string",
                     "default": "gmx",
                     "wf_prop": false,

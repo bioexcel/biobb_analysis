@@ -451,7 +451,7 @@
                     "max": 10.0,
                     "step": 0.1
                 },
-                "gmx_path": {
+                "binary_path": {
                     "type": "string",
                     "default": "gmx",
                     "wf_prop": false,
