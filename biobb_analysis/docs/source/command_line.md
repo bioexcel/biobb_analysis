@@ -538,7 +538,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container image definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
 * **container_working_dir** (*string*): (None) Container working directory definition..
 * **container_user_id** (*string*): (None) Container user_id definition..
@@ -556,7 +556,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_trjconv_trj_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1001'
   container_volume_path: /tmp
@@ -603,7 +603,7 @@ gmx_trjconv_trj --config config_gmx_trjconv_trj.yml --input_traj_path trajectory
     "end": 0,
     "dt": 0,
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }
@@ -977,7 +977,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container image definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
 * **container_working_dir** (*string*): (None) Container working directory definition..
 * **container_user_id** (*string*): (None) Container user_id definition..
@@ -1000,7 +1000,7 @@ properties:
 properties:
   center: true
   center_selection: System
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1001'
   container_volume_path: /tmp
@@ -1057,7 +1057,7 @@ gmx_image --config config_gmx_image.yml --input_traj_path trajectory.trr --input
     "fit": "rot+trans",
     "ur": "compact",
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }
@@ -1263,7 +1263,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container image definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
 * **container_working_dir** (*string*): (None) Container working directory definition..
 * **container_user_id** (*string*): (None) Container user_id definition..
@@ -1278,7 +1278,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rms_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1001'
   container_volume_path: /tmp
@@ -1313,7 +1313,7 @@ gmx_rms --config config_gmx_rms.yml --input_structure_path topology.tpr --input_
   "properties": {
     "selection": "System",
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }
@@ -1380,7 +1380,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container image definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
 * **container_working_dir** (*string*): (None) Container working directory definition..
 * **container_user_id** (*string*): (None) Container user_id definition..
@@ -1399,7 +1399,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_cluster_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1001'
   container_volume_path: /tmp
@@ -1450,7 +1450,7 @@ gmx_cluster --config config_gmx_cluster.yml --input_structure_path topology.tpr 
     "method": "linkage",
     "cutoff": 0.1,
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }
@@ -1899,7 +1899,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container image definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
 * **container_working_dir** (*string*): (None) Container working directory definition..
 * **container_user_id** (*string*): (None) Container user_id definition..
@@ -1916,7 +1916,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_energy_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1001'
   container_volume_path: /tmp
@@ -1961,7 +1961,7 @@ gmx_energy --config config_gmx_energy.yml --input_energy_path energy.edr --outpu
       "Pressure"
     ],
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }
@@ -2033,7 +2033,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container image definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
 * **container_working_dir** (*string*): (None) Container working directory definition..
 * **container_user_id** (*string*): (None) Container user_id definition..
@@ -2053,7 +2053,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_trjconv_str_ens_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1001'
   container_volume_path: /tmp
@@ -2108,7 +2108,7 @@ gmx_trjconv_str_ens --config config_gmx_trjconv_str_ens.yml --input_traj_path tr
     "output_name": "output",
     "output_type": "pdb",
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }
@@ -2316,7 +2316,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container image definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
 * **container_working_dir** (*string*): (None) Container working directory definition..
 * **container_user_id** (*string*): (None) Container user_id definition..
@@ -2331,7 +2331,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_trjconv_str_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1001'
   container_volume_path: /tmp
@@ -2366,7 +2366,7 @@ gmx_trjconv_str --config config_gmx_trjconv_str.yml --input_structure_path traje
   "properties": {
     "selection": "System",
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }
@@ -2430,7 +2430,7 @@ Config parameters for this building block:
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
 * **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:latest) Container image definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
 * **container_working_dir** (*string*): (None) Container working directory definition..
 * **container_user_id** (*string*): (None) Container user_id definition..
@@ -2445,7 +2445,7 @@ properties:
 #### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rgyr_docker.yml)
 ```python
 properties:
-  container_image: gromacs/gromacs:latest
+  container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1001'
   container_volume_path: /tmp
@@ -2480,7 +2480,7 @@ gmx_rgyr --config config_gmx_rgyr.yml --input_structure_path topology.tpr --inpu
   "properties": {
     "selection": "System",
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }

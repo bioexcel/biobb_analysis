@@ -7,7 +7,7 @@
     "output_name": "output",
     "output_type": "pdb",
     "container_path": "docker",
-    "container_image": "gromacs/gromacs:latest",
+    "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
     "container_user_id": "1001"
   }

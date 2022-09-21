@@ -332,7 +332,7 @@
                 },
                 "container_image": {
                     "type": "string",
-                    "default": "gromacs/gromacs:latest",
+                    "default": "gromacs/gromacs:2022.2",
                     "wf_prop": false,
                     "description": "Container image definition."
                 },
