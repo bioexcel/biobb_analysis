@@ -28,7 +28,7 @@ gmx_cluster_docker:
     method: linkage
     cutoff: 0.1
     container_path: docker
-    container_image: gromacs/gromacs:latest
+    container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
     container_user_id: "1001"
 
@@ -69,7 +69,7 @@ gmx_rms_docker:
   properties:
     selection: System
     container_path: docker
-    container_image: gromacs/gromacs:latest
+    container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
     container_user_id: "1001"
 
@@ -102,7 +102,7 @@ gmx_energy_docker:
   properties:
     terms: [Potential, Pressure]
     container_path: docker
-    container_image: gromacs/gromacs:latest
+    container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
     container_user_id: "1001"
 
@@ -137,7 +137,7 @@ gmx_rgyr_docker:
   properties:
     selection: System
     container_path: docker
-    container_image: gromacs/gromacs:latest
+    container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
     container_user_id: "1001"
 
@@ -174,7 +174,7 @@ gmx_trjconv_str_docker:
   properties:
     selection: System
     container_path: docker
-    container_image: gromacs/gromacs:latest
+    container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
     container_user_id: "1001"
 
@@ -221,7 +221,7 @@ gmx_trjconv_str_ens_docker:
     output_name: output
     output_type: pdb
     container_path: docker
-    container_image: gromacs/gromacs:latest
+    container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
     container_user_id: "1001"
 
@@ -267,7 +267,7 @@ gmx_trjconv_trj_docker:
     end: 0
     dt: 0
     container_path: docker
-    container_image: gromacs/gromacs:latest
+    container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
     container_user_id: "1001"
 
@@ -318,7 +318,7 @@ gmx_image_docker:
     fit: rot+trans
     ur: compact
     container_path: docker
-    container_image: gromacs/gromacs:latest
+    container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
     container_user_id: "1001"
 
