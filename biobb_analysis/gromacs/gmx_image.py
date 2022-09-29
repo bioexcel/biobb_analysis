@@ -101,7 +101,7 @@ class GMXImage(BiobbObject):
         self.io_dict["out"]["output_traj_path"] = check_out_traj_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
         if not self.io_dict["in"]["input_index_path"]:
             if self.fit != 'none': self.fit_selection = get_image_selection(self.properties, 'fit_selection', out_log, self.__class__.__name__)
-            if self.fit != 'none': self.center_selection = get_image_selection(self.properties, 'center_selection', out_log, self.__class__.__name__)
+            if self.fit != 'none' or not self.center: self.center_selection = get_image_selection(self.properties, 'center_selection', out_log, self.__class__.__name__)
             self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
         else:
             self.fit_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'fit_selection', out_log, self.__class__.__name__)
