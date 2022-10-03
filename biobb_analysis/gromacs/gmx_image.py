@@ -144,10 +144,12 @@ class GMXImage(BiobbObject):
 
         if self.stage_io_dict["in"]["input_index_path"]:
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
+            
 
-        # Unit-cell representation, PBC tratment and atoms center are incompatible with fitting
+        self.cmd.append('-center' if self.center else '-nocenter')
+
+        # Unit-cell representation, PBC treatment is incompatible with fitting
         if self.fit == 'none':
-            self.cmd.append('-center' if self.center else '-nocenter')
             self.cmd.append('-pbc')
             self.cmd.append(self.pbc)
             self.cmd.append('-ur')
