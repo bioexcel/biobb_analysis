@@ -16,6 +16,7 @@ class GMXTrjConvTrj(BiobbObject):
 
     Args:
         input_traj_path (str): Path to the GROMACS trajectory file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr>`_. Accepted formats: xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), tng (edam:format_3876).
+        input_top_path (str) (Optional): Path to the GROMACS input topology file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr>`_. Accepted formats: tpr (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), brk (edam:format_2033), ent (edam:format_1476).
         input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx (edam:format_2033).
         output_traj_path (str): Path to the output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.trj.xtc>`_. Accepted formats: xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), tng (edam:format_3876).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
@@ -59,7 +60,7 @@ class GMXTrjConvTrj(BiobbObject):
     """
 
     def __init__(self, input_traj_path, 
-                 output_traj_path, input_index_path=None, properties=None, **kwargs) -> None:
+                 output_traj_path, input_index_path=None, input_top_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -67,12 +68,15 @@ class GMXTrjConvTrj(BiobbObject):
 
         # Input/Output files
         self.io_dict = { 
-            "in": { "input_traj_path": input_traj_path, "input_index_path": input_index_path }, 
+            "in": { "input_traj_path": input_traj_path, "input_index_path": input_index_path, "input_top_path": input_top_path }, 
             "out": { "output_traj_path": output_traj_path } 
         }
 
         # Properties specific for BB
-        self.selection = properties.get('selection', "System")
+        if not self.io_dict["in"]["input_index_path"] and not self.io_dict["in"]["input_top_path"]:
+            self.selection = properties.get('selection', "")
+        else:
+            self.selection = properties.get('selection', "System")
         self.start = properties.get('start', 0)
         self.end = properties.get('end', 0)
         self.dt = properties.get('dt', 0)
@@ -88,11 +92,20 @@ class GMXTrjConvTrj(BiobbObject):
         """ Checks all the input/output paths and parameters """
         self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
         self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
+        if self.io_dict["in"]["input_top_path"]: self.io_dict["in"]["input_top_path"] = check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
         self.io_dict["out"]["output_traj_path"] = check_out_traj_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
-        if not self.io_dict["in"]["input_index_path"]:
+        '''if not self.io_dict["in"]["input_index_path"]:
             self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
         else:
+            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)'''
+        if self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
+            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+        elif self.io_dict["in"]["input_index_path"]:
             self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
+        elif not self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
+            self.selection = ""
+        else:
+            return True 
         self.start = get_start(self.properties, out_log, self.__class__.__name__)
         self.end = get_end(self.properties, out_log, self.__class__.__name__)
         self.dt = get_dt(self.properties, out_log, self.__class__.__name__)
@@ -103,6 +116,11 @@ class GMXTrjConvTrj(BiobbObject):
         
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
+
+        # if not input_index_path and not input_top_path provided, selection must be empty, otherwise exit
+        if not self.io_dict["in"]["input_index_path"] and not self.io_dict["in"]["input_top_path"] and self.selection != '':
+            fu.log(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty', self.out_log)
+            raise SystemExit(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty')
 
         # Setup Biobb
         if self.check_restart(): return 0
@@ -119,6 +137,9 @@ class GMXTrjConvTrj(BiobbObject):
         if self.stage_io_dict["in"]["input_index_path"]:
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
 
+        if self.stage_io_dict["in"]["input_top_path"]:
+            self.cmd.extend(['-s', self.stage_io_dict["in"]["input_top_path"]])
+
         # Run Biobb block
         self.run_biobb()
 
@@ -132,13 +153,14 @@ class GMXTrjConvTrj(BiobbObject):
 
         return self.return_code
 
-def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
+def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: str = None, input_top_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch>` method."""
 
     return GMXTrjConvTrj(input_traj_path=input_traj_path, 
                     output_traj_path=output_traj_path,
                     input_index_path=input_index_path,
+                    input_top_path=input_top_path, 
                     properties=properties, **kwargs).launch()
 
 def main():
@@ -150,6 +172,7 @@ def main():
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
     parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file. Accepted formats: ndx.")
+    parser.add_argument('--input_top_path', required=False, help='Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
     required_args.add_argument('--output_traj_path', required=True, help='Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.')
 
     args = parser.parse_args()
@@ -160,6 +183,7 @@ def main():
     gmx_trjconv_trj(input_traj_path=args.input_traj_path, 
                     output_traj_path=args.output_traj_path, 
                     input_index_path=args.input_index_path, 
+                    input_top_path=args.input_top_path, 
                     properties=properties)
 
 if __name__ == '__main__':

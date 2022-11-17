@@ -73,6 +73,52 @@
                 }
             ]
         },
+        "input_top_path": {
+            "type": "string",
+            "description": "Path to the GROMACS input topology file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr",
+            "enum": [
+                ".*\\.tpr$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.brk$",
+                ".*\\.ent$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the GROMACS input topology file",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the GROMACS input topology file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.g96$",
+                    "description": "Path to the GROMACS input topology file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the GROMACS input topology file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.brk$",
+                    "description": "Path to the GROMACS input topology file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.ent$",
+                    "description": "Path to the GROMACS input topology file",
+                    "edam": "format_1476"
+                }
+            ]
+        },
         "input_index_path": {
             "type": "string",
             "description": "Path to the GROMACS index file",

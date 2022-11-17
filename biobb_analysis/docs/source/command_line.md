@@ -504,7 +504,7 @@ Command:
 ```python
 gmx_trjconv_trj -h
 ```
-    usage: gmx_trjconv_trj [-h] [--config CONFIG] --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_traj_path OUTPUT_TRAJ_PATH
+    usage: gmx_trjconv_trj [-h] [--config CONFIG] --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] [--input_top_path INPUT_TOP_PATH] --output_traj_path OUTPUT_TRAJ_PATH
     
     Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.
     
@@ -513,6 +513,8 @@ gmx_trjconv_trj -h
       --config CONFIG       Configuration file
       --input_index_path INPUT_INDEX_PATH
                             Path to the GROMACS index file. Accepted formats: ndx.
+      --input_top_path INPUT_TOP_PATH
+                            Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
     
     required arguments:
       --input_traj_path INPUT_TRAJ_PATH
@@ -524,6 +526,7 @@ Syntax: input_argument (datatype) : Definition
 
 Config input / output arguments for this building block:
 * **input_traj_path** (*string*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
+* **input_top_path** (*string*): Path to the GROMACS input topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
 * **input_index_path** (*string*): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: NDX
 * **output_traj_path** (*string*): Path to the output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.trj.xtc). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
 ### Config
@@ -580,7 +583,7 @@ properties:
 ```
 #### Command line
 ```python
-gmx_trjconv_trj --config config_gmx_trjconv_trj.yml --input_traj_path trajectory.trr --input_index_path index.ndx --output_traj_path ref_trjconv.trj.xtc
+gmx_trjconv_trj --config config_gmx_trjconv_trj.yml --input_traj_path trajectory.trr --input_top_path topology.tpr --input_index_path index.ndx --output_traj_path ref_trjconv.trj.xtc
 ```
 ### JSON
 #### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_trjconv_trj.json)
@@ -625,7 +628,7 @@ gmx_trjconv_trj --config config_gmx_trjconv_trj.yml --input_traj_path trajectory
 ```
 #### Command line
 ```python
-gmx_trjconv_trj --config config_gmx_trjconv_trj.json --input_traj_path trajectory.trr --input_index_path index.ndx --output_traj_path ref_trjconv.trj.xtc
+gmx_trjconv_trj --config config_gmx_trjconv_trj.json --input_traj_path trajectory.trr --input_top_path topology.tpr --input_index_path index.ndx --output_traj_path ref_trjconv.trj.xtc
 ```
 
 ## Cpptraj_mask
