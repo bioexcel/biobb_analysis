@@ -971,6 +971,7 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 Config parameters for this building block:
 * **fit_selection** (*string*): (System) Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values. .
 * **center_selection** (*string*): (System) Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. .
+* **cluster_selection** (*string*): (System) Group assigned to be the cluster, onto which all atoms are wrapped around the box, such that they are closest to the center of mass of the cluster, which is iteratively updated. If **input_index_path** provided, check the file for the accepted values. .
 * **output_selection** (*string*): (System) Group that is going to be written in the output trajectory. If **input_index_path** provided, check the file for the accepted values. .
 * **pbc** (*string*): (mol) PBC treatment (see help text for full description) . .
 * **center** (*boolean*): (True) Center atoms in box..

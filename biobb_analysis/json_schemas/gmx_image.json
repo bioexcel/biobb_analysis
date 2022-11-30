@@ -461,6 +461,141 @@
                         }
                     ]
                 },
+                "cluster_selection": {
+                    "type": "string",
+                    "default": "System",
+                    "wf_prop": false,
+                    "description": "Group assigned to be the cluster, onto which all atoms are wrapped around the box, such that they are closest to the center of mass of the cluster, which is iteratively updated. If **input_index_path** provided, check the file for the accepted values. ",
+                    "enum": [
+                        "System",
+                        "Protein",
+                        "Protein-H",
+                        "C-alpha",
+                        "Backbone",
+                        "MainChain",
+                        "MainChain+Cb",
+                        "MainChain+H",
+                        "SideChain",
+                        "SideChain-H",
+                        "Prot-Masses",
+                        "non-Protein",
+                        "Water",
+                        "SOL",
+                        "non-Water",
+                        "Ion",
+                        "NA",
+                        "CL",
+                        "Water_and_ions",
+                        "DNA",
+                        "RNA",
+                        "Protein_DNA",
+                        "Protein_RNA",
+                        "Protein_DNA_RNA",
+                        "DNA_RNA"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "System",
+                            "description": "all atoms in the system"
+                        },
+                        {
+                            "name": "Protein",
+                            "description": "all protein atoms"
+                        },
+                        {
+                            "name": "Protein-H",
+                            "description": "protein atoms excluding hydrogens"
+                        },
+                        {
+                            "name": "C-alpha",
+                            "description": "C-alpha atoms"
+                        },
+                        {
+                            "name": "Backbone",
+                            "description": "protein backbone atoms: N; C-alpha and C"
+                        },
+                        {
+                            "name": "MainChain",
+                            "description": "protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus"
+                        },
+                        {
+                            "name": "MainChain+Cb",
+                            "description": "protein main chain atoms including C-beta"
+                        },
+                        {
+                            "name": "MainChain+H",
+                            "description": "protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus"
+                        },
+                        {
+                            "name": "SideChain",
+                            "description": "protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus"
+                        },
+                        {
+                            "name": "SideChain-H",
+                            "description": "protein side chain atoms excluding all hydrogens"
+                        },
+                        {
+                            "name": "Prot-Masses",
+                            "description": "protein atoms excluding dummy masses"
+                        },
+                        {
+                            "name": "non-Protein",
+                            "description": "all non-protein atoms"
+                        },
+                        {
+                            "name": "Water",
+                            "description": "water molecules"
+                        },
+                        {
+                            "name": "SOL",
+                            "description": "water molecules"
+                        },
+                        {
+                            "name": "non-Water",
+                            "description": "anything not covered by the Water group"
+                        },
+                        {
+                            "name": "Ion",
+                            "description": "any name matching an Ion entry in residuetypes.dat"
+                        },
+                        {
+                            "name": "NA",
+                            "description": "all NA atoms"
+                        },
+                        {
+                            "name": "CL",
+                            "description": "all CL atoms"
+                        },
+                        {
+                            "name": "Water_and_ions",
+                            "description": "combination of the Water and Ions groups"
+                        },
+                        {
+                            "name": "DNA",
+                            "description": "all DNA atoms"
+                        },
+                        {
+                            "name": "RNA",
+                            "description": "all RNA atoms"
+                        },
+                        {
+                            "name": "Protein_DNA",
+                            "description": "all Protein-DNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_RNA",
+                            "description": "all Protein-RNA complex atoms"
+                        },
+                        {
+                            "name": "Protein_DNA_RNA",
+                            "description": "all Protein-DNA-RNA complex atoms"
+                        },
+                        {
+                            "name": "DNA_RNA",
+                            "description": "all DNA-RNA complex atoms"
+                        }
+                    ]
+                },
                 "output_selection": {
                     "type": "string",
                     "default": "System",
