@@ -116,6 +116,7 @@ def get_default_value(key):
 		"dista": False,
 		"method": "linkage",
 		"cutoff": 0.1,
+		"cluster_selection": "System",
 		"fit_selection": "System",
 		"center_selection": "System",
 		"output_selection": "System",
