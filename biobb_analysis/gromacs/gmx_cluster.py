@@ -68,6 +68,7 @@ class GMXCluster(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = { 
@@ -88,6 +89,7 @@ class GMXCluster(BiobbObject):
         
         # Check the properties
         self.check_properties(properties)
+        self.check_arguments()
 
         # Internal parameters
         self.xvg_path = fu.create_name(prefix=self.prefix, step=self.step, name=properties.get('xvg_path', 'rmsd-dist.xvg'))
@@ -114,6 +116,9 @@ class GMXCluster(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` gromacs.gmx_cluster.GMXCluster object."""
 
+        # standard input
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.fit_selection} {self.output_selection}')
+
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
@@ -127,8 +132,7 @@ class GMXCluster(BiobbObject):
             self.xvg_path = str(PurePath(self.container_volume_path).joinpath(self.xvg_path))
             self.xpm_path = str(PurePath(self.container_volume_path).joinpath(self.xpm_path))
 
-        self.cmd = ['echo', '\"' + self.fit_selection + '\" \"' + self.output_selection + '\"', '|',
-               self.binary_path, 'cluster',
+        self.cmd = [self.binary_path, 'cluster',
                '-g', self.log_path,
                '-dist', self.xvg_path,
                '-o', self.xpm_path,
@@ -144,16 +148,26 @@ class GMXCluster(BiobbObject):
         if self.dista:
             self.cmd.append('-dista')
 
+        # Add stdin input file
+        self.cmd.append('<')
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
+
         # Run Biobb block
         self.run_biobb()
 
         # Copy files to host
         self.copy_to_host()
 
-        # if container execution, remove temporary folder        
-        if self.container_path: 
-            self.tmp_files.append(self.stage_io_dict.get("unique_dir"))
-            self.remove_tmp_files()
+        self.tmp_files.extend([
+            self.stage_io_dict.get("unique_dir"),
+            self.io_dict['in'].get("stdin_file_path"),
+            'rmsd-clust.xpm', 
+            'rmsd-dist.xvg', 
+            'cluster.log'
+        ])
+        self.remove_tmp_files()
+
+        self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
 

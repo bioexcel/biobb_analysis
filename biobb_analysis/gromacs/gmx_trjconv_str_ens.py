@@ -71,6 +71,7 @@ class GMXTrjConvStrEns(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = { 
@@ -93,6 +94,7 @@ class GMXTrjConvStrEns(BiobbObject):
 
         # Check the properties
         self.check_properties(properties)
+        self.check_arguments()
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -115,6 +117,9 @@ class GMXTrjConvStrEns(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns object."""
 
+        # standard input
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
+
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
@@ -122,17 +127,13 @@ class GMXTrjConvStrEns(BiobbObject):
         if self.check_restart(): return 0
         self.stage_files()
 
-        # if container execution, output to container_volume_path, else create temporary folder to put zip output
+        # if container execution, output to container_volume_path, else to unique_dir
         if self.container_path:
             output = self.container_volume_path + '/' + self.output_name + '.' + self.output_type
         else:
-            # create temporary folder
-            self.tmp_folder = fu.create_unique_dir()
-            fu.log('Creating %s temporary folder' % self.tmp_folder, self.out_log)
-            output = self.tmp_folder + '/' + self.output_name + '.' + self.output_type
+            output = self.stage_io_dict.get("unique_dir") + '/' + self.output_name + '.' + self.output_type
 
-        self.cmd = ['echo', '\"'+self.selection+'\"', '|',
-               self.binary_path, 'trjconv',
+        self.cmd = [self.binary_path, 'trjconv',
                '-f', self.stage_io_dict["in"]["input_traj_path"],
                '-s', self.stage_io_dict["in"]["input_top_path"],
                '-skip', self.skip,
@@ -149,6 +150,10 @@ class GMXTrjConvStrEns(BiobbObject):
         if self.stage_io_dict["in"]["input_index_path"]:
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
 
+        # Add stdin input file
+        self.cmd.append('<')
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
+
         # Run Biobb block
         self.run_biobb()
 
@@ -157,12 +162,22 @@ class GMXTrjConvStrEns(BiobbObject):
 
         if self.container_path:
             process_output_trjconv_str_ens(self.stage_io_dict['unique_dir'], 
-                                           self.remove_tmp, self.io_dict["out"]["output_str_ens_path"], 
+                                           self.io_dict["out"]["output_str_ens_path"],
+                                           self.stage_io_dict.get("unique_dir"), 
                                            self.output_name + '*', self.out_log)
         else:
-            process_output_trjconv_str_ens(self.tmp_folder, 
-                                           self.remove_tmp, self.stage_io_dict["out"]["output_str_ens_path"], 
-                                           '*', self.out_log)
+            process_output_trjconv_str_ens(self.stage_io_dict.get("unique_dir"), 
+                                           self.stage_io_dict["out"]["output_str_ens_path"],
+                                           self.io_dict["out"]["output_str_ens_path"], 
+                                           'output*.pdb', self.out_log)
+
+        self.tmp_files.extend([
+            self.stage_io_dict.get("unique_dir"),
+            self.io_dict['in'].get("stdin_file_path")
+        ])
+        self.remove_tmp_files()
+
+        self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
 

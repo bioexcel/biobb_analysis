@@ -4,9 +4,9 @@
     "github": "https://github.com/bioexcel/biobb_analysis",
     "readthedocs": "https://biobb-analysis.readthedocs.io/en/latest/",
     "conda": "https://anaconda.org/bioconda/biobb_analysis",
-    "docker": "https://quay.io/biocontainers/biobb_analysis:3.8.0--pyhdfd78af_0",
-    "singularity": "https://depot.galaxyproject.org/singularity/biobb_analysis:3.8.0--pyhdfd78af_0",
-    "version": "3.8.0",
+    "docker": "https://quay.io/biocontainers/biobb_analysis:3.9.0--pyhdfd78af_0",
+    "singularity": "https://depot.galaxyproject.org/singularity/biobb_analysis:3.9.0--pyhdfd78af_0",
+    "version": "3.9.0",
     "rest": true,
     "tools" : [
         {
@@ -171,12 +171,12 @@
         }
     ],
     "dep_pypi" : [
-        "install_requires=['biobb_common==3.8.1']", 
-        "python_requires='>=3.7'"
+        "install_requires=['biobb_common==3.9.0']", 
+        "python_requires='>=3.7,<3.10'"
     ], 
     "dep_conda" : [
         "python >=3.7", 
-        "biobb_common ==3.8.1", 
+        "biobb_common ==3.9.0", 
         "gromacs ==2022.2",
         "ambertools ==22.0"
     ],

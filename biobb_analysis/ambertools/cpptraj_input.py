@@ -46,6 +46,7 @@ class CpptrajInput(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Properties specific for BB
         self.input_instructions_path = input_instructions_path

@@ -65,6 +65,7 @@ class GMXTrjConvTrj(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = { 
@@ -87,6 +88,7 @@ class GMXTrjConvTrj(BiobbObject):
 
         # Check the properties
         self.check_properties(properties)
+        self.check_arguments()
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -114,6 +116,9 @@ class GMXTrjConvTrj(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` gromacs.gmx_trjconv_trj.GMXTrjConvTrj object."""
         
+        # standard input
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
+
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
@@ -126,19 +131,22 @@ class GMXTrjConvTrj(BiobbObject):
         if self.check_restart(): return 0
         self.stage_files()
 
-        self.cmd = ['echo', '\"'+self.selection+'\"', '|',
-               self.binary_path, 'trjconv',
+        self.cmd = [self.binary_path, 'trjconv',
                '-f', self.stage_io_dict["in"]["input_traj_path"],
                '-b', self.start,
                '-e', self.end,
                '-dt', self.dt,
                '-o', self.stage_io_dict["out"]["output_traj_path"]]
 
-        if self.stage_io_dict["in"]["input_index_path"]:
+        if "input_index_path" in self.stage_io_dict["in"]:
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
 
-        if self.stage_io_dict["in"]["input_top_path"]:
+        if "input_top_path" in self.stage_io_dict["in"]:
             self.cmd.extend(['-s', self.stage_io_dict["in"]["input_top_path"]])
+
+        # Add stdin input file
+        self.cmd.append('<')
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
 
         # Run Biobb block
         self.run_biobb()
@@ -146,10 +154,13 @@ class GMXTrjConvTrj(BiobbObject):
         # Copy files to host
         self.copy_to_host()
 
-        # if container execution, remove temporary folder
-        if self.container_path:
-            self.tmp_files.append(self.stage_io_dict.get("unique_dir"))
-            self.remove_tmp_files()
+        self.tmp_files.extend([
+            self.stage_io_dict.get("unique_dir"),
+            self.io_dict['in'].get("stdin_file_path")
+        ])
+        self.remove_tmp_files()
+
+        self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
 

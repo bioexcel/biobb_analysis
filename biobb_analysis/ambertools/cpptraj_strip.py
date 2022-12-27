@@ -68,6 +68,7 @@ class CpptrajStrip(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = { 
@@ -87,6 +88,7 @@ class CpptrajStrip(BiobbObject):
 
         # Check the properties
         self.check_properties(properties)
+        self.check_arguments()
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -163,9 +165,13 @@ class CpptrajStrip(BiobbObject):
         self.copy_to_host()
 
         # remove temporary folder(s)
-        self.tmp_files = [PurePath(self.instructions_file).parent]
-        if self.container_path: self.tmp_files.append(self.stage_io_dict['unique_dir'])
-        remove_tmp_files(self.tmp_files, self.remove_tmp, self.out_log, self.input_top_path_orig, self.io_dict["in"]["input_top_path"])
+        self.tmp_files.extend([
+            self.stage_io_dict.get("unique_dir"),
+            PurePath(self.instructions_file).parent
+        ])
+        self.remove_tmp_files()
+
+        self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
 

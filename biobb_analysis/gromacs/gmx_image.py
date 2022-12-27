@@ -71,6 +71,7 @@ class GMXImage(BiobbObject):
 
         # Call parent class constructor
         super().__init__(properties)
+        self.locals_var_dict = locals().copy()
 
         # Input/Output files
         self.io_dict = { 
@@ -94,6 +95,7 @@ class GMXImage(BiobbObject):
 
         # Check the properties
         self.check_properties(properties)
+        self.check_arguments()
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -120,6 +122,23 @@ class GMXImage(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` gromacs.gmx_image.GMXImage object."""
 
+        # If fitting provided, echo fit_selection
+        if self.fit == 'none':
+            if self.center:
+                selections = self.center_selection + ' ' + self.output_selection
+            elif self.pbc == 'cluster':
+                selections = self.cluster_selection + ' ' + self.output_selection
+            else:
+                selections = self.output_selection
+        else:
+            if self.center:
+                selections = self.fit_selection + ' ' + self.center_selection + ' ' + self.output_selection
+            else:
+                selections = self.fit_selection + ' ' + self.output_selection 
+
+        # standard input
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{selections}')
+
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
@@ -127,22 +146,7 @@ class GMXImage(BiobbObject):
         if self.check_restart(): return 0
         self.stage_files()
 
-        # If fitting provided, echo fit_selection
-        if self.fit == 'none':
-            if self.center:
-                selections = '\"' + self.center_selection + '\" \"' + self.output_selection + '\"'
-            elif self.pbc == 'cluster':
-                selections = '\"' + self.cluster_selection + '\" \"' + self.output_selection + '\"'
-            else:
-                selections = '\"' + self.output_selection + '\"'
-        else:
-            if self.center:
-                selections = '\"' + self.fit_selection + '\" \"' + self.center_selection + '\" \"' + self.output_selection + '\"'
-            else:
-                selections = '\"' + self.fit_selection + '\" \"' + self.output_selection + '\"'
-
-        self.cmd = ['echo', selections, '|',
-               self.binary_path, 'trjconv',
+        self.cmd = [self.binary_path, 'trjconv',
                '-f', self.stage_io_dict["in"]["input_traj_path"],
                '-s', self.stage_io_dict["in"]["input_top_path"],
                '-fit', self.fit,
@@ -151,7 +155,6 @@ class GMXImage(BiobbObject):
         if self.stage_io_dict["in"]["input_index_path"]:
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
             
-
         self.cmd.append('-center' if self.center else '-nocenter')
 
         # Unit-cell representation, PBC treatment is incompatible with fitting
@@ -161,16 +164,23 @@ class GMXImage(BiobbObject):
             self.cmd.append('-ur')
             self.cmd.append(self.ur)
 
+        # Add stdin input file
+        self.cmd.append('<')
+        self.cmd.append(self.stage_io_dict["in"]["stdin_file_path"])
+
         # Run Biobb block
         self.run_biobb()
 
         # Copy files to host
         self.copy_to_host()
 
-        # if container execution, remove temporary folder
-        if self.container_path:
-            self.tmp_files.append(self.stage_io_dict.get("unique_dir"))
-            self.remove_tmp_files()
+        self.tmp_files.extend([
+            self.stage_io_dict.get("unique_dir"),
+            self.io_dict['in'].get("stdin_file_path")
+        ])
+        self.remove_tmp_files()
+
+        self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
 
