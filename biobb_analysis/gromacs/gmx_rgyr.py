@@ -115,7 +115,7 @@ class GMXRgyr(BiobbObject):
                '-o', self.stage_io_dict["out"]["output_xvg_path"],
                '-xvg', self.xvg]
 
-        if self.stage_io_dict["in"]["input_index_path"]:
+        if self.stage_io_dict["in"].get("input_index_path"):
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
 
         # Add stdin input file

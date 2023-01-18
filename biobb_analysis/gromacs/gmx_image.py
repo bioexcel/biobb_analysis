@@ -152,7 +152,7 @@ class GMXImage(BiobbObject):
                '-fit', self.fit,
                '-o', self.stage_io_dict["out"]["output_traj_path"]]
 
-        if self.stage_io_dict["in"]["input_index_path"]:
+        if self.stage_io_dict["in"].get("input_index_path"):
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
             
         self.cmd.append('-center' if self.center else '-nocenter')

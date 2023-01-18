@@ -142,7 +142,7 @@ class GMXCluster(BiobbObject):
                '-cutoff', str(self.cutoff),
                '-method', self.method]
 
-        if self.stage_io_dict["in"]["input_index_path"]:
+        if self.stage_io_dict["in"].get("input_index_path"):
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
 
         if self.dista:
