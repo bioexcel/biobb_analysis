@@ -21,7 +21,7 @@ class CpptrajSnapshot(BiobbObject):
         output_cpptraj_path (str): Path to the output processed structure. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.snapshot.pdb>`_. Accepted formats: mdcrd (edam:format_3878), crd (edam:format_3878), netcdf (edam:format_3650), nc (edam:format_3650), rst7 (edam:format_3886), ncrst (edam:format_2033), dcd (edam:format_3878), pdb (edam:format_1476), mol2 (edam:format_3816), binpos (edam:format_3885), trr (edam:format_3910), xtc (edam:format_3875), sqm (edam:format_2033).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **snapshot** (*int*) - (1) [1~100000|1] Frame to be captured for snapshot
-            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms).
+            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms), Amber atoms selection syntax ("@*")(`Example <https://amberhub.chpc.utah.edu/atom-mask-selection-syntax/>`_.).
             * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd (AMBER trajectory format), cdf (Format used by netCDF software library for writing and reading chromatography-MS data files), netcdf (Format used by netCDF software library for writing and reading chromatography-MS data files), nc (Format used by netCDF software library for writing and reading chromatography-MS data files), restart (AMBER coordinate/restart file with 6 coordinates per line), ncrestart (AMBER coordinate/restart file with 6 coordinates per line), restartnc (AMBER coordinate/restart file with 6 coordinates per line), dcd (AMBER trajectory format), charmm (Format of CHARMM Residue Topology Files (RTF)), cor (Charmm COR), pdb (Protein Data Bank format), mol2 (Complete and portable representation of a SYBYL molecule), trr (Trajectory of a simulation experiment used by GROMACS), gro (GROMACS structure), binpos (Translation of the ASCII atom coordinate format to binary code), xtc (Portable binary format for trajectories produced by GROMACS package), cif (Entry format of PDB database in mmCIF format), arc (Tinker ARC), sqm (SQM Input), sdf (One of a family of chemical-data file formats developed by MDL Information Systems), conflib (LMOD Conflib).
             * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
@@ -37,14 +37,14 @@ class CpptrajSnapshot(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.ambertools.cpptraj_snapshot import cpptraj_snapshot
-            prop = { 
-                'snapshot': 12, 
-                'mask': 'c-alpha', 
-                'format': 'pdb' 
+            prop = {
+                'snapshot': 12,
+                'mask': 'c-alpha',
+                'format': 'pdb'
             }
-            cpptraj_snapshot(input_top_path='/path/to/myTopology.top', 
-                            input_traj_path='/path/to/myTrajectory.dcd', 
-                            output_cpptraj_path='/path/to/newStructure.pdb', 
+            cpptraj_snapshot(input_top_path='/path/to/myTopology.top',
+                            input_traj_path='/path/to/myTrajectory.dcd',
+                            output_cpptraj_path='/path/to/newStructure.pdb',
                             properties=prop)
 
     Info:
@@ -58,7 +58,7 @@ class CpptrajSnapshot(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
                 properties=None, **kwargs) -> None:
         properties = properties or {}
 
@@ -67,9 +67,9 @@ class CpptrajSnapshot(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path }, 
-            "out": { "output_cpptraj_path": output_cpptraj_path } 
+        self.io_dict = {
+            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path },
+            "out": { "output_cpptraj_path": output_cpptraj_path }
         }
 
         # Properties specific for BB
@@ -129,7 +129,7 @@ class CpptrajSnapshot(BiobbObject):
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` ambertools.cpptraj_snapshot.CpptrajSnapshot object."""
-        
+
          # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
@@ -138,7 +138,7 @@ class CpptrajSnapshot(BiobbObject):
         self.stage_files()
 
         # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log) 
+        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
 
         # if container execution, copy intructions file to container
         if self.container_path:
@@ -168,8 +168,8 @@ def cpptraj_snapshot(input_top_path: str, input_traj_path: str, output_cpptraj_p
     """Execute the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` class and
     execute the :meth:`launch() <ambertools.cpptraj_snapshot.CpptrajSnapshot.launch>` method."""
 
-    return CpptrajSnapshot(input_top_path=input_top_path, 
-                            input_traj_path=input_traj_path, 
+    return CpptrajSnapshot(input_top_path=input_top_path,
+                            input_traj_path=input_traj_path,
                             output_cpptraj_path=output_cpptraj_path,
                             properties=properties, **kwargs).launch()
 
@@ -189,9 +189,9 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    cpptraj_snapshot(input_top_path=args.input_top_path, 
-                    input_traj_path=args.input_traj_path, 
-                    output_cpptraj_path=args.output_cpptraj_path, 
+    cpptraj_snapshot(input_top_path=args.input_top_path,
+                    input_traj_path=args.input_traj_path,
+                    output_cpptraj_path=args.output_cpptraj_path,
                     properties=properties)
 
 if __name__ == '__main__':

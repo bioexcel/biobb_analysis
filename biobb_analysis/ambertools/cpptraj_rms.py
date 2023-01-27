@@ -24,8 +24,11 @@ class CpptrajRms(BiobbObject):
             * **start** (*int*) - (1) [1~100000|1] Starting frame for slicing
             * **end** (*int*) - (-1) [-1~100000|1] Ending frame for slicing
             * **steps** (*int*) - (1) [1~100000|1] Step for slicing
-            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms).
+            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms), Amber atoms selection syntax ("@*")(`Example <https://amberhub.chpc.utah.edu/atom-mask-selection-syntax/>`_.).
             * **reference** (*str*) - ("first") Reference definition. Values: first (Use the first trajectory frame as reference), average (Use the average of all trajectory frames as reference), experimental (Use the experimental structure as reference).
+            * **nofit** (*bool*) - (False) Do not perform best-fit RMSD
+            * **norotate** (*bool*) - (False) Translate but do not rotate coordinates
+            * **nomod** (*bool*) - (False) Do not modify coordinates
             * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -40,16 +43,16 @@ class CpptrajRms(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.ambertools.cpptraj_rms import cpptraj_rms
-            prop = { 
-                'start': 1, 
-                'end': -1, 
-                'steps': 1, 
-                'mask': 'c-alpha', 
-                'reference': 'first' 
+            prop = {
+                'start': 1,
+                'end': -1,
+                'steps': 1,
+                'mask': 'c-alpha',
+                'reference': 'first'
             }
-            cpptraj_rms(input_top_path='/path/to/myTopology.top', 
-                        input_traj_path='/path/to/myTrajectory.dcd', 
-                        output_cpptraj_path='/path/to/newAnalysis.dat', 
+            cpptraj_rms(input_top_path='/path/to/myTopology.top',
+                        input_traj_path='/path/to/myTrajectory.dcd',
+                        output_cpptraj_path='/path/to/newAnalysis.dat',
                         input_exp_path= '/path/to/myExpStructure.pdb',
                         properties=prop)
 
@@ -64,7 +67,7 @@ class CpptrajRms(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
                 input_exp_path = None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
@@ -73,9 +76,9 @@ class CpptrajRms(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path, "input_exp_path": input_exp_path }, 
-            "out": { "output_cpptraj_path": output_cpptraj_path } 
+        self.io_dict = {
+            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path, "input_exp_path": input_exp_path },
+            "out": { "output_cpptraj_path": output_cpptraj_path }
         }
 
         # Properties specific for BB
@@ -85,6 +88,9 @@ class CpptrajRms(BiobbObject):
         self.steps =  properties.get('steps', 1)
         self.mask = properties.get('mask', 'all-atoms')
         self.reference = properties.get('reference', 'first')
+        self.nofit = properties.get('nofit', False)
+        self.norotate = properties.get('norotate', False)
+        self.nomod = properties.get('nomod', False)
         self.properties = properties
         self.binary_path = get_binary_path(properties, 'binary_path')
 
@@ -132,7 +138,8 @@ class CpptrajRms(BiobbObject):
         inp_exp_pth = None
         if "input_exp_path" in container_io_dict["in"]:
             inp_exp_pth = container_io_dict["in"]["input_exp_path"]
-        instructions_list += get_reference(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True, self.__class__.__name__, out_log)
+        instructions_list += get_reference_rms(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True,
+                                               self.__class__.__name__, out_log,  self.nofit, self.norotate, self.nomod)
 
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
@@ -144,7 +151,7 @@ class CpptrajRms(BiobbObject):
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` ambertools.cpptraj_rms.CpptrajRms object."""
-        
+
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
@@ -153,7 +160,7 @@ class CpptrajRms(BiobbObject):
         self.stage_files()
 
         # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log) 
+        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
 
         # if container execution, copy intructions file to container
         if self.container_path:
@@ -183,8 +190,8 @@ def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: 
     """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
     execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
 
-    return CpptrajRms(input_top_path=input_top_path, 
-                    input_traj_path=input_traj_path, 
+    return CpptrajRms(input_top_path=input_top_path,
+                    input_traj_path=input_traj_path,
                     output_cpptraj_path=output_cpptraj_path,
                     input_exp_path=input_exp_path,
                     properties=properties, **kwargs).launch()
@@ -206,10 +213,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    cpptraj_rms(input_top_path=args.input_top_path, 
-                input_traj_path=args.input_traj_path, 
-                output_cpptraj_path=args.output_cpptraj_path, 
-                input_exp_path=args.input_exp_path, 
+    cpptraj_rms(input_top_path=args.input_top_path,
+                input_traj_path=args.input_traj_path,
+                output_cpptraj_path=args.output_cpptraj_path,
+                input_exp_path=args.input_exp_path,
                 properties=properties)
 
 if __name__ == '__main__':
