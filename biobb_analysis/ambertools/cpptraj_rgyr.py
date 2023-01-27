@@ -23,7 +23,7 @@ class CpptrajRgyr(BiobbObject):
             * **start** (*int*) - (1) [1~100000|1] Starting frame for slicing.
             * **end** (*int*) - (-1) [-1~100000|1] Ending frame for slicing.
             * **steps** (*int*) - (1) [1~100000|1] Step for slicing.
-            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms), Amber atoms selection syntax ("@*")(`Example <https://amberhub.chpc.utah.edu/atom-mask-selection-syntax/>`_.).
+            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms).
             * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -38,14 +38,14 @@ class CpptrajRgyr(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.ambertools.cpptraj_rgyr import cpptraj_rgyr
-            prop = {
-                'start': 1,
-                'end': -1,
-                'steps': 1,
-                'mask': 'c-alpha'
+            prop = { 
+                'start': 1, 
+                'end': -1, 
+                'steps': 1, 
+                'mask': 'c-alpha' 
             }
-            cpptraj_rgyr(input_top_path='/path/to/myTopology.top',
-                        input_traj_path='/path/to/myTrajectory.dcd',
+            cpptraj_rgyr(input_top_path='/path/to/myTopology.top', 
+                        input_traj_path='/path/to/myTrajectory.dcd', 
                         output_cpptraj_path='/path/to/newAnalysis.dat',
                         properties=prop)
 
@@ -57,10 +57,10 @@ class CpptrajRgyr(BiobbObject):
         * ontology:
             * name: EDAM
             * schema: http://edamontology.org/EDAM.owl
-
+            
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
                 properties=None, **kwargs) -> None:
         properties = properties or {}
 
@@ -69,9 +69,9 @@ class CpptrajRgyr(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = {
-            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path },
-            "out": { "output_cpptraj_path": output_cpptraj_path }
+        self.io_dict = { 
+            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path }, 
+            "out": { "output_cpptraj_path": output_cpptraj_path } 
         }
 
         # Properties specific for BB
@@ -93,7 +93,7 @@ class CpptrajRgyr(BiobbObject):
         self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
         self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
         self.in_parameters = { 'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask }
-
+        
     def create_instructions_file(self, container_io_dict, out_log, err_log):
         """Creates an input file using the properties file settings"""
         instructions_list = []
@@ -133,7 +133,7 @@ class CpptrajRgyr(BiobbObject):
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`CpptrajRgyr <ambertools.cpptraj_rgyr.CpptrajRgyr>` ambertools.cpptraj_rgyr.CpptrajRgyr object."""
-
+        
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
@@ -142,7 +142,7 @@ class CpptrajRgyr(BiobbObject):
         self.stage_files()
 
         # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
+        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log) 
 
         # if container execution, copy intructions file to container
         if self.container_path:
@@ -172,8 +172,8 @@ def cpptraj_rgyr(input_top_path: str, input_traj_path: str, output_cpptraj_path:
     """Execute the :class:`CpptrajRgyr <ambertools.cpptraj_rgyr.CpptrajRgyr>` class and
     execute the :meth:`launch() <ambertools.cpptraj_rgyr.CpptrajRgyr.launch>` method."""
 
-    return CpptrajRgyr(input_top_path=input_top_path,
-                    input_traj_path=input_traj_path,
+    return CpptrajRgyr(input_top_path=input_top_path, 
+                    input_traj_path=input_traj_path, 
                     output_cpptraj_path=output_cpptraj_path,
                     properties=properties, **kwargs).launch()
 
@@ -193,9 +193,9 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    cpptraj_rgyr(input_top_path=args.input_top_path,
-                input_traj_path=args.input_traj_path,
-                output_cpptraj_path=args.output_cpptraj_path,
+    cpptraj_rgyr(input_top_path=args.input_top_path, 
+                input_traj_path=args.input_traj_path, 
+                output_cpptraj_path=args.output_cpptraj_path, 
                 properties=properties)
 
 if __name__ == '__main__':

@@ -285,62 +285,52 @@
                     "step": 1
                 },
                 "mask": {
-                    "anyOf": [
+                    "type": "string",
+                    "default": "all-atoms",
+                    "wf_prop": false,
+                    "description": "Mask definition. ",
+                    "enum": [
+                        "c-alpha",
+                        "backbone",
+                        "all-atoms",
+                        "heavy-atoms",
+                        "side-chain",
+                        "solute",
+                        "ions",
+                        "solvent"
+                    ],
+                    "property_formats": [
                         {
-                            "type": "string",
-                            "default": "@*",
-                            "wf_prop": false,
-                            "description": "Amber Mask definition. ",
+                            "name": "c-alpha",
+                            "description": "All c-alpha atoms; protein only"
                         },
                         {
-                            "type": "string",
-                            "default": "all-atoms",
-                            "wf_prop": false,
-                            "description": "Mask definition. ",
-                            "enum": [
-                                "c-alpha",
-                                "backbone",
-                                "all-atoms",
-                                "heavy-atoms",
-                                "side-chain",
-                                "solute",
-                                "ions",
-                                "solvent"
-                            ],
-                            "property_formats": [
-                                {
-                                    "name": "c-alpha",
-                                    "description": "All c-alpha atoms; protein only"
-                                },
-                                {
-                                    "name": "backbone",
-                                    "description": "Backbone atoms"
-                                },
-                                {
-                                    "name": "all-atoms",
-                                    "description": "All system atoms"
-                                },
-                                {
-                                    "name": "heavy-atoms",
-                                    "description": "System heavy atoms; not hydrogen"
-                                },
-                                {
-                                    "name": "side-chain",
-                                    "description": "All not backbone atoms"
-                                },
-                                {
-                                    "name": "solute",
-                                    "description": "All system atoms except solvent atoms"
-                                },
-                                {
-                                    "name": "ions",
-                                    "description": "All ion molecules"
-                                },
-                                {
-                                    "name": "solvent",
-                                    "description": "All solvent atoms"
-                                }
-                            ]
+                            "name": "backbone",
+                            "description": "Backbone atoms"
+                        },
+                        {
+                            "name": "all-atoms",
+                            "description": "All system atoms"
+                        },
+                        {
+                            "name": "heavy-atoms",
+                            "description": "System heavy atoms; not hydrogen"
+                        },
+                        {
+                            "name": "side-chain",
+                            "description": "All not backbone atoms"
+                        },
+                        {
+                            "name": "solute",
+                            "description": "All system atoms except solvent atoms"
+                        },
+                        {
+                            "name": "ions",
+                            "description": "All ion molecules"
+                        },
+                        {
+                            "name": "solvent",
+                            "description": "All solvent atoms"
                         }
                     ]
                 },

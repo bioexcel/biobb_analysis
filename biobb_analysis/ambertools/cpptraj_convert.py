@@ -23,7 +23,7 @@ class CpptrajConvert(BiobbObject):
             * **start** (*int*) - (1) [1~100000|1] Starting frame for slicing
             * **end** (*int*) - (-1) [-1~100000|1] Ending frame for slicing
             * **steps** (*int*) - (1) [1~100000|1] Step for slicing
-            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms), Amber atoms selection syntax ("@*")(`Example <https://amberhub.chpc.utah.edu/atom-mask-selection-syntax/>`_.).
+            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms).
             * **format** (*str*) - ("netcdf") Output trajectory format. Values: crd (AMBER trajectory format), cdf (Format used by netCDF software library for writing and reading chromatography-MS data files), netcdf (Format used by netCDF software library for writing and reading chromatography-MS data files), nc (Format used by netCDF software library for writing and reading chromatography-MS data files), restart (AMBER coordinate/restart file with 6 coordinates per line), ncrestart (AMBER coordinate/restart file with 6 coordinates per line), restartnc (AMBER coordinate/restart file with 6 coordinates per line), dcd (AMBER trajectory format), charmm (Format of CHARMM Residue Topology Files (RTF)), cor (Charmm COR), pdb (Protein Data Bank format), mol2 (Complete and portable representation of a SYBYL molecule), trr (Trajectory of a simulation experiment used by GROMACS), gro (GROMACS structure), binpos (Translation of the ASCII atom coordinate format to binary code), xtc (Portable binary format for trajectories produced by GROMACS package), cif (Entry format of PDB database in mmCIF format), arc (Tinker ARC), sqm (SQM Input), sdf (One of a family of chemical-data file formats developed by MDL Information Systems), conflib (LMOD Conflib).
             * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
@@ -39,16 +39,16 @@ class CpptrajConvert(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.ambertools.cpptraj_convert import cpptraj_convert
-            prop = {
-                'start': 1,
-                'end': -1,
-                'steps': 1,
-                'mask': 'c-alpha',
-                'format': 'netcdf'
+            prop = { 
+                'start': 1, 
+                'end': -1, 
+                'steps': 1, 
+                'mask': 'c-alpha', 
+                'format': 'netcdf' 
             }
-            cpptraj_convert(input_top_path='/path/to/myTopology.top',
-                            input_traj_path='/path/to/myTrajectory.dcd',
-                            output_cpptraj_path='/path/to/newTrajectory.netcdf',
+            cpptraj_convert(input_top_path='/path/to/myTopology.top', 
+                            input_traj_path='/path/to/myTrajectory.dcd', 
+                            output_cpptraj_path='/path/to/newTrajectory.netcdf', 
                             properties=prop)
 
     Info:
@@ -59,10 +59,10 @@ class CpptrajConvert(BiobbObject):
         * ontology:
             * name: EDAM
             * schema: http://edamontology.org/EDAM.owl
-
+            
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
                 properties=None, **kwargs) -> None:
         properties = properties or {}
 
@@ -71,9 +71,9 @@ class CpptrajConvert(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = {
-            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path },
-            "out": { "output_cpptraj_path": output_cpptraj_path }
+        self.io_dict = { 
+            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path }, 
+            "out": { "output_cpptraj_path": output_cpptraj_path } 
         }
 
         # Properties specific for BB
@@ -135,7 +135,7 @@ class CpptrajConvert(BiobbObject):
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`CpptrajConvert <ambertools.cpptraj_convert.CpptrajConvert>` ambertools.cpptraj_convert.CpptrajConvert object."""
-
+        
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
@@ -144,7 +144,7 @@ class CpptrajConvert(BiobbObject):
         self.stage_files()
 
         # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
+        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log) 
 
         # if container execution, copy intructions file to container
         if self.container_path:
@@ -159,7 +159,7 @@ class CpptrajConvert(BiobbObject):
         # Copy files to host
         self.copy_to_host()
 
-        # remove temporary folder(s)
+        # remove temporary folder(s)    
         self.tmp_files.extend([
             self.stage_io_dict.get("unique_dir"),
             PurePath(self.instructions_file).parent
@@ -174,8 +174,8 @@ def cpptraj_convert(input_top_path: str, input_traj_path: str, output_cpptraj_pa
     """Execute the :class:`CpptrajConvert <ambertools.cpptraj_convert.CpptrajConvert>` class and
     execute the :meth:`launch() <ambertools.cpptraj_convert.CpptrajConvert.launch>` method."""
 
-    return CpptrajConvert(input_top_path=input_top_path,
-                        input_traj_path=input_traj_path,
+    return CpptrajConvert(input_top_path=input_top_path, 
+                        input_traj_path=input_traj_path, 
                         output_cpptraj_path=output_cpptraj_path,
                         properties=properties, **kwargs).launch()
 
@@ -195,9 +195,9 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    cpptraj_convert(input_top_path=args.input_top_path,
-                    input_traj_path=args.input_traj_path,
-                    output_cpptraj_path=args.output_cpptraj_path,
+    cpptraj_convert(input_top_path=args.input_top_path, 
+                    input_traj_path=args.input_traj_path, 
+                    output_cpptraj_path=args.output_cpptraj_path, 
                     properties=properties)
 
 if __name__ == '__main__':
