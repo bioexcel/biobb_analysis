@@ -251,7 +251,7 @@ def get_mask_atoms(key):
 	if key in masks:
 		return masks[key], None
 	else:
-		return masks[get_default_value("mask")], "Mask %s is not compatible, assigned default value: %s" % (key, get_default_value("mask"))
+		return key, None # Allow for Amber mask
 
 def get_in_parameters(list, out_log, type = 'None'):
 	""" Return string with input parameters """
@@ -369,6 +369,50 @@ def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output, classn
 		backbone, msg = get_mask_atoms('backbone')
 		if output: instructions_list.append('rms reference ' + mask + ' out ' + output_cpptraj_path)
 		else: instructions_list.append('rms reference ' + mask)
+
+
+	return instructions_list
+def get_reference_rms(ref, output_cpptraj_path, input_exp_path, mask, output, classname, out_log, nofit=False, norotate=False, nomod=False):
+	""" Gives reference instructions according to the given key """
+	instructions_list = []
+	if not ref or ref == 'None':
+		ref = get_default_value('reference')
+		fu.log('No reference provided in configuration file, assigned default value: %s' % get_default_value('reference'), out_log)
+
+	if not is_valid_reference(ref):
+		fu.log('Reference %s is not compatible, assigned default value: %s' % (ref, get_default_value('reference')), out_log)
+		ref = get_default_value('reference')
+
+	flags = []
+	if nofit:
+		flags.append("nofit")
+	if norotate:
+		flags.append("norotate")
+	if nomod:
+		flags.append("nomod")
+
+	flags_str = " ".join(flags)
+
+	if ref == 'first':
+		if output: instructions_list.append('rms first out ' + output_cpptraj_path + f' {flags_str}')
+		else: instructions_list.append('rms first', f' {flags_str}')
+
+	if ref == 'average':
+		instructions_list.append('average crdset ' + get_default_value('average'))
+		instructions_list.append('run')
+		if output: instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask + ' out ' + output_cpptraj_path, f' {flags_str}')
+		else: instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask, f' {flags_str}')
+
+	if ref == 'experimental':
+		if not input_exp_path:
+			fu.log('No experimental structure provided, exiting', out_log)
+			raise SystemExit(classname + ': input_exp_path is mandatory')
+		instructions_list.append('parm ' + input_exp_path + ' noconect [exp]')
+		solute, msg = get_mask_atoms('solute')
+		instructions_list.append('reference ' + input_exp_path + ' ' + solute + ' parm [exp]')
+		backbone, msg = get_mask_atoms('backbone')
+		if output: instructions_list.append('rms reference ' + mask + ' out ' + output_cpptraj_path, f' {flags_str}')
+		else: instructions_list.append('rms reference ' + mask, f' {flags_str}')
 
 
 	return instructions_list
