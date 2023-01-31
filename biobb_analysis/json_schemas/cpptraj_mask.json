@@ -335,7 +335,8 @@
                         "side-chain",
                         "solute",
                         "ions",
-                        "solvent"
+                        "solvent",
+                        "AnyAmberFromatMask"
                     ],
                     "property_formats": [
                         {
@@ -369,6 +370,10 @@
                         {
                             "name": "solvent",
                             "description": "All solvent atoms"
+                        },
+                        {
+                            "name": "AnyAmberFromatMask",
+                            "description": "Amber atom selection syntax like `@*`"
                         }
                     ]
                 },

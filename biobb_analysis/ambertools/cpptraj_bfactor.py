@@ -24,7 +24,7 @@ class CpptrajBfactor(BiobbObject):
             * **start** (*int*) - (1) [1~100000|1] Starting frame for slicing
             * **end** (*int*) - (-1) [-1~100000|1] Ending frame for slicing
             * **steps** (*int*) - (1) [1~100000|1] Step for slicing
-            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms).
+            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms), AnyAmberFromatMask (Amber atom selection syntax like `@*`).
             * **reference** (*str*) - ("first") Reference definition. Values: first (Use the first trajectory frame as reference), average (Use the average of all trajectory frames as reference), experimental (Use the experimental structure as reference).
             * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.

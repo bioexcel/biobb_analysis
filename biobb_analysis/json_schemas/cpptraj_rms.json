@@ -297,7 +297,8 @@
                         "side-chain",
                         "solute",
                         "ions",
-                        "solvent"
+                        "solvent",
+                        "AnyAmberFromatMask"
                     ],
                     "property_formats": [
                         {
@@ -331,6 +332,10 @@
                         {
                             "name": "solvent",
                             "description": "All solvent atoms"
+                        },
+                        {
+                            "name": "AnyAmberFromatMask",
+                            "description": "Amber atom selection syntax like `@*`"
                         }
                     ]
                 },
@@ -358,6 +363,24 @@
                             "description": "Use the experimental structure as reference"
                         }
                     ]
+                },
+                "nofit": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Do not perform best-fit RMSD"
+                },
+                "norotate": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Translate but do not rotate coordinates"
+                },
+                "nomod": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Do not modify coordinates"
                 },
                 "binary_path": {
                     "type": "string",

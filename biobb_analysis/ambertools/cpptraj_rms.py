@@ -24,8 +24,11 @@ class CpptrajRms(BiobbObject):
             * **start** (*int*) - (1) [1~100000|1] Starting frame for slicing
             * **end** (*int*) - (-1) [-1~100000|1] Ending frame for slicing
             * **steps** (*int*) - (1) [1~100000|1] Step for slicing
-            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms).
+            * **mask** (*str*) - ("all-atoms") Mask definition. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms), AnyAmberFromatMask (Amber atom selection syntax like `@*`).
             * **reference** (*str*) - ("first") Reference definition. Values: first (Use the first trajectory frame as reference), average (Use the average of all trajectory frames as reference), experimental (Use the experimental structure as reference).
+            * **nofit** (*bool*) - (False) Do not perform best-fit RMSD
+            * **norotate** (*bool*) - (False) Translate but do not rotate coordinates
+            * **nomod** (*bool*) - (False) Do not modify coordinates
             * **binary_path** (*str*) - ("cpptraj") Path to the cpptraj executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -85,6 +88,9 @@ class CpptrajRms(BiobbObject):
         self.steps =  properties.get('steps', 1)
         self.mask = properties.get('mask', 'all-atoms')
         self.reference = properties.get('reference', 'first')
+        self.nofit = properties.get('nofit', False)
+        self.norotate = properties.get('norotate', False)
+        self.nomod = properties.get('nomod', False)
         self.properties = properties
         self.binary_path = get_binary_path(properties, 'binary_path')
 
@@ -132,8 +138,9 @@ class CpptrajRms(BiobbObject):
         inp_exp_pth = None
         if "input_exp_path" in container_io_dict["in"]:
             inp_exp_pth = container_io_dict["in"]["input_exp_path"]
-        instructions_list += get_reference(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True, self.__class__.__name__, out_log)
-
+        instructions_list += get_reference_rms(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True,
+                                               self.__class__.__name__, out_log,  self.nofit, self.norotate, self.nomod)            
+       
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
             for line in instructions_list:
