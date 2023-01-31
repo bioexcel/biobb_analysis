@@ -808,6 +808,9 @@ Config parameters for this building block:
 * **steps** (*integer*): (1) Step for slicing.
 * **mask** (*string*): (all-atoms) Mask definition. .
 * **reference** (*string*): (first) Reference definition. .
+* **nofit** (*boolean*): (False) Do not perform best-fit RMSD.
+* **norotate** (*boolean*): (False) Translate but do not rotate coordinates.
+* **nomod** (*boolean*): (False) Do not modify coordinates.
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
