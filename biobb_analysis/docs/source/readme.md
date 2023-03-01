@@ -1,8 +1,13 @@
+[![tests](https://github.com/bioexcel/biobb_analysis/actions/workflows/linting_and_testing.yml/badge.svg)](https://github.com/bioexcel/biobb_analysis/actions/workflows/linting_and_testing.yml)
+[![codecov](https://codecov.io/gh/bioexcel/biobb_analysis/graph/badge.svg?token=82NIM2DCNG)](https://codecov.io/gh/bioexcel/biobb_analysis)
 [![](https://readthedocs.org/projects/biobb-analysis/badge/?version=latest)](https://biobb-analysis.readthedocs.io/en/latest/?badge=latest)
+
 [![](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](https://anaconda.org/bioconda/biobb_analysis)
 [![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_analysis?tab=tags)
 [![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_analysis:3.9.0--pyhdfd78af_0)
+
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 # biobb_analysis
 
