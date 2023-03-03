@@ -20,6 +20,7 @@ class CpptrajRms(BiobbObject):
         input_traj_path (str): Path to the input trajectory to be processed.  File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd>`_. Accepted formats: mdcrd (edam:format_3878), crd (edam:format_3878), cdf (edam:format_3650), netcdf (edam:format_3650), nc (edam:format_3650), restart (edam:format_3886), ncrestart (edam:format_3886), restartnc (edam:format_3886), dcd (edam:format_3878), charmm (edam:format_3887), cor (edam:format_2033), pdb (edam:format_1476), mol2 (edam:format_3816), trr (edam:format_3910), gro (edam:format_2033), binpos (edam:format_3885), xtc (edam:format_3875), cif (edam:format_1477), arc (edam:format_2333), sqm (edam:format_2033), sdf (edam:format_3814), conflib (edam:format_2033).
         input_exp_path (str) (Optional): Path to the experimental reference file (required if reference = experimental). File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/experimental.1e5t.pdb>`_. Accepted formats: pdb (edam:format_1476).
         output_cpptraj_path (str): Path to the output processed analysis. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rms.first.dat>`_. Accepted formats: dat (edam:format_1637), agr (edam:format_2033), xmgr (edam:format_2033), gnu (edam:format_2033).
+        output_traj_path (str) (Optional): Path to the output processed trajectory. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd>`_. Accepted formats: mdcrd (edam:format_3878), crd (edam:format_3878), cdf (edam:format_3650), netcdf (edam:format_3650), nc (edam:format_3650), restart (edam:format_3886), ncrestart (edam:format_3886), restartnc (edam:format_3886), dcd (edam:format_3878), charmm (edam:format_3887), cor (edam:format_2033), pdb (edam:format_1476), mol2 (edam:format_3816), trr (edam:format_3910), gro (edam:format_2033), binpos (edam:format_3885), xtc (edam:format_3875), cif (edam:format_1477), arc (edam:format_2333), sqm (edam:format_2033), sdf (edam:format_3814), conflib (edam:format_2033).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **start** (*int*) - (1) [1~100000|1] Starting frame for slicing
             * **end** (*int*) - (-1) [-1~100000|1] Ending frame for slicing
@@ -68,7 +69,7 @@ class CpptrajRms(BiobbObject):
     """
 
     def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
-                input_exp_path = None, properties=None, **kwargs) -> None:
+                input_exp_path = None, output_traj_path = None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -78,7 +79,7 @@ class CpptrajRms(BiobbObject):
         # Input/Output files
         self.io_dict = { 
             "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path, "input_exp_path": input_exp_path }, 
-            "out": { "output_cpptraj_path": output_cpptraj_path } 
+            "out": { "output_cpptraj_path": output_cpptraj_path, "output_traj_path": output_traj_path } 
         }
 
         # Properties specific for BB
@@ -103,6 +104,8 @@ class CpptrajRms(BiobbObject):
         self.io_dict["in"]["input_top_path"], self.input_top_path_orig = check_top_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
         self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
         self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
+        if self.io_dict["out"]["output_traj_path"]:
+            self.io_dict["out"]["output_traj_path"] = check_out_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
         self.in_parameters = { 'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask, 'reference': self.reference }
 
     def create_instructions_file(self, container_io_dict, out_log, err_log):
@@ -140,7 +143,11 @@ class CpptrajRms(BiobbObject):
             inp_exp_pth = container_io_dict["in"]["input_exp_path"]
         instructions_list += get_reference_rms(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True,
                                                self.__class__.__name__, out_log,  self.nofit, self.norotate, self.nomod)            
-       
+
+        # trajout
+        if ("output_traj_path" in container_io_dict["out"]):
+            instructions_list.append('trajout ' + container_io_dict["out"]["output_traj_path"])
+
         # create .in file
         with open(self.instructions_file, 'w') as mdp:
             for line in instructions_list:
@@ -186,7 +193,7 @@ class CpptrajRms(BiobbObject):
 
         return self.return_code
 
-def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, properties: dict = None, **kwargs) -> int:
+def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, output_traj_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
     execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
 
@@ -194,6 +201,7 @@ def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: 
                     input_traj_path=input_traj_path, 
                     output_cpptraj_path=output_cpptraj_path,
                     input_exp_path=input_exp_path,
+                    output_traj_path=output_traj_path,
                     properties=properties, **kwargs).launch()
 
 def main():
@@ -207,6 +215,7 @@ def main():
     required_args.add_argument('--input_traj_path', required=True, help='Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.')
     parser.add_argument('--input_exp_path', required=False, help='Path to the experimental reference file (required if reference = experimental).')
     required_args.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed analysis.')
+    parser.add_argument('--output_traj_path', required=False, help='Path to the output processed trajectory.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"
@@ -217,6 +226,7 @@ def main():
                 input_traj_path=args.input_traj_path, 
                 output_cpptraj_path=args.output_cpptraj_path, 
                 input_exp_path=args.input_exp_path, 
+                output_traj_path=args.output_traj_path, 
                 properties=properties)
 
 if __name__ == '__main__':
