@@ -174,9 +174,10 @@ def get_selection_index_file(properties, index, key, out_log, classname):
 	""" Gets selection items from provided index file """
 	pattern = re.compile(r"\[.*\]")
 	selection = []
-	for i, line in enumerate(open(index)):
-		for match in re.finditer(pattern, line):
-			selection.append(re.sub(r'[\[\] ]', '', match.group()))
+	with open(index, "r") as ndx_file:
+		for i, line in enumerate(ndx_file):
+			for match in re.finditer(pattern, line):
+				selection.append(re.sub(r'[\[\] ]', '', match.group()))
 	sel = properties.get(key, get_default_value(key))
 	if not sel in selection:
 		fu.log(classname + ': Incorrect selection provided, exiting', out_log)
