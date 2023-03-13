@@ -4,6 +4,10 @@ on:
   # workflow_dispatch
   push:
    branches: [ master ]
+    paths-ignore:
+      - '**/README.md'
+      - '**/docs'
+      - '**/json_schemas'
 
 jobs:
   # Name of the Job
