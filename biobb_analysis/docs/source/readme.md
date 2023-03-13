@@ -20,7 +20,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
-v3.9.0 2022.4
+v3.9.0 2023.1
 
 ### Installation
 Using PIP:
