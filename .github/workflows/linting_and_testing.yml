@@ -5,9 +5,13 @@ on:
   push:
     branches: [ master ]
     paths-ignore:
-      - '**/README.md'
-      - '**/docs'
-      - '**/json_schemas'
+      - '.gitignore'
+      - '.readthedocs.yaml'
+      - 'LICENSE'
+      - 'setup.py'
+      - 'README.md'
+      - '**/docs/**'
+      - '**/json_schemas/**'
 
 jobs:
   # Name of the Job
