@@ -99,14 +99,15 @@ class GMXRgyr(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`GMXRgyr <gromacs.gmx_rgyr.GMXRgyr>` gromacs.gmx_rgyr.GMXRgyr object."""
 
-        # standard input
-        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
-
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart(): 
+            return 0
+        
+        # standard input
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
         self.stage_files()
 
         self.cmd = [self.binary_path, 'gyrate',

@@ -117,14 +117,15 @@ class GMXTrjConvStrEns(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns object."""
 
-        # standard input
-        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
-
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
+
+        # standard input
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
         self.stage_files()
 
         # if container execution, output to container_volume_path, else to unique_dir

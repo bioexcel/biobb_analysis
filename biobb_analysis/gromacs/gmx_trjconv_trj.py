@@ -115,9 +115,6 @@ class GMXTrjConvTrj(BiobbObject):
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` gromacs.gmx_trjconv_trj.GMXTrjConvTrj object."""
-        
-        # standard input
-        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
 
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
@@ -128,7 +125,11 @@ class GMXTrjConvTrj(BiobbObject):
             raise SystemExit(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty')
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
+
+        # standard input
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
         self.stage_files()
 
         self.cmd = [self.binary_path, 'trjconv',

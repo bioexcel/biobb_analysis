@@ -116,14 +116,15 @@ class GMXCluster(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` gromacs.gmx_cluster.GMXCluster object."""
 
-        # standard input
-        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.fit_selection} {self.output_selection}')
-
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
+
+        # standard input
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.fit_selection} {self.output_selection}')
         self.stage_files()
 
         # if container execution, add container_volume_path to log, xvg & xpm (because docker doesn't allow to write teses files out of the /tmp folder)
