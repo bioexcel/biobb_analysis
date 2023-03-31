@@ -774,7 +774,7 @@ Command:
 ```python
 cpptraj_rms -h
 ```
-    usage: cpptraj_rms [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_rms [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH [--output_traj_path OUTPUT_TRAJ_PATH]
     
     Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.
     
@@ -783,6 +783,8 @@ cpptraj_rms -h
       --config CONFIG       Configuration file
       --input_exp_path INPUT_EXP_PATH
                             Path to the experimental reference file (required if reference = experimental).
+      --output_traj_path OUTPUT_TRAJ_PATH
+                            Path to the output processed trajectory.
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
@@ -799,6 +801,7 @@ Config input / output arguments for this building block:
 * **input_traj_path** (*string*): Path to the input trajectory to be processed. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: MDCRD, CRD, CDF, NETCDF, NC, RESTART, NCRESTART, RESTARTNC, DCD, CHARMM, COR, PDB, MOL2, TRR, GRO, BINPOS, XTC, CIF, ARC, SQM, SDF, CONFLIB
 * **input_exp_path** (*string*): Path to the experimental reference file (required if reference = experimental). File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/experimental.1e5t.pdb). Accepted formats: PDB
 * **output_cpptraj_path** (*string*): Path to the output processed analysis. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.rms.first.dat). Accepted formats: DAT, AGR, XMGR, GNU
+* **output_traj_path** (*string*): Path to the output processed trajectory. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: MDCRD, CRD, CDF, NETCDF, NC, RESTART, NCRESTART, RESTARTNC, DCD, CHARMM, COR, PDB, MOL2, TRR, GRO, BINPOS, XTC, CIF, ARC, SQM, SDF, CONFLIB
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
@@ -833,7 +836,7 @@ properties:
 ```
 #### Command line
 ```python
-cpptraj_rms --config config_cpptraj_rms.yml --input_top_path cpptraj.parm.top --input_traj_path cpptraj.traj.dcd --input_exp_path experimental.1e5t.pdb --output_cpptraj_path ref_cpptraj.rms.first.dat
+cpptraj_rms --config config_cpptraj_rms.yml --input_top_path cpptraj.parm.top --input_traj_path cpptraj.traj.dcd --input_exp_path experimental.1e5t.pdb --output_cpptraj_path ref_cpptraj.rms.first.dat --output_traj_path cpptraj.traj.dcd
 ```
 ### JSON
 #### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_cpptraj_rms.json)
@@ -850,7 +853,7 @@ cpptraj_rms --config config_cpptraj_rms.yml --input_top_path cpptraj.parm.top --
 ```
 #### Command line
 ```python
-cpptraj_rms --config config_cpptraj_rms.json --input_top_path cpptraj.parm.top --input_traj_path cpptraj.traj.dcd --input_exp_path experimental.1e5t.pdb --output_cpptraj_path ref_cpptraj.rms.first.dat
+cpptraj_rms --config config_cpptraj_rms.json --input_top_path cpptraj.parm.top --input_traj_path cpptraj.traj.dcd --input_exp_path experimental.1e5t.pdb --output_cpptraj_path ref_cpptraj.rms.first.dat --output_traj_path cpptraj.traj.dcd
 ```
 
 ## Cpptraj_bfactor

@@ -752,6 +752,8 @@ cpptraj_rms:
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.netcdf
   properties:
     start: 1
     end: -1
@@ -765,6 +767,8 @@ cpptraj_rms_first:
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.netcdf
   properties:
     start: 1
     end: -1
@@ -778,6 +782,8 @@ cpptraj_rms_first_docker:
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.container.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.netcdf
   properties:
     start: 1
     end: -1
@@ -794,6 +800,8 @@ cpptraj_rms_first_singularity:
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.container.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.first.netcdf
   properties:
     start: 1
     end: -1
@@ -810,6 +818,8 @@ cpptraj_rms_average:
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.netcdf
   properties:
     start: 1
     end: -1
@@ -823,6 +833,8 @@ cpptraj_rms_average_docker:
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.container.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.netcdf
   properties:
     start: 1
     end: -1
@@ -839,6 +851,8 @@ cpptraj_rms_average_singularity:
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.container.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.average.netcdf
   properties:
     start: 1
     end: -1
@@ -856,6 +870,8 @@ cpptraj_rms_experimental:
     input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.netcdf
   properties:
     start: 1
     end: -1
@@ -870,6 +886,8 @@ cpptraj_rms_experimental_docker:
     input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.container.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.netcdf
   properties:
     start: 1
     end: -1
@@ -887,6 +905,8 @@ cpptraj_rms_experimental_singularity:
     input_exp_path: file:test_data_dir/ambertools/experimental.1e5t.pdb
     output_cpptraj_path: output.dat
     ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.container.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.rms.experimental.netcdf
   properties:
     start: 1
     end: -1

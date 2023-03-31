@@ -1,5 +1,12 @@
 # Biobb Analysis changelog
 
+## What's new in version [3.9.1](https://github.com/bioexcel/biobb_analysis/releases/tag/v3.9.1)?
+In version 3.9.1 a new output trajectory argument has been added to cpptraj_rms building block .
+
+### New features
+
+* New output trajectory argument added to cpptraj_rms (ambertools module)
+
 ## What's new in version [3.9.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v3.9.0)?
 In version 3.9.0 the dependency biobb_common has been updated to 3.9.0 version.
 

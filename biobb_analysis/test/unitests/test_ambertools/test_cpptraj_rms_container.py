@@ -14,6 +14,8 @@ class TestCpptrajRmsFirstDocker():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
 
 class TestCpptrajRmsAverageDocker():
     def setup_class(self):
@@ -27,6 +29,8 @@ class TestCpptrajRmsAverageDocker():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
 
 class TestCpptrajRmsExperimentalDocker():
     def setup_class(self):
@@ -40,6 +44,8 @@ class TestCpptrajRmsExperimentalDocker():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
 
 import pytest
 @pytest.mark.skip(reason="singularity currently not available")
@@ -55,6 +61,8 @@ class TestCpptrajRmsFirstSingularity():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
 
 @pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajRmsAverageSingularity():
@@ -69,6 +77,8 @@ class TestCpptrajRmsAverageSingularity():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
 
 @pytest.mark.skip(reason="singularity currently not available")
 class TestCpptrajRmsExperimentalSingularity():
@@ -83,3 +93,5 @@ class TestCpptrajRmsExperimentalSingularity():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])

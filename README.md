@@ -4,7 +4,7 @@
 
 [![](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](https://anaconda.org/bioconda/biobb_analysis)
 [![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_analysis?tab=tags)
-[![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_analysis:3.9.0--pyhdfd78af_0)
+[![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_analysis:3.9.1--pyhdfd78af_0)
 
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -20,7 +20,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
-v3.9.0 2022.4
+v3.9.1 2022.4
 
 ### Installation
 Using PIP:
@@ -30,7 +30,7 @@ Using PIP:
 * Installation:
 
 
-        pip install "biobb_analysis>=3.9.0"
+        pip install "biobb_analysis>=3.9.1"
 
 
 * Usage: [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html)
@@ -40,7 +40,7 @@ Using ANACONDA:
 * Installation:
 
 
-        conda install -c bioconda "biobb_analysis>=3.9.0"
+        conda install -c bioconda "biobb_analysis>=3.9.1"
 
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-analysis.readthedocs.io/en/latest/command_line.html)
@@ -50,13 +50,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_analysis:3.9.0--pyhdfd78af_0
+        docker pull quay.io/biocontainers/biobb_analysis:3.9.1--pyhdfd78af_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_analysis:3.9.0--pyhdfd78af_0 <command>
+        docker run quay.io/biocontainers/biobb_analysis:3.9.1--pyhdfd78af_0 <command>
 
 
 Using SINGULARITY:
@@ -66,7 +66,7 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_analysis.sif https://depot.galaxyproject.org/singularity/biobb_analysis:3.9.0--pyhdfd78af_0
+        singularity pull --name biobb_analysis.sif https://depot.galaxyproject.org/singularity/biobb_analysis:3.9.1--pyhdfd78af_0
 
 
 * Usage:
