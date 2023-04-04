@@ -4,10 +4,10 @@
 [![](https://img.shields.io/badge/Docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_analysis?tab=tags)
 [![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_analysis:4.0.0--pyhdfd78af_0)
 
-[![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)]()
-[![](https://img.shields.io/pypi/pyversions/biobb-analysis.svg?label=Python%20Versions)]()
+[![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)](https://github.com/bioexcel/biobb_analysis)
+[![](https://img.shields.io/pypi/pyversions/biobb-analysis.svg?label=Python%20Versions)](https://pypi.org/project/biobb-analysis/)
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![](https://img.shields.io/badge/Open%20Source%3f-Yes!-blue)]()
+[![](https://img.shields.io/badge/Open%20Source%3f-Yes!-blue)](https://github.com/bioexcel/biobb_analysis)
 
 [![](https://readthedocs.org/projects/biobb-analysis/badge/?version=latest&label=Docs)](https://biobb-analysis.readthedocs.io/en/latest/?badge=latest)
 [![](https://img.shields.io/website?down_message=Offline&label=Biobb%20Website&up_message=Online&url=https%3A%2F%2Fmmb.irbbarcelona.org%2Fbiobb%2F)]()
@@ -18,7 +18,7 @@
 [![](https://docs.bioexcel.eu/biobb_analysis/junit/testsbadge.svg)](https://docs.bioexcel.eu/biobb_analysis/junit/report.html)
 [![](https://docs.bioexcel.eu/biobb_analysis/coverage/coveragebadge.svg)](https://docs.bioexcel.eu/biobb_analysis/coverage/)
 [![](https://docs.bioexcel.eu/biobb_analysis/flake8/flake8badge.svg)](https://docs.bioexcel.eu/biobb_analysis/flake8/)
-[![](https://img.shields.io/github/last-commit/bioexcel/biobb_analysis?label=Last%20Commit)]()
+[![](https://img.shields.io/github/last-commit/bioexcel/biobb_analysis?label=Last%20Commit)](https://github.com/bioexcel/biobb_analysis/commits/master)
 [![](https://img.shields.io/github/issues/bioexcel/biobb_analysis.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_analysis/issues/)
 
 
