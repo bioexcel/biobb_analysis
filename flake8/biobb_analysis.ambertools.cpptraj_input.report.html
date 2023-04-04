@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: biobb_analysis/ambertools/cpptraj_input.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-1"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="biobb_analysis.ambertools.cpptraj_input.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               biobb_analysis/ambertools/cpptraj_input.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="F405">
+               <span class="count sev-1">
+                  3
+               </span>
+               <strong>F405:</strong> 'get_default_value' may be undefined, or defined from star imports: biobb_analysis.ambertools.common
+               
+                  (and 1 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>'get_default_value' may be undefined, or defined from star imports: biobb_analysis.ambertools.common:</p>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l65">
+                  <tt><i>65</i>         <span class="n">output_instructions_path</span> <span class="o">=</span> <span class="n">fu</span><span class="o">.</span><span class="n">create_name</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">get_default_value</span><span class="p">(</span><span class="s2">&quot;instructions_file&quot;</span><span class="p">))</span></tt>
+               </a>
+            </li><li>
+               
+               <p>'get_default_value' may be undefined, or defined from star imports: biobb_analysis.ambertools.common:</p>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l69">
+                  <tt><i>69</i>         <span class="n">instructions_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;trajout &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_cpptraj_path</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">get_default_value</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">))</span></tt>
+               </a>
+            </li><li>
+               
+               <p>'check_in_path' may be undefined, or defined from star imports: biobb_analysis.ambertools.common:</p>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l88">
+                  <tt><i>88</i>         <span class="n">check_in_path</span><span class="p">(</span><span class="n">output_instructions_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_log</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="F403">
+               <span class="count sev-1">
+                  1
+               </span>
+               <strong>F403:</strong> 'from biobb_analysis.ambertools.common import *' used; unable to detect undefined names
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l9">
+                  <tt><i>9</i> <span class="kn">from</span> <span class="nn">biobb_analysis.ambertools.common</span> <span class="kn">import</span> <span class="o">*</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E302">
+               <span class="count sev-2">
+                  2
+               </span>
+               <strong>E302:</strong> expected 2 blank lines, found 1
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l101">
+                  <tt><i>101</i> <span class="k">def</span> <span class="nf">cpptraj_input</span><span class="p">(</span><span class="n">input_instructions_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l108">
+                  <tt><i>108</i> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W291">
+               <span class="count sev-2">
+                  2
+               </span>
+               <strong>W291:</strong> trailing whitespace
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l30">
+                  <tt><i>30</i> <span class="sd">            cpptraj_input(input_instructions_path=&#39;/path/to/myInstructions.in&#39;, </span></tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l121">
+                  <tt><i>121</i>     <span class="n">cpptraj_input</span><span class="p">(</span><span class="n">input_instructions_path</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">input_instructions_path</span><span class="p">,</span> </tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W293">
+               <span class="count sev-2">
+                  2
+               </span>
+               <strong>W293:</strong> blank line contains whitespace
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l41">
+                  <tt><i>41</i> <span class="sd">            </span></tt>
+               </a>
+            </li><li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l80">
+                  <tt><i>80</i>         </tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E128">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E128:</strong> continuation line under-indented for visual indent
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l122">
+                  <tt><i>122</i>                 <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E265">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E265:</strong> block comment should start with '# '
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l120">
+                  <tt><i>120</i>     <span class="c1">#Specific call of each building block</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E271">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E271:</strong> multiple spaces after keyword
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l6">
+                  <tt><i>6</i> <span class="kn">from</span> <span class="nn">biobb_common.configuration</span> <span class="kn">import</span>  <span class="n">settings</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E305">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E305:</strong> expected 2 blank lines after class or function definition, found 1
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l124">
+                  <tt><i>124</i> <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E701">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E701:</strong> multiple statements on one line (colon)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l84">
+                  <tt><i>84</i>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_restart</span><span class="p">():</span> <span class="k">return</span> <span class="mi">0</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W292">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>W292:</strong> no newline at end of file
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="biobb_analysis.ambertools.cpptraj_input.source.html#l125">
+                  <tt><i>125</i>     <span class="n">main</span><span class="p">()</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>
