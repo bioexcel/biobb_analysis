@@ -9,7 +9,7 @@
 58    E202 whitespace before '}'
 12    E222 multiple spaces after operator
 1     E225 missing whitespace around operator
-68    E231 missing whitespace after ','
+67    E231 missing whitespace after ','
 3     E241 multiple spaces after ','
 24    E251 unexpected spaces around keyword / parameter equals
 1     E261 at least two spaces before inline comment
