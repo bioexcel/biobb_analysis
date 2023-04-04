@@ -3,6 +3,38 @@ from pathlib import Path, PurePath
 import re
 import shutil
 from biobb_common.tools import file_utils as fu
+from biobb_common.command_wrapper import cmd_wrapper
+
+
+def gmx_check(file_a: str, file_b: str, gmx: str = 'gmx') -> bool:
+    print("Comparing GROMACS files:")
+    print("FILE_A: %s" % str(Path(file_a).resolve()))
+    print("FILE_B: %s" % str(Path(file_b).resolve()))
+    check_result = 'check_result.out'
+    cmd = [gmx, 'check']
+    if file_a.endswith(".tpr"):
+        cmd.append('-s1')
+    else:
+        cmd.append('-f')
+    cmd.append(file_a)
+    if file_b.endswith(".tpr"):
+        cmd.append('-s2')
+    else:
+        cmd.append('-f2')
+    cmd.append(file_b)
+    cmd.append('> check_result.out')
+    cmd_wrapper.CmdWrapper(cmd).launch()
+    print("Result file: %s" % str(Path(check_result).resolve()))
+    with open(check_result) as check_file:
+        for line_num, line in enumerate(check_file):
+            if not line.rstrip():
+                continue
+            if line.startswith("Both files read correctly"):
+                continue
+            if not line.startswith('comparing'):
+                print('Discrepance found in line %d: %s' % (line_num, line))
+                return False
+    return True
 
 
 def check_energy_path(path, out_log, classname):

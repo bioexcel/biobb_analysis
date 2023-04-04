@@ -3,9 +3,10 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 import argparse
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import *
+import biobb_common.tools.file_utils as fu
+import biobb_analysis.gromacs.common as gro_common
 
 
 class GMXTrjConvTrj(BiobbObject):
@@ -33,19 +34,19 @@ class GMXTrjConvTrj(BiobbObject):
             * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
-    
+
     Examples:
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.gromacs.gmx_trjconv_trj import gmx_trjconv_trj
-            prop = { 
-                'selection': 'System', 
-                'start': 0, 
-                'end': 0 
+            prop = {
+                'selection': 'System',
+                'start': 0,
+                'end': 0
             }
-            gmx_trjconv_trj(input_traj_path='/path/to/myStructure.trr', 
+            gmx_trjconv_trj(input_traj_path='/path/to/myStructure.trr',
                             output_traj_path='/path/to/newTrajectory.xtc',
-                            input_index_path='/path/to/myIndex.ndx',  
+                            input_index_path='/path/to/myIndex.ndx',
                             properties=prop)
 
     Info:
@@ -59,7 +60,7 @@ class GMXTrjConvTrj(BiobbObject):
 
     """
 
-    def __init__(self, input_traj_path, 
+    def __init__(self, input_traj_path,
                  output_traj_path, input_index_path=None, input_top_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
@@ -68,9 +69,9 @@ class GMXTrjConvTrj(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_traj_path": input_traj_path, "input_index_path": input_index_path, "input_top_path": input_top_path }, 
-            "out": { "output_traj_path": output_traj_path } 
+        self.io_dict = {
+            "in": {"input_traj_path": input_traj_path, "input_index_path": input_index_path, "input_top_path": input_top_path},
+            "out": {"output_traj_path": output_traj_path}
         }
 
         # Properties specific for BB
@@ -84,7 +85,7 @@ class GMXTrjConvTrj(BiobbObject):
         self.properties = properties
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, 'binary_path')
+        self.binary_path = gro_common.get_binary_path(properties, 'binary_path')
 
         # Check the properties
         self.check_properties(properties)
@@ -92,25 +93,26 @@ class GMXTrjConvTrj(BiobbObject):
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
-        if self.io_dict["in"]["input_top_path"]: self.io_dict["in"]["input_top_path"] = check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_traj_path"] = check_out_traj_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_traj_path"] = gro_common.check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
+        self.io_dict["in"]["input_index_path"] = gro_common.check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
+        if self.io_dict["in"]["input_top_path"]:
+            self.io_dict["in"]["input_top_path"] = gro_common.check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
+        self.io_dict["out"]["output_traj_path"] = gro_common.check_out_traj_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
         '''if not self.io_dict["in"]["input_index_path"]:
             self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
         else:
             self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)'''
         if self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
-            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+            self.selection = gro_common.get_selection(self.properties, out_log, self.__class__.__name__)
         elif self.io_dict["in"]["input_index_path"]:
-            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
+            self.selection = gro_common.get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
         elif not self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
             self.selection = ""
         else:
-            return True 
-        self.start = get_start(self.properties, out_log, self.__class__.__name__)
-        self.end = get_end(self.properties, out_log, self.__class__.__name__)
-        self.dt = get_dt(self.properties, out_log, self.__class__.__name__)
+            return True
+        self.start = gro_common.get_start(self.properties, out_log, self.__class__.__name__)
+        self.end = gro_common.get_end(self.properties, out_log, self.__class__.__name__)
+        self.dt = gro_common.get_dt(self.properties, out_log, self.__class__.__name__)
 
     @launchlogger
     def launch(self) -> int:
@@ -133,11 +135,11 @@ class GMXTrjConvTrj(BiobbObject):
         self.stage_files()
 
         self.cmd = [self.binary_path, 'trjconv',
-               '-f', self.stage_io_dict["in"]["input_traj_path"],
-               '-b', self.start,
-               '-e', self.end,
-               '-dt', self.dt,
-               '-o', self.stage_io_dict["out"]["output_traj_path"]]
+                    '-f', self.stage_io_dict["in"]["input_traj_path"],
+                    '-b', self.start,
+                    '-e', self.end,
+                    '-dt', self.dt,
+                    '-o', self.stage_io_dict["out"]["output_traj_path"]]
 
         if "input_index_path" in self.stage_io_dict["in"]:
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
@@ -165,22 +167,24 @@ class GMXTrjConvTrj(BiobbObject):
 
         return self.return_code
 
+
 def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: str = None, input_top_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch>` method."""
 
-    return GMXTrjConvTrj(input_traj_path=input_traj_path, 
-                    output_traj_path=output_traj_path,
-                    input_index_path=input_index_path,
-                    input_top_path=input_top_path, 
-                    properties=properties, **kwargs).launch()
+    return GMXTrjConvTrj(input_traj_path=input_traj_path,
+                         output_traj_path=output_traj_path,
+                         input_index_path=input_index_path,
+                         input_top_path=input_top_path,
+                         properties=properties, **kwargs).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
-    #Specific args of each building block
+    # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
     parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file. Accepted formats: ndx.")
@@ -191,12 +195,13 @@ def main():
     args.config = args.config or "{}"
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
-    #Specific call of each building block
-    gmx_trjconv_trj(input_traj_path=args.input_traj_path, 
-                    output_traj_path=args.output_traj_path, 
-                    input_index_path=args.input_index_path, 
-                    input_top_path=args.input_top_path, 
+    # Specific call of each building block
+    gmx_trjconv_trj(input_traj_path=args.input_traj_path,
+                    output_traj_path=args.output_traj_path,
+                    input_index_path=args.input_index_path,
+                    input_top_path=args.input_top_path,
                     properties=properties)
+
 
 if __name__ == '__main__':
     main()
