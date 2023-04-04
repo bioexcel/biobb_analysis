@@ -28,7 +28,7 @@
 1     F841 local variable 'msg' is assigned to but never used
 385   W191 indentation contains tabs
 355   W291 trailing whitespace
-27    W292 no newline at end of file
+25    W292 no newline at end of file
 25    W293 blank line contains whitespace
 2     W391 blank line at end of file
 4     W605 invalid escape sequence '\('
