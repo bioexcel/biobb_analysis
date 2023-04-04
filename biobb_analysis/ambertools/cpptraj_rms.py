@@ -55,6 +55,7 @@ class CpptrajRms(BiobbObject):
                         input_traj_path='/path/to/myTrajectory.dcd', 
                         output_cpptraj_path='/path/to/newAnalysis.dat', 
                         input_exp_path= '/path/to/myExpStructure.pdb',
+                        output_traj_path='/path/to/newTrajectory.netcdf', 
                         properties=prop)
 
     Info:

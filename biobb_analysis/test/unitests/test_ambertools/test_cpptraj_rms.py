@@ -14,6 +14,8 @@ class TestCpptrajRmsFirst():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
 
 class TestCpptrajRmsAverage():
     def setup_class(self):
@@ -27,6 +29,8 @@ class TestCpptrajRmsAverage():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
 
 class TestCpptrajRmsExperimental():
     def setup_class(self):
@@ -40,3 +44,5 @@ class TestCpptrajRmsExperimental():
         cpptraj_rms(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
+        assert fx.not_empty(self.paths['output_traj_path'])
+        assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
