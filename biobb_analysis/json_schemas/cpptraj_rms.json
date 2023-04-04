@@ -254,6 +254,148 @@
                 }
             ]
         },
+        "output_traj_path": {
+            "type": "string",
+            "description": "Path to the output processed trajectory",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd",
+            "enum": [
+                ".*\\.mdcrd$",
+                ".*\\.crd$",
+                ".*\\.cdf$",
+                ".*\\.netcdf$",
+                ".*\\.nc$",
+                ".*\\.restart$",
+                ".*\\.ncrestart$",
+                ".*\\.restartnc$",
+                ".*\\.dcd$",
+                ".*\\.charmm$",
+                ".*\\.cor$",
+                ".*\\.pdb$",
+                ".*\\.mol2$",
+                ".*\\.trr$",
+                ".*\\.gro$",
+                ".*\\.binpos$",
+                ".*\\.xtc$",
+                ".*\\.cif$",
+                ".*\\.arc$",
+                ".*\\.sqm$",
+                ".*\\.sdf$",
+                ".*\\.conflib$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.mdcrd$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3878"
+                },
+                {
+                    "extension": ".*\\.crd$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3878"
+                },
+                {
+                    "extension": ".*\\.cdf$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.netcdf$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.nc$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3650"
+                },
+                {
+                    "extension": ".*\\.restart$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3886"
+                },
+                {
+                    "extension": ".*\\.ncrestart$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3886"
+                },
+                {
+                    "extension": ".*\\.restartnc$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3886"
+                },
+                {
+                    "extension": ".*\\.dcd$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3878"
+                },
+                {
+                    "extension": ".*\\.charmm$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3887"
+                },
+                {
+                    "extension": ".*\\.cor$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.mol2$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3816"
+                },
+                {
+                    "extension": ".*\\.trr$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3910"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.binpos$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3885"
+                },
+                {
+                    "extension": ".*\\.xtc$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3875"
+                },
+                {
+                    "extension": ".*\\.cif$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_1477"
+                },
+                {
+                    "extension": ".*\\.arc$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.sqm$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.sdf$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_3814"
+                },
+                {
+                    "extension": ".*\\.conflib$",
+                    "description": "Path to the output processed trajectory",
+                    "edam": "format_2033"
+                }
+            ]
+        },
         "properties": {
             "type": "object",
             "properties": {
