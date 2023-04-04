@@ -1,3 +1,3 @@
 name = "biobb_analysis"
 __all__ = ["ambertools", "gromacs"]
-__version__ = "3.9.1"
+__version__ = "4.0.0"

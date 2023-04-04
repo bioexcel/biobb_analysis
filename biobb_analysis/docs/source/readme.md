@@ -1,12 +1,25 @@
-[![](https://github.com/bioexcel/biobb_analysis/actions/workflows/linting_and_testing.yml/badge.svg)](https://github.com/bioexcel/biobb_analysis/actions/workflows/linting_and_testing.yml)
-[![](https://codecov.io/gh/bioexcel/biobb_analysis/branch/master/graph/badge.svg?token=82NIM2DCNG)](https://codecov.io/gh/bioexcel/biobb_analysis)
-[![](https://readthedocs.org/projects/biobb-analysis/badge/?version=latest)](https://biobb-analysis.readthedocs.io/en/latest/?badge=latest)
+[![](https://img.shields.io/github/v/tag/bioexcel/biobb_analysis?label=Version)](https://GitHub.com/bioexcel/biobb_analysis/tags/)
+[![](https://img.shields.io/pypi/v/biobb-analysis.svg?label=Pypi)](https://pypi.python.org/pypi/biobb-analysis/)
+[![](https://img.shields.io/conda/vn/bioconda/biobb_analysis?label=Conda)](https://anaconda.org/bioconda/biobb_analysis)
+[![](https://img.shields.io/badge/Docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_analysis?tab=tags)
+[![](https://img.shields.io/badge/Singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_analysis:4.0.0--pyhdfd78af_0)
 
-[![](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](https://anaconda.org/bioconda/biobb_analysis)
-[![](https://img.shields.io/badge/docker-Quay.io-blue)](https://quay.io/repository/biocontainers/biobb_analysis?tab=tags)
-[![](https://img.shields.io/badge/singularity-GalaxyProject-blue)](https://depot.galaxyproject.org/singularity/biobb_analysis:3.9.1--pyhdfd78af_0)
-
+[![](https://img.shields.io/badge/OS-Unix%20%7C%20MacOS-blue)](https://github.com/bioexcel/biobb_analysis)
+[![](https://img.shields.io/pypi/pyversions/biobb-analysis.svg?label=Python%20Versions)](https://pypi.org/project/biobb-analysis/)
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![](https://img.shields.io/badge/Open%20Source%3f-Yes!-blue)](https://github.com/bioexcel/biobb_analysis)
+
+[![](https://readthedocs.org/projects/biobb-analysis/badge/?version=latest&label=Docs)](https://biobb-analysis.readthedocs.io/en/latest/?badge=latest)
+[![](https://img.shields.io/website?down_message=Offline&label=Biobb%20Website&up_message=Online&url=https%3A%2F%2Fmmb.irbbarcelona.org%2Fbiobb%2F)]()
+[![](https://img.shields.io/badge/Youtube-tutorial-blue?logo=youtube&logoColor=red)](https://www.youtube.com/watch?v=ou1DOGNs0xM)
+[![](https://zenodo.org/badge/DOI/10.1038/s41597-019-0177-4.svg)](https://doi.org/10.1038/s41597-019-0177-4)
+[![](https://img.shields.io/endpoint?color=brightgreen&url=https%3A%2F%2Fapi.juleskreuer.eu%2Fcitation-badge.php%3Fshield%26doi%3D10.1038%2Fs41597-019-0177-4)](https://www.nature.com/articles/s41597-019-0177-4#citeas)
+
+[![](https://docs.bioexcel.eu/biobb_analysis/junit/testsbadge.svg)](https://docs.bioexcel.eu/biobb_analysis/junit/report.html)
+[![](https://docs.bioexcel.eu/biobb_analysis/coverage/coveragebadge.svg)](https://docs.bioexcel.eu/biobb_analysis/coverage/)
+[![](https://docs.bioexcel.eu/biobb_analysis/flake8/flake8badge.svg)](https://docs.bioexcel.eu/biobb_analysis/flake8/)
+[![](https://img.shields.io/github/last-commit/bioexcel/biobb_analysis?label=Last%20Commit)](https://github.com/bioexcel/biobb_analysis/commits/master)
+[![](https://img.shields.io/github/issues/bioexcel/biobb_analysis.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_analysis/issues/)
 
 
 # biobb_analysis
@@ -20,7 +33,7 @@ The latest documentation of this package can be found in our readthedocs site:
 [latest API documentation](http://biobb_analysis.readthedocs.io/en/latest/).
 
 ### Version
-v3.9.1 2022.4
+v4.0.0 2023.1
 
 ### Installation
 Using PIP:
@@ -30,7 +43,7 @@ Using PIP:
 * Installation:
 
 
-        pip install "biobb_analysis>=3.9.1"
+        pip install "biobb_analysis>=4.0.0"
 
 
 * Usage: [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html)
@@ -40,7 +53,7 @@ Using ANACONDA:
 * Installation:
 
 
-        conda install -c bioconda "biobb_analysis>=3.9.1"
+        conda install -c bioconda "biobb_analysis>=4.0.0"
 
 
 * Usage: With conda installation BioBBs can be used with the [Python API documentation](https://biobb-analysis.readthedocs.io/en/latest/modules.html) and the [Command Line documentation](https://biobb-analysis.readthedocs.io/en/latest/command_line.html)
@@ -50,13 +63,13 @@ Using DOCKER:
 * Installation:
 
 
-        docker pull quay.io/biocontainers/biobb_analysis:3.9.1--pyhdfd78af_0
+        docker pull quay.io/biocontainers/biobb_analysis:4.0.0--pyhdfd78af_0
 
 
 * Usage:
 
 
-        docker run quay.io/biocontainers/biobb_analysis:3.9.1--pyhdfd78af_0 <command>
+        docker run quay.io/biocontainers/biobb_analysis:4.0.0--pyhdfd78af_0 <command>
 
 
 Using SINGULARITY:
@@ -66,7 +79,7 @@ Using SINGULARITY:
 * Installation:
 
 
-        singularity pull --name biobb_analysis.sif https://depot.galaxyproject.org/singularity/biobb_analysis:3.9.1--pyhdfd78af_0
+        singularity pull --name biobb_analysis.sif https://depot.galaxyproject.org/singularity/biobb_analysis:4.0.0--pyhdfd78af_0
 
 
 * Usage:
