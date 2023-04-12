@@ -2,11 +2,12 @@
 
 """Module containing the Cpptraj Snapshot class and the command line interface."""
 import argparse
+from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import *
+from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_out_parameters, get_negative_mask, copy_instructions_file_to_container
 
 
 class CpptrajSnapshot(BiobbObject):
@@ -37,14 +38,14 @@ class CpptrajSnapshot(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.ambertools.cpptraj_snapshot import cpptraj_snapshot
-            prop = { 
-                'snapshot': 12, 
-                'mask': 'c-alpha', 
-                'format': 'pdb' 
+            prop = {
+                'snapshot': 12,
+                'mask': 'c-alpha',
+                'format': 'pdb'
             }
-            cpptraj_snapshot(input_top_path='/path/to/myTopology.top', 
-                            input_traj_path='/path/to/myTrajectory.dcd', 
-                            output_cpptraj_path='/path/to/newStructure.pdb', 
+            cpptraj_snapshot(input_top_path='/path/to/myTopology.top',
+                            input_traj_path='/path/to/myTrajectory.dcd',
+                            output_cpptraj_path='/path/to/newStructure.pdb',
                             properties=prop)
 
     Info:
@@ -58,8 +59,8 @@ class CpptrajSnapshot(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
-                properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
+                 properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -67,14 +68,14 @@ class CpptrajSnapshot(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path }, 
-            "out": { "output_cpptraj_path": output_cpptraj_path } 
+        self.io_dict = {
+            "in": {"input_top_path": input_top_path, "input_traj_path": input_traj_path},
+            "out": {"output_cpptraj_path": output_cpptraj_path}
         }
 
         # Properties specific for BB
         self.instructions_file = get_default_value('instructions_file')
-        self.snapshot =  properties.get('snapshot', 1)
+        self.snapshot = properties.get('snapshot', 1)
         self.mask = properties.get('mask', 'all-atoms')
         self.format = properties.get('format', 'netcdf')
         self.properties = properties
@@ -89,8 +90,8 @@ class CpptrajSnapshot(BiobbObject):
         self.io_dict["in"]["input_top_path"], self.input_top_path_orig = check_top_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
         self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
         self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
-        self.in_parameters = { 'snapshot': self.snapshot, 'mask': self.mask }
-        self.out_parameters = { 'format': self.format }
+        self.in_parameters = {'snapshot': self.snapshot, 'mask': self.mask}
+        self.out_parameters = {'format': self.format}
 
     def create_instructions_file(self, container_io_dict, out_log, err_log):
         """Creates an input file using the properties file settings"""
@@ -129,16 +130,17 @@ class CpptrajSnapshot(BiobbObject):
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` ambertools.cpptraj_snapshot.CpptrajSnapshot object."""
-        
-         # check input/output paths and parameters
+
+        # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log) 
+        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
 
         # if container execution, copy intructions file to container
         if self.container_path:
@@ -164,14 +166,16 @@ class CpptrajSnapshot(BiobbObject):
 
         return self.return_code
 
+
 def cpptraj_snapshot(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` class and
     execute the :meth:`launch() <ambertools.cpptraj_snapshot.CpptrajSnapshot.launch>` method."""
 
-    return CpptrajSnapshot(input_top_path=input_top_path, 
-                            input_traj_path=input_traj_path, 
-                            output_cpptraj_path=output_cpptraj_path,
-                            properties=properties, **kwargs).launch()
+    return CpptrajSnapshot(input_top_path=input_top_path,
+                           input_traj_path=input_traj_path,
+                           output_cpptraj_path=output_cpptraj_path,
+                           properties=properties, **kwargs).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -189,10 +193,11 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    cpptraj_snapshot(input_top_path=args.input_top_path, 
-                    input_traj_path=args.input_traj_path, 
-                    output_cpptraj_path=args.output_cpptraj_path, 
-                    properties=properties)
+    cpptraj_snapshot(input_top_path=args.input_top_path,
+                     input_traj_path=args.input_traj_path,
+                     output_cpptraj_path=args.output_cpptraj_path,
+                     properties=properties)
+
 
 if __name__ == '__main__':
     main()

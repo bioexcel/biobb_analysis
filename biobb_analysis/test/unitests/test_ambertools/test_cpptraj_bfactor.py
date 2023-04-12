@@ -4,7 +4,7 @@ from biobb_analysis.ambertools.cpptraj_bfactor import cpptraj_bfactor
 
 class TestCpptrajBfactorFirst():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_bfactor_first')
+        fx.test_setup(self, 'cpptraj_bfactor_first')
 
     def teardown_class(self):
         fx.test_teardown(self)
@@ -15,9 +15,10 @@ class TestCpptrajBfactorFirst():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+
 class TestCpptrajBfactorAverage():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_bfactor_average')
+        fx.test_setup(self, 'cpptraj_bfactor_average')
 
     def teardown_class(self):
         fx.test_teardown(self)
@@ -28,9 +29,10 @@ class TestCpptrajBfactorAverage():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+
 class TestCpptrajBfactorExperimental():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_bfactor_experimental')
+        fx.test_setup(self, 'cpptraj_bfactor_experimental')
 
     def teardown_class(self):
         fx.test_teardown(self)

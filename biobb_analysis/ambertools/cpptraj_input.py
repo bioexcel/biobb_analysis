@@ -3,10 +3,10 @@
 """Module containing the Cpptraj Input class and the command line interface."""
 import argparse
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import *
+from biobb_analysis.ambertools.common import get_default_value, check_in_path
 
 
 class CpptrajInput(BiobbObject):
@@ -27,7 +27,7 @@ class CpptrajInput(BiobbObject):
 
             from biobb_analysis.ambertools.cpptraj_input import cpptraj_input
             prop = { }
-            cpptraj_input(input_instructions_path='/path/to/myInstructions.in', 
+            cpptraj_input(input_instructions_path='/path/to/myInstructions.in',
                             properties=prop)
 
     Info:
@@ -38,7 +38,7 @@ class CpptrajInput(BiobbObject):
         * ontology:
             * name: EDAM
             * schema: http://edamontology.org/EDAM.owl
-            
+
     """
 
     def __init__(self, input_instructions_path=None, properties=None, **kwargs) -> None:
@@ -77,11 +77,12 @@ class CpptrajInput(BiobbObject):
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` ambertools.cpptraj_input.CpptrajInput object."""
-        
+
         # Get local loggers from launchlogger decorator
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         output_instructions_path = self.create_instrucions_file() if not self.input_instructions_path else self.input_instructions_path
@@ -98,12 +99,14 @@ class CpptrajInput(BiobbObject):
 
         return self.return_code
 
+
 def cpptraj_input(input_instructions_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
     execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch>` method."""
 
     return CpptrajInput(input_instructions_path=input_instructions_path,
                         properties=properties, **kwargs).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -117,9 +120,10 @@ def main():
     args.config = args.config or "{}"
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
-    #Specific call of each building block
-    cpptraj_input(input_instructions_path=args.input_instructions_path, 
-                properties=properties)
+    # Specific call of each building block
+    cpptraj_input(input_instructions_path=args.input_instructions_path,
+                  properties=properties)
+
 
 if __name__ == '__main__':
     main()

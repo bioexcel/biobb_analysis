@@ -2,11 +2,12 @@
 
 """Module containing the GMX Cluster class and the command line interface."""
 import argparse
+from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import *
+from biobb_analysis.gromacs.common import check_input_path, check_traj_path, check_index_path, check_out_pdb_path, get_binary_path, get_image_selection, get_selection_index_file, get_dista, get_method, get_cutoff
 
 
 class GMXCluster(BiobbObject):
@@ -40,15 +41,15 @@ class GMXCluster(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.gromacs.gmx_cluster import gmx_cluster
-            prop = { 
-                'fit_selection': 'System', 
-                'output_selection': 'System', 
-                'method': 'linkage' 
+            prop = {
+                'fit_selection': 'System',
+                'output_selection': 'System',
+                'method': 'linkage'
             }
-            gmx_cluster(input_structure_path='/path/to/myStructure.tpr', 
-                        input_traj_path='/path/to/myTrajectory.trr', 
-                        input_index_path='/path/to/myIndex.ndx', 
-                        output_pdb_path='/path/to/newStructure.pdb', 
+            gmx_cluster(input_structure_path='/path/to/myStructure.tpr',
+                        input_traj_path='/path/to/myTrajectory.trr',
+                        input_index_path='/path/to/myIndex.ndx',
+                        output_pdb_path='/path/to/newStructure.pdb',
                         properties=prop)
 
     Info:
@@ -62,8 +63,8 @@ class GMXCluster(BiobbObject):
 
     """
 
-    def __init__(self, input_structure_path, input_traj_path, output_pdb_path, 
-                input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path, input_traj_path, output_pdb_path,
+                 input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -71,9 +72,9 @@ class GMXCluster(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_structure_path": input_structure_path, "input_traj_path": input_traj_path, "input_index_path": input_index_path }, 
-            "out": { "output_pdb_path": output_pdb_path } 
+        self.io_dict = {
+            "in": {"input_structure_path": input_structure_path, "input_traj_path": input_traj_path, "input_index_path": input_index_path},
+            "out": {"output_pdb_path": output_pdb_path}
         }
 
         # Properties specific for BB
@@ -86,7 +87,7 @@ class GMXCluster(BiobbObject):
 
         # Properties common in all GROMACS BB
         self.binary_path = get_binary_path(properties, 'binary_path')
-        
+
         # Check the properties
         self.check_properties(properties)
         self.check_arguments()
@@ -134,14 +135,14 @@ class GMXCluster(BiobbObject):
             self.xpm_path = str(PurePath(self.container_volume_path).joinpath(self.xpm_path))
 
         self.cmd = [self.binary_path, 'cluster',
-               '-g', self.log_path,
-               '-dist', self.xvg_path,
-               '-o', self.xpm_path,
-               '-s', self.stage_io_dict["in"]["input_structure_path"],
-               '-f', self.stage_io_dict["in"]["input_traj_path"],
-               '-cl', self.stage_io_dict["out"]["output_pdb_path"],
-               '-cutoff', str(self.cutoff),
-               '-method', self.method]
+                    '-g', self.log_path,
+                    '-dist', self.xvg_path,
+                    '-o', self.xpm_path,
+                    '-s', self.stage_io_dict["in"]["input_structure_path"],
+                    '-f', self.stage_io_dict["in"]["input_traj_path"],
+                    '-cl', self.stage_io_dict["out"]["output_pdb_path"],
+                    '-cutoff', str(self.cutoff),
+                    '-method', self.method]
 
         if self.stage_io_dict["in"].get("input_index_path"):
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
@@ -162,8 +163,8 @@ class GMXCluster(BiobbObject):
         self.tmp_files.extend([
             self.stage_io_dict.get("unique_dir"),
             self.io_dict['in'].get("stdin_file_path"),
-            'rmsd-clust.xpm', 
-            'rmsd-dist.xvg', 
+            'rmsd-clust.xpm',
+            'rmsd-dist.xvg',
             'cluster.log'
         ])
         self.remove_tmp_files()
@@ -172,22 +173,24 @@ class GMXCluster(BiobbObject):
 
         return self.return_code
 
+
 def gmx_cluster(input_structure_path: str, input_traj_path: str, output_pdb_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` class and
     execute the :meth:`launch() <gromacs.gmx_cluster.GMXCluster.launch>` method."""
 
-    return GMXCluster(input_structure_path=input_structure_path, 
-                    input_traj_path=input_traj_path, 
-                    output_pdb_path=output_pdb_path,
-                    input_index_path=input_index_path,
-                    properties=properties, **kwargs).launch()
+    return GMXCluster(input_structure_path=input_structure_path,
+                      input_traj_path=input_traj_path,
+                      output_pdb_path=output_pdb_path,
+                      input_index_path=input_index_path,
+                      properties=properties, **kwargs).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Creates cluster structures from a given GROMACS compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
-    #Specific args of each building block
+    # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
@@ -198,12 +201,13 @@ def main():
     args.config = args.config or "{}"
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
-    #Specific call of each building block
-    gmx_cluster(input_structure_path=args.input_structure_path, 
-                input_traj_path=args.input_traj_path, 
-                output_pdb_path=args.output_pdb_path, 
-                input_index_path=args.input_index_path, 
+    # Specific call of each building block
+    gmx_cluster(input_structure_path=args.input_structure_path,
+                input_traj_path=args.input_traj_path,
+                output_pdb_path=args.output_pdb_path,
+                input_index_path=args.input_index_path,
                 properties=properties)
+
 
 if __name__ == '__main__':
     main()

@@ -4,7 +4,7 @@ from biobb_analysis.gromacs.gmx_rgyr import gmx_rgyr
 
 class TestGMXRgyr():
     def setup_class(self):
-        fx.test_setup(self,'gmx_rgyr')
+        fx.test_setup(self, 'gmx_rgyr')
 
     def teardown_class(self):
         fx.test_teardown(self)

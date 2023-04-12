@@ -1,7 +1,6 @@
+import pytest
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.gromacs.gmx_image import gmx_image
-# from biobb_analysis.gromacs.common import gmx_check
-import pytest
 
 
 class TestGMXImageDocker():

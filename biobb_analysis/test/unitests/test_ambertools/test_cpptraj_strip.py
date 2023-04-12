@@ -4,7 +4,7 @@ from biobb_analysis.ambertools.cpptraj_strip import cpptraj_strip
 
 class TestCpptrajStrip():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_strip')
+        fx.test_setup(self, 'cpptraj_strip')
 
     def teardown_class(self):
         fx.test_teardown(self)

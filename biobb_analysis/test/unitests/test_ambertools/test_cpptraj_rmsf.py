@@ -4,7 +4,7 @@ from biobb_analysis.ambertools.cpptraj_rmsf import cpptraj_rmsf
 
 class TestCpptrajRmsfFirst():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_rmsf_first')
+        fx.test_setup(self, 'cpptraj_rmsf_first')
 
     def teardown_class(self):
         fx.test_teardown(self)
@@ -15,9 +15,10 @@ class TestCpptrajRmsfFirst():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+
 class TestCpptrajRmsfAverage():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_rmsf_average')
+        fx.test_setup(self, 'cpptraj_rmsf_average')
 
     def teardown_class(self):
         fx.test_teardown(self)
@@ -28,9 +29,10 @@ class TestCpptrajRmsfAverage():
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
+
 class TestCpptrajRmsfExperimental():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_rmsf_experimental')
+        fx.test_setup(self, 'cpptraj_rmsf_experimental')
 
     def teardown_class(self):
         fx.test_teardown(self)
@@ -40,4 +42,3 @@ class TestCpptrajRmsfExperimental():
         cpptraj_rmsf(properties=self.properties, **self.paths)
         assert fx.not_empty(self.paths['output_cpptraj_path'])
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
-

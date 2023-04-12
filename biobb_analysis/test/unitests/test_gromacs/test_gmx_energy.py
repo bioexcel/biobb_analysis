@@ -4,7 +4,7 @@ from biobb_analysis.gromacs.gmx_energy import gmx_energy
 
 class TestGMXEnergy():
     def setup_class(self):
-        fx.test_setup(self,'gmx_energy')
+        fx.test_setup(self, 'gmx_energy')
 
     def teardown_class(self):
         fx.test_teardown(self)

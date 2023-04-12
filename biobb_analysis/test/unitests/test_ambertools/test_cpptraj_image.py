@@ -4,7 +4,7 @@ from biobb_analysis.ambertools.cpptraj_image import cpptraj_image
 
 class TestCpptrajImage():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_image')
+        fx.test_setup(self, 'cpptraj_image')
 
     def teardown_class(self):
         fx.test_teardown(self)

@@ -1,6 +1,6 @@
+import pytest
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.ambertools.cpptraj_convert import cpptraj_convert
-import pytest
 
 
 class TestCpptrajConvertDocker():

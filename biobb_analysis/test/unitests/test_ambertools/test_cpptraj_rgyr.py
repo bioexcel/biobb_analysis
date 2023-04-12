@@ -4,7 +4,7 @@ from biobb_analysis.ambertools.cpptraj_rgyr import cpptraj_rgyr
 
 class TestCpptrajRgyr():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_rgyr')
+        fx.test_setup(self, 'cpptraj_rgyr')
 
     def teardown_class(self):
         fx.test_teardown(self)

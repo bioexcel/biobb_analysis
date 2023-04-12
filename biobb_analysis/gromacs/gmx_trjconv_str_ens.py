@@ -6,7 +6,7 @@ from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import *
+from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_selection_index_file, get_selection, check_out_str_ens_path, get_skip, get_start, get_end, get_dt, get_ot_str_ens, process_output_trjconv_str_ens
 
 
 class GMXTrjConvStrEns(BiobbObject):
@@ -42,16 +42,16 @@ class GMXTrjConvStrEns(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.gromacs.gmx_trjconv_str_ens import gmx_trjconv_str_ens
-            prop = { 
-                'selection': 'System', 
-                'start': 0, 
-                'end': 10, 
-                'dt': 1 
+            prop = {
+                'selection': 'System',
+                'start': 0,
+                'end': 10,
+                'dt': 1
             }
-            gmx_trjconv_str_ens(input_traj_path='/path/to/myStructure.trr', 
-                                input_top_path='/path/to/myTopology.tpr', 
-                                output_str_ens_path='/path/to/newStructureEnsemble.zip', 
-                                input_index_path='/path/to/myIndex.ndx', 
+            gmx_trjconv_str_ens(input_traj_path='/path/to/myStructure.trr',
+                                input_top_path='/path/to/myTopology.tpr',
+                                output_str_ens_path='/path/to/newStructureEnsemble.zip',
+                                input_index_path='/path/to/myIndex.ndx',
                                 properties=prop)
 
     Info:
@@ -62,11 +62,11 @@ class GMXTrjConvStrEns(BiobbObject):
         * ontology:
             * name: EDAM
             * schema: http://edamontology.org/EDAM.owl
-            
+
     """
 
-    def __init__(self, input_traj_path, input_top_path, output_str_ens_path, 
-                input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_traj_path, input_top_path, output_str_ens_path,
+                 input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -74,9 +74,9 @@ class GMXTrjConvStrEns(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path }, 
-            "out": { "output_str_ens_path": output_str_ens_path } 
+        self.io_dict = {
+            "in": {"input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path},
+            "out": {"output_str_ens_path": output_str_ens_path}
         }
 
         # Properties specific for BB
@@ -135,16 +135,16 @@ class GMXTrjConvStrEns(BiobbObject):
             output = self.stage_io_dict.get("unique_dir") + '/' + self.output_name + '.' + self.output_type
 
         self.cmd = [self.binary_path, 'trjconv',
-               '-f', self.stage_io_dict["in"]["input_traj_path"],
-               '-s', self.stage_io_dict["in"]["input_top_path"],
-               '-skip', self.skip,
-               '-b', self.start,
-               '-dt', self.dt,
-               '-sep',
-               '-o', output]
+                    '-f', self.stage_io_dict["in"]["input_traj_path"],
+                    '-s', self.stage_io_dict["in"]["input_top_path"],
+                    '-skip', self.skip,
+                    '-b', self.start,
+                    '-dt', self.dt,
+                    '-sep',
+                    '-o', output]
 
         # checking 'end' gromacs 'bug'
-        if not str(self.end) =="0":
+        if not str(self.end) == "0":
             self.cmd.append('-e')
             self.cmd.append(self.end)
 
@@ -162,14 +162,14 @@ class GMXTrjConvStrEns(BiobbObject):
         self.copy_to_host()
 
         if self.container_path:
-            process_output_trjconv_str_ens(self.stage_io_dict['unique_dir'], 
+            process_output_trjconv_str_ens(self.stage_io_dict['unique_dir'],
                                            self.io_dict["out"]["output_str_ens_path"],
-                                           self.stage_io_dict.get("unique_dir"), 
+                                           self.stage_io_dict.get("unique_dir"),
                                            self.output_name + '*', self.out_log)
         else:
-            process_output_trjconv_str_ens(self.stage_io_dict.get("unique_dir"), 
+            process_output_trjconv_str_ens(self.stage_io_dict.get("unique_dir"),
                                            self.stage_io_dict["out"]["output_str_ens_path"],
-                                           self.io_dict["out"]["output_str_ens_path"], 
+                                           self.io_dict["out"]["output_str_ens_path"],
                                            'output*.pdb', self.out_log)
 
         self.tmp_files.extend([
@@ -182,15 +182,17 @@ class GMXTrjConvStrEns(BiobbObject):
 
         return self.return_code
 
+
 def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns.launch>` method."""
 
-    return GMXTrjConvStrEns(input_traj_path=input_traj_path, 
-                    input_top_path = input_top_path,
-                    output_str_ens_path=output_str_ens_path,
-                    input_index_path=input_index_path,
-                    properties=properties).launch()
+    return GMXTrjConvStrEns(input_traj_path=input_traj_path,
+                            input_top_path=input_top_path,
+                            output_str_ens_path=output_str_ens_path,
+                            input_index_path=input_index_path,
+                            properties=properties).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -209,10 +211,10 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    gmx_trjconv_str_ens(input_traj_path=args.input_traj_path, 
-                        input_top_path=args.input_top_path, 
+    gmx_trjconv_str_ens(input_traj_path=args.input_traj_path,
+                        input_top_path=args.input_top_path,
                         output_str_ens_path=args.output_str_ens_path,
-                        input_index_path=args.input_index_path, 
+                        input_index_path=args.input_index_path,
                         properties=properties)
 
 

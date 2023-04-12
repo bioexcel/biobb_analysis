@@ -3,9 +3,10 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 import argparse
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
+from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import *
+from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_image_selection, get_selection_index_file, check_out_traj_path, get_pbc, get_center, get_ur, get_fit
 
 
 class GMXImage(BiobbObject):
@@ -42,16 +43,16 @@ class GMXImage(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.gromacs.gmx_image import gmx_image
-            prop = { 
-                'fit_selection': 'System', 
-                'center_selection': 'Water_and_ions', 
-                'output_selection': 'System', 
-                'pbc': 'mol' 
+            prop = {
+                'fit_selection': 'System',
+                'center_selection': 'Water_and_ions',
+                'output_selection': 'System',
+                'pbc': 'mol'
             }
-            gmx_image(input_traj_path='/path/to/myTrajectory.trr', 
-                        input_top_path='/path/to/myTopology.tpr', 
-                        output_traj_path='/path/to/newTrajectory.xtc', 
-                        input_index_path='/path/to/myIndex.ndx', 
+            gmx_image(input_traj_path='/path/to/myTrajectory.trr',
+                        input_top_path='/path/to/myTopology.tpr',
+                        output_traj_path='/path/to/newTrajectory.xtc',
+                        input_index_path='/path/to/myIndex.ndx',
                         properties=prop)
 
     Info:
@@ -65,8 +66,8 @@ class GMXImage(BiobbObject):
 
     """
 
-    def __init__(self, input_traj_path, input_top_path,  output_traj_path, 
-                input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_traj_path, input_top_path, output_traj_path,
+                 input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -74,9 +75,9 @@ class GMXImage(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path }, 
-            "out": { "output_traj_path": output_traj_path } 
+        self.io_dict = {
+            "in": {"input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path},
+            "out": {"output_traj_path": output_traj_path}
         }
 
         # Properties specific for BB
@@ -104,14 +105,18 @@ class GMXImage(BiobbObject):
         self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
         self.io_dict["out"]["output_traj_path"] = check_out_traj_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
         if not self.io_dict["in"]["input_index_path"]:
-            if self.fit != 'none': self.fit_selection = get_image_selection(self.properties, 'fit_selection', out_log, self.__class__.__name__)
-            if self.fit != 'none' or not self.center: self.center_selection = get_image_selection(self.properties, 'center_selection', out_log, self.__class__.__name__)
-            if self.pbc == 'cluster': self.cluster_selection = get_image_selection(self.properties, 'cluster_selection', out_log, self.__class__.__name__)
+            if self.fit != 'none':
+                self.fit_selection = get_image_selection(self.properties, 'fit_selection', out_log, self.__class__.__name__)
+            if self.fit != 'none' or not self.center:
+                self.center_selection = get_image_selection(self.properties, 'center_selection', out_log, self.__class__.__name__)
+            if self.pbc == 'cluster':
+                self.cluster_selection = get_image_selection(self.properties, 'cluster_selection', out_log, self.__class__.__name__)
             self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
         else:
             self.fit_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'fit_selection', out_log, self.__class__.__name__)
             self.center_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'center_selection', out_log, self.__class__.__name__)
-            if self.pbc == 'cluster': self.cluster_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'cluster_selection', out_log, self.__class__.__name__)
+            if self.pbc == 'cluster':
+                self.cluster_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'cluster_selection', out_log, self.__class__.__name__)
             self.output_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'output_selection', out_log, self.__class__.__name__)
         self.pbc = get_pbc(self.properties, out_log, self.__class__.__name__)
         self.center = get_center(self.properties, out_log, self.__class__.__name__)
@@ -134,13 +139,13 @@ class GMXImage(BiobbObject):
             if self.center:
                 selections = self.fit_selection + ' ' + self.center_selection + ' ' + self.output_selection
             else:
-                selections = self.fit_selection + ' ' + self.output_selection 
+                selections = self.fit_selection + ' ' + self.output_selection
 
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
         # Setup Biobb
-        if self.check_restart(): 
+        if self.check_restart():
             return 0
 
         # standard input
@@ -148,14 +153,14 @@ class GMXImage(BiobbObject):
         self.stage_files()
 
         self.cmd = [self.binary_path, 'trjconv',
-               '-f', self.stage_io_dict["in"]["input_traj_path"],
-               '-s', self.stage_io_dict["in"]["input_top_path"],
-               '-fit', self.fit,
-               '-o', self.stage_io_dict["out"]["output_traj_path"]]
+                    '-f', self.stage_io_dict["in"]["input_traj_path"],
+                    '-s', self.stage_io_dict["in"]["input_top_path"],
+                    '-fit', self.fit,
+                    '-o', self.stage_io_dict["out"]["output_traj_path"]]
 
         if self.stage_io_dict["in"].get("input_index_path"):
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
-            
+
         self.cmd.append('-center' if self.center else '-nocenter')
 
         # Unit-cell representation, PBC treatment is incompatible with fitting
@@ -185,22 +190,24 @@ class GMXImage(BiobbObject):
 
         return self.return_code
 
+
 def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and
     execute the :meth:`launch() <gromacs.gmx_image.GMXImage.launch>` method."""
 
-    return GMXImage(input_traj_path=input_traj_path, 
-                    input_top_path = input_top_path,
+    return GMXImage(input_traj_path=input_traj_path,
+                    input_top_path=input_top_path,
                     output_traj_path=output_traj_path,
                     input_index_path=input_index_path,
                     properties=properties, **kwargs).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Corrects periodicity (image) from a given GROMACS compatible trajectory file.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
-    #Specific args of each building block
+    # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
     required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
@@ -211,12 +218,13 @@ def main():
     args.config = args.config or "{}"
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
-    #Specific call of each building block
-    gmx_image(input_traj_path=args.input_traj_path, 
-            input_top_path=args.input_top_path, 
-            output_traj_path=args.output_traj_path, 
-            input_index_path=args.input_index_path, 
-            properties=properties)
+    # Specific call of each building block
+    gmx_image(input_traj_path=args.input_traj_path,
+              input_top_path=args.input_top_path,
+              output_traj_path=args.output_traj_path,
+              input_index_path=args.input_index_path,
+              properties=properties)
+
 
 if __name__ == '__main__':
     main()

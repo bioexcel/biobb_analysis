@@ -147,29 +147,27 @@ def check_out_str_ens_path(path, out_log, classname):
 def get_default_value(key):
     """ Gives default values according to the given key """
 
-    default_values = {
-            "instructions_file": "instructions.in",
-            "binary_path": "gmx",
-            "terms": ["Potential"],
-            "selection": "System",
-            "xvg": "none",
-            "dista": False,
-            "method": "linkage",
-            "cutoff": 0.1,
-            "cluster_selection": "System",
-            "fit_selection": "System",
-            "center_selection": "System",
-            "output_selection": "System",
-            "pbc": "mol",
-            "center": True,
-            "fit": "none",
-            "ur": "compact",
-            "skip": 1,
-            "start": 0,
-            "end": 0,
-            "dt": 0,
-            "ot_str_ens": "pdb"
-        }
+    default_values = {"instructions_file": "instructions.in",
+                      "binary_path": "gmx",
+                      "terms": ["Potential"],
+                      "selection": "System",
+                      "xvg": "none",
+                      "dista": False,
+                      "method": "linkage",
+                      "cutoff": 0.1,
+                      "cluster_selection": "System",
+                      "fit_selection": "System",
+                      "center_selection": "System",
+                      "output_selection": "System",
+                      "pbc": "mol",
+                      "center": True,
+                      "fit": "none",
+                      "ur": "compact",
+                      "skip": 1,
+                      "start": 0,
+                      "end": 0,
+                      "dt": 0,
+                      "ot_str_ens": "pdb"}
 
     return default_values[key]
 

@@ -4,7 +4,7 @@ from biobb_analysis.ambertools.cpptraj_dry import cpptraj_dry
 
 class TestCpptrajDry():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_dry')
+        fx.test_setup(self, 'cpptraj_dry')
 
     def teardown_class(self):
         fx.test_teardown(self)

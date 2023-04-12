@@ -5,9 +5,10 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 import argparse
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
+from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import *
+from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_selection_index_file, get_selection, check_out_traj_path
 
 
 class GMXTrjConvStr(BiobbObject):
@@ -41,13 +42,13 @@ class GMXTrjConvStr(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.gromacs.gmx_trjconv_str import gmx_trjconv_str
-            prop = { 
-                'selection': 'System' 
+            prop = {
+                'selection': 'System'
             }
-            gmx_trjconv_str(input_structure_path='/path/to/myStructure.trr', 
-                            input_top_path='/path/to/myTopology.tpr', 
-                            output_str_path='/path/to/newStructure.pdb', 
-                            input_index_path='/path/to/myIndex.ndx', 
+            gmx_trjconv_str(input_structure_path='/path/to/myStructure.trr',
+                            input_top_path='/path/to/myTopology.tpr',
+                            output_str_path='/path/to/newStructure.pdb',
+                            input_index_path='/path/to/myIndex.ndx',
                             properties=prop)
 
     Info:
@@ -61,8 +62,8 @@ class GMXTrjConvStr(BiobbObject):
 
     """
 
-    def __init__(self, input_structure_path, input_top_path, output_str_path, 
-                input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path, input_top_path, output_str_path,
+                 input_index_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -70,9 +71,9 @@ class GMXTrjConvStr(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_structure_path": input_structure_path, "input_top_path": input_top_path, "input_index_path": input_index_path }, 
-            "out": { "output_str_path": output_str_path } 
+        self.io_dict = {
+            "in": {"input_structure_path": input_structure_path, "input_top_path": input_top_path, "input_index_path": input_index_path},
+            "out": {"output_str_path": output_str_path}
         }
 
         # Properties specific for BB
@@ -117,18 +118,18 @@ class GMXTrjConvStr(BiobbObject):
         self.stage_files()
 
         self.cmd = [self.binary_path, 'trjconv',
-               '-f', self.stage_io_dict["in"]["input_structure_path"],
-               '-s', self.stage_io_dict["in"]["input_top_path"],
-               '-o', self.stage_io_dict["out"]["output_str_path"]]
+                    '-f', self.stage_io_dict["in"]["input_structure_path"],
+                    '-s', self.stage_io_dict["in"]["input_top_path"],
+                    '-o', self.stage_io_dict["out"]["output_str_path"]]
 
-        if self.pbc:  
+        if self.pbc:
             self.cmd.append('-pbc')
             self.cmd.append(self.pbc)
         self.cmd.append('-center' if self.center else '-nocenter')
-        if self.ur:  
+        if self.ur:
             self.cmd.append('-ur')
             self.cmd.append(self.ur)
-        if self.fit: 
+        if self.fit:
             self.cmd.append('-fit')
             self.cmd.append(self.fit)
 
@@ -153,22 +154,24 @@ class GMXTrjConvStr(BiobbObject):
 
         self.check_arguments(output_files_created=True, raise_exception=False)
 
+
 def gmx_trjconv_str(input_structure_path: str, input_top_path: str, output_str_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvStr <gromacs.gmx_trjconv_str.GMXTrjConvStr>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_str.GMXTrjConvStr.launch>` method."""
 
-    return GMXTrjConvStr(input_structure_path=input_structure_path, 
-                    input_top_path = input_top_path,
-                    output_str_path=output_str_path,
-                    input_index_path=input_index_path,
-                    properties=properties, **kwargs).launch()
+    return GMXTrjConvStr(input_structure_path=input_structure_path,
+                         input_top_path=input_top_path,
+                         output_str_path=output_str_path,
+                         input_index_path=input_index_path,
+                         properties=properties, **kwargs).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
-    #Specific args of each building block
+    # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
     required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
@@ -179,12 +182,13 @@ def main():
     args.config = args.config or "{}"
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
-    #Specific call of each building block
-    gmx_trjconv_str(input_structure_path=args.input_structure_path, 
-                    input_top_path=args.input_top_path, 
-                    output_str_path=args.output_str_path, 
-                    input_index_path=args.input_index_path, 
+    # Specific call of each building block
+    gmx_trjconv_str(input_structure_path=args.input_structure_path,
+                    input_top_path=args.input_top_path,
+                    output_str_path=args.output_str_path,
+                    input_index_path=args.input_index_path,
                     properties=properties)
+
 
 if __name__ == '__main__':
     main()

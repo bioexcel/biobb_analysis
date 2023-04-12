@@ -4,7 +4,7 @@ from biobb_analysis.ambertools.cpptraj_mask import cpptraj_mask
 
 class TestCpptrajMask():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_mask')
+        fx.test_setup(self, 'cpptraj_mask')
 
     def teardown_class(self):
         fx.test_teardown(self)

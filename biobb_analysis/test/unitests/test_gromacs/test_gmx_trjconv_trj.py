@@ -4,7 +4,7 @@ from biobb_analysis.gromacs.gmx_trjconv_trj import gmx_trjconv_trj
 
 class TestGMXTrjConvTrj():
     def setup_class(self):
-        fx.test_setup(self,'gmx_trjconv_trj')
+        fx.test_setup(self, 'gmx_trjconv_trj')
 
     def teardown_class(self):
         fx.test_teardown(self)

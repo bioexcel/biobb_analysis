@@ -1,6 +1,6 @@
+import pytest
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.gromacs.gmx_rms import gmx_rms
-import pytest
 
 
 class TestGMXRmsDocker():

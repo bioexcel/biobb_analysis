@@ -4,7 +4,7 @@ from biobb_analysis.ambertools.cpptraj_slice import cpptraj_slice
 
 class TestCpptrajSlice():
     def setup_class(self):
-        fx.test_setup(self,'cpptraj_slice')
+        fx.test_setup(self, 'cpptraj_slice')
 
     def teardown_class(self):
         fx.test_teardown(self)

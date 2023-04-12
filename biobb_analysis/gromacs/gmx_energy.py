@@ -2,18 +2,19 @@
 
 """Module containing the GMX Energy class and the command line interface."""
 import argparse
+from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import *
+from biobb_analysis.gromacs.common import get_binary_path, get_default_value, check_energy_path, check_out_xvg_path, get_xvg, get_terms, copy_instructions_file_to_container
 
 
 class GMXEnergy(BiobbObject):
     """
     | biobb_analysis GMXEnergy
     | Wrapper of the GROMACS energy module for extracting energy components from a given GROMACS energy file.
-    | `GROMACS energy <http://manual.gromacs.org/current/onlinehelp/gmx-energy.html>`_ extracts energy components from an energy file. The user is prompted to interactively select the desired energy terms.    
+    | `GROMACS energy <http://manual.gromacs.org/current/onlinehelp/gmx-energy.html>`_ extracts energy components from an energy file. The user is prompted to interactively select the desired energy terms.
 
     Args:
         input_energy_path (str): Path to the input EDR file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr>`_. Accepted formats: edr (edam:format_2330).
@@ -30,17 +31,17 @@ class GMXEnergy(BiobbObject):
             * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
-    
+
     Examples:
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.gromacs.gmx_energy import gmx_energy
-            prop = { 
-                'xvg': 'xmgr', 
-                'terms': ['Potential', 'Pressure'] 
+            prop = {
+                'xvg': 'xmgr',
+                'terms': ['Potential', 'Pressure']
             }
-            gmx_energy(input_energy_path='/path/to/myEnergyFile.edr', 
-                        output_xvg_path='/path/to/newXVG.xvg', 
+            gmx_energy(input_energy_path='/path/to/myEnergyFile.edr',
+                        output_xvg_path='/path/to/newXVG.xvg',
                         properties=prop)
 
     Info:
@@ -55,7 +56,7 @@ class GMXEnergy(BiobbObject):
     """
 
     def __init__(self, input_energy_path, output_xvg_path,
-                properties=None, **kwargs) -> None:
+                 properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -63,9 +64,9 @@ class GMXEnergy(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_energy_path": input_energy_path }, 
-            "out": { "output_xvg_path": output_xvg_path } 
+        self.io_dict = {
+            "in": {"input_energy_path": input_energy_path},
+            "out": {"output_xvg_path": output_xvg_path}
         }
 
         # Properties specific for BB
@@ -96,7 +97,7 @@ class GMXEnergy(BiobbObject):
             self.instructions_file = str(PurePath(self.container_volume_path).joinpath(self.instructions_file))
         else:
             self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
-        #self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
+        # self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
         fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
 
         for t in self.terms:
@@ -117,7 +118,8 @@ class GMXEnergy(BiobbObject):
         self.check_data_params(self.out_log, self.err_log)
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # create instructions file
@@ -128,10 +130,10 @@ class GMXEnergy(BiobbObject):
             copy_instructions_file_to_container(self.instructions_file, self.stage_io_dict.get("unique_dir"))
 
         self.cmd = [self.binary_path, 'energy',
-               '-f', self.stage_io_dict["in"]["input_energy_path"],
-               '-o', self.stage_io_dict["out"]["output_xvg_path"],
-               '-xvg', self.xvg,
-               '<', self.instructions_file]
+                    '-f', self.stage_io_dict["in"]["input_energy_path"],
+                    '-o', self.stage_io_dict["out"]["output_xvg_path"],
+                    '-xvg', self.xvg,
+                    '<', self.instructions_file]
 
         # Run Biobb block
         self.run_biobb()
@@ -149,20 +151,22 @@ class GMXEnergy(BiobbObject):
 
         return self.return_code
 
+
 def gmx_energy(input_energy_path: str, output_xvg_path: str, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
     execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch>` method."""
 
-    return GMXEnergy(input_energy_path=input_energy_path, 
-                    output_xvg_path=output_xvg_path,
-                    properties=properties, **kwargs).launch()
+    return GMXEnergy(input_energy_path=input_energy_path,
+                     output_xvg_path=output_xvg_path,
+                     properties=properties, **kwargs).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
     parser = argparse.ArgumentParser(description="Extracts energy components from a given GROMACS energy file.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
     parser.add_argument('--config', required=False, help='Configuration file')
 
-    #Specific args of each building block
+    # Specific args of each building block
     required_args = parser.add_argument_group('required arguments')
     required_args.add_argument('--input_energy_path', required=True, help='Path to the input EDR file. Accepted formats: edr.')
     required_args.add_argument('--output_xvg_path', required=True, help='Path to the XVG output file. Accepted formats: xvg.')
@@ -171,10 +175,11 @@ def main():
     args.config = args.config or "{}"
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
-    #Specific call of each building block
-    gmx_energy(input_energy_path=args.input_energy_path, 
-                output_xvg_path=args.output_xvg_path, 
-                properties=properties)
+    # Specific call of each building block
+    gmx_energy(input_energy_path=args.input_energy_path,
+               output_xvg_path=args.output_xvg_path,
+               properties=properties)
+
 
 if __name__ == '__main__':
     main()

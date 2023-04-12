@@ -2,11 +2,12 @@
 
 """Module containing the Cpptraj Bfactor class and the command line interface."""
 import argparse
+from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import  settings
+from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import *
+from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, setup_structure, get_negative_mask, copy_instructions_file_to_container, get_mask, get_reference
 
 
 class CpptrajBfactor(BiobbObject):
@@ -40,15 +41,15 @@ class CpptrajBfactor(BiobbObject):
         This is a use example of how to use the building block from Python::
 
             from biobb_analysis.ambertools.cpptraj_bfactor import cpptraj_bfactor
-            prop = { 
-                'start': 1, 
-                'end': -1, 
-                'steps': 1, 
-                'mask': 'c-alpha', 
-                'reference': 'first' 
+            prop = {
+                'start': 1,
+                'end': -1,
+                'steps': 1,
+                'mask': 'c-alpha',
+                'reference': 'first'
             }
-            cpptraj_bfactor(input_top_path='/path/to/myTopology.top', 
-                            input_traj_path='/path/to/myTrajectory.dcd', 
+            cpptraj_bfactor(input_top_path='/path/to/myTopology.top',
+                            input_traj_path='/path/to/myTrajectory.dcd',
                             output_cpptraj_path='/path/to/newAnalysis.dat',
                             input_exp_path= '/path/to/myExpStructure.pdb',
                             properties=prop)
@@ -64,8 +65,8 @@ class CpptrajBfactor(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path, 
-                input_exp_path = None, properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
+                 input_exp_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -73,16 +74,16 @@ class CpptrajBfactor(BiobbObject):
         self.locals_var_dict = locals().copy()
 
         # Input/Output files
-        self.io_dict = { 
-            "in": { "input_top_path": input_top_path, "input_traj_path": input_traj_path, "input_exp_path": input_exp_path }, 
-            "out": { "output_cpptraj_path": output_cpptraj_path } 
+        self.io_dict = {
+            "in": {"input_top_path": input_top_path, "input_traj_path": input_traj_path, "input_exp_path": input_exp_path},
+            "out": {"output_cpptraj_path": output_cpptraj_path}
         }
 
         # Properties specific for BB
         self.instructions_file = get_default_value('instructions_file')
         self.start = properties.get('start', 1)
         self.end = properties.get('end', -1)
-        self.steps =  properties.get('steps', 1)
+        self.steps = properties.get('steps', 1)
         self.mask = properties.get('mask', 'all-atoms')
         self.reference = properties.get('reference', 'first')
         self.properties = properties
@@ -97,7 +98,7 @@ class CpptrajBfactor(BiobbObject):
         self.io_dict["in"]["input_top_path"], self.input_top_path_orig = check_top_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
         self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
         self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
-        self.in_parameters = { 'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask, 'reference': self.reference }
+        self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask, 'reference': self.reference}
 
     def create_instructions_file(self, container_io_dict, out_log, err_log):
         """Creates an input file using the properties file settings"""
@@ -145,16 +146,17 @@ class CpptrajBfactor(BiobbObject):
     @launchlogger
     def launch(self) -> int:
         """Execute the :class:`CpptrajBfactor <ambertools.cpptraj_bfactor.CpptrajBfactor>` ambertools.cpptraj_bfactor.CpptrajBfactor object."""
-        
+
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
         # Setup Biobb
-        if self.check_restart(): return 0
+        if self.check_restart():
+            return 0
         self.stage_files()
 
         # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log) 
+        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
 
         # if container execution, copy intructions file to container
         if self.container_path:
@@ -180,15 +182,17 @@ class CpptrajBfactor(BiobbObject):
 
         return self.return_code
 
+
 def cpptraj_bfactor(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`CpptrajBfactor <ambertools.cpptraj_bfactor.CpptrajBfactor>` class and
     execute the :meth:`launch() <ambertools.cpptraj_bfactor.CpptrajBfactor.launch>` method."""
 
-    return CpptrajBfactor(input_top_path=input_top_path, 
-                    input_traj_path=input_traj_path, 
-                    output_cpptraj_path=output_cpptraj_path,
-                    input_exp_path=input_exp_path,
-                    properties=properties, **kwargs).launch()
+    return CpptrajBfactor(input_top_path=input_top_path,
+                          input_traj_path=input_traj_path,
+                          output_cpptraj_path=output_cpptraj_path,
+                          input_exp_path=input_exp_path,
+                          properties=properties, **kwargs).launch()
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""
@@ -207,11 +211,12 @@ def main():
     properties = settings.ConfReader(config=args.config).get_prop_dic()
 
     # Specific call of each building block
-    cpptraj_bfactor(input_top_path=args.input_top_path, 
-                    input_traj_path=args.input_traj_path, 
-                    output_cpptraj_path=args.output_cpptraj_path, 
-                    input_exp_path=args.input_exp_path, 
+    cpptraj_bfactor(input_top_path=args.input_top_path,
+                    input_traj_path=args.input_traj_path,
+                    output_cpptraj_path=args.output_cpptraj_path,
+                    input_exp_path=args.input_exp_path,
                     properties=properties)
+
 
 if __name__ == '__main__':
     main()
