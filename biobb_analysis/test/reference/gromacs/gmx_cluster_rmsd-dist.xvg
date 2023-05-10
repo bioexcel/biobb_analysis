@@ -1,0 +1,118 @@
+# This file was created Wed May 10 13:24:55 2023
+# Created by:
+#               :-) GROMACS - gmx cluster, 2022.2-conda_forge (-:
+# 
+# Executable:   /Users/pau/anaconda3/envs/dev/bin.AVX2_256/gmx
+# Data prefix:  /Users/pau/anaconda3/envs/dev
+# Working dir:  /Users/pau/projects/biobb_analysis/tmp
+# Command line:
+#   gmx cluster -g gmx_cluster_cluster.log -dist gmx_cluster_rmsd-dist.xvg -o gmx_cluster_rmsd-clust.xpm -s /private/tmp/biobb/unitests_2/gmx_cluster/5c8d32ce-0b55-45c1-a725-8e223c5c7c24/topology.tpr -f /private/tmp/biobb/unitests_2/gmx_cluster/5c8d32ce-0b55-45c1-a725-8e223c5c7c24/trajectory.trr -cl /private/tmp/biobb/unitests_2/gmx_cluster/5c8d32ce-0b55-45c1-a725-8e223c5c7c24/output_pdb.pdb -cutoff 0.1 -method linkage -n /private/tmp/biobb/unitests_2/gmx_cluster/5c8d32ce-0b55-45c1-a725-8e223c5c7c24/index.ndx -nofit
+# gmx cluster is part of G R O M A C S:
+#
+# GRowing Old MAkes el Chrono Sweat
+#
+@    title "RMS Distribution"
+@    xaxis  label "RMS (nm)"
+@    yaxis  label "counts"
+@TYPE xy
+         0           0
+ 0.0312703           0
+ 0.0625405           0
+ 0.0938108           0
+  0.125081           0
+  0.156351           0
+  0.187622           0
+  0.218892           0
+  0.250162           0
+  0.281432           0
+  0.312703           0
+  0.343973           0
+  0.375243           0
+  0.406513           0
+  0.437784           0
+  0.469054           0
+  0.500324           0
+  0.531594           0
+  0.562865           0
+  0.594135           0
+  0.625405           0
+  0.656675           0
+  0.687946           0
+  0.719216           0
+  0.750486           0
+  0.781757           0
+  0.813027           0
+  0.844297           0
+  0.875567           0
+  0.906838           0
+  0.938108           0
+  0.969378           0
+   1.00065           0
+   1.03192           0
+   1.06319           0
+   1.09446           0
+   1.12573           0
+     1.157           0
+   1.18827           0
+   1.21954           0
+   1.25081           0
+   1.28208           0
+   1.31335           0
+   1.34462           0
+   1.37589           0
+   1.40716           0
+   1.43843           0
+    1.4697           0
+   1.50097           0
+   1.53224           0
+   1.56351           0
+   1.59478           0
+   1.62605           0
+   1.65732           0
+   1.68859           0
+   1.71986           0
+   1.75113           0
+    1.7824           0
+   1.81368           3
+   1.84495           3
+   1.87622           3
+   1.90749           1
+   1.93876           0
+   1.97003           0
+    2.0013           0
+   2.03257           0
+   2.06384           0
+   2.09511           0
+   2.12638           1
+   2.15765           4
+   2.18892           3
+   2.22019           0
+   2.25146           1
+   2.28273           0
+     2.314           0
+   2.34527           1
+   2.37654           3
+   2.40781           3
+   2.43908           1
+   2.47035           0
+   2.50162           0
+   2.53289           3
+   2.56416           3
+   2.59543           1
+    2.6267           0
+   2.65797           2
+   2.68924           3
+   2.72051           1
+   2.75178           0
+   2.78305           3
+   2.81432           2
+   2.84559           0
+   2.87686           0
+   2.90813           3
+    2.9394           1
+   2.97067           0
+   3.00195           3
+   3.03322           1
+   3.06449           1
+   3.09576           0
+   3.12703           1

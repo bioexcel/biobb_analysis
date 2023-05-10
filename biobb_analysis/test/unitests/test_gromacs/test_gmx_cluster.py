@@ -8,7 +8,7 @@ class TestGMXCluster():
 
     def teardown_class(self):
         fx.test_teardown(self)
-        pass
+        # pass
 
     def test_cluster(self):
         gmx_cluster(properties=self.properties, **self.paths)
