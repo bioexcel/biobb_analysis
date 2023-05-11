@@ -20,9 +20,9 @@ class GMXCluster(BiobbObject):
         input_traj_path (str): Path to the GROMACS trajectory file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr>`_. Accepted formats: xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), tng (edam:format_3876).
         input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx (edam:format_2033).
         output_pdb_path (str): Path to the output cluster file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_cluster.pdb>`_. Accepted formats: xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), tng (edam:format_3876).
-        cluster_log_path (str) (Optional): Path to the output log file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_cluster.log>`_. Accepted formats: log (edam:format_2330).
-        rmsd_cluster_xpm_path (str) (Optional):Path to the output X PixMap compatible matrix file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-clust.xpm>`_. Accepted formats: xpm (edam:format_3599).
-        rmsd_dist_xvg_path (str) (Optional): Path to xvgr/xmgr file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-dist.xvg>`_. Accepted formats: xvg (edam:format_2330).
+        output_cluster_log_path (str) (Optional): Path to the output log file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_cluster.log>`_. Accepted formats: log (edam:format_2330).
+        output_rmsd_cluster_xpm_path (str) (Optional):Path to the output X PixMap compatible matrix file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-clust.xpm>`_. Accepted formats: xpm (edam:format_3599).
+        output_rmsd_dist_xvg_path (str) (Optional): Path to xvgr/xmgr file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-dist.xvg>`_. Accepted formats: xvg (edam:format_2330).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **fit_selection** (*str*) - ("System") Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (C-alpha atoms), Backbone (protein backbone atoms: N; C-alpha and C), MainChain (protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including C-beta), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups).
             * **output_selection** (*str*) - ("System") Group that is going to be written in the output trajectory. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (C-alpha atoms), Backbone (protein backbone atoms: N; C-alpha and C), MainChain (protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including C-beta), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups).
@@ -67,8 +67,8 @@ class GMXCluster(BiobbObject):
     """
 
     def __init__(self, input_structure_path, input_traj_path, output_pdb_path,
-                 input_index_path=None, cluster_log_path=None, rmsd_cluster_xpm_path=None,
-                 rmsd_dist_xvg_path=None, properties=None, **kwargs) -> None:
+                 input_index_path=None, output_cluster_log_path=None, output_rmsd_cluster_xpm_path=None,
+                 output_rmsd_dist_xvg_path=None, properties=None, **kwargs) -> None:
         properties = properties or {}
 
         # Call parent class constructor
@@ -78,8 +78,8 @@ class GMXCluster(BiobbObject):
         # Input/Output files
         self.io_dict = {
             "in": {"input_structure_path": input_structure_path, "input_traj_path": input_traj_path, "input_index_path": input_index_path},
-            "out": {"output_pdb_path": output_pdb_path, "cluster_log_path": cluster_log_path,
-                    "rmsd_cluster_xpm_path": rmsd_cluster_xpm_path, "rmsd_dist_xvg_path": rmsd_dist_xvg_path}
+            "out": {"output_pdb_path": output_pdb_path, "output_cluster_log_path": output_cluster_log_path,
+                    "output_rmsd_cluster_xpm_path": output_rmsd_cluster_xpm_path, "output_rmsd_dist_xvg_path": output_rmsd_dist_xvg_path}
         }
 
         # Properties specific for BB
@@ -122,15 +122,15 @@ class GMXCluster(BiobbObject):
         self.check_data_params(self.out_log, self.err_log)
 
         # Optional output files
-        if not self.io_dict['out'].get('rmsd_dist_xvg_path'):
-            self.io_dict['out']['rmsd_dist_xvg_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='rmsd-dist.xvg')
-            self.tmp_files.append(self.io_dict['out']['rmsd_dist_xvg_path'])
-        if not self.io_dict['out'].get('rmsd_cluster_xpm_path'):
-            self.io_dict['out']['rmsd_cluster_xpm_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='rmsd-clust.xpm')
-            self.tmp_files.append(self.io_dict['out']['rmsd_cluster_xpm_path'])
-        if not self.io_dict['out'].get('cluster_log_path'):
-            self.io_dict['out']['cluster_log_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='cluster.log')
-            self.tmp_files.append(self.io_dict['out']['cluster_log_path'])
+        if not self.io_dict['out'].get('output_rmsd_dist_xvg_path'):
+            self.io_dict['out']['output_rmsd_dist_xvg_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='rmsd-dist.xvg')
+            self.tmp_files.append(self.io_dict['out']['output_rmsd_dist_xvg_path'])
+        if not self.io_dict['out'].get('output_rmsd_cluster_xpm_path'):
+            self.io_dict['out']['output_rmsd_cluster_xpm_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='rmsd-clust.xpm')
+            self.tmp_files.append(self.io_dict['out']['output_rmsd_cluster_xpm_path'])
+        if not self.io_dict['out'].get('output_cluster_log_path'):
+            self.io_dict['out']['output_cluster_log_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='cluster.log')
+            self.tmp_files.append(self.io_dict['out']['output_cluster_log_path'])
 
         # Setup Biobb
         if self.check_restart():
@@ -141,9 +141,9 @@ class GMXCluster(BiobbObject):
         self.stage_files()
 
         self.cmd = [self.binary_path, 'cluster',
-                    '-g', self.stage_io_dict['out']['cluster_log_path'],
-                    '-dist', self.stage_io_dict['out']['rmsd_dist_xvg_path'],
-                    '-o', self.stage_io_dict['out']['rmsd_cluster_xpm_path'],
+                    '-g', self.stage_io_dict['out']['output_cluster_log_path'],
+                    '-dist', self.stage_io_dict['out']['output_rmsd_dist_xvg_path'],
+                    '-o', self.stage_io_dict['out']['output_rmsd_cluster_xpm_path'],
                     '-s', self.stage_io_dict["in"]["input_structure_path"],
                     '-f', self.stage_io_dict["in"]["input_traj_path"],
                     '-cl', self.stage_io_dict["out"]["output_pdb_path"],
@@ -180,8 +180,8 @@ class GMXCluster(BiobbObject):
         return self.return_code
 
 
-def gmx_cluster(input_structure_path: str, input_traj_path: str, output_pdb_path: str, input_index_path: str = None, cluster_log_path: str = None,
-                rmsd_cluster_xpm_path: str = None, rmsd_dist_xvg_path: str = None, properties: dict = None, **kwargs) -> int:
+def gmx_cluster(input_structure_path: str, input_traj_path: str, output_pdb_path: str, input_index_path: str = None, output_cluster_log_path: str = None,
+                output_rmsd_cluster_xpm_path: str = None, output_rmsd_dist_xvg_path: str = None, properties: dict = None, **kwargs) -> int:
     """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` class and
     execute the :meth:`launch() <gromacs.gmx_cluster.GMXCluster.launch>` method."""
 
@@ -189,9 +189,9 @@ def gmx_cluster(input_structure_path: str, input_traj_path: str, output_pdb_path
                       input_traj_path=input_traj_path,
                       output_pdb_path=output_pdb_path,
                       input_index_path=input_index_path,
-                      cluster_log_path=cluster_log_path,
-                      rmsd_cluster_xpm_path=rmsd_cluster_xpm_path,
-                      rmsd_dist_xvg_path=rmsd_dist_xvg_path,
+                      output_cluster_log_path=output_cluster_log_path,
+                      output_rmsd_cluster_xpm_path=output_rmsd_cluster_xpm_path,
+                      output_rmsd_dist_xvg_path=output_rmsd_dist_xvg_path,
                       properties=properties, **kwargs).launch()
 
 
@@ -206,9 +206,9 @@ def main():
     required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
     parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file. Accepted formats: ndx.")
     required_args.add_argument('--output_pdb_path', required=True, help='Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
-    parser.add_argument('--cluster_log_path', required=False, help='Path to the output log file. Accepted formats: log.')
-    parser.add_argument('--rmsd_cluster_xpm_path', required=False, help='Path to the output xpm file. Accepted formats: xpm.')
-    parser.add_argument('--rmsd_dist_xvg_path', required=False, help='Path to the output xvg file. Accepted formats: xvg.')
+    parser.add_argument('--output_cluster_log_path', required=False, help='Path to the output log file. Accepted formats: log.')
+    parser.add_argument('--output_rmsd_cluster_xpm_path', required=False, help='Path to the output xpm file. Accepted formats: xpm.')
+    parser.add_argument('--output_rmsd_dist_xvg_path', required=False, help='Path to the output xvg file. Accepted formats: xvg.')
 
     args = parser.parse_args()
     args.config = args.config or "{}"
@@ -219,9 +219,9 @@ def main():
                 input_traj_path=args.input_traj_path,
                 output_pdb_path=args.output_pdb_path,
                 input_index_path=args.input_index_path,
-                cluster_log_path=args.cluster_log_path,
-                rmsd_cluster_xpm_path=args.rmsd_cluster_xpm_path,
-                rmsd_dist_xvg_path=args.rmsd_dist_xvg_path,
+                output_cluster_log_path=args.output_cluster_log_path,
+                output_rmsd_cluster_xpm_path=args.output_rmsd_cluster_xpm_path,
+                output_rmsd_dist_xvg_path=args.output_rmsd_dist_xvg_path,
                 properties=properties)
 
 
