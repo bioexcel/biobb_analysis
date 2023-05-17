@@ -1352,7 +1352,7 @@ Command:
 ```python
 gmx_cluster -h
 ```
-    usage: gmx_cluster [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_pdb_path OUTPUT_PDB_PATH
+    usage: gmx_cluster [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_pdb_path OUTPUT_PDB_PATH [--output_cluster_log_path OUTPUT_CLUSTER_LOG_PATH] [--output_rmsd_cluster_xpm_path OUTPUT_RMSD_CLUSTER_XPM_PATH] [--output_rmsd_dist_xvg_path OUTPUT_RMSD_DIST_XVG_PATH]
     
     Creates cluster structures from a given GROMACS compatible trajectory.
     
@@ -1361,6 +1361,12 @@ gmx_cluster -h
       --config CONFIG       Configuration file
       --input_index_path INPUT_INDEX_PATH
                             Path to the GROMACS index file. Accepted formats: ndx.
+      --output_cluster_log_path OUTPUT_CLUSTER_LOG_PATH
+                            Path to the output log file. Accepted formats: log.
+      --output_rmsd_cluster_xpm_path OUTPUT_RMSD_CLUSTER_XPM_PATH
+                            Path to the output xpm file. Accepted formats: xpm.
+      --output_rmsd_dist_xvg_path OUTPUT_RMSD_DIST_XVG_PATH
+                            Path to the output xvg file. Accepted formats: xvg.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
@@ -1377,6 +1383,9 @@ Config input / output arguments for this building block:
 * **input_traj_path** (*string*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
 * **input_index_path** (*string*): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: NDX
 * **output_pdb_path** (*string*): Path to the output cluster file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_cluster.pdb). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
+* **output_cluster_log_path** (*string*): Path to the output log file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_cluster.log). Accepted formats: LOG
+* **output_rmsd_cluster_xpm_path** (*string*): Path to the output X PixMap compatible matrix file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-clust.xpm). Accepted formats: XPM
+* **output_rmsd_dist_xvg_path** (*string*): Path to xvgr/xmgr file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-dist.xvg). Accepted formats: XVG
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
@@ -1384,6 +1393,7 @@ Config parameters for this building block:
 * **fit_selection** (*string*): (System) Group where the fitting will be performed. If **input_index_path** provided, check the file for the accepted values. .
 * **output_selection** (*string*): (System) Group that is going to be written in the output trajectory. If **input_index_path** provided, check the file for the accepted values. .
 * **dista** (*boolean*): (False) Use RMSD of distances instead of RMS deviation..
+* **nofit** (*boolean*): (False) Do not use least squares fitting before RMSD calculation..
 * **method** (*string*): (linkage) Method for cluster determination. .
 * **cutoff** (*number*): (0.1) RMSD cut-off (nm) for two structures to be neighbor..
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
@@ -1435,7 +1445,7 @@ properties:
 ```
 #### Command line
 ```python
-gmx_cluster --config config_gmx_cluster.yml --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_pdb_path ref_cluster.pdb
+gmx_cluster --config config_gmx_cluster.yml --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_pdb_path ref_cluster.pdb --output_cluster_log_path gmx_cluster_cluster.log --output_rmsd_cluster_xpm_path gmx_cluster_rmsd-clust.xpm --output_rmsd_dist_xvg_path gmx_cluster_rmsd-dist.xvg
 ```
 ### JSON
 #### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_cluster.json)
@@ -1483,7 +1493,7 @@ gmx_cluster --config config_gmx_cluster.yml --input_structure_path topology.tpr 
 ```
 #### Command line
 ```python
-gmx_cluster --config config_gmx_cluster.json --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_pdb_path ref_cluster.pdb
+gmx_cluster --config config_gmx_cluster.json --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_pdb_path ref_cluster.pdb --output_cluster_log_path gmx_cluster_cluster.log --output_rmsd_cluster_xpm_path gmx_cluster_rmsd-clust.xpm --output_rmsd_dist_xvg_path gmx_cluster_rmsd-dist.xvg
 ```
 
 ## Cpptraj_rgyr
