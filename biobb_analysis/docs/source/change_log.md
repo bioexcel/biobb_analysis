@@ -1,5 +1,19 @@
 # Biobb Analysis changelog
 
+## What's new in version [4.0.2](https://github.com/bioexcel/biobb_analysis/releases/tag/v4.0.2)?
+In version 4.0.2 the module gmx_trjconv_str_ens has been fixed.
+
+### New features
+
+* Fixes in gmx_trjconv_str_ens
+
+## What's new in version [4.0.1](https://github.com/bioexcel/biobb_analysis/releases/tag/v4.0.1)?
+In version 4.0.1 the module gmx_cluster has been fixed.
+
+### New features
+
+* Fixes in gmx_cluster
+
 ## What's new in version [4.0.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v4.0.0)?
 In version 4.0.0 the dependency biobb_common has been updated to 4.0.0 version.
 
