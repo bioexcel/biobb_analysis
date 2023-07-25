@@ -170,7 +170,7 @@ class GMXTrjConvStrEns(BiobbObject):
             process_output_trjconv_str_ens(self.stage_io_dict.get("unique_dir"),
                                            self.stage_io_dict["out"]["output_str_ens_path"],
                                            self.io_dict["out"]["output_str_ens_path"],
-                                           'output*.pdb', self.out_log)
+                                           self.output_name + '*.pdb', self.out_log)
 
         self.tmp_files.extend([
             self.stage_io_dict.get("unique_dir"),
