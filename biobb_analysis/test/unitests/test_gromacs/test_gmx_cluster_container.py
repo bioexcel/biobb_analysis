@@ -9,7 +9,7 @@ class TestGMXClusterDocker():
 
     def teardown_class(self):
         fx.test_teardown(self)
-        pass
+        # pass
 
     def test_cluster_docker(self):
         gmx_cluster(properties=self.properties, **self.paths)

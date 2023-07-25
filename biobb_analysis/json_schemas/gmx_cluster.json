@@ -188,6 +188,54 @@
                 }
             ]
         },
+        "output_cluster_log_path": {
+            "type": "string",
+            "description": "Path to the output log file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_cluster.log",
+            "enum": [
+                ".*\\.log$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.log$",
+                    "description": "Path to the output log file",
+                    "edam": "format_2330"
+                }
+            ]
+        },
+        "output_rmsd_cluster_xpm_path": {
+            "type": "string",
+            "description": "Path to the output X PixMap compatible matrix file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-clust.xpm",
+            "enum": [
+                ".*\\.xpm$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.xpm$",
+                    "description": "Path to the output X PixMap compatible matrix file",
+                    "edam": "format_3599"
+                }
+            ]
+        },
+        "output_rmsd_dist_xvg_path": {
+            "type": "string",
+            "description": "Path to xvgr/xmgr file",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-dist.xvg",
+            "enum": [
+                ".*\\.xvg$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.xvg$",
+                    "description": "Path to xvgr/xmgr file",
+                    "edam": "format_2330"
+                }
+            ]
+        },
         "properties": {
             "type": "object",
             "properties": {
@@ -406,6 +454,12 @@
                     "default": false,
                     "wf_prop": false,
                     "description": "Use RMSD of distances instead of RMS deviation."
+                },
+                "nofit": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Do not use least squares fitting before RMSD calculation."
                 },
                 "method": {
                     "type": "string",
