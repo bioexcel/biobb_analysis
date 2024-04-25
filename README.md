@@ -21,6 +21,7 @@
 [![](https://docs.bioexcel.eu/biobb_analysis/flake8/flake8badge.svg)](https://docs.bioexcel.eu/biobb_analysis/flake8/)
 [![](https://img.shields.io/github/last-commit/bioexcel/biobb_analysis?label=Last%20Commit)](https://github.com/bioexcel/biobb_analysis/commits/master)
 [![](https://img.shields.io/github/issues/bioexcel/biobb_analysis.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_analysis/issues/)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8847/badge)](https://www.bestpractices.dev/projects/8847)
 
 
 # biobb_analysis
