@@ -22,6 +22,13 @@
 [![](https://img.shields.io/github/last-commit/bioexcel/biobb_analysis?label=Last%20Commit)](https://github.com/bioexcel/biobb_analysis/commits/master)
 [![](https://img.shields.io/github/issues/bioexcel/biobb_analysis.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_analysis/issues/)
 
+[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green)](https://fair-software.eu)
+[![](https://www.bestpractices.dev/projects/8847/badge)](https://www.bestpractices.dev/projects/8847)
+
+[](https://bestpractices.coreinfrastructure.org/projects/8847/badge)
+
+[//]: # (The previous line invisible link is for compatibility with the howfairis script https://github.com/fair-software/howfairis-github-action/tree/main wich uses the old bestpractices URL)
+
 
 # biobb_analysis
 

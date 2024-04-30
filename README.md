@@ -1,5 +1,3 @@
-![](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%E2%97%8F%20%E2%97%8F%20%E2%97%8F%20%E2%97%8F-green)
-
 [![](https://img.shields.io/github/v/tag/bioexcel/biobb_analysis?label=Version)](https://GitHub.com/bioexcel/biobb_analysis/tags/)
 [![](https://img.shields.io/pypi/v/biobb-analysis.svg?label=Pypi)](https://pypi.python.org/pypi/biobb-analysis/)
 [![](https://img.shields.io/conda/vn/bioconda/biobb_analysis?label=Conda)](https://anaconda.org/bioconda/biobb_analysis)
@@ -23,7 +21,13 @@
 [![](https://docs.bioexcel.eu/biobb_analysis/flake8/flake8badge.svg)](https://docs.bioexcel.eu/biobb_analysis/flake8/)
 [![](https://img.shields.io/github/last-commit/bioexcel/biobb_analysis?label=Last%20Commit)](https://github.com/bioexcel/biobb_analysis/commits/master)
 [![](https://img.shields.io/github/issues/bioexcel/biobb_analysis.svg?color=brightgreen&label=Issues)](https://GitHub.com/bioexcel/biobb_analysis/issues/)
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8847/badge)](https://www.bestpractices.dev/projects/8847)
+
+[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green)](https://fair-software.eu)
+[![](https://www.bestpractices.dev/projects/8847/badge)](https://www.bestpractices.dev/projects/8847)
+
+[](https://bestpractices.coreinfrastructure.org/projects/8847/badge)
+
+[//]: # (The previous line invisible link is for compatibility with the howfairis script https://github.com/fair-software/howfairis-github-action/tree/main wich uses the old bestpractices URL)
 
 
 # biobb_analysis
