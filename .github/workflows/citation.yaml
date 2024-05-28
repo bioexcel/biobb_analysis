@@ -11,11 +11,19 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+
+      #- name: Checkout repo
+      #  uses: actions/checkout@v2
+      #  with:
+      #    repository: bioexcel/biobb_analysis
+      #    path: ./
+
       - name: Download file using wget
         run: wget -O ./CITATION.cff https://raw.githubusercontent.com/bioexcel/biobb/master/CITATION.cff
 
       - name: Check if file has changed
         run: pwd
+        run: ls -la ../
 
       #- name: Commit and push changes
       #  run: |
