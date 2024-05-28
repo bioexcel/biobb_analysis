@@ -2,7 +2,7 @@ name: Sync Citation.cff
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs every day
+    - cron: '0 0 * * 1' # Runs every Monday
   push:
     branches:
       - master
