@@ -1,0 +1,23 @@
+name: Sync Citation.cff
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day
+  push:
+    branches:
+      - master
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download file using wget
+        run: wget -O . https://raw.githubusercontent.com/bioexcel/biobb/master/CITATION.cff
+
+      - name: Commit and push changes
+        run: |
+          # git config --global user.name 'github-actions[bot]'
+          # git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m 'Sync citation file from biobb repo'
+          git push
