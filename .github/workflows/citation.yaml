@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download file using wget
-        run: wget -O . https://raw.githubusercontent.com/bioexcel/biobb/master/CITATION.cff
+        run: wget -O ./CITATION.cff https://raw.githubusercontent.com/bioexcel/biobb/master/CITATION.cff
 
       - name: Commit and push changes
         run: |
