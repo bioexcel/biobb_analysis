@@ -23,6 +23,8 @@ jobs:
 
       - name: Check if file has changed
         run: pwd
+
+      - name: Check if file has changed
         run: ls -la ../
 
       #- name: Commit and push changes
