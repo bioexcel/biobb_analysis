@@ -469,6 +469,9 @@ def remove_tmp_files(list, remove_tmp, out_log):
 
 def process_output_trjconv_str_ens(tmp_folder, output_file, output_dir, glob_pattern, out_log):
     tmp_fl = list(Path(tmp_folder).glob(glob_pattern))
+    if not tmp_fl:
+        tmp_fl = list(Path(tmp_folder).glob("frame*.pdb"))
+
     files_list = []
     for file_name in tmp_fl:
         files_list.append(file_name)
