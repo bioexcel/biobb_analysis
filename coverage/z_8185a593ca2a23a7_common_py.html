@@ -54,9 +54,9 @@
             </div>
         </aside>
         <h2>
-            <span class="text">303 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">185<span class="text"> run</span></button>
-            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">118<span class="text"> missing</span></button>
+            <span class="text">305 statements &nbsp;</span>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">186<span class="text"> run</span></button>
+            <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">119<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
         <p class="text">
@@ -64,8 +64,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="z_8185a593ca2a23a7_gmx_cluster_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.2">coverage.py v7.5.2</a>,
-            created at 2024-05-28 07:49 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.3">coverage.py v7.5.3</a>,
+            created at 2024-06-12 09:50 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -551,14 +551,17 @@
     <p class="pln"><span class="n"><a id="t469" href="#t469">469</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t470" href="#t470">470</a></span><span class="t"><span class="key">def</span> <span class="nam">process_output_trjconv_str_ens</span><span class="op">(</span><span class="nam">tmp_folder</span><span class="op">,</span> <span class="nam">output_file</span><span class="op">,</span> <span class="nam">output_dir</span><span class="op">,</span> <span class="nam">glob_pattern</span><span class="op">,</span> <span class="nam">out_log</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t471" href="#t471">471</a></span><span class="t">    <span class="nam">tmp_fl</span> <span class="op">=</span> <span class="nam">list</span><span class="op">(</span><span class="nam">Path</span><span class="op">(</span><span class="nam">tmp_folder</span><span class="op">)</span><span class="op">.</span><span class="nam">glob</span><span class="op">(</span><span class="nam">glob_pattern</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t472" href="#t472">472</a></span><span class="t">    <span class="nam">files_list</span> <span class="op">=</span> <span class="op">[</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t473" href="#t473">473</a></span><span class="t">    <span class="key">for</span> <span class="nam">file_name</span> <span class="key">in</span> <span class="nam">tmp_fl</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t474" href="#t474">474</a></span><span class="t">        <span class="nam">files_list</span><span class="op">.</span><span class="nam">append</span><span class="op">(</span><span class="nam">file_name</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t475" href="#t475">475</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t476" href="#t476">476</a></span><span class="t">    <span class="com"># adding files from temporary folder to zip</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t477" href="#t477">477</a></span><span class="t">    <span class="nam">fu</span><span class="op">.</span><span class="nam">zip_list</span><span class="op">(</span><span class="nam">output_file</span><span class="op">,</span> <span class="nam">files_list</span><span class="op">,</span> <span class="nam">out_log</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t472" href="#t472">472</a></span><span class="t">    <span class="key">if</span> <span class="key">not</span> <span class="nam">tmp_fl</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="mis show_mis"><span class="n"><a id="t473" href="#t473">473</a></span><span class="t">        <span class="nam">tmp_fl</span> <span class="op">=</span> <span class="nam">list</span><span class="op">(</span><span class="nam">Path</span><span class="op">(</span><span class="nam">tmp_folder</span><span class="op">)</span><span class="op">.</span><span class="nam">glob</span><span class="op">(</span><span class="str">"frame*.pdb"</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t474" href="#t474">474</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t475" href="#t475">475</a></span><span class="t">    <span class="nam">files_list</span> <span class="op">=</span> <span class="op">[</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t476" href="#t476">476</a></span><span class="t">    <span class="key">for</span> <span class="nam">file_name</span> <span class="key">in</span> <span class="nam">tmp_fl</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t477" href="#t477">477</a></span><span class="t">        <span class="nam">files_list</span><span class="op">.</span><span class="nam">append</span><span class="op">(</span><span class="nam">file_name</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t478" href="#t478">478</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t479" href="#t479">479</a></span><span class="t">    <span class="nam">shutil</span><span class="op">.</span><span class="nam">copy2</span><span class="op">(</span><span class="nam">output_file</span><span class="op">,</span> <span class="nam">output_dir</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t479" href="#t479">479</a></span><span class="t">    <span class="com"># adding files from temporary folder to zip</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t480" href="#t480">480</a></span><span class="t">    <span class="nam">fu</span><span class="op">.</span><span class="nam">zip_list</span><span class="op">(</span><span class="nam">output_file</span><span class="op">,</span> <span class="nam">files_list</span><span class="op">,</span> <span class="nam">out_log</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t481" href="#t481">481</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t482" href="#t482">482</a></span><span class="t">    <span class="nam">shutil</span><span class="op">.</span><span class="nam">copy2</span><span class="op">(</span><span class="nam">output_file</span><span class="op">,</span> <span class="nam">output_dir</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </main>
 <footer>
     <div class="content">
@@ -567,8 +570,8 @@
             <a class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a class="nav" href="z_8185a593ca2a23a7_gmx_cluster_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.2">coverage.py v7.5.2</a>,
-            created at 2024-05-28 07:49 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.5.3">coverage.py v7.5.3</a>,
+            created at 2024-06-12 09:50 +0000
         </p>
     </div>
 </footer>
