@@ -47,6 +47,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -183,6 +184,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -319,6 +321,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -458,6 +461,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -540,6 +544,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -672,6 +677,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -817,6 +823,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -900,6 +907,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -986,6 +994,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -1136,6 +1145,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -1272,6 +1282,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -1399,6 +1410,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -1536,6 +1548,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -1666,6 +1679,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -1800,6 +1814,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -1918,6 +1933,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -2052,6 +2068,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -2196,6 +2213,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -2335,6 +2353,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
@@ -2449,6 +2468,7 @@ Config parameters for this building block:
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
 * **remove_tmp** (*boolean*): (True) Remove temporal files..
 * **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
 * **container_path** (*string*): (None) Container path definition..
 * **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
 * **container_volume_path** (*string*): (/tmp) Container volume path definition..
