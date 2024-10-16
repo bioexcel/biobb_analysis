@@ -2,6 +2,7 @@
 
 """Module containing the GMX TrjConvStr class and the command line interface."""
 import argparse
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -133,7 +134,7 @@ class GMXTrjConvStrEns(BiobbObject):
         if self.container_path:
             output = self.container_volume_path + '/' + self.output_name + '.' + self.output_type
         else:
-            output = self.stage_io_dict.get("unique_dir") + '/' + self.output_name + '.' + self.output_type
+            output = self.stage_io_dict.get("unique_dir", "") + '/' + self.output_name + '.' + self.output_type
 
         self.cmd = [self.binary_path, 'trjconv',
                     '-f', self.stage_io_dict["in"]["input_traj_path"],
@@ -174,8 +175,8 @@ class GMXTrjConvStrEns(BiobbObject):
                                            self.output_name + '*.pdb', self.out_log)
 
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir"),
-            self.io_dict['in'].get("stdin_file_path")
+            self.stage_io_dict.get("unique_dir", ""),
+            self.io_dict['in'].get("stdin_file_path", "")
         ])
         self.remove_tmp_files()
 
@@ -184,7 +185,7 @@ class GMXTrjConvStrEns(BiobbObject):
         return self.return_code
 
 
-def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
+def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns.launch>` method."""
 

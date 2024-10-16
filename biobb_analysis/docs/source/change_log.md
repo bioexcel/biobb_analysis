@@ -1,5 +1,14 @@
 # Biobb Analysis changelog
 
+## What's new in version [5.0.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v5.0.0)?
+
+### Changes
+
+* [FEATURE](__init__): Importing submodules when a module is loaded
+* [UPDATE] Adding sandbox_path property to the json schemas
+* [FEATURE] New sandbox_path property
+* [FIX] temporal folder
+
 ## What's new in version [4.2.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v4.2.0)?
 In version 4.2.0 the dependency biobb_common has been updated to 4.2.0 version.
 
@@ -60,14 +69,14 @@ In version 3.8.0 the dependency biobb_common has been updated to 3.8.1 version. 
 * Update to Ambertools 22.0 (ambertools module)
 
 ## What's new in version [3.7.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v3.7.0)?
-In version 3.7.0 the dependency biobb_common has been updated to 3.7.0 version. 
+In version 3.7.0 the dependency biobb_common has been updated to 3.7.0 version.
 
 ### New features
 
 * Update to biobb_common 3.7.0 (general)
 
 ## What's new in version [3.6.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v3.6.0)?
-In version 3.6.0 the dependency biobb_common has been updated to 3.6.0 version. 
+In version 3.6.0 the dependency biobb_common has been updated to 3.6.0 version.
 
 ### New features
 
