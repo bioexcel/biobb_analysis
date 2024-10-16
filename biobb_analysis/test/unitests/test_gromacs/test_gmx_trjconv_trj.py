@@ -1,3 +1,4 @@
+# type: ignore
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.gromacs.gmx_trjconv_trj import gmx_trjconv_trj
 
