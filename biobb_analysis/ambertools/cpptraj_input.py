@@ -2,6 +2,7 @@
 
 """Module containing the Cpptraj Input class and the command line interface."""
 import argparse
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -65,9 +66,9 @@ class CpptrajInput(BiobbObject):
         instructions_list = []
         output_instructions_path = fu.create_name(prefix=self.prefix, step=self.step, name=get_default_value("instructions_file"))
 
-        instructions_list.append('parm ' + self.input_top_path)
-        instructions_list.append('trajin ' + self.input_traj_path)
-        instructions_list.append('trajout ' + self.output_cpptraj_path + ' ' + get_default_value("format"))
+        instructions_list.append('parm ' + str(self.input_top_path))
+        instructions_list.append('trajin ' + str(self.input_traj_path))
+        instructions_list.append('trajout ' + str(self.output_cpptraj_path) + ' ' + get_default_value("format"))
 
         with open(output_instructions_path, 'w') as mdp:
             for line in instructions_list:
@@ -101,7 +102,7 @@ class CpptrajInput(BiobbObject):
         return self.return_code
 
 
-def cpptraj_input(input_instructions_path: str, properties: dict = None, **kwargs) -> int:
+def cpptraj_input(input_instructions_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
     execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch>` method."""
 

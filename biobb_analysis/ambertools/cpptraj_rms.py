@@ -2,6 +2,7 @@
 
 """Module containing the Cpptraj Rms class and the command line interface."""
 import argparse
+from typing import Optional
 from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -188,8 +189,8 @@ class CpptrajRms(BiobbObject):
 
         # remove temporary folder(s)
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir"),
-            PurePath(self.instructions_file).parent
+            self.stage_io_dict.get("unique_dir", ""),
+            str(PurePath(self.instructions_file).parent)
         ])
         self.remove_tmp_files()
 
@@ -198,7 +199,7 @@ class CpptrajRms(BiobbObject):
         return self.return_code
 
 
-def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: str = None, output_traj_path: str = None, properties: dict = None, **kwargs) -> int:
+def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
     execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
 

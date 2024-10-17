@@ -2,6 +2,7 @@
 
 """Module containing the GMX Rgyr class and the command line interface."""
 import argparse
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
@@ -132,8 +133,8 @@ class GMXRgyr(BiobbObject):
         self.copy_to_host()
 
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir"),
-            self.io_dict['in'].get("stdin_file_path")
+            self.stage_io_dict.get("unique_dir", ""),
+            self.io_dict['in'].get("stdin_file_path", "")
         ])
         self.remove_tmp_files()
 
@@ -142,7 +143,7 @@ class GMXRgyr(BiobbObject):
         return self.return_code
 
 
-def gmx_rgyr(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: str = None, properties: dict = None, **kwargs) -> int:
+def gmx_rgyr(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`GMXRgyr <gromacs.gmx_rgyr.GMXRgyr>` class and
     execute the :meth:`launch() <gromacs.gmx_rgyr.GMXRgyr.launch>` method."""
 

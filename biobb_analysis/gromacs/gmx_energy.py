@@ -2,6 +2,7 @@
 
 """Module containing the GMX Energy class and the command line interface."""
 import argparse
+from typing import Optional
 from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -143,8 +144,8 @@ class GMXEnergy(BiobbObject):
         self.copy_to_host()
 
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir"),
-            str(PurePath(self.instructions_file).parent)
+            self.stage_io_dict.get("unique_dir", ""),
+            str(str(PurePath(self.instructions_file).parent))
         ])
         self.remove_tmp_files()
 
@@ -153,7 +154,7 @@ class GMXEnergy(BiobbObject):
         return self.return_code
 
 
-def gmx_energy(input_energy_path: str, output_xvg_path: str, properties: dict = None, **kwargs) -> int:
+def gmx_energy(input_energy_path: str, output_xvg_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
     execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch>` method."""
 

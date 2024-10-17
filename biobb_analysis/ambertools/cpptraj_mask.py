@@ -2,6 +2,7 @@
 
 """Module containing the Cpptraj Mask class and the command line interface."""
 import argparse
+from typing import Optional
 from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
@@ -169,8 +170,8 @@ class CpptrajMask(BiobbObject):
 
         # remove temporary folder(s)
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir"),
-            PurePath(self.instructions_file).parent
+            self.stage_io_dict.get("unique_dir", ""),
+            str(PurePath(self.instructions_file).parent)
         ])
         self.remove_tmp_files()
 
@@ -179,7 +180,7 @@ class CpptrajMask(BiobbObject):
         return self.return_code
 
 
-def cpptraj_mask(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: dict = None, **kwargs) -> int:
+def cpptraj_mask(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`CpptrajMask <ambertools.cpptraj_mask.CpptrajMask>` class and
     execute the :meth:`launch() <ambertools.cpptraj_mask.CpptrajMask.launch>` method."""
 

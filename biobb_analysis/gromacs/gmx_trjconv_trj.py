@@ -2,6 +2,7 @@
 
 """Module containing the GMX TrjConvStr class and the command line interface."""
 import argparse
+from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.configuration import settings
 from biobb_common.tools.file_utils import launchlogger
@@ -159,8 +160,8 @@ class GMXTrjConvTrj(BiobbObject):
         self.copy_to_host()
 
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir"),
-            self.io_dict['in'].get("stdin_file_path")
+            self.stage_io_dict.get("unique_dir", ""),
+            self.io_dict['in'].get("stdin_file_path", "")
         ])
         self.remove_tmp_files()
 
@@ -169,7 +170,7 @@ class GMXTrjConvTrj(BiobbObject):
         return self.return_code
 
 
-def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: str = None, input_top_path: str = None, properties: dict = None, **kwargs) -> int:
+def gmx_trjconv_trj(input_traj_path: str, output_traj_path: str, input_index_path: Optional[str] = None, input_top_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch>` method."""
 
