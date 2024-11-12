@@ -4,9 +4,9 @@
     "github": "https://github.com/bioexcel/biobb_analysis",
     "readthedocs": "https://biobb-analysis.readthedocs.io/en/latest/",
     "conda": "https://anaconda.org/bioconda/biobb_analysis",
-    "docker": "https://quay.io/biocontainers/biobb_analysis:5.0.0--pyhdfd78af_0",
-    "singularity": "https://depot.galaxyproject.org/singularity/biobb_analysis:5.0.0--pyhdfd78af_0",
-    "version": "5.0.0",
+    "docker": "https://quay.io/biocontainers/biobb_analysis:5.0.1--pyhdfd78af_0",
+    "singularity": "https://depot.galaxyproject.org/singularity/biobb_analysis:5.0.1--pyhdfd78af_0",
+    "version": "5.0.1",
     "rest": true,
     "tools": [
         {
