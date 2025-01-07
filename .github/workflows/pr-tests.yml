@@ -72,15 +72,13 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { context } = github;
             const comment = `
               ✅ Tests Passed!
-              - Run ID: ${context.runId}
-              - Job ID: ${context.job}`;
+              - Run ID: ${github.context.runId}
+              - Job ID: ${github.context.job}`;
             await github.rest.issues.createComment({
-              ...context.repo,
-              issue_number: context.issue.number,
+              ...github.context.repo,
+              issue_number: github.context.issue.number,
               body: comment
-            });
-
+            }); 
 
