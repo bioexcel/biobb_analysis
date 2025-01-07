@@ -1,0 +1,86 @@
+name: PR Tests
+
+# Trigger the workflow on pull request events
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  pr_test:
+    strategy:
+      matrix:
+        os: [self-hosted]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - run: echo "Repository -> ${{ github.repository }}"
+      - run: echo "Branch -> ${{ github.ref }}"
+      - run: echo "Trigger event -> ${{ github.event_name }}"
+      - run: echo "Runner OS -> ${{ runner.os }}"
+
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+
+      - name: Remove all micromamba installations
+        run: |
+          rm -rf /home/user/.bash_profile /home/user/.conda /home/user/micromamba /home/user/micromamba-bin 2>/dev/null
+          touch /home/user/.bash_profile
+
+      - name: setup-micromamba
+        uses: mamba-org/setup-micromamba@v2.0.0
+        with:
+          generate-run-shell: true
+          micromamba-version: '2.0.2-2'
+          post-cleanup: 'all'
+          init-shell: bash
+          environment-file: .github/env.yaml
+          create-args: >-
+            python=${{ matrix.python-version }}
+            pytest
+            pytest-cov
+            pytest-html
+            flake8
+            pip
+
+      - name: List installed package versions
+        shell: bash -l {0}
+        run: micromamba list
+
+      - name: Checkout biobb_common
+        uses: actions/checkout@v4
+        with:
+          repository: bioexcel/biobb_common
+          path: './biobb_common'
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: |
+          # Ignoring docker and singularity tests
+          export PYTHONPATH=.:./biobb_common:$PYTHONPATH
+
+          # Create directory for tests reports
+          mkdir -p ./reports/junit
+
+          # Production one
+          pytest biobb_analysis/test/unitests/ --ignore-glob=*container.py --ignore-glob=*docker.py --ignore-glob=*singularity.py
+
+      - name: Comment on PR
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { context } = github;
+            const comment = `
+              ✅ Tests Passed!
+              - Run ID: ${context.runId}
+              - Job ID: ${context.job}`;
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });
+
+
