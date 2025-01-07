@@ -77,9 +77,9 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            console.log(github.context);
             const comment = `
               ✅ All tests passed for all Python versions!
-              - Run ID: ${github.context.run_id}`;
             await github.rest.issues.createComment({
               ...github.context.repo,
               issue_number: github.context.issue.number,
