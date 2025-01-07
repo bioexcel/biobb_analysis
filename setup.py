@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_analysis",
-    version="5.0.0",
+    version="5.0.1",
     author="Biobb developers",
     author_email="genis.bayarri@irbbarcelona.org",
     description="Biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.",
@@ -15,12 +15,12 @@ setuptools.setup(
     url="https://github.com/bioexcel/biobb_analysis",
     project_urls={
         "Documentation": "http://biobb-analysis.readthedocs.io/en/latest/",
-        "Bioexcel": "https://bioexcel.eu/"
+        "Bioexcel": "https://bioexcel.eu/",
     },
-    packages=setuptools.find_packages(exclude=['docs', 'test']),
-    package_data={'biobb_analysis': ['py.typed']},
-    install_requires=['biobb_common==5.0.0'],
-    python_requires='>=3.9',
+    packages=setuptools.find_packages(exclude=["docs", "test"]),
+    package_data={"biobb_analysis": ["py.typed"]},
+    install_requires=["biobb_common==5.0.0"],
+    python_requires=">=3.9",
     entry_points={
         "console_scripts": [
             "cpptraj_average = biobb_analysis.ambertools.cpptraj_average:main",
@@ -42,7 +42,7 @@ setuptools.setup(
             "gmx_rms = biobb_analysis.gromacs.gmx_rms:main",
             "gmx_trjconv_str_ens = biobb_analysis.gromacs.gmx_trjconv_str_ens:main",
             "gmx_trjconv_str = biobb_analysis.gromacs.gmx_trjconv_str:main",
-            "gmx_trjconv_trj = biobb_analysis.gromacs.gmx_trjconv_trj:main"
+            "gmx_trjconv_trj = biobb_analysis.gromacs.gmx_trjconv_trj:main",
         ]
     },
     classifiers=[
@@ -51,6 +51,6 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: POSIX",
-        "Operating System :: Unix"
+        "Operating System :: Unix",
     ],
 )
