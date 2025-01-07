@@ -80,6 +80,7 @@ jobs:
             console.log(github.context);
             const comment = `
               ✅ All tests passed for all Python versions!
+            `;
             await github.rest.issues.createComment({
               ...github.context.repo,
               issue_number: github.context.issue.number,
