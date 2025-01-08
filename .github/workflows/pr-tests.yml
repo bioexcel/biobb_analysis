@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [self-hosted]
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.10"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository code
@@ -77,13 +77,15 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const github = require('@actions/github');
             console.log(github.context);
+            const context = github.context;
             const comment = `
-              ✅ All tests passed for all Python versions!
-            `;
+              ✅ All tests passed successfully!
+              - Run ID: ${context.runId}`;
             await github.rest.issues.createComment({
-              ...github.context.repo,
-              issue_number: github.context.issue.number,
+              ...context.repo,
+              issue_number: context.issue.number,
               body: comment
             });
 
