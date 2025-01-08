@@ -68,25 +68,21 @@ jobs:
           # Production one
           pytest biobb_analysis/test/unitests/ --ignore-glob=*container.py --ignore-glob=*docker.py --ignore-glob=*singularity.py
 
-  notify:
-    runs-on: ubuntu-latest
-    needs: pr_test
-    if: success()
-    steps:
+      # Notify user about test results
       - name: Comment on PR
+        if: always() # This ensures the step runs even if tests fail
         uses: actions/github-script@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
-            const { context, getOctokit } = require('@actions/github');
-            const octokit = getOctokit(process.env.GITHUB_TOKEN);
-            console.log(context);
-            const comment = `
-              ✅ All tests passed for all Python versions!
-              - Run ID: ${context.runId}`;
-            await octokit.rest.issues.createComment({
-              ...context.repo,
+            const { context } = github;
+            const conclusion = context.payload.workflow_run.conclusion;
+            const testStatus = conclusion === 'success' ? '✅ Tests Passed!' : '❌ Tests Failed.';
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
-              body: comment
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+                **Test Results for PR #${context.issue.number}**
+                ${testStatus}
+              `
             });
