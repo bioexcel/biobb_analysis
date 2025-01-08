@@ -48,13 +48,11 @@ def check_energy_path(path, out_log, classname):
     file_extension = PurePath(path).suffix
     if not is_valid_energy(file_extension[1:]):
         fu.log(
-            classname
-            + ": Format %s in energy input file is not compatible" % file_extension[1:],
+            classname + ": Format %s in energy input file is not compatible" % file_extension[1:],
             out_log,
         )
         raise SystemExit(
-            classname
-            + ": Format %s in energy input file is not compatible" % file_extension[1:]
+            classname + ": Format %s in energy input file is not compatible" % file_extension[1:]
         )
     # if file input has no path, add cwd because execution is launched on tmp folder
     if PurePath(path).name == path or not PurePath(path).is_absolute():
@@ -70,14 +68,12 @@ def check_input_path(path, out_log, classname):
     file_extension = PurePath(path).suffix
     if not is_valid_structure(file_extension[1:]):
         fu.log(
-            classname
-            + ": Format %s in structure input file is not compatible"
+            classname + ": Format %s in structure input file is not compatible"
             % file_extension[1:],
             out_log,
         )
         raise SystemExit(
-            classname
-            + ": Format %s in structure input file is not compatible"
+            classname + ": Format %s in structure input file is not compatible"
             % file_extension[1:]
         )
     # if file input has no path, add cwd because execution is launched on tmp folder
@@ -93,13 +89,11 @@ def check_index_path(path, out_log, classname):
     file_extension = PurePath(path).suffix
     if not is_valid_index(file_extension[1:]):
         fu.log(
-            classname
-            + ": Format %s in index input file is not compatible" % file_extension[1:],
+            classname + ": Format %s in index input file is not compatible" % file_extension[1:],
             out_log,
         )
         raise SystemExit(
-            classname
-            + ": Format %s in index input file is not compatible" % file_extension[1:]
+            classname + ": Format %s in index input file is not compatible" % file_extension[1:]
         )
     # if file input has no path, add cwd because execution is launched on tmp folder
     if PurePath(path).name == path or not PurePath(path).is_absolute():
@@ -115,14 +109,12 @@ def check_traj_path(path, out_log, classname):
     file_extension = PurePath(path).suffix
     if not is_valid_trajectory(file_extension[1:]):
         fu.log(
-            classname
-            + ": Format %s in trajectory input file is not compatible"
+            classname + ": Format %s in trajectory input file is not compatible"
             % file_extension[1:],
             out_log,
         )
         raise SystemExit(
-            classname
-            + ": Format %s in trajectory input file is not compatible"
+            classname + ": Format %s in trajectory input file is not compatible"
             % file_extension[1:]
         )
     # if file input has no path, add cwd because execution is launched on tmp folder
@@ -139,13 +131,11 @@ def check_out_xvg_path(path, out_log, classname):
     file_extension = PurePath(path).suffix
     if not is_valid_xvg(file_extension[1:]):
         fu.log(
-            classname
-            + ": Format %s in output file is not compatible" % file_extension[1:],
+            classname + ": Format %s in output file is not compatible" % file_extension[1:],
             out_log,
         )
         raise SystemExit(
-            classname
-            + ": Format %s in output file is not compatible" % file_extension[1:]
+            classname + ": Format %s in output file is not compatible" % file_extension[1:]
         )
     return path
 
@@ -158,13 +148,11 @@ def check_out_pdb_path(path, out_log, classname):
     file_extension = PurePath(path).suffix
     if not is_valid_structure(file_extension[1:]):
         fu.log(
-            classname
-            + ": Format %s in output file is not compatible" % file_extension[1:],
+            classname + ": Format %s in output file is not compatible" % file_extension[1:],
             out_log,
         )
         raise SystemExit(
-            classname
-            + ": Format %s in output file is not compatible" % file_extension[1:]
+            classname + ": Format %s in output file is not compatible" % file_extension[1:]
         )
     return path
 
@@ -177,13 +165,11 @@ def check_out_traj_path(path, out_log, classname):
     file_extension = PurePath(path).suffix
     if not is_valid_trajectory_output(file_extension[1:]):
         fu.log(
-            classname
-            + ": Format %s in output file is not compatible" % file_extension[1:],
+            classname + ": Format %s in output file is not compatible" % file_extension[1:],
             out_log,
         )
         raise SystemExit(
-            classname
-            + ": Format %s in output file is not compatible" % file_extension[1:]
+            classname + ": Format %s in output file is not compatible" % file_extension[1:]
         )
     return path
 
@@ -196,13 +182,11 @@ def check_out_str_ens_path(path, out_log, classname):
     file_extension = PurePath(path).suffix
     if not is_valid_zip(file_extension[1:]):
         fu.log(
-            classname
-            + ": Format %s in output file is not compatible" % file_extension[1:],
+            classname + ": Format %s in output file is not compatible" % file_extension[1:],
             out_log,
         )
         raise SystemExit(
-            classname
-            + ": Format %s in output file is not compatible" % file_extension[1:]
+            classname + ": Format %s in output file is not compatible" % file_extension[1:]
         )
     return path
 
