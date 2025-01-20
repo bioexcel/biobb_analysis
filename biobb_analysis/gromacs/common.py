@@ -589,6 +589,14 @@ def is_valid_selection(ext):
         "Protein_RNA",
         "Protein_DNA_RNA",
         "DNA_RNA",
+        "DPPC",
+        "DMPC",
+        "POPG",
+        "POPA",
+        "POPC",
+        "POPE",
+        "DMTAP",
+        "POPS"
     ]
     return ext in formats
 
