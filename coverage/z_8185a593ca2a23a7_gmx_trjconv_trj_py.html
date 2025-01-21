@@ -54,8 +54,8 @@
             </div>
         </aside>
         <h2>
-            <span class="text">79 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">57<span class="text"> run</span></button>
+            <span class="text">78 statements &nbsp;</span>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">56<span class="text"> run</span></button>
             <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">22<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
         </h2>
@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_ffd130d3bf47de36___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2025-01-21 15:20 +0000
+            created at 2025-01-21 15:25 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -182,7 +182,7 @@
     <p class="run"><span class="n"><a id="t100" href="#t100">100</a></span><span class="t">        <span class="key">if</span> <span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"in"</span><span class="op">]</span><span class="op">[</span><span class="str">"input_top_path"</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="mis show_mis"><span class="n"><a id="t101" href="#t101">101</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"in"</span><span class="op">]</span><span class="op">[</span><span class="str">"input_top_path"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">gro_common</span><span class="op">.</span><span class="nam">check_input_path</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"in"</span><span class="op">]</span><span class="op">[</span><span class="str">"input_top_path"</span><span class="op">]</span><span class="op">,</span> <span class="nam">out_log</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">__class__</span><span class="op">.</span><span class="nam">__name__</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t102" href="#t102">102</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"out"</span><span class="op">]</span><span class="op">[</span><span class="str">"output_traj_path"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">gro_common</span><span class="op">.</span><span class="nam">check_out_traj_path</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"out"</span><span class="op">]</span><span class="op">[</span><span class="str">"output_traj_path"</span><span class="op">]</span><span class="op">,</span> <span class="nam">out_log</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">__class__</span><span class="op">.</span><span class="nam">__name__</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t103" href="#t103">103</a></span><span class="t">        <span class="str">'''if not self.io_dict["in"]["input_index_path"]:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t103" href="#t103">103</a></span><span class="t">        <span class="str">'''if not self.io_dict["in"]["input_index_path"]:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t104" href="#t104">104</a></span><span class="t"><span class="str">            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t105" href="#t105">105</a></span><span class="t"><span class="str">        else:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t106" href="#t106">106</a></span><span class="t"><span class="str">            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)'''</span>&nbsp;</span><span class="r"></span></p>
@@ -215,7 +215,7 @@
     <p class="mis show_mis"><span class="n"><a id="t133" href="#t133">133</a></span><span class="t">            <span class="key">return</span> <span class="num">0</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t134" href="#t134">134</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t135" href="#t135">135</a></span><span class="t">        <span class="com"># standard input</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t136" href="#t136">136</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'in'</span><span class="op">]</span><span class="op">[</span><span class="str">'stdin_file_path'</span><span class="op">]</span> <span class="op">=</span> <span class="nam">fu</span><span class="op">.</span><span class="nam">create_stdin_file</span><span class="op">(</span><span class="fst">f'</span><span class="op">{</span><span class="nam">self</span><span class="op">.</span><span class="nam">selection</span><span class="op">}</span><span class="fst">'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t136" href="#t136">136</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'in'</span><span class="op">]</span><span class="op">[</span><span class="str">'stdin_file_path'</span><span class="op">]</span> <span class="op">=</span> <span class="nam">fu</span><span class="op">.</span><span class="nam">create_stdin_file</span><span class="op">(</span><span class="str">f'{self.selection}'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t137" href="#t137">137</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">stage_files</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t138" href="#t138">138</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t139" href="#t139">139</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">cmd</span> <span class="op">=</span> <span class="op">[</span><span class="nam">self</span><span class="op">.</span><span class="nam">binary_path</span><span class="op">,</span> <span class="str">'trjconv'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -298,7 +298,7 @@
             <a class="nav" href="z_ffd130d3bf47de36___init___py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2025-01-21 15:20 +0000
+            created at 2025-01-21 15:25 +0000
         </p>
     </div>
 </footer>
