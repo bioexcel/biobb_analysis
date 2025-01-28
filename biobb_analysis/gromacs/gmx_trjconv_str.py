@@ -149,7 +149,7 @@ class GMXTrjConvStr(BiobbObject):
         self.copy_to_host()
 
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir", ""),
+            # self.stage_io_dict.get("unique_dir", ""),
             self.io_dict['in'].get("stdin_file_path", "")
         ])
         self.remove_tmp_files()
@@ -167,6 +167,8 @@ def gmx_trjconv_str(input_structure_path: str, input_top_path: str, output_str_p
                          output_str_path=output_str_path,
                          input_index_path=input_index_path,
                          properties=properties, **kwargs).launch()
+
+    gmx_trjconv_str.__doc__ = GMXTrjConvStr.__doc__
 
 
 def main():

@@ -163,7 +163,7 @@ class CpptrajRgyr(BiobbObject):
 
         # remove temporary folder(s)
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir", ""),
+            # self.stage_io_dict.get("unique_dir", ""),
             str(PurePath(self.instructions_file).parent)
         ])
         self.remove_tmp_files()
@@ -181,6 +181,8 @@ def cpptraj_rgyr(input_top_path: str, input_traj_path: str, output_cpptraj_path:
                        input_traj_path=input_traj_path,
                        output_cpptraj_path=output_cpptraj_path,
                        properties=properties, **kwargs).launch()
+
+    cpptraj_rgyr.__doc__ = CpptrajRgyr.__doc__
 
 
 def main():

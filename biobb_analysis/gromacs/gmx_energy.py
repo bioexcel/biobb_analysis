@@ -175,7 +175,7 @@ class GMXEnergy(BiobbObject):
 
         self.tmp_files.extend(
             [
-                self.stage_io_dict.get("unique_dir", ""),
+                # self.stage_io_dict.get("unique_dir", ""),
                 str(str(PurePath(self.instructions_file).parent)),
             ]
         )
@@ -201,6 +201,8 @@ def gmx_energy(
         properties=properties,
         **kwargs,
     ).launch()
+
+    gmx_energy.__doc__ = GMXEnergy.__doc__
 
 
 def main():

@@ -109,6 +109,8 @@ def cpptraj_input(input_instructions_path: str, properties: Optional[dict] = Non
     return CpptrajInput(input_instructions_path=input_instructions_path,
                         properties=properties, **kwargs).launch()
 
+    cpptraj_input.__doc__ = CpptrajInput.__doc__
+
 
 def main():
     """Command line execution of this building block. Please check the command line documentation."""

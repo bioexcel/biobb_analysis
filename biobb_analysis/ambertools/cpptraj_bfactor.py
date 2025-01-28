@@ -175,7 +175,7 @@ class CpptrajBfactor(BiobbObject):
 
         # remove temporary folder(s)
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir", ""),
+            # self.stage_io_dict.get("unique_dir", ""),
             str(str(PurePath(self.instructions_file).parent))
         ])
         self.remove_tmp_files()
@@ -194,6 +194,8 @@ def cpptraj_bfactor(input_top_path: str, input_traj_path: str, output_cpptraj_pa
                           output_cpptraj_path=output_cpptraj_path,
                           input_exp_path=input_exp_path,
                           properties=properties, **kwargs).launch()
+
+    cpptraj_bfactor.__doc__ = CpptrajBfactor.__doc__
 
 
 def main():

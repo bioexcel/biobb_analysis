@@ -175,7 +175,7 @@ class GMXTrjConvStrEns(BiobbObject):
                                            self.output_name + '*.pdb', self.out_log)
 
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir", ""),
+            # self.stage_io_dict.get("unique_dir", ""),
             self.io_dict['in'].get("stdin_file_path", "")
         ])
         self.remove_tmp_files()
@@ -194,6 +194,8 @@ def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_en
                             output_str_ens_path=output_str_ens_path,
                             input_index_path=input_index_path,
                             properties=properties).launch()
+
+    gmx_trjconv_str_ens.__doc__ = GMXTrjConvStrEns.__doc__
 
 
 def main():

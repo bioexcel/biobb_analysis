@@ -183,7 +183,7 @@ class GMXImage(BiobbObject):
         self.copy_to_host()
 
         self.tmp_files.extend([
-            self.stage_io_dict.get("unique_dir", ""),
+            # self.stage_io_dict.get("unique_dir", ""),
             self.io_dict['in'].get("stdin_file_path", "")
         ])
         self.remove_tmp_files()
@@ -202,6 +202,8 @@ def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, 
                     output_traj_path=output_traj_path,
                     input_index_path=input_index_path,
                     properties=properties, **kwargs).launch()
+
+    gmx_image.__doc__ = GMXImage.__doc__
 
 
 def main():
