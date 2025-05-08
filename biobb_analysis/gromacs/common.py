@@ -212,9 +212,9 @@ def get_default_value(key):
         "fit": "none",
         "ur": "compact",
         "skip": 1,
-        "start": 0,
-        "end": 0,
-        "dt": 0,
+        "start": None,
+        "end": None,
+        "dt": None,
         "ot_str_ens": "pdb",
     }
 
@@ -329,7 +329,10 @@ def get_skip(properties, out_log, classname):
 def get_start(properties, out_log, classname):
     """Gets start"""
     start = properties.get("start", get_default_value("start"))
-    if not is_valid_int(start):
+    
+    if start is None:
+        return start
+    if not is_valid_int(start): 
         fu.log(classname + ": Incorrect start provided, exiting", out_log)
         raise SystemExit(classname + ": Incorrect start provided")
     return str(start)
@@ -338,6 +341,8 @@ def get_start(properties, out_log, classname):
 def get_end(properties, out_log, classname):
     """Gets end"""
     end = properties.get("end", get_default_value("end"))
+    if end is None:
+        return end
     if not is_valid_int(end):
         fu.log(classname + ": Incorrect end provided, exiting", out_log)
         raise SystemExit(classname + ": Incorrect end provided")
@@ -347,6 +352,8 @@ def get_end(properties, out_log, classname):
 def get_dt(properties, out_log, classname):
     """Gets dt"""
     dt = properties.get("dt", get_default_value("dt"))
+    if dt is None:
+        return dt
     if not is_valid_int(dt):
         fu.log(classname + ": Incorrect dt provided, exiting", out_log)
         raise SystemExit(classname + ": Incorrect dt provided")
