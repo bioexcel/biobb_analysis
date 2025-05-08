@@ -1,0 +1,2 @@
+2     W291 trailing whitespace
+4     W293 blank line contains whitespace
