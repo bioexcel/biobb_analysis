@@ -137,18 +137,18 @@ class GMXTrjConvTrj(BiobbObject):
         self.stage_files()
 
         self.cmd = [self.binary_path, 'trjconv', '-f', self.stage_io_dict["in"]["input_traj_path"]]
-        
+
         print(f"self.start: {self.start}")
         print(f"self.end: {self.end}")
         print(f"self.dt: {self.dt}")
-        
-        if self.start: 
+
+        if self.start:
             self.cmd.extend(['-b', self.start])
         if self.end:
             self.cmd.extend(['-e', self.end])
         if self.dt:
             self.cmd.extend(['-dt', self.dt])
-        
+
         self.cmd.extend(['-o', self.stage_io_dict["out"]["output_traj_path"]])
 
         if "input_index_path" in self.stage_io_dict["in"]:
