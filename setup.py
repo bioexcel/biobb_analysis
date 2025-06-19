@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="biobb_analysis",
-    version="5.0.1",
+    version="5.1.0",
     author="Biobb developers",
     author_email="genis.bayarri@irbbarcelona.org",
     description="Biobb_analysis is the Biobb module collection to perform analysis of molecular dynamics simulations.",
@@ -19,7 +19,7 @@ setuptools.setup(
     },
     packages=setuptools.find_packages(exclude=["docs", "test"]),
     package_data={"biobb_analysis": ["py.typed"]},
-    install_requires=["biobb_common==5.0.0"],
+    install_requires=["biobb_common==5.1.0"],
     python_requires=">=3.9",
     entry_points={
         "console_scripts": [

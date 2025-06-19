@@ -1,5 +1,11 @@
 # Biobb Analysis changelog
 
+## What's new in version [5.1.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v5.1.0)?
+
+### Changes
+
+* [UPDATE](general) Update to biobb_common 5.1.0 
+
 ## What's new in version [5.0.1](https://github.com/bioexcel/biobb_analysis/releases/tag/v5.0.1)?
 
 ### Changes
