@@ -143,11 +143,11 @@ class GMXTrjConvTrj(BiobbObject):
         print(f"self.dt: {self.dt}")
 
         if self.start:
-            self.cmd.extend(['-b', self.start])
+            self.cmd.extend(['-b', str(self.start)])
         if self.end:
-            self.cmd.extend(['-e', self.end])
+            self.cmd.extend(['-e', str(self.end)])
         if self.dt:
-            self.cmd.extend(['-dt', self.dt])
+            self.cmd.extend(['-dt', str(self.dt)])
 
         self.cmd.extend(['-o', self.stage_io_dict["out"]["output_traj_path"]])
 

@@ -139,16 +139,16 @@ class GMXTrjConvStrEns(BiobbObject):
         self.cmd = [self.binary_path, 'trjconv',
                     '-f', self.stage_io_dict["in"]["input_traj_path"],
                     '-s', self.stage_io_dict["in"]["input_top_path"],
-                    '-skip', self.skip,
-                    '-b', self.start,
-                    '-dt', self.dt,
+                    '-skip', str(self.skip),
+                    '-b', str(self.start),
+                    '-dt', str(self.dt),
                     '-sep',
                     '-o', output]
 
         # checking 'end' gromacs 'bug'
         if not str(self.end) == "0":
             self.cmd.append('-e')
-            self.cmd.append(self.end)
+            self.cmd.append(str(self.end))
 
         if self.stage_io_dict["in"].get("input_index_path"):
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
@@ -172,7 +172,7 @@ class GMXTrjConvStrEns(BiobbObject):
             process_output_trjconv_str_ens(self.stage_io_dict.get("unique_dir"),
                                            self.stage_io_dict["out"]["output_str_ens_path"],
                                            self.io_dict["out"]["output_str_ens_path"],
-                                           self.output_name + '*.pdb', self.out_log)
+                                           self.output_name + f'*.{self.output_type}', self.out_log)
 
         self.tmp_files.extend([
             # self.stage_io_dict.get("unique_dir", ""),
