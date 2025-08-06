@@ -60,7 +60,7 @@ class GMXCluster(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS cluster
-            * version: >=2019.1
+            * version: >=2024.5
             * license: LGPL 2.1
         * ontology:
             * name: EDAM

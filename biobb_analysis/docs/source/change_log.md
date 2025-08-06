@@ -1,5 +1,10 @@
 # Biobb Analysis changelog
 
+## What's new in version [5.1.1](https://github.com/bioexcel/biobb_analysis/releases/tag/v5.1.1)?
+
+### Changes
+* [FIX](https://github.com/bioexcel/biobb_analysis/commit/07991c6b63829d79da339d2b537a14ae73def7e2) Fixed trj and trj_ens bugs
+
 ## What's new in version [5.1.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v5.1.0)?
 
 ### Changes

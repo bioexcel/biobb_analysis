@@ -52,7 +52,7 @@ class GMXRms(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS rms
-            * version: >=2019.1
+            * version: >=2024.5
             * license: LGPL 2.1
         * ontology:
             * name: EDAM

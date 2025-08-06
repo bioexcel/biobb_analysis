@@ -59,7 +59,7 @@ class CpptrajRmsf(BiobbObject):
     Info:
         * wrapped_software:
             * name: Ambertools Cpptraj
-            * version: >=20.0
+            * version: >=22.5
             * license: GNU
         * ontology:
             * name: EDAM

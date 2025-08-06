@@ -52,7 +52,7 @@ class GMXRgyr(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS gyrate
-            * version: >=2019.1
+            * version: >=2024.5
             * license: LGPL 2.1
         * ontology:
             * name: EDAM

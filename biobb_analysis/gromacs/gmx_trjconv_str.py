@@ -56,7 +56,7 @@ class GMXTrjConvStr(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS trjconv
-            * version: >=2019.1
+            * version: >=2024.5
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
