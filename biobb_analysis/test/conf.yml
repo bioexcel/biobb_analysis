@@ -14,7 +14,6 @@ gmx_cluster:
     dista: False
     method: linkage
     cutoff: 0.1
-    remove_tmp: False
 
 gmx_cluster_docker:
   paths:
