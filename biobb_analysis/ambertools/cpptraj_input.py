@@ -29,7 +29,7 @@ class CpptrajInput(BiobbObject):
             from biobb_analysis.ambertools.cpptraj_input import cpptraj_input
             prop = { }
             cpptraj_input(input_instructions_path='/path/to/myInstructions.in',
-                            properties=prop)
+                          properties=prop)
 
     Info:
         * wrapped_software:
@@ -49,8 +49,12 @@ class CpptrajInput(BiobbObject):
         super().__init__(properties)
         self.locals_var_dict = locals().copy()
 
+        # Input/Output files
+        self.io_dict = {
+            "in": {"input_instructions_path": input_instructions_path},
+        }
+
         # Properties specific for BB
-        self.input_instructions_path = input_instructions_path
         self.input_top_path = kwargs.get('input_top_path')
         self.input_traj_path = kwargs.get('input_traj_path')
         self.output_cpptraj_path = kwargs.get('output_cpptraj_path')
@@ -86,18 +90,15 @@ class CpptrajInput(BiobbObject):
             return 0
         self.stage_files()
 
-        output_instructions_path = self.create_instrucions_file() if not self.input_instructions_path else self.input_instructions_path
+        output_instructions_path = self.stage_io_dict.get('input_instructions_path', self.create_instrucions_file())
         check_in_path(output_instructions_path, self.out_log, self.__class__.__name__)
 
         # create cmd and launch execution
         self.cmd = [self.binary_path, '-i', output_instructions_path]
-
         # Run Biobb block
         self.run_biobb()
-
         # Copy files to host
         self.copy_to_host()
-
         return self.return_code
 
 

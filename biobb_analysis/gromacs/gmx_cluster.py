@@ -125,14 +125,6 @@ class GMXCluster(BiobbObject):
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
-        # Optional output files
-        if not self.io_dict['out'].get('output_rmsd_dist_xvg_path'):
-            self.io_dict['out']['output_rmsd_dist_xvg_path'] = self.create_tmp_file('rmsd-dist.xvg')
-        if not self.io_dict['out'].get('output_rmsd_cluster_xpm_path'):
-            self.io_dict['out']['output_rmsd_cluster_xpm_path'] = self.create_tmp_file('rmsd-clust.xpm')
-        if not self.io_dict['out'].get('output_cluster_log_path'):
-            self.io_dict['out']['output_cluster_log_path'] = self.create_tmp_file('cluster.log')
-
         # Setup Biobb
         if self.check_restart():
             return 0
@@ -141,10 +133,15 @@ class GMXCluster(BiobbObject):
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.fit_selection} {self.output_selection}')
         self.stage_files()
 
+        # Optional output files
+        dist = self.stage_io_dict['out'].get('output_rmsd_dist_xvg_path') or self.create_tmp_file('rmsd-dist.xvg')
+        rmsd = self.stage_io_dict['out'].get('output_rmsd_cluster_xpm_path') or self.create_tmp_file('rmsd-clust.xpm')
+        clust = self.stage_io_dict['out'].get('output_cluster_log_path') or self.create_tmp_file('cluster.log')
+
         self.cmd = [self.binary_path, 'cluster',
-                    '-g', self.stage_io_dict['out']['output_cluster_log_path'],
-                    '-dist', self.stage_io_dict['out']['output_rmsd_dist_xvg_path'],
-                    '-o', self.stage_io_dict['out']['output_rmsd_cluster_xpm_path'],
+                    '-g', clust,
+                    '-dist', dist,
+                    '-o', rmsd,
                     '-s', self.stage_io_dict["in"]["input_structure_path"],
                     '-f', self.stage_io_dict["in"]["input_traj_path"],
                     '-cl', self.stage_io_dict["out"]["output_pdb_path"],
