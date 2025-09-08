@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
 """Module containing the Cpptraj Rms class and the command line interface."""
-import argparse
+
 from typing import Optional
 from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
-from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_negative_mask, copy_instructions_file_to_container, setup_structure, get_mask, get_reference_rms
+from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_negative_mask, setup_structure, get_mask, get_reference_rms
 
 
 class CpptrajRms(BiobbObject):
@@ -100,8 +98,7 @@ class CpptrajRms(BiobbObject):
         self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+        self.check_init(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -119,8 +116,7 @@ class CpptrajRms(BiobbObject):
         if self.container_path:
             self.instructions_file = str(PurePath(self.container_volume_path).joinpath(self.instructions_file))
         else:
-            self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
-        fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
+            self.instructions_file = self.create_tmp_file(self.instructions_file)
 
         # parm
         instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
@@ -161,7 +157,7 @@ class CpptrajRms(BiobbObject):
 
     @launchlogger
     def launch(self) -> int:
-        """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` ambertools.cpptraj_rms.CpptrajRms object."""
+        """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` object."""
 
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
@@ -174,10 +170,6 @@ class CpptrajRms(BiobbObject):
         # create instructions file
         self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
 
-        # if container execution, copy intructions file to container
-        if self.container_path:
-            copy_instructions_file_to_container(self.instructions_file, self.stage_io_dict['unique_dir'])
-
         # create cmd and launch execution
         self.cmd = [self.binary_path, '-i', self.instructions_file]
 
@@ -188,12 +180,7 @@ class CpptrajRms(BiobbObject):
         self.copy_to_host()
 
         # remove temporary folder(s)
-        self.tmp_files.extend([
-            # self.stage_io_dict.get("unique_dir", ""),
-            str(PurePath(self.instructions_file).parent)
-        ])
         self.remove_tmp_files()
-
         self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
@@ -202,42 +189,11 @@ class CpptrajRms(BiobbObject):
 def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
     execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
-
-    return CpptrajRms(input_top_path=input_top_path,
-                      input_traj_path=input_traj_path,
-                      output_cpptraj_path=output_cpptraj_path,
-                      input_exp_path=input_exp_path,
-                      output_traj_path=output_traj_path,
-                      properties=properties, **kwargs).launch()
-
-    cpptraj_rms.__doc__ = CpptrajRms.__doc__
+    return CpptrajRms(**dict(locals())).launch()
 
 
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('--config', required=False, help='Configuration file')
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_top_path', required=True, help='Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.')
-    parser.add_argument('--input_exp_path', required=False, help='Path to the experimental reference file (required if reference = experimental).')
-    required_args.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed analysis.')
-    parser.add_argument('--output_traj_path', required=False, help='Path to the output processed trajectory.')
-
-    args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config).get_prop_dic()
-
-    # Specific call of each building block
-    cpptraj_rms(input_top_path=args.input_top_path,
-                input_traj_path=args.input_traj_path,
-                output_cpptraj_path=args.output_cpptraj_path,
-                input_exp_path=args.input_exp_path,
-                output_traj_path=args.output_traj_path,
-                properties=properties)
-
+cpptraj_rms.__doc__ = CpptrajRms.__doc__
+main = CpptrajRms.get_main(cpptraj_rms, "Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.")
 
 if __name__ == '__main__':
     main()

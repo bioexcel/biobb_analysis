@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 """Module containing the GMX Cluster class and the command line interface."""
-import argparse
+
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_analysis.gromacs.common import check_input_path, check_traj_path, check_index_path, check_out_pdb_path, get_binary_path, get_image_selection, get_selection_index_file, get_dista, get_method, get_cutoff
@@ -79,9 +78,13 @@ class GMXCluster(BiobbObject):
 
         # Input/Output files
         self.io_dict = {
-            "in": {"input_structure_path": input_structure_path, "input_traj_path": input_traj_path, "input_index_path": input_index_path},
-            "out": {"output_pdb_path": output_pdb_path, "output_cluster_log_path": output_cluster_log_path,
-                    "output_rmsd_cluster_xpm_path": output_rmsd_cluster_xpm_path, "output_rmsd_dist_xvg_path": output_rmsd_dist_xvg_path}
+            "in": {"input_structure_path": input_structure_path,
+                   "input_traj_path": input_traj_path,
+                   "input_index_path": input_index_path},
+            "out": {"output_pdb_path": output_pdb_path,
+                    "output_cluster_log_path": output_cluster_log_path,
+                    "output_rmsd_cluster_xpm_path": output_rmsd_cluster_xpm_path,
+                    "output_rmsd_dist_xvg_path": output_rmsd_dist_xvg_path}
         }
 
         # Properties specific for BB
@@ -97,8 +100,7 @@ class GMXCluster(BiobbObject):
         self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+        self.check_init(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -118,21 +120,18 @@ class GMXCluster(BiobbObject):
 
     @launchlogger
     def launch(self) -> int:
-        """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` gromacs.gmx_cluster.GMXCluster object."""
+        """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` object."""
 
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
 
         # Optional output files
         if not self.io_dict['out'].get('output_rmsd_dist_xvg_path'):
-            self.io_dict['out']['output_rmsd_dist_xvg_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='rmsd-dist.xvg')
-            self.tmp_files.append(self.io_dict['out']['output_rmsd_dist_xvg_path'])
+            self.io_dict['out']['output_rmsd_dist_xvg_path'] = self.create_tmp_file('rmsd-dist.xvg')
         if not self.io_dict['out'].get('output_rmsd_cluster_xpm_path'):
-            self.io_dict['out']['output_rmsd_cluster_xpm_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='rmsd-clust.xpm')
-            self.tmp_files.append(self.io_dict['out']['output_rmsd_cluster_xpm_path'])
+            self.io_dict['out']['output_rmsd_cluster_xpm_path'] = self.create_tmp_file('rmsd-clust.xpm')
         if not self.io_dict['out'].get('output_cluster_log_path'):
-            self.io_dict['out']['output_cluster_log_path'] = fu.create_name(prefix=self.prefix, step=self.step, name='cluster.log')
-            self.tmp_files.append(self.io_dict['out']['output_cluster_log_path'])
+            self.io_dict['out']['output_cluster_log_path'] = self.create_tmp_file('cluster.log')
 
         # Setup Biobb
         if self.check_restart():
@@ -167,67 +166,31 @@ class GMXCluster(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-
         # Copy files to host
         self.copy_to_host()
-
-        self.tmp_files.extend([
-            # self.stage_io_dict.get("unique_dir", ""),
-            self.io_dict['in'].get("stdin_file_path", ""),
-        ])
+        self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
         self.remove_tmp_files()
-
         self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
 
 
-def gmx_cluster(input_structure_path: str, input_traj_path: str, output_pdb_path: str, input_index_path: Optional[str] = None, output_cluster_log_path: Optional[str] = None,
-                output_rmsd_cluster_xpm_path: Optional[str] = None, output_rmsd_dist_xvg_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
+def gmx_cluster(input_structure_path: str,
+                input_traj_path: str,
+                output_pdb_path: str,
+                input_index_path: Optional[str] = None,
+                output_cluster_log_path: Optional[str] = None,
+                output_rmsd_cluster_xpm_path: Optional[str] = None,
+                output_rmsd_dist_xvg_path: Optional[str] = None,
+                properties: Optional[dict] = None,
+                **kwargs) -> int:
     """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` class and
     execute the :meth:`launch() <gromacs.gmx_cluster.GMXCluster.launch>` method."""
-
-    return GMXCluster(input_structure_path=input_structure_path,
-                      input_traj_path=input_traj_path,
-                      output_pdb_path=output_pdb_path,
-                      input_index_path=input_index_path,
-                      output_cluster_log_path=output_cluster_log_path,
-                      output_rmsd_cluster_xpm_path=output_rmsd_cluster_xpm_path,
-                      output_rmsd_dist_xvg_path=output_rmsd_dist_xvg_path,
-                      properties=properties, **kwargs).launch()
-
-    gmx_cluster.__doc__ = GMXCluster.__doc__
+    return GMXCluster(**dict(locals())).launch()
 
 
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Creates cluster structures from a given GROMACS compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('--config', required=False, help='Configuration file')
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
-    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file. Accepted formats: ndx.")
-    required_args.add_argument('--output_pdb_path', required=True, help='Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
-    parser.add_argument('--output_cluster_log_path', required=False, help='Path to the output log file. Accepted formats: log.')
-    parser.add_argument('--output_rmsd_cluster_xpm_path', required=False, help='Path to the output xpm file. Accepted formats: xpm.')
-    parser.add_argument('--output_rmsd_dist_xvg_path', required=False, help='Path to the output xvg file. Accepted formats: xvg.')
-
-    args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config).get_prop_dic()
-
-    # Specific call of each building block
-    gmx_cluster(input_structure_path=args.input_structure_path,
-                input_traj_path=args.input_traj_path,
-                output_pdb_path=args.output_pdb_path,
-                input_index_path=args.input_index_path,
-                output_cluster_log_path=args.output_cluster_log_path,
-                output_rmsd_cluster_xpm_path=args.output_rmsd_cluster_xpm_path,
-                output_rmsd_dist_xvg_path=args.output_rmsd_dist_xvg_path,
-                properties=properties)
-
+gmx_cluster.__doc__ = GMXCluster.__doc__
+main = GMXCluster.get_main(gmx_cluster, "Creates cluster structures from a given GROMACS compatible trajectory.")
 
 if __name__ == '__main__':
     main()

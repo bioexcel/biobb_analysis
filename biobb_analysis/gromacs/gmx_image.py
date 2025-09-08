@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 """Module containing the GMX TrjConvStr class and the command line interface."""
-import argparse
+
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_image_selection, get_selection_index_file, check_out_traj_path, get_pbc, get_center, get_ur, get_fit
@@ -78,7 +77,9 @@ class GMXImage(BiobbObject):
 
         # Input/Output files
         self.io_dict = {
-            "in": {"input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path},
+            "in": {"input_traj_path": input_traj_path,
+                   "input_top_path": input_top_path,
+                   "input_index_path": input_index_path},
             "out": {"output_traj_path": output_traj_path}
         }
 
@@ -97,8 +98,7 @@ class GMXImage(BiobbObject):
         self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+        self.check_init(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -127,7 +127,7 @@ class GMXImage(BiobbObject):
 
     @launchlogger
     def launch(self) -> int:
-        """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` gromacs.gmx_image.GMXImage object."""
+        """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` object."""
 
         # If fitting provided, echo fit_selection
         if self.fit == 'none':
@@ -178,16 +178,11 @@ class GMXImage(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-
         # Copy files to host
         self.copy_to_host()
-
-        self.tmp_files.extend([
-            # self.stage_io_dict.get("unique_dir", ""),
-            self.io_dict['in'].get("stdin_file_path", "")
-        ])
+        # Remove temporal files
+        self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
         self.remove_tmp_files()
-
         self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
@@ -196,39 +191,11 @@ class GMXImage(BiobbObject):
 def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and
     execute the :meth:`launch() <gromacs.gmx_image.GMXImage.launch>` method."""
-
-    return GMXImage(input_traj_path=input_traj_path,
-                    input_top_path=input_top_path,
-                    output_traj_path=output_traj_path,
-                    input_index_path=input_index_path,
-                    properties=properties, **kwargs).launch()
-
-    gmx_image.__doc__ = GMXImage.__doc__
+    return GMXImage(**dict(locals())).launch()
 
 
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Corrects periodicity (image) from a given GROMACS compatible trajectory file.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('--config', required=False, help='Configuration file')
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
-    required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
-    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file. Accepted formats: ndx.")
-    required_args.add_argument('--output_traj_path', required=True, help='Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.')
-
-    args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config).get_prop_dic()
-
-    # Specific call of each building block
-    gmx_image(input_traj_path=args.input_traj_path,
-              input_top_path=args.input_top_path,
-              output_traj_path=args.output_traj_path,
-              input_index_path=args.input_index_path,
-              properties=properties)
-
+gmx_image.__doc__ = GMXImage.__doc__
+main = GMXImage.get_main(gmx_image, "Corrects periodicity (image) from a given GROMACS compatible trajectory file.")
 
 if __name__ == '__main__':
     main()

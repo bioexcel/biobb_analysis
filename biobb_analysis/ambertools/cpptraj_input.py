@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 """Module containing the Cpptraj Input class and the command line interface."""
-import argparse
+
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_analysis.ambertools.common import get_default_value, check_in_path
@@ -59,7 +58,7 @@ class CpptrajInput(BiobbObject):
         self.binary_path = properties.get('binary_path', 'cpptraj')
 
         # Check the properties
-        self.check_properties(properties)
+        self.check_init(properties)
 
     def create_instrucions_file(self):
         """ Creates an input file using paths provideed in the configuration file (only used for test purposes) """
@@ -78,7 +77,7 @@ class CpptrajInput(BiobbObject):
 
     @launchlogger
     def launch(self) -> int:
-        """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` ambertools.cpptraj_input.CpptrajInput object."""
+        """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` object."""
 
         # Get local loggers from launchlogger decorator
 
@@ -105,29 +104,11 @@ class CpptrajInput(BiobbObject):
 def cpptraj_input(input_instructions_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
     execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch>` method."""
-
-    return CpptrajInput(input_instructions_path=input_instructions_path,
-                        properties=properties, **kwargs).launch()
-
-    cpptraj_input.__doc__ = CpptrajInput.__doc__
+    return CpptrajInput(**dict(locals())).launch()
 
 
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Performs multiple analysis and trajectory operations of a given trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('--config', required=False, help='Configuration file')
-
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_instructions_path', required=True, help='Path of the instructions file.')
-
-    args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config).get_prop_dic()
-
-    # Specific call of each building block
-    cpptraj_input(input_instructions_path=args.input_instructions_path,
-                  properties=properties)
-
+cpptraj_input.__doc__ = CpptrajInput.__doc__
+main = CpptrajInput.get_main(cpptraj_input, "Performs multiple analysis and trajectory operations of a given trajectory.")
 
 if __name__ == '__main__':
     main()

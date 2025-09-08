@@ -13,21 +13,22 @@ Command:
 ```python
 cpptraj_average -h
 ```
-    usage: cpptraj_average [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_average [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Calculates a structure average of a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed structure. Accepted formats: crd, netcdf, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed structure. Accepted formats: mdcrd, crd, netcdf, nc, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -150,23 +151,24 @@ Command:
 ```python
 cpptraj_bfactor -h
 ```
-    usage: cpptraj_bfactor [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_bfactor [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] -o OUTPUT_CPPTRAJ_PATH
     
     Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_exp_path INPUT_EXP_PATH
-                            Path to the experimental reference file (required if reference = experimental).
+                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed analysis.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed analysis. Accepted formats: dat, agr, xmgr, gnu.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -234,21 +236,22 @@ Command:
 ```python
 cpptraj_convert -h
 ```
-    usage: cpptraj_convert [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_convert [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed structure.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, netcdf, nc, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -371,21 +374,22 @@ Command:
 ```python
 cpptraj_dry -h
 ```
-    usage: cpptraj_dry [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_dry [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Dehydrates a given cpptraj compatible trajectory stripping out solvent molecules and ions.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed trajectory.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, netcdf, nc, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -508,21 +512,22 @@ Command:
 ```python
 cpptraj_image -h
 ```
-    usage: cpptraj_image [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_image [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Corrects periodicity (image) from a given cpptraj trajectory file.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed trajectory.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, netcdf, nc, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -645,21 +650,22 @@ Command:
 ```python
 cpptraj_mask -h
 ```
-    usage: cpptraj_mask [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_mask [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Extracts a selection of atoms from a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed trajectory.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, netcdf, nc, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -782,21 +788,22 @@ Command:
 ```python
 cpptraj_rgyr -h
 ```
-    usage: cpptraj_rgyr [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_rgyr [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Computes the radius of gyration (Rgyr) from a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output analysis.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output analysis. Accepted formats: dat, agr, xmgr, gnu.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -912,25 +919,26 @@ Command:
 ```python
 cpptraj_rms -h
 ```
-    usage: cpptraj_rms [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH [--output_traj_path OUTPUT_TRAJ_PATH]
+    usage: cpptraj_rms [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH [--output_traj_path OUTPUT_TRAJ_PATH]
     
     Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_exp_path INPUT_EXP_PATH
-                            Path to the experimental reference file (required if reference = experimental).
+                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
       --output_traj_path OUTPUT_TRAJ_PATH
-                            Path to the output processed trajectory.
+                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
       --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed analysis.
+                            Path to the output processed analysis. Accepted formats: dat, agr, xmgr, gnu.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1002,23 +1010,24 @@ Command:
 ```python
 cpptraj_rmsf -h
 ```
-    usage: cpptraj_rmsf [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_rmsf [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH [--input_exp_path INPUT_EXP_PATH] -o OUTPUT_CPPTRAJ_PATH
     
     Calculates the Root Mean Square fluctuations (RMSf) of a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_exp_path INPUT_EXP_PATH
-                            Path to the experimental reference file (required if reference = experimental).
+                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed analysis.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed analysis. Accepted formats: dat, agr, xmgr, gnu.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1086,21 +1095,22 @@ Command:
 ```python
 cpptraj_slice -h
 ```
-    usage: cpptraj_slice [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_slice [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Extracts a particular trajectory slice from a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed trajectory.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, netcdf, nc, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1223,21 +1233,22 @@ Command:
 ```python
 cpptraj_snapshot -h
 ```
-    usage: cpptraj_snapshot [-h] --config CONFIG --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_snapshot [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Extracts a particular snapshot from a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed structure.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed structure. Accepted formats: mdcrd, crd, netcdf, nc, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1346,21 +1357,22 @@ Command:
 ```python
 cpptraj_strip -h
 ```
-    usage: cpptraj_strip [-h] [--config CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+    usage: cpptraj_strip [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH -o OUTPUT_CPPTRAJ_PATH
     
     Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
                             Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
       --input_traj_path INPUT_TRAJ_PATH
-                            Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
-      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
-                            Path to the output processed trajectory.
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, netcdf, nc, rst7, ncrst, dcd, pdb, mol2, binpos, trr, xtc, sqm.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1483,21 +1495,22 @@ Command:
 ```python
 gmx_cluster -h
 ```
-    usage: gmx_cluster [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_pdb_path OUTPUT_PDB_PATH [--output_cluster_log_path OUTPUT_CLUSTER_LOG_PATH] [--output_rmsd_cluster_xpm_path OUTPUT_RMSD_CLUSTER_XPM_PATH] [--output_rmsd_dist_xvg_path OUTPUT_RMSD_DIST_XVG_PATH]
+    usage: gmx_cluster [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_pdb_path OUTPUT_PDB_PATH [--output_cluster_log_path OUTPUT_CLUSTER_LOG_PATH] [--output_rmsd_cluster_xpm_path OUTPUT_RMSD_CLUSTER_XPM_PATH] [--output_rmsd_dist_xvg_path OUTPUT_RMSD_DIST_XVG_PATH]
     
     Creates cluster structures from a given GROMACS compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_index_path INPUT_INDEX_PATH
                             Path to the GROMACS index file. Accepted formats: ndx.
       --output_cluster_log_path OUTPUT_CLUSTER_LOG_PATH
                             Path to the output log file. Accepted formats: log.
       --output_rmsd_cluster_xpm_path OUTPUT_RMSD_CLUSTER_XPM_PATH
-                            Path to the output xpm file. Accepted formats: xpm.
+                            Path to the output X PixMap compatible matrix file. Accepted formats: xpm.
       --output_rmsd_dist_xvg_path OUTPUT_RMSD_DIST_XVG_PATH
-                            Path to the output xvg file. Accepted formats: xvg.
+                            Path to xvgr/xmgr file. Accepted formats: xvg.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
@@ -1553,7 +1566,7 @@ properties:
 properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_user_id: '1001'
+  container_user_id: '1000'
   container_volume_path: /tmp
   cutoff: 0.1
   dista: false
@@ -1604,7 +1617,7 @@ gmx_cluster --config config_gmx_cluster.yml --input_structure_path topology.tpr 
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
-    "container_user_id": "1001"
+    "container_user_id": "1000"
   }
 }
 ```
@@ -1635,18 +1648,19 @@ Command:
 ```python
 gmx_energy -h
 ```
-    usage: gmx_energy [-h] [--config CONFIG] --input_energy_path INPUT_ENERGY_PATH --output_xvg_path OUTPUT_XVG_PATH
+    usage: gmx_energy [-h] [-c CONFIG] -i INPUT_ENERGY_PATH -o OUTPUT_XVG_PATH
     
     Extracts energy components from a given GROMACS energy file.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
     
     required arguments:
-      --input_energy_path INPUT_ENERGY_PATH
+      -i INPUT_ENERGY_PATH, --input_energy_path INPUT_ENERGY_PATH
                             Path to the input EDR file. Accepted formats: edr.
-      --output_xvg_path OUTPUT_XVG_PATH
+      -o OUTPUT_XVG_PATH, --output_xvg_path OUTPUT_XVG_PATH
                             Path to the XVG output file. Accepted formats: xvg.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
@@ -1684,7 +1698,7 @@ properties:
 properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_user_id: '1001'
+  container_user_id: '1000'
   container_volume_path: /tmp
   terms:
   - Potential
@@ -1729,7 +1743,7 @@ gmx_energy --config config_gmx_energy.yml --input_energy_path energy.edr --outpu
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
-    "container_user_id": "1001"
+    "container_user_id": "1000"
   }
 }
 ```
@@ -1759,13 +1773,14 @@ Command:
 ```python
 gmx_image -h
 ```
-    usage: gmx_image [-h] [--config CONFIG] --input_traj_path INPUT_TRAJ_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_traj_path OUTPUT_TRAJ_PATH
+    usage: gmx_image [-h] [-c CONFIG] --input_traj_path INPUT_TRAJ_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] -o OUTPUT_TRAJ_PATH
     
     Corrects periodicity (image) from a given GROMACS compatible trajectory file.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_index_path INPUT_INDEX_PATH
                             Path to the GROMACS index file. Accepted formats: ndx.
     
@@ -1774,8 +1789,8 @@ gmx_image -h
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
       --input_top_path INPUT_TOP_PATH
                             Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-      --output_traj_path OUTPUT_TRAJ_PATH
-                            Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
+      -o OUTPUT_TRAJ_PATH, --output_traj_path OUTPUT_TRAJ_PATH
+                            Path to the output file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1826,7 +1841,7 @@ properties:
   center_selection: System
   container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_user_id: '1001'
+  container_user_id: '1000'
   container_volume_path: /tmp
   fit: rot+trans
   fit_selection: System
@@ -1883,7 +1898,7 @@ gmx_image --config config_gmx_image.yml --input_traj_path trajectory.trr --input
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
-    "container_user_id": "1001"
+    "container_user_id": "1000"
   }
 }
 ```
@@ -1916,13 +1931,14 @@ Command:
 ```python
 gmx_rgyr -h
 ```
-    usage: gmx_rgyr [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_xvg_path OUTPUT_XVG_PATH
+    usage: gmx_rgyr [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] -o OUTPUT_XVG_PATH
     
     Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_index_path INPUT_INDEX_PATH
                             Path to the GROMACS index file. Accepted formats: ndx.
     
@@ -1931,7 +1947,7 @@ gmx_rgyr -h
                             Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
       --input_traj_path INPUT_TRAJ_PATH
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-      --output_xvg_path OUTPUT_XVG_PATH
+      -o OUTPUT_XVG_PATH, --output_xvg_path OUTPUT_XVG_PATH
                             Path to the XVG output file. Accepted formats: xvg.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
@@ -1969,7 +1985,7 @@ properties:
 properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_user_id: '1001'
+  container_user_id: '1000'
   container_volume_path: /tmp
   selection: System
 
@@ -2004,7 +2020,7 @@ gmx_rgyr --config config_gmx_rgyr.yml --input_structure_path topology.tpr --inpu
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
-    "container_user_id": "1001"
+    "container_user_id": "1000"
   }
 }
 ```
@@ -2031,13 +2047,14 @@ Command:
 ```python
 gmx_rms -h
 ```
-    usage: gmx_rms [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] --output_xvg_path OUTPUT_XVG_PATH
+    usage: gmx_rms [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] -o OUTPUT_XVG_PATH
     
     Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_index_path INPUT_INDEX_PATH
                             Path to the GROMACS index file. Accepted formats: ndx.
     
@@ -2046,7 +2063,7 @@ gmx_rms -h
                             Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
       --input_traj_path INPUT_TRAJ_PATH
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-      --output_xvg_path OUTPUT_XVG_PATH
+      -o OUTPUT_XVG_PATH, --output_xvg_path OUTPUT_XVG_PATH
                             Path to the XVG output file. Accepted formats: xvg.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
@@ -2084,7 +2101,7 @@ properties:
 properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_user_id: '1001'
+  container_user_id: '1000'
   container_volume_path: /tmp
   selection: System
 
@@ -2119,7 +2136,7 @@ gmx_rms --config config_gmx_rms.yml --input_structure_path topology.tpr --input_
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
-    "container_user_id": "1001"
+    "container_user_id": "1000"
   }
 }
 ```
@@ -2146,13 +2163,14 @@ Command:
 ```python
 gmx_trjconv_str -h
 ```
-    usage: gmx_trjconv_str [-h] [--config CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_str_path OUTPUT_STR_PATH
+    usage: gmx_trjconv_str [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] -o OUTPUT_STR_PATH
     
     Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_index_path INPUT_INDEX_PATH
                             Path to the GROMACS index file. Accepted formats: ndx.
     
@@ -2161,8 +2179,8 @@ gmx_trjconv_str -h
                             Path to the input structure file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
       --input_top_path INPUT_TOP_PATH
                             Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-      --output_str_path OUTPUT_STR_PATH
-                            Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
+      -o OUTPUT_STR_PATH, --output_str_path OUTPUT_STR_PATH
+                            Path to the output file. Accepted formats: pdb, xtc, trr, cpt, gro, g96, tng.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -2202,7 +2220,7 @@ properties:
 properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_user_id: '1001'
+  container_user_id: '1000'
   container_volume_path: /tmp
   selection: System
 
@@ -2237,7 +2255,7 @@ gmx_trjconv_str --config config_gmx_trjconv_str.yml --input_structure_path traje
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
-    "container_user_id": "1001"
+    "container_user_id": "1000"
   }
 }
 ```
@@ -2264,13 +2282,14 @@ Command:
 ```python
 gmx_trjconv_str_ens -h
 ```
-    usage: gmx_trjconv_str_ens [-h] [--config CONFIG] --input_traj_path INPUT_TRAJ_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] --output_str_ens_path OUTPUT_STR_ENS_PATH
+    usage: gmx_trjconv_str_ens [-h] [-c CONFIG] --input_traj_path INPUT_TRAJ_PATH --input_top_path INPUT_TOP_PATH [--input_index_path INPUT_INDEX_PATH] -o OUTPUT_STR_ENS_PATH
     
     Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_index_path INPUT_INDEX_PATH
                             Path to the GROMACS index file. Accepted formats: ndx.
     
@@ -2279,7 +2298,7 @@ gmx_trjconv_str_ens -h
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
       --input_top_path INPUT_TOP_PATH
                             Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-      --output_str_ens_path OUTPUT_STR_ENS_PATH
+      -o OUTPUT_STR_ENS_PATH, --output_str_ens_path OUTPUT_STR_ENS_PATH
                             Path to the output file. Accepted formats: zip.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
@@ -2327,7 +2346,7 @@ properties:
 properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_user_id: '1001'
+  container_user_id: '1000'
   container_volume_path: /tmp
   dt: 1
   end: 10
@@ -2382,7 +2401,7 @@ gmx_trjconv_str_ens --config config_gmx_trjconv_str_ens.yml --input_traj_path tr
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
-    "container_user_id": "1001"
+    "container_user_id": "1000"
   }
 }
 ```
@@ -2414,23 +2433,24 @@ Command:
 ```python
 gmx_trjconv_trj -h
 ```
-    usage: gmx_trjconv_trj [-h] [--config CONFIG] --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] [--input_top_path INPUT_TOP_PATH] --output_traj_path OUTPUT_TRAJ_PATH
+    usage: gmx_trjconv_trj [-h] [-c CONFIG] --input_traj_path INPUT_TRAJ_PATH [--input_top_path INPUT_TOP_PATH] [--input_index_path INPUT_INDEX_PATH] -o OUTPUT_TRAJ_PATH
     
     Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms.
     
     options:
       -h, --help            show this help message and exit
-      --config CONFIG       Configuration file
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
       --input_top_path INPUT_TOP_PATH
                             Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
     
     required arguments:
       --input_traj_path INPUT_TRAJ_PATH
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-      --output_traj_path OUTPUT_TRAJ_PATH
-                            Path to the output file. Accepted formats: xtc, trr, gro, g96, pdb, tng.
+      -o OUTPUT_TRAJ_PATH, --output_traj_path OUTPUT_TRAJ_PATH
+                            Path to the output file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -2472,7 +2492,7 @@ properties:
 properties:
   container_image: gromacs/gromacs:2022.2
   container_path: docker
-  container_user_id: '1001'
+  container_user_id: '1000'
   container_volume_path: /tmp
   dt: 0
   end: 0
@@ -2519,7 +2539,7 @@ gmx_trjconv_trj --config config_gmx_trjconv_trj.yml --input_traj_path trajectory
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
-    "container_user_id": "1001"
+    "container_user_id": "1000"
   }
 }
 ```

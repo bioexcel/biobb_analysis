@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 
 """Module containing the Cpptraj Strip class and the command line interface."""
-import argparse
+
 from typing import Optional
 from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_out_parameters, copy_instructions_file_to_container, get_mask
+from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_out_parameters, get_mask
 
 
 class CpptrajStrip(BiobbObject):
@@ -90,8 +89,7 @@ class CpptrajStrip(BiobbObject):
         self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+        self.check_init(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -108,8 +106,7 @@ class CpptrajStrip(BiobbObject):
         if self.container_path:
             self.instructions_file = str(PurePath(self.container_volume_path).joinpath(self.instructions_file))
         else:
-            self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
-        fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
+            self.instructions_file = self.create_tmp_file(self.instructions_file)
 
         # parm
         instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
@@ -142,7 +139,7 @@ class CpptrajStrip(BiobbObject):
 
     @launchlogger
     def launch(self) -> int:
-        """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` ambertools.cpptraj_strip.CpptrajStrip object."""
+        """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` object."""
 
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
@@ -155,10 +152,6 @@ class CpptrajStrip(BiobbObject):
         # create instructions file
         self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
 
-        # if container execution, copy intructions file to container
-        if self.container_path:
-            copy_instructions_file_to_container(self.instructions_file, self.stage_io_dict['unique_dir'])
-
         # create cmd and launch execution
         self.cmd = [self.binary_path, '-i', self.instructions_file]
 
@@ -169,12 +162,7 @@ class CpptrajStrip(BiobbObject):
         self.copy_to_host()
 
         # remove temporary folder(s)
-        self.tmp_files.extend([
-            # self.stage_io_dict.get("unique_dir", ""),
-            str(PurePath(self.instructions_file).parent)
-        ])
         self.remove_tmp_files()
-
         self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
@@ -183,36 +171,11 @@ class CpptrajStrip(BiobbObject):
 def cpptraj_strip(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` class and
     execute the :meth:`launch() <ambertools.cpptraj_strip.CpptrajStrip.launch>` method."""
-
-    return CpptrajStrip(input_top_path=input_top_path,
-                        input_traj_path=input_traj_path,
-                        output_cpptraj_path=output_cpptraj_path,
-                        properties=properties, **kwargs).launch()
-
-    cpptraj_strip.__doc__ = CpptrajStrip.__doc__
+    return CpptrajStrip(**dict(locals())).launch()
 
 
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('--config', required=False, help='Configuration file')
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_top_path', required=True, help='Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the input trajectory to be processed. Accepted formats: crd, cdf, netcdf, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.')
-    required_args.add_argument('--output_cpptraj_path', required=True, help='Path to the output processed trajectory.')
-
-    args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config).get_prop_dic()
-
-    # Specific call of each building block
-    cpptraj_strip(input_top_path=args.input_top_path,
-                  input_traj_path=args.input_traj_path,
-                  output_cpptraj_path=args.output_cpptraj_path,
-                  properties=properties)
-
+cpptraj_strip.__doc__ = CpptrajStrip.__doc__
+main = CpptrajStrip.get_main(cpptraj_strip, "Strips a defined set of atoms (mask) from a given cpptraj compatible trajectory.")
 
 if __name__ == '__main__':
     main()
