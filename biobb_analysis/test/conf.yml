@@ -14,6 +14,7 @@ gmx_cluster:
     dista: False
     method: linkage
     cutoff: 0.1
+    remove_tmp: False
 
 gmx_cluster_docker:
   paths:
@@ -344,6 +345,7 @@ gmx_image_singularity:
 
 cpptraj_input:
   paths:
+    input_instructions_path: file:test_data_dir/ambertools/cpptraj.parm.top
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.netcdf
