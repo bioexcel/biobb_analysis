@@ -64,8 +64,8 @@
             <a id="indexLink" class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a id="nextFileLink" class="nav" href="z_8185a593ca2a23a7_gmx_trjconv_trj_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.10.4">coverage.py v7.10.4</a>,
-            created at 2025-10-13 13:08 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.10.7">coverage.py v7.10.7</a>,
+            created at 2025-10-13 13:19 +0000
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -207,7 +207,7 @@
     <p class="mis show_mis"><span class="n"><a id="t125" href="#t125">125</a></span><span class="t">            <span class="key">return</span> <span class="num">0</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t126" href="#t126">126</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t127" href="#t127">127</a></span><span class="t">        <span class="com"># standard input</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t128" href="#t128">128</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'in'</span><span class="op">]</span><span class="op">[</span><span class="str">'stdin_file_path'</span><span class="op">]</span> <span class="op">=</span> <span class="nam">fu</span><span class="op">.</span><span class="nam">create_stdin_file</span><span class="op">(</span><span class="str">f'{self.selection}'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t128" href="#t128">128</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'in'</span><span class="op">]</span><span class="op">[</span><span class="str">'stdin_file_path'</span><span class="op">]</span> <span class="op">=</span> <span class="nam">fu</span><span class="op">.</span><span class="nam">create_stdin_file</span><span class="op">(</span><span class="fst">f'</span><span class="op">{</span><span class="nam">self</span><span class="op">.</span><span class="nam">selection</span><span class="op">}</span><span class="fst">'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t129" href="#t129">129</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">stage_files</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t130" href="#t130">130</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t131" href="#t131">131</a></span><span class="t">        <span class="com"># if container execution, output to container_volume_path, else to unique_dir</span>&nbsp;</span><span class="r"></span></p>
@@ -252,7 +252,7 @@
     <p class="run"><span class="n"><a id="t170" href="#t170">170</a></span><span class="t">            <span class="nam">process_output_trjconv_str_ens</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">stage_io_dict</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"unique_dir"</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="run run2"><span class="n"><a id="t171" href="#t171">171</a></span><span class="t">                                           <span class="nam">self</span><span class="op">.</span><span class="nam">stage_io_dict</span><span class="op">[</span><span class="str">"out"</span><span class="op">]</span><span class="op">[</span><span class="str">"output_str_ens_path"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="run run2"><span class="n"><a id="t172" href="#t172">172</a></span><span class="t">                                           <span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">"out"</span><span class="op">]</span><span class="op">[</span><span class="str">"output_str_ens_path"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run run2"><span class="n"><a id="t173" href="#t173">173</a></span><span class="t">                                           <span class="nam">self</span><span class="op">.</span><span class="nam">output_name</span> <span class="op">+</span> <span class="str">f'*.{self.output_type}'</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run run2"><span class="n"><a id="t173" href="#t173">173</a></span><span class="t">                                           <span class="nam">self</span><span class="op">.</span><span class="nam">output_name</span> <span class="op">+</span> <span class="fst">f'</span><span class="fst">*.</span><span class="op">{</span><span class="nam">self</span><span class="op">.</span><span class="nam">output_type</span><span class="op">}</span><span class="fst">'</span><span class="op">,</span> <span class="nam">self</span><span class="op">.</span><span class="nam">out_log</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t174" href="#t174">174</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t175" href="#t175">175</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">tmp_files</span><span class="op">.</span><span class="nam">append</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">io_dict</span><span class="op">[</span><span class="str">'in'</span><span class="op">]</span><span class="op">.</span><span class="nam">get</span><span class="op">(</span><span class="str">"stdin_file_path"</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t176" href="#t176">176</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">remove_tmp_files</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -285,8 +285,8 @@
             <a class="nav" href="index.html">&Hat; index</a> &nbsp; &nbsp;
             <a class="nav" href="z_8185a593ca2a23a7_gmx_trjconv_trj_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.10.4">coverage.py v7.10.4</a>,
-            created at 2025-10-13 13:08 +0000
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.10.7">coverage.py v7.10.7</a>,
+            created at 2025-10-13 13:19 +0000
         </p>
     </div>
 </footer>
