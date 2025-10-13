@@ -26,6 +26,14 @@
             "rest": true
         },
         {
+            "block": "GMXRmsf",
+            "tool": "gmx rmsf",
+            "desc": "Wrapper of the GROMACS module for calculating the Root Mean Square fluctuations (RMSf) of a given GROMACS compatible trajectory.",
+            "exec": "gmx_rmsf",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_rmsf",
+            "rest": true
+        },
+        {
             "block": "GMXRgyr",
             "tool": "gmx gyrate",
             "desc": "Wrapper of the GROMACS gyrate module for computing the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.",

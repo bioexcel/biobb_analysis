@@ -40,6 +40,7 @@ setuptools.setup(
             "gmx_image = biobb_analysis.gromacs.gmx_image:main",
             "gmx_rgyr = biobb_analysis.gromacs.gmx_rgyr:main",
             "gmx_rms = biobb_analysis.gromacs.gmx_rms:main",
+            "gmx_rmsf = biobb_analysis.gromacs.gmx_rmsf:main",
             "gmx_trjconv_str_ens = biobb_analysis.gromacs.gmx_trjconv_str_ens:main",
             "gmx_trjconv_str = biobb_analysis.gromacs.gmx_trjconv_str:main",
             "gmx_trjconv_trj = biobb_analysis.gromacs.gmx_trjconv_trj:main",
