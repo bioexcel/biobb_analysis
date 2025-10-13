@@ -2156,6 +2156,120 @@ gmx_rms --config config_gmx_rms.yml --input_structure_path topology.tpr --input_
 gmx_rms --config config_gmx_rms.json --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_xvg_path ref_rms.xvg
 ```
 
+## Gmx_rmsf
+Wrapper of the GROMACS rmsf module for performing a Root Mean Square Fluctuation (RMSF) analysis from a given GROMACS compatible trajectory.
+### Get help
+Command:
+```python
+gmx_rmsf -h
+```
+    usage: gmx_rmsf [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] -o OUTPUT_XVG_PATH
+    
+    Performs a Root Mean Square Fluctuation (RMSF) analysis from a given GROMACS compatible trajectory.
+    
+    options:
+      -h, --help            show this help message and exit
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
+    
+    required arguments:
+      --input_structure_path INPUT_STRUCTURE_PATH
+                            Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+      --input_traj_path INPUT_TRAJ_PATH
+                            Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+      -o OUTPUT_XVG_PATH, --output_xvg_path OUTPUT_XVG_PATH
+                            Path to the XVG output file. Accepted formats: xvg.
+### I / O Arguments
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+* **input_structure_path** (*string*): Path to the input structure file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
+* **input_traj_path** (*string*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
+* **input_index_path** (*string*): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: NDX
+* **output_xvg_path** (*string*): Path to the XVG output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_rmsf.xvg). Accepted formats: XVG
+### Config
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+* **xvg** (*string*): (none) XVG plot formatting.
+* **selection** (*string*): (System) Group where the rmsf will be performed. If **input_index_path** provided, check the file for the accepted values.
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
+* **remove_tmp** (*boolean*): (True) Remove temporal files.
+* **restart** (*boolean*): (False) Do not execute if output files exist.
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
+* **container_path** (*string*): (None) Container path definition.
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition.
+* **container_volume_path** (*string*): (/tmp) Container volume path definition.
+* **container_working_dir** (*string*): (None) Container working directory definition.
+* **container_user_id** (*string*): (None) Container user_id definition.
+* **container_shell_path** (*string*): (/bin/bash) Path to default shell inside the container.
+### YAML
+#### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf.yml)
+```python
+properties:
+  selection: System
+
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf_docker.yml)
+```python
+properties:
+  container_image: gromacs/gromacs:2022.2
+  container_path: docker
+  container_user_id: '1000'
+  container_volume_path: /tmp
+  selection: System
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf_singularity.yml)
+```python
+properties:
+  container_image: shub://michael-tn/gromacs
+  container_path: singularity
+  container_volume_path: /tmp
+  selection: System
+```
+#### Command line
+```python
+gmx_rmsf --config config_gmx_rmsf.yml --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_xvg_path ref_rmsf.xvg
+```
+### JSON
+#### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf.json)
+```python
+{
+  "properties": {
+    "selection": "System"
+  }
+}
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf_docker.json)
+```python
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:2022.2",
+    "container_volume_path": "/tmp",
+    "container_user_id": "1000"
+  }
+}
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf_singularity.json)
+```python
+{
+  "properties": {
+    "selection": "System",
+    "container_path": "singularity",
+    "container_image": "shub://michael-tn/gromacs",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+#### Command line
+```python
+gmx_rmsf --config config_gmx_rmsf.json --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_xvg_path ref_rmsf.xvg
+```
+
 ## Gmx_trjconv_str
 Wrapper of the GROMACS trjconv module for converting between GROMACS compatible structure file formats and/or extracting a selection of atoms.
 ### Get help
