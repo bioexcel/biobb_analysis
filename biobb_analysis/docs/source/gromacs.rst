@@ -20,6 +20,14 @@ gromacs.gmx_rms module
     :undoc-members:
     :show-inheritance:
 
+gromacs.gmx_rmsf module
+------------------------------
+
+.. automodule:: gromacs.gmx_rmsf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 gromacs.gmx_energy module
 ------------------------------
 

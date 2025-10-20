@@ -212,9 +212,9 @@ def get_default_value(key):
         "fit": "none",
         "ur": "compact",
         "skip": 1,
-        "start": None,
-        "end": None,
-        "dt": None,
+        "start": 0,
+        "end": 0,
+        "dt": 0,
         "ot_str_ens": "pdb",
     }
 
@@ -329,10 +329,10 @@ def get_skip(properties, out_log, classname):
 def get_start(properties, out_log, classname):
     """Gets start"""
     start = properties.get("start", get_default_value("start"))
-    
+
     if start is None:
         return start
-    if not is_valid_int(start): 
+    if not is_valid_int(start):
         fu.log(classname + ": Incorrect start provided, exiting", out_log)
         raise SystemExit(classname + ": Incorrect start provided")
     return str(start)

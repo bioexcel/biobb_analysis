@@ -31,7 +31,7 @@ gmx_cluster_docker:
     container_path: docker
     container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
-    container_user_id: "1001"
+    container_user_id: "1000"
 
 gmx_cluster_singularity:
   paths:
@@ -72,7 +72,7 @@ gmx_rms_docker:
     container_path: docker
     container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
-    container_user_id: "1001"
+    container_user_id: "1000"
 
 gmx_rms_singularity:
   paths:
@@ -83,6 +83,61 @@ gmx_rms_singularity:
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rms.container.xvg
   properties:
     selection: System
+    container_path: singularity
+    container_image: shub://michael-tn/gromacs
+    container_volume_path: /tmp
+
+gmx_rmsf:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_xvg_path: output.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rmsf.xvg
+  properties:
+    selection: System
+    demean: True
+    mass_weighted: False
+    nofit: False
+    bfactor: False
+    bin_width: 0.1
+    hist: False
+
+gmx_rmsf_docker:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_xvg_path: output.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rmsf.container.xvg
+  properties:
+    selection: System
+    demean: True
+    mass_weighted: False
+    nofit: False
+    bfactor: False
+    bin_width: 0.1
+    hist: False
+    container_path: docker
+    container_image: gromacs/gromacs:2022.2
+    container_volume_path: /tmp
+    container_user_id: "1000"
+  
+gmx_rmsf_singularity:
+  paths:
+    input_traj_path: file:test_data_dir/gromacs/trajectory.trr
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_index_path: file:test_data_dir/gromacs/index.ndx
+    output_xvg_path: output.xvg
+    ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rmsf.container.xvg
+  properties:
+    selection: System
+    demean: True
+    mass_weighted: False
+    nofit: False
+    bfactor: False
+    bin_width: 0.1
+    hist: False
     container_path: singularity
     container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
@@ -105,7 +160,7 @@ gmx_energy_docker:
     container_path: docker
     container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
-    container_user_id: "1001"
+    container_user_id: "1000"
 
 gmx_energy_singularity:
   paths:
@@ -140,7 +195,7 @@ gmx_rgyr_docker:
     container_path: docker
     container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
-    container_user_id: "1001"
+    container_user_id: "1000"
 
 gmx_rgyr_singularity:
   paths:
@@ -177,7 +232,7 @@ gmx_trjconv_str_docker:
     container_path: docker
     container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
-    container_user_id: "1001"
+    container_user_id: "1000"
 
 gmx_trjconv_str_singularity:
   paths:
@@ -224,7 +279,7 @@ gmx_trjconv_str_ens_docker:
     container_path: docker
     container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
-    container_user_id: "1001"
+    container_user_id: "1000"
 
 gmx_trjconv_str_ens_singularity:
   paths:
@@ -270,7 +325,7 @@ gmx_trjconv_trj_docker:
     container_path: docker
     container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
-    container_user_id: "1001"
+    container_user_id: "1000"
 
 gmx_trjconv_trj_singularity:
   paths:
@@ -321,7 +376,7 @@ gmx_image_docker:
     container_path: docker
     container_image: gromacs/gromacs:2022.2
     container_volume_path: /tmp
-    container_user_id: "1001"
+    container_user_id: "1000"
 
 gmx_image_singularity:
   paths:
@@ -344,6 +399,7 @@ gmx_image_singularity:
 
 cpptraj_input:
   paths:
+    input_instructions_path: file:test_data_dir/ambertools/cpptraj.parm.top
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.netcdf

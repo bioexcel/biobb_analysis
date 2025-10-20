@@ -2,20 +2,15 @@
 
 """Module containing the GMX Energy class and the command line interface."""
 
-import argparse
 from pathlib import PurePath
 from typing import Optional
-
-from biobb_common.configuration import settings
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 
 from biobb_analysis.gromacs.common import (
     _from_string_to_list,
     check_energy_path,
     check_out_xvg_path,
-    copy_instructions_file_to_container,
     get_binary_path,
     get_default_value,
     get_terms,
@@ -61,7 +56,7 @@ class GMXEnergy(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS energy
-            * version: >=2019.1
+            * version: >=2024.5
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -94,8 +89,7 @@ class GMXEnergy(BiobbObject):
         self.binary_path = get_binary_path(properties, "binary_path")
 
         # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+        self.check_init(properties)
 
     def check_data_params(self, out_log, err_log):
         """Checks all the input/output paths and parameters"""
@@ -111,17 +105,11 @@ class GMXEnergy(BiobbObject):
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
-        # different path if container execution or not
+        # Different path if container execution or not
         if self.container_path:
-            self.instructions_file = str(
-                PurePath(self.container_volume_path).joinpath(self.instructions_file)
-            )
+            self.instructions_file = str(PurePath(self.container_volume_path).joinpath(self.instructions_file))
         else:
-            self.instructions_file = str(
-                PurePath(fu.create_unique_dir()).joinpath(self.instructions_file)
-            )
-        # self.instructions_file = str(PurePath(fu.create_unique_dir()).joinpath(self.instructions_file))
-        fu.create_name(prefix=self.prefix, step=self.step, name=self.instructions_file)
+            self.instructions_file = self.create_tmp_file(self.instructions_file)
 
         for t in self.terms:
             instructions_list.append(t)
@@ -135,7 +123,7 @@ class GMXEnergy(BiobbObject):
 
     @launchlogger
     def launch(self) -> int:
-        """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` gromacs.gmx_energy.GMXEnergy object."""
+        """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` object."""
 
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
@@ -147,12 +135,6 @@ class GMXEnergy(BiobbObject):
 
         # create instructions file
         self.create_instructions_file()
-
-        # if container execution, copy intructions file to container
-        if self.container_path:
-            copy_instructions_file_to_container(
-                self.instructions_file, self.stage_io_dict.get("unique_dir")
-            )
 
         self.cmd = [
             self.binary_path,
@@ -169,18 +151,9 @@ class GMXEnergy(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-
         # Copy files to host
         self.copy_to_host()
-
-        self.tmp_files.extend(
-            [
-                # self.stage_io_dict.get("unique_dir", ""),
-                str(str(PurePath(self.instructions_file).parent)),
-            ]
-        )
         self.remove_tmp_files()
-
         self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
@@ -194,49 +167,11 @@ def gmx_energy(
 ) -> int:
     """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
     execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch>` method."""
-
-    return GMXEnergy(
-        input_energy_path=input_energy_path,
-        output_xvg_path=output_xvg_path,
-        properties=properties,
-        **kwargs,
-    ).launch()
-
-    gmx_energy.__doc__ = GMXEnergy.__doc__
+    return GMXEnergy(**dict(locals())).launch()
 
 
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(
-        description="Extracts energy components from a given GROMACS energy file.",
-        formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999),
-    )
-    parser.add_argument("--config", required=False, help="Configuration file")
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group("required arguments")
-    required_args.add_argument(
-        "--input_energy_path",
-        required=True,
-        help="Path to the input EDR file. Accepted formats: edr.",
-    )
-    required_args.add_argument(
-        "--output_xvg_path",
-        required=True,
-        help="Path to the XVG output file. Accepted formats: xvg.",
-    )
-
-    args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config).get_prop_dic()
-
-    # Specific call of each building block
-    gmx_energy(
-        input_energy_path=args.input_energy_path,
-        output_xvg_path=args.output_xvg_path,
-        properties=properties,
-    )
-
+gmx_energy.__doc__ = GMXEnergy.__doc__
+main = GMXEnergy.get_main(gmx_energy, "Extracts energy components from a given GROMACS energy file.")
 
 if __name__ == "__main__":
     main()

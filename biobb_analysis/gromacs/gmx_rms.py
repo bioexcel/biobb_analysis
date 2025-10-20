@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 """Module containing the GMX Rms class and the command line interface."""
-import argparse
+
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_selection_index_file, check_out_xvg_path, get_xvg, get_selection
@@ -52,7 +51,7 @@ class GMXRms(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS rms
-            * version: >=2019.1
+            * version: >=2024.5
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -83,8 +82,7 @@ class GMXRms(BiobbObject):
         self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+        self.check_init(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -100,7 +98,7 @@ class GMXRms(BiobbObject):
 
     @launchlogger
     def launch(self) -> int:
-        """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` gromacs.gmx_rms.GMXRms object."""
+        """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` object."""
 
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
@@ -132,10 +130,7 @@ class GMXRms(BiobbObject):
         # Copy files to host
         self.copy_to_host()
 
-        self.tmp_files.extend([
-            # self.stage_io_dict.get("unique_dir", ""),
-            self.io_dict['in'].get("stdin_file_path", "")
-        ])
+        self.tmp_files.extend([self.io_dict['in'].get("stdin_file_path", "")])
         self.remove_tmp_files()
 
         self.check_arguments(output_files_created=True, raise_exception=False)
@@ -146,39 +141,11 @@ class GMXRms(BiobbObject):
 def gmx_rms(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
     """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` class and
     execute the :meth:`launch() <gromacs.gmx_rms.GMXRms.launch>` method."""
-
-    return GMXRms(input_structure_path=input_structure_path,
-                  input_traj_path=input_traj_path,
-                  output_xvg_path=output_xvg_path,
-                  input_index_path=input_index_path,
-                  properties=properties, **kwargs).launch()
-
-    gmx_rms.__doc__ = GMXRms.__doc__
+    return GMXRms(**dict(locals())).launch()
 
 
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('--config', required=False, help='Configuration file')
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_structure_path', required=True, help='Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
-    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file. Accepted formats: ndx.")
-    required_args.add_argument('--output_xvg_path', required=True, help='Path to the XVG output file. Accepted formats: xvg.')
-
-    args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config).get_prop_dic()
-
-    # Specific call of each building block
-    gmx_rms(input_structure_path=args.input_structure_path,
-            input_traj_path=args.input_traj_path,
-            output_xvg_path=args.output_xvg_path,
-            input_index_path=args.input_index_path,
-            properties=properties)
-
+gmx_rms.__doc__ = GMXRms.__doc__
+main = GMXRms.get_main(gmx_rms, "Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.")
 
 if __name__ == '__main__':
     main()

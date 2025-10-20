@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 """Module containing the GMX TrjConvStr class and the command line interface."""
-import argparse
+
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.configuration import settings
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
 from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_selection_index_file, get_selection, check_out_str_ens_path, get_skip, get_start, get_end, get_dt, get_ot_str_ens, process_output_trjconv_str_ens
@@ -59,7 +58,7 @@ class GMXTrjConvStrEns(BiobbObject):
     Info:
         * wrapped_software:
             * name: GROMACS trjconv
-            * version: >=2019.1
+            * version: >=2024.5
             * license: LGPL 2.1
         * ontology:
             * name: EDAM
@@ -95,8 +94,7 @@ class GMXTrjConvStrEns(BiobbObject):
         self.binary_path = get_binary_path(properties, 'binary_path')
 
         # Check the properties
-        self.check_properties(properties)
-        self.check_arguments()
+        self.check_init(properties)
 
     def check_data_params(self, out_log, err_log):
         """ Checks all the input/output paths and parameters """
@@ -117,7 +115,7 @@ class GMXTrjConvStrEns(BiobbObject):
 
     @launchlogger
     def launch(self) -> int:
-        """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns object."""
+        """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` object."""
 
         # check input/output paths and parameters
         self.check_data_params(self.out_log, self.err_log)
@@ -139,16 +137,16 @@ class GMXTrjConvStrEns(BiobbObject):
         self.cmd = [self.binary_path, 'trjconv',
                     '-f', self.stage_io_dict["in"]["input_traj_path"],
                     '-s', self.stage_io_dict["in"]["input_top_path"],
-                    '-skip', self.skip,
-                    '-b', self.start,
-                    '-dt', self.dt,
+                    '-skip', str(self.skip),
+                    '-b', str(self.start),
+                    '-dt', str(self.dt),
                     '-sep',
                     '-o', output]
 
         # checking 'end' gromacs 'bug'
         if not str(self.end) == "0":
             self.cmd.append('-e')
-            self.cmd.append(self.end)
+            self.cmd.append(str(self.end))
 
         if self.stage_io_dict["in"].get("input_index_path"):
             self.cmd.extend(['-n', self.stage_io_dict["in"]["input_index_path"]])
@@ -172,55 +170,28 @@ class GMXTrjConvStrEns(BiobbObject):
             process_output_trjconv_str_ens(self.stage_io_dict.get("unique_dir"),
                                            self.stage_io_dict["out"]["output_str_ens_path"],
                                            self.io_dict["out"]["output_str_ens_path"],
-                                           self.output_name + '*.pdb', self.out_log)
+                                           self.output_name + f'*.{self.output_type}', self.out_log)
 
-        self.tmp_files.extend([
-            # self.stage_io_dict.get("unique_dir", ""),
-            self.io_dict['in'].get("stdin_file_path", "")
-        ])
+        self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
         self.remove_tmp_files()
-
         self.check_arguments(output_files_created=True, raise_exception=False)
 
         return self.return_code
 
 
-def gmx_trjconv_str_ens(input_traj_path: str, input_top_path: str, output_str_ens_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
+def gmx_trjconv_str_ens(input_traj_path: str,
+                        input_top_path: str,
+                        output_str_ens_path: str,
+                        input_index_path: Optional[str] = None,
+                        properties: Optional[dict] = None,
+                        **kwargs) -> int:
     """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns.launch>` method."""
-
-    return GMXTrjConvStrEns(input_traj_path=input_traj_path,
-                            input_top_path=input_top_path,
-                            output_str_ens_path=output_str_ens_path,
-                            input_index_path=input_index_path,
-                            properties=properties).launch()
-
-    gmx_trjconv_str_ens.__doc__ = GMXTrjConvStrEns.__doc__
+    return GMXTrjConvStrEns(**dict(locals())).launch()
 
 
-def main():
-    """Command line execution of this building block. Please check the command line documentation."""
-    parser = argparse.ArgumentParser(description="Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.", formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, width=99999))
-    parser.add_argument('--config', required=False, help='Configuration file')
-
-    # Specific args of each building block
-    required_args = parser.add_argument_group('required arguments')
-    required_args.add_argument('--input_traj_path', required=True, help='Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.')
-    required_args.add_argument('--input_top_path', required=True, help='Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.')
-    parser.add_argument('--input_index_path', required=False, help="Path to the GROMACS index file. Accepted formats: ndx.")
-    required_args.add_argument('--output_str_ens_path', required=True, help='Path to the output file. Accepted formats: zip.')
-
-    args = parser.parse_args()
-    args.config = args.config or "{}"
-    properties = settings.ConfReader(config=args.config).get_prop_dic()
-
-    # Specific call of each building block
-    gmx_trjconv_str_ens(input_traj_path=args.input_traj_path,
-                        input_top_path=args.input_top_path,
-                        output_str_ens_path=args.output_str_ens_path,
-                        input_index_path=args.input_index_path,
-                        properties=properties)
-
+gmx_trjconv_str_ens.__doc__ = GMXTrjConvStrEns.__doc__
+main = GMXTrjConvStrEns.get_main(gmx_trjconv_str_ens, "Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.")
 
 if __name__ == '__main__':
     main()
