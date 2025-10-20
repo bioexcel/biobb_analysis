@@ -212,9 +212,9 @@ def get_default_value(key):
         "fit": "none",
         "ur": "compact",
         "skip": 1,
-        "start": 0,
-        "end": 0,
-        "dt": 0,
+        "start": None,
+        "end": None,
+        "dt": None,
         "ot_str_ens": "pdb",
     }
 
