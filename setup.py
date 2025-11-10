@@ -36,6 +36,7 @@ setuptools.setup(
             "cpptraj_snapshot = biobb_analysis.ambertools.cpptraj_snapshot:main",
             "cpptraj_strip = biobb_analysis.ambertools.cpptraj_strip:main",
             "gmx_cluster = biobb_analysis.gromacs.gmx_cluster:main",
+            "gmx_check = biobb_analysis.gromacs.gmx_check:main",
             "gmx_energy = biobb_analysis.gromacs.gmx_energy:main",
             "gmx_image = biobb_analysis.gromacs.gmx_image:main",
             "gmx_rgyr = biobb_analysis.gromacs.gmx_rgyr:main",

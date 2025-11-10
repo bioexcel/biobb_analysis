@@ -1,0 +1,457 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://bioexcel.eu/biobb_analysis/json_schemas/1.0/gmx_check",
+    "name": "biobb_analysis GMXCheck",
+    "title": "Wrapper of the GROMACS check module for comparing and validating GROMACS files.",
+    "description": "GROMACS check reads, analyzes and compares run input, trajectory and energy files reporting potential differences and inconsistencies.",
+    "type": "object",
+    "info": {
+        "wrapped_software": {
+            "name": "GROMACS check",
+            "version": ">=2024.5",
+            "license": "LGPL 2.1"
+        },
+        "ontology": {
+            "name": "EDAM",
+            "schema": "http://edamontology.org/EDAM.owl"
+        }
+    },
+    "required": [
+        "output_log_path"
+    ],
+    "properties": {
+        "input_structure_path": {
+            "type": "string",
+            "description": "Path to the first GROMACS run input file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr",
+            "enum": [
+                ".*\\.tpr$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.brk$",
+                ".*\\.ent$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.g96$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.brk$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.ent$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_1476"
+                }
+            ]
+        },
+        "input_structure_2_path": {
+            "type": "string",
+            "description": "Path to the second GROMACS run input file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr",
+            "enum": [
+                ".*\\.tpr$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.brk$",
+                ".*\\.ent$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.g96$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.brk$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.ent$",
+                    "description": "Path to the GROMACS run input file",
+                    "edam": "format_1476"
+                }
+            ]
+        },
+        "input_traj_path": {
+            "type": "string",
+            "description": "Path to the first GROMACS trajectory file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr",
+            "enum": [
+                ".*\\.xtc$",
+                ".*\\.trr$",
+                ".*\\.cpt$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.tng$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.xtc$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3875"
+                },
+                {
+                    "extension": ".*\\.trr$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3910"
+                },
+                {
+                    "extension": ".*\\.cpt$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.g96$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.tng$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3876"
+                }
+            ]
+        },
+        "input_traj_2_path": {
+            "type": "string",
+            "description": "Path to the second GROMACS trajectory file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr",
+            "enum": [
+                ".*\\.xtc$",
+                ".*\\.trr$",
+                ".*\\.cpt$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.tng$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.xtc$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3875"
+                },
+                {
+                    "extension": ".*\\.trr$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3910"
+                },
+                {
+                    "extension": ".*\\.cpt$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.g96$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.tng$",
+                    "description": "Path to the GROMACS trajectory file",
+                    "edam": "format_3876"
+                }
+            ]
+        },
+        "input_energy_path": {
+            "type": "string",
+            "description": "Path to the first GROMACS energy file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr",
+            "enum": [
+                ".*\\.edr$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.edr$",
+                    "description": "Path to the GROMACS energy file",
+                    "edam": "format_2330"
+                }
+            ]
+        },
+        "input_energy_2_path": {
+            "type": "string",
+            "description": "Path to the second GROMACS energy file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr",
+            "enum": [
+                ".*\\.edr$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.edr$",
+                    "description": "Path to the GROMACS energy file",
+                    "edam": "format_2330"
+                }
+            ]
+        },
+        "structure_check_path": {
+            "type": "string",
+            "description": "Path to the structure file to analyze for internal consistency",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr",
+            "enum": [
+                ".*\\.tpr$",
+                ".*\\.gro$",
+                ".*\\.g96$",
+                ".*\\.pdb$",
+                ".*\\.brk$",
+                ".*\\.ent$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the structure file",
+                    "edam": "format_2333"
+                },
+                {
+                    "extension": ".*\\.gro$",
+                    "description": "Path to the structure file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.g96$",
+                    "description": "Path to the structure file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.pdb$",
+                    "description": "Path to the structure file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.brk$",
+                    "description": "Path to the structure file",
+                    "edam": "format_2033"
+                },
+                {
+                    "extension": ".*\\.ent$",
+                    "description": "Path to the structure file",
+                    "edam": "format_1476"
+                }
+            ]
+        },
+        "input_index_path": {
+            "type": "string",
+            "description": "Path to the GROMACS index file",
+            "filetype": "input",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx",
+            "enum": [
+                ".*\\.ndx$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.ndx$",
+                    "description": "Path to the GROMACS index file",
+                    "edam": "format_2033"
+                }
+            ]
+        },
+        "output_log_path": {
+            "type": "string",
+            "description": "Path to the text file storing the gmx check console output",
+            "filetype": "output",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_check.log",
+            "enum": [
+                ".*\\.log$",
+                ".*\\.txt$",
+                ".*\\.out$"
+            ],
+            "file_formats": [
+                {
+                    "extension": ".*\\.log$",
+                    "description": "Path to the gmx check console output file",
+                    "edam": "format_2330"
+                },
+                {
+                    "extension": ".*\\.txt$",
+                    "description": "Path to the gmx check console output file",
+                    "edam": "format_2330"
+                },
+                {
+                    "extension": ".*\\.out$",
+                    "description": "Path to the gmx check console output file",
+                    "edam": "format_2330"
+                }
+            ]
+        },
+        "properties": {
+            "type": "object",
+            "properties": {
+                "vdwfac": {
+                    "type": "number",
+                    "default": 0.8,
+                    "wf_prop": false,
+                    "description": "Fraction of the sum of Van der Waals radii used as warning cutoff."
+                },
+                "bonlo": {
+                    "type": "number",
+                    "default": 0.4,
+                    "wf_prop": false,
+                    "description": "Minimum fraction of the sum of Van der Waals radii for bonded atoms."
+                },
+                "bonhi": {
+                    "type": "number",
+                    "default": 0.7,
+                    "wf_prop": false,
+                    "description": "Maximum fraction of the sum of Van der Waals radii for bonded atoms."
+                },
+                "relative_tolerance": {
+                    "type": "number",
+                    "default": 0.001,
+                    "wf_prop": false,
+                    "description": "Relative tolerance for comparing real values."
+                },
+                "absolute_tolerance": {
+                    "type": "number",
+                    "default": 0.001,
+                    "wf_prop": false,
+                    "description": "Absolute tolerance, useful when sums are close to zero."
+                },
+                "rmsd": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Print RMSD for coordinates, velocities and forces."
+                },
+                "compare_ab": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": false,
+                    "description": "Compare the A and B topologies from a single input file."
+                },
+                "last_energy_term": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Last energy term to compare."
+                },
+                "binary_path": {
+                    "type": "string",
+                    "default": "gmx",
+                    "wf_prop": false,
+                    "description": "Path to the GROMACS executable binary."
+                },
+                "remove_tmp": {
+                    "type": "boolean",
+                    "default": true,
+                    "wf_prop": true,
+                    "description": "Remove temporal files."
+                },
+                "restart": {
+                    "type": "boolean",
+                    "default": false,
+                    "wf_prop": true,
+                    "description": "Do not execute if output files exist."
+                },
+                "sandbox_path": {
+                    "type": "string",
+                    "default": "./",
+                    "wf_prop": true,
+                    "description": "Parent path to the sandbox directory."
+                },
+                "container_path": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container path definition."
+                },
+                "container_image": {
+                    "type": "string",
+                    "default": "gromacs/gromacs:2022.2",
+                    "wf_prop": false,
+                    "description": "Container image definition."
+                },
+                "container_volume_path": {
+                    "type": "string",
+                    "default": "/tmp",
+                    "wf_prop": false,
+                    "description": "Container volume path definition."
+                },
+                "container_working_dir": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container working directory definition."
+                },
+                "container_user_id": {
+                    "type": "string",
+                    "default": null,
+                    "wf_prop": false,
+                    "description": "Container user_id definition."
+                },
+                "container_shell_path": {
+                    "type": "string",
+                    "default": "/bin/bash",
+                    "wf_prop": false,
+                    "description": "Path to default shell inside the container."
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}
+

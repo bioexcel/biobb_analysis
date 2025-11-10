@@ -18,6 +18,14 @@
             "rest": true
         },
         {
+            "block": "GMXCheck",
+            "tool": "gmx check",
+            "desc": "Wrapper of the GROMACS check module for comparing and validating GROMACS files.",
+            "exec": "gmx_check",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_check",
+            "rest": true
+        },
+        {
             "block": "GMXRms",
             "tool": "gmx rms",
             "desc": "Wrapper of the GROMACS module for calculating the Root Mean Square deviation (RMSd) of a given GROMACS compatible trajectory.",

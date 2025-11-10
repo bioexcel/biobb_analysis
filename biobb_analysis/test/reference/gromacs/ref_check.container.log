@@ -1,0 +1,58 @@
+comparing inputrec
+comparing mtop topology
+comparing force field parameters
+comparing molecule types
+comparing atoms
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing InteractionLists
+comparing blocka excls[0]
+comparing atoms
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing t_resinfo
+comparing InteractionLists
+comparing blocka excls[1]
+comparing atoms
+comparing t_resinfo
+comparing InteractionLists
+comparing blocka excls[2]
+comparing atoms
+comparing t_resinfo
+comparing InteractionLists
+comparing blocka excls[3]
+comparing atoms
+comparing t_resinfo
+comparing InteractionLists
+comparing blocka excls[4]
+comparing molecule blocks
+comparing InteractionLists
+comparing atomtypes
+comparing groups
+comparing intermolecular exclusions
+comparing moleculeBlockIndices
+comparing flags
+comparing box
+comparing box_rel
+comparing boxv
+comparing x
+comparing v
