@@ -1,1 +1,2 @@
 2     E302 expected 2 blank lines, found 1
+3     W391 blank line at end of file
