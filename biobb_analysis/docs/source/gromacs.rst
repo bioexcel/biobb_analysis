@@ -12,6 +12,14 @@ gromacs.gmx_cluster module
     :undoc-members:
     :show-inheritance:
 
+gromacs.gmx_check module
+------------------------
+
+.. automodule:: gromacs.gmx_check
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 gromacs.gmx_rms module
 ------------------------------
 

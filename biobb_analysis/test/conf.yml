@@ -50,6 +50,37 @@ gmx_cluster_singularity:
     container_image: shub://michael-tn/gromacs
     container_volume_path: /tmp
 
+gmx_check:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_structure_2_path: file:test_data_dir/gromacs/topology.tpr
+    output_log_path: output.log
+    ref_output_log_path: file:test_reference_dir/gromacs/ref_check.log
+  properties: {}
+
+gmx_check_docker:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_structure_2_path: file:test_data_dir/gromacs/topology.tpr
+    output_log_path: output.log
+    ref_output_log_path: file:test_reference_dir/gromacs/ref_check.container.log
+  properties:
+    container_path: docker
+    container_image: gromacs/gromacs:2022.2
+    container_volume_path: /tmp
+    container_user_id: "1000"
+
+gmx_check_singularity:
+  paths:
+    input_structure_path: file:test_data_dir/gromacs/topology.tpr
+    input_structure_2_path: file:test_data_dir/gromacs/topology.tpr
+    output_log_path: output.log
+    ref_output_log_path: file:test_reference_dir/gromacs/ref_check.container.log
+  properties:
+    container_path: singularity
+    container_image: shub://michael-tn/gromacs
+    container_volume_path: /tmp
+
 gmx_rms:
   paths:
     input_traj_path: file:test_data_dir/gromacs/trajectory.trr

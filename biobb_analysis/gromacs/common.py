@@ -140,6 +140,14 @@ def check_out_xvg_path(path, out_log, classname):
     return path
 
 
+def check_out_log_path(path, out_log, classname):
+    """Checks if output folder exists for log-like files"""
+    if PurePath(path).parent and not Path(PurePath(path).parent).exists():
+        fu.log(classname + ": Unexisting output folder, exiting", out_log)
+        raise SystemExit(classname + ": Unexisting output folder")
+    return path
+
+
 def check_out_pdb_path(path, out_log, classname):
     """Checks if output folder exists and format is xvg"""
     if PurePath(path).parent and not Path(PurePath(path).parent).exists():

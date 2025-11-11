@@ -1641,6 +1641,144 @@ gmx_cluster --config config_gmx_cluster.yml --input_structure_path topology.tpr 
 gmx_cluster --config config_gmx_cluster.json --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_pdb_path ref_cluster.pdb --output_cluster_log_path gmx_cluster_cluster.log --output_rmsd_cluster_xpm_path gmx_cluster_rmsd-clust.xpm --output_rmsd_dist_xvg_path gmx_cluster_rmsd-dist.xvg
 ```
 
+## Gmx_check
+Wrapper of the GROMACS check module for comparing and validating GROMACS files.
+### Get help
+Command:
+```python
+gmx_check -h
+```
+    usage: gmx_check [-h] [-c CONFIG] [--input_structure_path INPUT_STRUCTURE_PATH]
+                     [--input_structure_2_path INPUT_STRUCTURE_2_PATH]
+                     [--input_traj_path INPUT_TRAJ_PATH]
+                     [--input_traj_2_path INPUT_TRAJ_2_PATH]
+                     [--input_energy_path INPUT_ENERGY_PATH]
+                     [--input_energy_2_path INPUT_ENERGY_2_PATH]
+                     [--structure_check_path STRUCTURE_CHECK_PATH]
+                     [--input_index_path INPUT_INDEX_PATH]
+                     --output_log_path OUTPUT_LOG_PATH
+    
+    Checks and compares GROMACS topology, trajectory or energy files.
+    
+    options:
+      -h, --help            show this help message and exit
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
+      --input_structure_path INPUT_STRUCTURE_PATH
+                            Path to the first GROMACS run input file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+      --input_structure_2_path INPUT_STRUCTURE_2_PATH
+                            Path to the second GROMACS run input file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+      --input_traj_path INPUT_TRAJ_PATH
+                            Path to the first GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+      --input_traj_2_path INPUT_TRAJ_2_PATH
+                            Path to the second GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+      --input_energy_path INPUT_ENERGY_PATH
+                            Path to the first GROMACS energy file. Accepted formats: edr.
+      --input_energy_2_path INPUT_ENERGY_2_PATH
+                            Path to the second GROMACS energy file. Accepted formats: edr.
+      --structure_check_path STRUCTURE_CHECK_PATH
+                            Path to the structure file to analyze for internal consistency. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
+    
+    required arguments:
+      --output_log_path OUTPUT_LOG_PATH
+                            Path to the text file storing the gmx check console output. Accepted formats: log, txt, out.
+### I / O Arguments
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+* **input_structure_path** (*string*): Path to the first GROMACS run input file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
+* **input_structure_2_path** (*string*): Path to the second GROMACS run input file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
+* **input_traj_path** (*string*): Path to the first GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
+* **input_traj_2_path** (*string*): Path to the second GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
+* **input_energy_path** (*string*): Path to the first GROMACS energy file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr). Accepted formats: EDR
+* **input_energy_2_path** (*string*): Path to the second GROMACS energy file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr). Accepted formats: EDR
+* **structure_check_path** (*string*): Path to the structure file to analyze for internal consistency. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
+* **input_index_path** (*string*): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: NDX
+* **output_log_path** (*string*): Path to the text file storing the gmx check console output. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_check.log). Accepted formats: LOG, TXT, OUT
+### Config
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+* **vdwfac** (*number*): (0.8) Fraction of the sum of Van der Waals radii used as warning cutoff..
+* **bonlo** (*number*): (0.4) Minimum fraction of the sum of Van der Waals radii for bonded atoms..
+* **bonhi** (*number*): (0.7) Maximum fraction of the sum of Van der Waals radii for bonded atoms..
+* **relative_tolerance** (*number*): (0.001) Relative tolerance for comparing real values..
+* **absolute_tolerance** (*number*): (0.001) Absolute tolerance, useful when sums are close to zero..
+* **rmsd** (*boolean*): (False) Print RMSD for coordinates, velocities and forces..
+* **compare_ab** (*boolean*): (False) Compare the A and B topologies from a single input file..
+* **last_energy_term** (*string*): (None) Last energy term to compare..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **remove_tmp** (*boolean*): (True) Remove temporal files..
+* **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
+* **container_path** (*string*): (None) Container path definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
+* **container_volume_path** (*string*): (/tmp) Container volume path definition..
+* **container_working_dir** (*string*): (None) Container working directory definition..
+* **container_user_id** (*string*): (None) Container user_id definition..
+* **container_shell_path** (*string*): (/bin/bash) Path to default shell inside the container..
+### YAML
+#### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check.yml)
+```python
+properties: {}
+
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check_docker.yml)
+```python
+properties:
+  container_image: gromacs/gromacs:2022.2
+  container_path: docker
+  container_user_id: '1000'
+  container_volume_path: /tmp
+
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check_singularity.yml)
+```python
+properties:
+  container_image: shub://michael-tn/gromacs
+  container_path: singularity
+  container_volume_path: /tmp
+
+```
+#### Command line
+```python
+gmx_check --config config_gmx_check.yml --input_structure_path topology.tpr --input_structure_2_path topology.tpr --output_log_path ref_check.log
+```
+### JSON
+#### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check.json)
+```python
+{
+  "properties": {}
+}
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check_docker.json)
+```python
+{
+  "properties": {
+    "container_path": "docker",
+    "container_image": "gromacs/gromacs:2022.2",
+    "container_volume_path": "/tmp",
+    "container_user_id": "1000"
+  }
+}
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check_singularity.json)
+```python
+{
+  "properties": {
+    "container_path": "singularity",
+    "container_image": "shub://michael-tn/gromacs",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+#### Command line
+```python
+gmx_check --config config_gmx_check.json --input_structure_path topology.tpr --input_structure_2_path topology.tpr --output_log_path ref_check.log
+```
+
 ## Gmx_energy
 Wrapper of the GROMACS energy module for extracting energy components from a given GROMACS energy file.
 ### Get help
