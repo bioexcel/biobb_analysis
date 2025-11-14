@@ -192,7 +192,7 @@
             "type": "string",
             "description": "Path to the output log file",
             "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_cluster.log",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/gmx_cluster_cluster.log",
             "enum": [
                 ".*\\.log$"
             ],
@@ -208,7 +208,7 @@
             "type": "string",
             "description": "Path to the output X PixMap compatible matrix file",
             "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-clust.xpm",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/gmx_cluster_rmsd-clust.xpm",
             "enum": [
                 ".*\\.xpm$"
             ],
@@ -224,7 +224,7 @@
             "type": "string",
             "description": "Path to xvgr/xmgr file",
             "filetype": "output",
-            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gmx_cluster_rmsd-dist.xvg",
+            "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/gmx_cluster_rmsd-dist.xvg",
             "enum": [
                 ".*\\.xvg$"
             ],
