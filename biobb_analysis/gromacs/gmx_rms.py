@@ -139,7 +139,7 @@ class GMXRms(BiobbObject):
 
 
 def gmx_rms(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` class and
+    """Create the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` class and
     execute the :meth:`launch() <gromacs.gmx_rms.GMXRms.launch>` method."""
     return GMXRms(**dict(locals())).launch()
 

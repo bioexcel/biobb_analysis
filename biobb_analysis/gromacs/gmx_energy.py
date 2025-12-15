@@ -165,7 +165,7 @@ def gmx_energy(
     properties: Optional[dict] = None,
     **kwargs,
 ) -> int:
-    """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
+    """Create the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
     execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch>` method."""
     return GMXEnergy(**dict(locals())).launch()
 

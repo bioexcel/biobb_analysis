@@ -156,7 +156,7 @@ def gmx_trjconv_str(input_structure_path: str,
                     input_index_path: Optional[str] = None,
                     properties: Optional[dict] = None,
                     **kwargs) -> int:
-    """Execute the :class:`GMXTrjConvStr <gromacs.gmx_trjconv_str.GMXTrjConvStr>` class and
+    """Create the :class:`GMXTrjConvStr <gromacs.gmx_trjconv_str.GMXTrjConvStr>` class and
     execute the :meth:`launch() <gromacs.gmx_trjconv_str.GMXTrjConvStr.launch>` method."""
     return GMXTrjConvStr(**dict(locals())).launch()
 

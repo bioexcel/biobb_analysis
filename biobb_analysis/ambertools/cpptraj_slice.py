@@ -163,7 +163,7 @@ class CpptrajSlice(BiobbObject):
 
 
 def cpptraj_slice(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajSlice <ambertools.cpptraj_slice.CpptrajSlice>` class and
+    """Create the :class:`CpptrajSlice <ambertools.cpptraj_slice.CpptrajSlice>` class and
     execute the :meth:`launch() <ambertools.cpptraj_slice.CpptrajSlice.launch>` method."""
     return CpptrajSlice(**dict(locals())).launch()
 

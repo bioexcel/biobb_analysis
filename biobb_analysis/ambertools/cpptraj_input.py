@@ -103,7 +103,7 @@ class CpptrajInput(BiobbObject):
 
 
 def cpptraj_input(input_instructions_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
+    """Create the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
     execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch>` method."""
     return CpptrajInput(**dict(locals())).launch()
 

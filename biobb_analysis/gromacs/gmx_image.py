@@ -189,7 +189,7 @@ class GMXImage(BiobbObject):
 
 
 def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and
+    """Create the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and
     execute the :meth:`launch() <gromacs.gmx_image.GMXImage.launch>` method."""
     return GMXImage(**dict(locals())).launch()
 

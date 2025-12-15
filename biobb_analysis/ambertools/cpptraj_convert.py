@@ -159,7 +159,7 @@ class CpptrajConvert(BiobbObject):
 
 
 def cpptraj_convert(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajConvert <ambertools.cpptraj_convert.CpptrajConvert>` class and
+    """Create the :class:`CpptrajConvert <ambertools.cpptraj_convert.CpptrajConvert>` class and
     execute the :meth:`launch() <ambertools.cpptraj_convert.CpptrajConvert.launch>` method."""
     return CpptrajConvert(**dict(locals())).launch()
 

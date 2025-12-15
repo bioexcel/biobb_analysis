@@ -169,7 +169,7 @@ class CpptrajMask(BiobbObject):
 
 
 def cpptraj_mask(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajMask <ambertools.cpptraj_mask.CpptrajMask>` class and
+    """Create the :class:`CpptrajMask <ambertools.cpptraj_mask.CpptrajMask>` class and
     execute the :meth:`launch() <ambertools.cpptraj_mask.CpptrajMask.launch>` method."""
     return CpptrajMask(**dict(locals())).launch()
 

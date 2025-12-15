@@ -169,7 +169,7 @@ class CpptrajStrip(BiobbObject):
 
 
 def cpptraj_strip(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` class and
+    """Create the :class:`CpptrajStrip <ambertools.cpptraj_strip.CpptrajStrip>` class and
     execute the :meth:`launch() <ambertools.cpptraj_strip.CpptrajStrip.launch>` method."""
     return CpptrajStrip(**dict(locals())).launch()
 

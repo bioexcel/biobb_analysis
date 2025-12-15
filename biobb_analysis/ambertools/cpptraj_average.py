@@ -168,7 +168,7 @@ def cpptraj_average(input_top_path: str,
                     output_cpptraj_path: str,
                     properties: Optional[dict] = None,
                     **kwargs) -> int:
-    """Execute the :class:`CpptrajAverage <ambertools.cpptraj_average.CpptrajAverage>` class and
+    """Create the :class:`CpptrajAverage <ambertools.cpptraj_average.CpptrajAverage>` class and
     execute the :meth:`launch() <ambertools.cpptraj_average.CpptrajAverage.launch>` method."""
     return CpptrajAverage(**dict(locals())).launch()
 

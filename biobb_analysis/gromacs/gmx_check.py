@@ -327,7 +327,7 @@ def gmx_check(
     properties: Optional[dict] = None,
     **kwargs,
 ) -> int:
-    """Execute the :class:`GMXCheck <gromacs.gmx_check.GMXCheck>` class and
+    """Create the :class:`GMXCheck <gromacs.gmx_check.GMXCheck>` class and
     execute the :meth:`launch() <gromacs.gmx_check.GMXCheck.launch>` method."""
     return GMXCheck(**dict(locals())).launch()
 
@@ -340,5 +340,3 @@ main = GMXCheck.get_main(
 
 if __name__ == "__main__":
     main()
-
-

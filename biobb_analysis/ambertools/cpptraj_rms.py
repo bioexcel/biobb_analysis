@@ -187,7 +187,7 @@ class CpptrajRms(BiobbObject):
 
 
 def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
+    """Create the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
     execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
     return CpptrajRms(**dict(locals())).launch()
 

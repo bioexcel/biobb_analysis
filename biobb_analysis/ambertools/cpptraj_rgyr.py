@@ -161,7 +161,7 @@ class CpptrajRgyr(BiobbObject):
 
 
 def cpptraj_rgyr(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajRgyr <ambertools.cpptraj_rgyr.CpptrajRgyr>` class and
+    """Create the :class:`CpptrajRgyr <ambertools.cpptraj_rgyr.CpptrajRgyr>` class and
     execute the :meth:`launch() <ambertools.cpptraj_rgyr.CpptrajRgyr.launch>` method."""
     return CpptrajRgyr(**dict(locals())).launch()
 

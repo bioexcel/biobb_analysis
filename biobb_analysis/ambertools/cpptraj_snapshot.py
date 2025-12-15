@@ -157,7 +157,7 @@ class CpptrajSnapshot(BiobbObject):
 
 
 def cpptraj_snapshot(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` class and
+    """Create the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` class and
     execute the :meth:`launch() <ambertools.cpptraj_snapshot.CpptrajSnapshot.launch>` method."""
     return CpptrajSnapshot(**dict(locals())).launch()
 

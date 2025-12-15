@@ -181,7 +181,7 @@ def gmx_cluster(input_structure_path: str,
                 output_rmsd_dist_xvg_path: Optional[str] = None,
                 properties: Optional[dict] = None,
                 **kwargs) -> int:
-    """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` class and
+    """Create the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` class and
     execute the :meth:`launch() <gromacs.gmx_cluster.GMXCluster.launch>` method."""
     return GMXCluster(**dict(locals())).launch()
 

@@ -169,7 +169,7 @@ class CpptrajImage(BiobbObject):
 
 
 def cpptraj_image(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajImage <ambertools.cpptraj_image.CpptrajImage>` class and
+    """Create the :class:`CpptrajImage <ambertools.cpptraj_image.CpptrajImage>` class and
     execute the :meth:`launch() <ambertools.cpptraj_image.CpptrajImage.launch>` method."""
     return CpptrajImage(**dict(locals())).launch()
 

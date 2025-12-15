@@ -177,7 +177,7 @@ def cpptraj_bfactor(input_top_path: str,
                     output_cpptraj_path: str,
                     input_exp_path: Optional[str] = None,
                     properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajBfactor <ambertools.cpptraj_bfactor.CpptrajBfactor>` class and
+    """Create the :class:`CpptrajBfactor <ambertools.cpptraj_bfactor.CpptrajBfactor>` class and
     execute the :meth:`launch() <ambertools.cpptraj_bfactor.CpptrajBfactor.launch>` method."""
     return CpptrajBfactor(**dict(locals())).launch()
 

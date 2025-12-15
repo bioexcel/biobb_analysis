@@ -165,7 +165,7 @@ class CpptrajDry(BiobbObject):
 
 
 def cpptraj_dry(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Execute the :class:`CpptrajDry <ambertools.cpptraj_dry.CpptrajDry>` class and
+    """Create the :class:`CpptrajDry <ambertools.cpptraj_dry.CpptrajDry>` class and
     execute the :meth:`launch() <ambertools.cpptraj_dry.CpptrajDry.launch>` method."""
     return CpptrajDry(**dict(locals())).launch()
 
