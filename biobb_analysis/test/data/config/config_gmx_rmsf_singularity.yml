@@ -1,0 +1,11 @@
+properties:
+  bfactor: false
+  bin_width: 0.1
+  container_image: shub://michael-tn/gromacs
+  container_path: singularity
+  container_volume_path: /tmp
+  demean: true
+  hist: false
+  mass_weighted: false
+  nofit: false
+  selection: System

@@ -36,32 +36,32 @@
             "file_formats": [
                 {
                     "extension": ".*\\.tpr$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the first GROMACS run input file",
                     "edam": "format_2333"
                 },
                 {
                     "extension": ".*\\.gro$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the first GROMACS run input file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.g96$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the first GROMACS run input file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.pdb$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the first GROMACS run input file",
                     "edam": "format_1476"
                 },
                 {
                     "extension": ".*\\.brk$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the first GROMACS run input file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.ent$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the first GROMACS run input file",
                     "edam": "format_1476"
                 }
             ]
@@ -82,32 +82,32 @@
             "file_formats": [
                 {
                     "extension": ".*\\.tpr$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the second GROMACS run input file",
                     "edam": "format_2333"
                 },
                 {
                     "extension": ".*\\.gro$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the second GROMACS run input file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.g96$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the second GROMACS run input file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.pdb$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the second GROMACS run input file",
                     "edam": "format_1476"
                 },
                 {
                     "extension": ".*\\.brk$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the second GROMACS run input file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.ent$",
-                    "description": "Path to the GROMACS run input file",
+                    "description": "Path to the second GROMACS run input file",
                     "edam": "format_1476"
                 }
             ]
@@ -129,37 +129,37 @@
             "file_formats": [
                 {
                     "extension": ".*\\.xtc$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the first GROMACS trajectory file",
                     "edam": "format_3875"
                 },
                 {
                     "extension": ".*\\.trr$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the first GROMACS trajectory file",
                     "edam": "format_3910"
                 },
                 {
                     "extension": ".*\\.cpt$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the first GROMACS trajectory file",
                     "edam": "format_2333"
                 },
                 {
                     "extension": ".*\\.gro$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the first GROMACS trajectory file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.g96$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the first GROMACS trajectory file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.pdb$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the first GROMACS trajectory file",
                     "edam": "format_1476"
                 },
                 {
                     "extension": ".*\\.tng$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the first GROMACS trajectory file",
                     "edam": "format_3876"
                 }
             ]
@@ -181,37 +181,37 @@
             "file_formats": [
                 {
                     "extension": ".*\\.xtc$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the second GROMACS trajectory file",
                     "edam": "format_3875"
                 },
                 {
                     "extension": ".*\\.trr$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the second GROMACS trajectory file",
                     "edam": "format_3910"
                 },
                 {
                     "extension": ".*\\.cpt$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the second GROMACS trajectory file",
                     "edam": "format_2333"
                 },
                 {
                     "extension": ".*\\.gro$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the second GROMACS trajectory file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.g96$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the second GROMACS trajectory file",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.pdb$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the second GROMACS trajectory file",
                     "edam": "format_1476"
                 },
                 {
                     "extension": ".*\\.tng$",
-                    "description": "Path to the GROMACS trajectory file",
+                    "description": "Path to the second GROMACS trajectory file",
                     "edam": "format_3876"
                 }
             ]
@@ -227,7 +227,7 @@
             "file_formats": [
                 {
                     "extension": ".*\\.edr$",
-                    "description": "Path to the GROMACS energy file",
+                    "description": "Path to the first GROMACS energy file",
                     "edam": "format_2330"
                 }
             ]
@@ -243,7 +243,7 @@
             "file_formats": [
                 {
                     "extension": ".*\\.edr$",
-                    "description": "Path to the GROMACS energy file",
+                    "description": "Path to the second GROMACS energy file",
                     "edam": "format_2330"
                 }
             ]
@@ -264,32 +264,32 @@
             "file_formats": [
                 {
                     "extension": ".*\\.tpr$",
-                    "description": "Path to the structure file",
+                    "description": "Path to the structure file to analyze for internal consistency",
                     "edam": "format_2333"
                 },
                 {
                     "extension": ".*\\.gro$",
-                    "description": "Path to the structure file",
+                    "description": "Path to the structure file to analyze for internal consistency",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.g96$",
-                    "description": "Path to the structure file",
+                    "description": "Path to the structure file to analyze for internal consistency",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.pdb$",
-                    "description": "Path to the structure file",
+                    "description": "Path to the structure file to analyze for internal consistency",
                     "edam": "format_1476"
                 },
                 {
                     "extension": ".*\\.brk$",
-                    "description": "Path to the structure file",
+                    "description": "Path to the structure file to analyze for internal consistency",
                     "edam": "format_2033"
                 },
                 {
                     "extension": ".*\\.ent$",
-                    "description": "Path to the structure file",
+                    "description": "Path to the structure file to analyze for internal consistency",
                     "edam": "format_1476"
                 }
             ]
@@ -316,24 +316,24 @@
             "filetype": "output",
             "sample": "https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_check.log",
             "enum": [
-                ".*\\.log$",
                 ".*\\.txt$",
+                ".*\\.log$",
                 ".*\\.out$"
             ],
             "file_formats": [
                 {
-                    "extension": ".*\\.log$",
-                    "description": "Path to the gmx check console output file",
+                    "extension": ".*\\.txt$",
+                    "description": "Path to the text file storing the gmx check console output",
                     "edam": "format_2330"
                 },
                 {
-                    "extension": ".*\\.txt$",
-                    "description": "Path to the gmx check console output file",
+                    "extension": ".*\\.log$",
+                    "description": "Path to the text file storing the gmx check console output",
                     "edam": "format_2330"
                 },
                 {
                     "extension": ".*\\.out$",
-                    "description": "Path to the gmx check console output file",
+                    "description": "Path to the text file storing the gmx check console output",
                     "edam": "format_2330"
                 }
             ]
@@ -454,4 +454,3 @@
     },
     "additionalProperties": false
 }
-

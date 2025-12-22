@@ -159,8 +159,6 @@ cpptraj_bfactor -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_exp_path INPUT_EXP_PATH
-                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
@@ -169,6 +167,10 @@ cpptraj_bfactor -h
                             Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
       -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
                             Path to the output processed analysis. Accepted formats: dat, agr, xmgr, gnu.
+    
+    optional arguments:
+      --input_exp_path INPUT_EXP_PATH
+                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -927,10 +929,6 @@ cpptraj_rms -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_exp_path INPUT_EXP_PATH
-                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
-      --output_traj_path OUTPUT_TRAJ_PATH
-                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
@@ -939,6 +937,12 @@ cpptraj_rms -h
                             Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
       --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
                             Path to the output processed analysis. Accepted formats: dat, agr, xmgr, gnu.
+    
+    optional arguments:
+      --input_exp_path INPUT_EXP_PATH
+                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
+      --output_traj_path OUTPUT_TRAJ_PATH
+                            Path to the output processed trajectory. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1018,8 +1022,6 @@ cpptraj_rmsf -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_exp_path INPUT_EXP_PATH
-                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
     
     required arguments:
       --input_top_path INPUT_TOP_PATH
@@ -1028,6 +1030,10 @@ cpptraj_rmsf -h
                             Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
       -o OUTPUT_CPPTRAJ_PATH, --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
                             Path to the output processed analysis. Accepted formats: dat, agr, xmgr, gnu.
+    
+    optional arguments:
+      --input_exp_path INPUT_EXP_PATH
+                            Path to the experimental reference file (required if reference = experimental). Accepted formats: pdb.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1488,6 +1494,52 @@ cpptraj_strip --config config_cpptraj_strip.yml --input_top_path cpptraj.parm.to
 cpptraj_strip --config config_cpptraj_strip.json --input_top_path cpptraj.parm.top --input_traj_path cpptraj.traj.dcd --output_cpptraj_path ref_cpptraj.strip.netcdf
 ```
 
+## Gmx_check
+Wrapper of the GROMACS check module for comparing and validating GROMACS files.
+### Get help
+Command:
+```python
+gmx_check -h
+```
+    /bin/sh: 1: gmx_check: not found
+### I / O Arguments
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+* **input_structure_path** (*string*): Path to the first GROMACS run input file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
+* **input_structure_2_path** (*string*): Path to the second GROMACS run input file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
+* **input_traj_path** (*string*): Path to the first GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
+* **input_traj_2_path** (*string*): Path to the second GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
+* **input_energy_path** (*string*): Path to the first GROMACS energy file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr). Accepted formats: EDR
+* **input_energy_2_path** (*string*): Path to the second GROMACS energy file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr). Accepted formats: EDR
+* **structure_check_path** (*string*): Path to the structure file to analyze for internal consistency. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
+* **input_index_path** (*string*): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: NDX
+* **output_log_path** (*string*): Path to the text file storing the gmx check console output. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_check.log). Accepted formats: TXT, LOG, OUT
+### Config
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+* **vdwfac** (*number*): (0.8) Fraction of the sum of Van der Waals radii used as warning cutoff..
+* **bonlo** (*number*): (0.4) Minimum fraction of the sum of Van der Waals radii for bonded atoms..
+* **bonhi** (*number*): (0.7) Maximum fraction of the sum of Van der Waals radii for bonded atoms..
+* **relative_tolerance** (*number*): (0.001) Relative tolerance for comparing real values..
+* **absolute_tolerance** (*number*): (0.001) Absolute tolerance, useful when sums are close to zero..
+* **rmsd** (*boolean*): (False) Print RMSD for coordinates, velocities and forces..
+* **compare_ab** (*boolean*): (False) Compare the A and B topologies from a single input file..
+* **last_energy_term** (*string*): (None) Last energy term to compare..
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **remove_tmp** (*boolean*): (True) Remove temporal files..
+* **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
+* **container_path** (*string*): (None) Container path definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
+* **container_volume_path** (*string*): (/tmp) Container volume path definition..
+* **container_working_dir** (*string*): (None) Container working directory definition..
+* **container_user_id** (*string*): (None) Container user_id definition..
+* **container_shell_path** (*string*): (/bin/bash) Path to default shell inside the container..
+### YAML
+### JSON
+
 ## Gmx_cluster
 Wrapper of the GROMACS cluster module for clustering structures from a given GROMACS compatible trajectory.
 ### Get help
@@ -1503,14 +1555,6 @@ gmx_cluster -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
-      --output_cluster_log_path OUTPUT_CLUSTER_LOG_PATH
-                            Path to the output log file. Accepted formats: log.
-      --output_rmsd_cluster_xpm_path OUTPUT_RMSD_CLUSTER_XPM_PATH
-                            Path to the output X PixMap compatible matrix file. Accepted formats: xpm.
-      --output_rmsd_dist_xvg_path OUTPUT_RMSD_DIST_XVG_PATH
-                            Path to xvgr/xmgr file. Accepted formats: xvg.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
@@ -1519,6 +1563,16 @@ gmx_cluster -h
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
       --output_pdb_path OUTPUT_PDB_PATH
                             Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+    
+    optional arguments:
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
+      --output_cluster_log_path OUTPUT_CLUSTER_LOG_PATH
+                            Path to the output log file. Accepted formats: log.
+      --output_rmsd_cluster_xpm_path OUTPUT_RMSD_CLUSTER_XPM_PATH
+                            Path to the output X PixMap compatible matrix file. Accepted formats: xpm.
+      --output_rmsd_dist_xvg_path OUTPUT_RMSD_DIST_XVG_PATH
+                            Path to xvgr/xmgr file. Accepted formats: xvg.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -1639,144 +1693,6 @@ gmx_cluster --config config_gmx_cluster.yml --input_structure_path topology.tpr 
 #### Command line
 ```python
 gmx_cluster --config config_gmx_cluster.json --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_pdb_path ref_cluster.pdb --output_cluster_log_path gmx_cluster_cluster.log --output_rmsd_cluster_xpm_path gmx_cluster_rmsd-clust.xpm --output_rmsd_dist_xvg_path gmx_cluster_rmsd-dist.xvg
-```
-
-## Gmx_check
-Wrapper of the GROMACS check module for comparing and validating GROMACS files.
-### Get help
-Command:
-```python
-gmx_check -h
-```
-    usage: gmx_check [-h] [-c CONFIG] [--input_structure_path INPUT_STRUCTURE_PATH]
-                     [--input_structure_2_path INPUT_STRUCTURE_2_PATH]
-                     [--input_traj_path INPUT_TRAJ_PATH]
-                     [--input_traj_2_path INPUT_TRAJ_2_PATH]
-                     [--input_energy_path INPUT_ENERGY_PATH]
-                     [--input_energy_2_path INPUT_ENERGY_2_PATH]
-                     [--structure_check_path STRUCTURE_CHECK_PATH]
-                     [--input_index_path INPUT_INDEX_PATH]
-                     --output_log_path OUTPUT_LOG_PATH
-    
-    Checks and compares GROMACS topology, trajectory or energy files.
-    
-    options:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_structure_path INPUT_STRUCTURE_PATH
-                            Path to the first GROMACS run input file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-      --input_structure_2_path INPUT_STRUCTURE_2_PATH
-                            Path to the second GROMACS run input file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-      --input_traj_path INPUT_TRAJ_PATH
-                            Path to the first GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-      --input_traj_2_path INPUT_TRAJ_2_PATH
-                            Path to the second GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-      --input_energy_path INPUT_ENERGY_PATH
-                            Path to the first GROMACS energy file. Accepted formats: edr.
-      --input_energy_2_path INPUT_ENERGY_2_PATH
-                            Path to the second GROMACS energy file. Accepted formats: edr.
-      --structure_check_path STRUCTURE_CHECK_PATH
-                            Path to the structure file to analyze for internal consistency. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
-    
-    required arguments:
-      --output_log_path OUTPUT_LOG_PATH
-                            Path to the text file storing the gmx check console output. Accepted formats: log, txt, out.
-### I / O Arguments
-Syntax: input_argument (datatype) : Definition
-
-Config input / output arguments for this building block:
-* **input_structure_path** (*string*): Path to the first GROMACS run input file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
-* **input_structure_2_path** (*string*): Path to the second GROMACS run input file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
-* **input_traj_path** (*string*): Path to the first GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
-* **input_traj_2_path** (*string*): Path to the second GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
-* **input_energy_path** (*string*): Path to the first GROMACS energy file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr). Accepted formats: EDR
-* **input_energy_2_path** (*string*): Path to the second GROMACS energy file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/energy.edr). Accepted formats: EDR
-* **structure_check_path** (*string*): Path to the structure file to analyze for internal consistency. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
-* **input_index_path** (*string*): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: NDX
-* **output_log_path** (*string*): Path to the text file storing the gmx check console output. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_check.log). Accepted formats: LOG, TXT, OUT
-### Config
-Syntax: input_parameter (datatype) - (default_value) Definition
-
-Config parameters for this building block:
-* **vdwfac** (*number*): (0.8) Fraction of the sum of Van der Waals radii used as warning cutoff..
-* **bonlo** (*number*): (0.4) Minimum fraction of the sum of Van der Waals radii for bonded atoms..
-* **bonhi** (*number*): (0.7) Maximum fraction of the sum of Van der Waals radii for bonded atoms..
-* **relative_tolerance** (*number*): (0.001) Relative tolerance for comparing real values..
-* **absolute_tolerance** (*number*): (0.001) Absolute tolerance, useful when sums are close to zero..
-* **rmsd** (*boolean*): (False) Print RMSD for coordinates, velocities and forces..
-* **compare_ab** (*boolean*): (False) Compare the A and B topologies from a single input file..
-* **last_energy_term** (*string*): (None) Last energy term to compare..
-* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
-* **remove_tmp** (*boolean*): (True) Remove temporal files..
-* **restart** (*boolean*): (False) Do not execute if output files exist..
-* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
-* **container_path** (*string*): (None) Container path definition..
-* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
-* **container_volume_path** (*string*): (/tmp) Container volume path definition..
-* **container_working_dir** (*string*): (None) Container working directory definition..
-* **container_user_id** (*string*): (None) Container user_id definition..
-* **container_shell_path** (*string*): (/bin/bash) Path to default shell inside the container..
-### YAML
-#### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check.yml)
-```python
-properties: {}
-
-```
-#### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check_docker.yml)
-```python
-properties:
-  container_image: gromacs/gromacs:2022.2
-  container_path: docker
-  container_user_id: '1000'
-  container_volume_path: /tmp
-
-```
-#### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check_singularity.yml)
-```python
-properties:
-  container_image: shub://michael-tn/gromacs
-  container_path: singularity
-  container_volume_path: /tmp
-
-```
-#### Command line
-```python
-gmx_check --config config_gmx_check.yml --input_structure_path topology.tpr --input_structure_2_path topology.tpr --output_log_path ref_check.log
-```
-### JSON
-#### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check.json)
-```python
-{
-  "properties": {}
-}
-```
-#### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check_docker.json)
-```python
-{
-  "properties": {
-    "container_path": "docker",
-    "container_image": "gromacs/gromacs:2022.2",
-    "container_volume_path": "/tmp",
-    "container_user_id": "1000"
-  }
-}
-```
-#### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_check_singularity.json)
-```python
-{
-  "properties": {
-    "container_path": "singularity",
-    "container_image": "shub://michael-tn/gromacs",
-    "container_volume_path": "/tmp"
-  }
-}
-```
-#### Command line
-```python
-gmx_check --config config_gmx_check.json --input_structure_path topology.tpr --input_structure_2_path topology.tpr --output_log_path ref_check.log
 ```
 
 ## Gmx_energy
@@ -1919,8 +1835,6 @@ gmx_image -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
     
     required arguments:
       --input_traj_path INPUT_TRAJ_PATH
@@ -1929,6 +1843,10 @@ gmx_image -h
                             Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
       -o OUTPUT_TRAJ_PATH, --output_traj_path OUTPUT_TRAJ_PATH
                             Path to the output file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+    
+    optional arguments:
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -2077,8 +1995,6 @@ gmx_rgyr -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
@@ -2087,6 +2003,10 @@ gmx_rgyr -h
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
       -o OUTPUT_XVG_PATH, --output_xvg_path OUTPUT_XVG_PATH
                             Path to the XVG output file. Accepted formats: xvg.
+    
+    optional arguments:
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -2193,8 +2113,6 @@ gmx_rms -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
@@ -2203,6 +2121,10 @@ gmx_rms -h
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
       -o OUTPUT_XVG_PATH, --output_xvg_path OUTPUT_XVG_PATH
                             Path to the XVG output file. Accepted formats: xvg.
+    
+    optional arguments:
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -2301,24 +2223,7 @@ Command:
 ```python
 gmx_rmsf -h
 ```
-    usage: gmx_rmsf [-h] [-c CONFIG] --input_structure_path INPUT_STRUCTURE_PATH --input_traj_path INPUT_TRAJ_PATH [--input_index_path INPUT_INDEX_PATH] -o OUTPUT_XVG_PATH
-    
-    Performs a Root Mean Square Fluctuation (RMSF) analysis from a given GROMACS compatible trajectory.
-    
-    options:
-      -h, --help            show this help message and exit
-      -c CONFIG, --config CONFIG
-                            This file can be a YAML file, JSON file or JSON string
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
-    
-    required arguments:
-      --input_structure_path INPUT_STRUCTURE_PATH
-                            Path to the input structure file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-      --input_traj_path INPUT_TRAJ_PATH
-                            Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
-      -o OUTPUT_XVG_PATH, --output_xvg_path OUTPUT_XVG_PATH
-                            Path to the XVG output file. Accepted formats: xvg.
+    /bin/sh: 1: gmx_rmsf: not found
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -2326,57 +2231,83 @@ Config input / output arguments for this building block:
 * **input_structure_path** (*string*): Path to the input structure file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
 * **input_traj_path** (*string*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
 * **input_index_path** (*string*): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: NDX
-* **output_xvg_path** (*string*): Path to the XVG output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_rmsf.xvg). Accepted formats: XVG
+* **output_xvg_path** (*string*): Path to the XVG output file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_rms.xvg). Accepted formats: XVG
 ### Config
 Syntax: input_parameter (datatype) - (default_value) Definition
 
 Config parameters for this building block:
-* **xvg** (*string*): (none) XVG plot formatting.
-* **selection** (*string*): (System) Group where the rmsf will be performed. If **input_index_path** provided, check the file for the accepted values.
-* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
-* **remove_tmp** (*boolean*): (True) Remove temporal files.
-* **restart** (*boolean*): (False) Do not execute if output files exist.
-* **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
-* **container_path** (*string*): (None) Container path definition.
-* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition.
-* **container_volume_path** (*string*): (/tmp) Container volume path definition.
-* **container_working_dir** (*string*): (None) Container working directory definition.
-* **container_user_id** (*string*): (None) Container user_id definition.
-* **container_shell_path** (*string*): (/bin/bash) Path to default shell inside the container.
+* **xvg** (*string*): (none) XVG plot formatting. .
+* **selection** (*string*): (System) Group where the rmsf will be performed. If **input_index_path** provided, check the file for the accepted values. .
+* **binary_path** (*string*): (gmx) Path to the GROMACS executable binary..
+* **remove_tmp** (*boolean*): (True) Remove temporal files..
+* **restart** (*boolean*): (False) Do not execute if output files exist..
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory..
+* **container_path** (*string*): (None) Container path definition..
+* **container_image** (*string*): (gromacs/gromacs:2022.2) Container image definition..
+* **container_volume_path** (*string*): (/tmp) Container volume path definition..
+* **container_working_dir** (*string*): (None) Container working directory definition..
+* **container_user_id** (*string*): (None) Container user_id definition..
+* **container_shell_path** (*string*): (/bin/bash) Path to default shell inside the container..
 ### YAML
 #### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf.yml)
 ```python
 properties:
+  bfactor: false
+  bin_width: 0.1
+  demean: true
+  hist: false
+  mass_weighted: false
+  nofit: false
   selection: System
 
 ```
 #### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf_docker.yml)
 ```python
 properties:
+  bfactor: false
+  bin_width: 0.1
   container_image: gromacs/gromacs:2022.2
   container_path: docker
   container_user_id: '1000'
   container_volume_path: /tmp
+  demean: true
+  hist: false
+  mass_weighted: false
+  nofit: false
   selection: System
+
 ```
 #### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf_singularity.yml)
 ```python
 properties:
+  bfactor: false
+  bin_width: 0.1
   container_image: shub://michael-tn/gromacs
   container_path: singularity
   container_volume_path: /tmp
+  demean: true
+  hist: false
+  mass_weighted: false
+  nofit: false
   selection: System
+
 ```
 #### Command line
 ```python
-gmx_rmsf --config config_gmx_rmsf.yml --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_xvg_path ref_rmsf.xvg
+gmx_rmsf --config config_gmx_rmsf.yml --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_xvg_path ref_rms.xvg
 ```
 ### JSON
 #### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_gmx_rmsf.json)
 ```python
 {
   "properties": {
-    "selection": "System"
+    "selection": "System",
+    "demean": true,
+    "mass_weighted": false,
+    "nofit": false,
+    "bfactor": false,
+    "bin_width": 0.1,
+    "hist": false
   }
 }
 ```
@@ -2385,6 +2316,12 @@ gmx_rmsf --config config_gmx_rmsf.yml --input_structure_path topology.tpr --inpu
 {
   "properties": {
     "selection": "System",
+    "demean": true,
+    "mass_weighted": false,
+    "nofit": false,
+    "bfactor": false,
+    "bin_width": 0.1,
+    "hist": false,
     "container_path": "docker",
     "container_image": "gromacs/gromacs:2022.2",
     "container_volume_path": "/tmp",
@@ -2397,6 +2334,12 @@ gmx_rmsf --config config_gmx_rmsf.yml --input_structure_path topology.tpr --inpu
 {
   "properties": {
     "selection": "System",
+    "demean": true,
+    "mass_weighted": false,
+    "nofit": false,
+    "bfactor": false,
+    "bin_width": 0.1,
+    "hist": false,
     "container_path": "singularity",
     "container_image": "shub://michael-tn/gromacs",
     "container_volume_path": "/tmp"
@@ -2405,7 +2348,7 @@ gmx_rmsf --config config_gmx_rmsf.yml --input_structure_path topology.tpr --inpu
 ```
 #### Command line
 ```python
-gmx_rmsf --config config_gmx_rmsf.json --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_xvg_path ref_rmsf.xvg
+gmx_rmsf --config config_gmx_rmsf.json --input_structure_path topology.tpr --input_traj_path trajectory.trr --input_index_path index.ndx --output_xvg_path ref_rms.xvg
 ```
 
 ## Gmx_trjconv_str
@@ -2423,8 +2366,6 @@ gmx_trjconv_str -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
     
     required arguments:
       --input_structure_path INPUT_STRUCTURE_PATH
@@ -2433,6 +2374,10 @@ gmx_trjconv_str -h
                             Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
       -o OUTPUT_STR_PATH, --output_str_path OUTPUT_STR_PATH
                             Path to the output file. Accepted formats: pdb, xtc, trr, cpt, gro, g96, tng.
+    
+    optional arguments:
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -2542,8 +2487,6 @@ gmx_trjconv_str_ens -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
     
     required arguments:
       --input_traj_path INPUT_TRAJ_PATH
@@ -2552,6 +2495,10 @@ gmx_trjconv_str_ens -h
                             Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
       -o OUTPUT_STR_ENS_PATH, --output_str_ens_path OUTPUT_STR_ENS_PATH
                             Path to the output file. Accepted formats: zip.
+    
+    optional arguments:
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
@@ -2693,16 +2640,18 @@ gmx_trjconv_trj -h
       -h, --help            show this help message and exit
       -c CONFIG, --config CONFIG
                             This file can be a YAML file, JSON file or JSON string
-      --input_top_path INPUT_TOP_PATH
-                            Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
-      --input_index_path INPUT_INDEX_PATH
-                            Path to the GROMACS index file. Accepted formats: ndx.
     
     required arguments:
       --input_traj_path INPUT_TRAJ_PATH
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
       -o OUTPUT_TRAJ_PATH, --output_traj_path OUTPUT_TRAJ_PATH
                             Path to the output file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+    
+    optional arguments:
+      --input_top_path INPUT_TOP_PATH
+                            Path to the GROMACS input topology file. Accepted formats: tpr, gro, g96, pdb, brk, ent.
+      --input_index_path INPUT_INDEX_PATH
+                            Path to the GROMACS index file. Accepted formats: ndx.
 ### I / O Arguments
 Syntax: input_argument (datatype) : Definition
 
