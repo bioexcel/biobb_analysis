@@ -89,7 +89,7 @@ class GMXImage(BiobbObject):
         self.cluster_selection = properties.get('cluster_selection', "System")
         self.output_selection = properties.get('output_selection', "System")
         self.pbc = properties.get('pbc', "mol")
-        self.center = properties.get('dista', True)
+        self.center = properties.get('center', True)
         self.ur = properties.get('ur', "compact")
         self.fit = properties.get('fit', "none")
         self.properties = properties
@@ -129,6 +129,9 @@ class GMXImage(BiobbObject):
     def launch(self) -> int:
         """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` object."""
 
+        # check input/output paths and parameters
+        self.check_data_params(self.out_log, self.err_log)
+
         # If fitting provided, echo fit_selection
         if self.fit == 'none':
             if self.center:
@@ -142,9 +145,6 @@ class GMXImage(BiobbObject):
                 selections = self.fit_selection + ' ' + self.center_selection + ' ' + self.output_selection
             else:
                 selections = self.fit_selection + ' ' + self.output_selection
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
 
         # Setup Biobb
         if self.check_restart():
