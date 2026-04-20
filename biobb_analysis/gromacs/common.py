@@ -223,6 +223,7 @@ def get_default_value(key):
         "start": None,
         "end": None,
         "dt": None,
+        "dump": None, 
         "ot_str_ens": "pdb",
     }
 
@@ -366,6 +367,16 @@ def get_dt(properties, out_log, classname):
         fu.log(classname + ": Incorrect dt provided, exiting", out_log)
         raise SystemExit(classname + ": Incorrect dt provided")
     return str(dt)
+
+def get_dump(properties, out_log, classname):
+    """Gets dump"""
+    dump = properties.get("dump", get_default_value("dump"))
+    if dump is None:
+        return dump
+    if not is_valid_int(dump):
+        fu.log(classname + ": Incorrect dump provided, exiting", out_log)
+        raise SystemExit(classname + ": Incorrect dump provided")
+    return str(dump)
 
 
 def get_ot_str_ens(properties, out_log, classname):
