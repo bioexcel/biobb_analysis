@@ -25,6 +25,7 @@ class GMXTrjConvTrj(BiobbObject):
             * **start** (*int*) - (0) [0~10000|1] Time of first frame to read from trajectory (default unit ps).
             * **end** (*int*) - (0) [0~10000|1] Time of last frame to read from trajectory (default unit ps).
             * **dt** (*int*) - (0) [0~10000|1] Only write frame when t MOD dt = first time (ps).
+            * **dump** (*int*) - (0) [0~10000|1] Dump frame nearest specified time (ps). If specified, overrides the -b, -e and -dt options.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -83,6 +84,7 @@ class GMXTrjConvTrj(BiobbObject):
         self.start = properties.get('start')
         self.end = properties.get('end')
         self.dt = properties.get('dt')
+        self.dump = properties.get('dump')
         self.properties = properties
 
         # Properties common in all GROMACS BB
@@ -113,6 +115,7 @@ class GMXTrjConvTrj(BiobbObject):
         self.start = gro_common.get_start(self.properties, out_log, self.__class__.__name__)
         self.end = gro_common.get_end(self.properties, out_log, self.__class__.__name__)
         self.dt = gro_common.get_dt(self.properties, out_log, self.__class__.__name__)
+        self.dump = gro_common.get_dump(self.properties, out_log, self.__class__.__name__)
 
     @launchlogger
     def launch(self) -> int:
@@ -136,12 +139,15 @@ class GMXTrjConvTrj(BiobbObject):
 
         self.cmd = [self.binary_path, 'trjconv', '-f', self.stage_io_dict["in"]["input_traj_path"]]
 
-        if self.start:
-            self.cmd.extend(['-b', str(self.start)])
-        if self.end:
-            self.cmd.extend(['-e', str(self.end)])
-        if self.dt:
-            self.cmd.extend(['-dt', str(self.dt)])
+        if self.dump:
+            self.cmd.extend(['-dump', str(self.dump)])
+        else:
+            if self.start:
+                self.cmd.extend(['-b', str(self.start)])
+            if self.end:
+                self.cmd.extend(['-e', str(self.end)])
+            if self.dt:
+                self.cmd.extend(['-dt', str(self.dt)])
 
         self.cmd.extend(['-o', self.stage_io_dict["out"]["output_traj_path"]])
 
