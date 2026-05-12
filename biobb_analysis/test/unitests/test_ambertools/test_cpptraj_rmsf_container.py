@@ -2,6 +2,7 @@
 import pytest
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.ambertools.cpptraj_rmsf import cpptraj_rmsf
+import sys
 
 
 class TestCpptrajRmsfFirstDocker():
@@ -46,7 +47,7 @@ class TestCpptrajRmsfExperimentalDocker():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestCpptrajRmsfFirstSingularity():
     def setup_class(self):
         fx.test_setup(self, 'cpptraj_rmsf_first_singularity')
@@ -61,7 +62,7 @@ class TestCpptrajRmsfFirstSingularity():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestCpptrajRmsfAverageSingularity():
     def setup_class(self):
         fx.test_setup(self, 'cpptraj_rmsf_average_singularity')
@@ -76,7 +77,7 @@ class TestCpptrajRmsfAverageSingularity():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestCpptrajRmsfExperimentalSingularity():
     def setup_class(self):
         fx.test_setup(self, 'cpptraj_rmsf_experimental_singularity')

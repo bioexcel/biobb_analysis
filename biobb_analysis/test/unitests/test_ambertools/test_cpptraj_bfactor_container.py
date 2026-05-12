@@ -2,6 +2,7 @@
 import pytest
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.ambertools.cpptraj_bfactor import cpptraj_bfactor
+import sys
 
 
 class TestCpptrajBfactorFirstDocker():
@@ -18,7 +19,7 @@ class TestCpptrajBfactorFirstDocker():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestCpptrajBfactorFirstSingularity():
     def setup_class(self):
         fx.test_setup(self, 'cpptraj_bfactor_first_singularity')

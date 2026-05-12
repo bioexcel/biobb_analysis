@@ -2,6 +2,7 @@
 import pytest
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.ambertools.cpptraj_mask import cpptraj_mask
+import sys
 
 
 class TestCpptrajMaskDocker():
@@ -18,7 +19,7 @@ class TestCpptrajMaskDocker():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestCpptrajMaskSingularity():
     def setup_class(self):
         fx.test_setup(self, 'cpptraj_mask_singularity')

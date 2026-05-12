@@ -2,6 +2,7 @@
 import pytest
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.ambertools.cpptraj_strip import cpptraj_strip
+import sys
 
 
 class TestCpptrajStripDocker():
@@ -18,7 +19,7 @@ class TestCpptrajStripDocker():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestCpptrajStripSingularity():
     def setup_class(self):
         fx.test_setup(self, 'cpptraj_strip_singularity')

@@ -2,6 +2,7 @@
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.gromacs.gmx_trjconv_str import gmx_trjconv_str
 import pytest
+import sys
 
 
 class TestGMXTrjConvStrDocker():
@@ -18,7 +19,7 @@ class TestGMXTrjConvStrDocker():
         assert fx.equal(self.paths['output_str_path'], self.paths['ref_output_str_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestGMXTrjConvStrSingularity():
     def setup_class(self):
         fx.test_setup(self, 'gmx_trjconv_str_singularity')

@@ -29,7 +29,7 @@ gmx_cluster_docker:
     method: linkage
     cutoff: 0.1
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -47,7 +47,7 @@ gmx_cluster_singularity:
     method: linkage
     cutoff: 0.1
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_check:
@@ -66,7 +66,7 @@ gmx_check_docker:
     ref_output_log_path: file:test_reference_dir/gromacs/ref_check.container.log
   properties:
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -78,7 +78,7 @@ gmx_check_singularity:
     ref_output_log_path: file:test_reference_dir/gromacs/ref_check.container.log
   properties:
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_rms:
@@ -101,7 +101,7 @@ gmx_rms_docker:
   properties:
     selection: System
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -115,7 +115,7 @@ gmx_rms_singularity:
   properties:
     selection: System
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_rmsf:
@@ -127,12 +127,6 @@ gmx_rmsf:
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rmsf.xvg
   properties:
     selection: System
-    demean: True
-    mass_weighted: False
-    nofit: False
-    bfactor: False
-    bin_width: 0.1
-    hist: False
 
 gmx_rmsf_docker:
   paths:
@@ -143,14 +137,8 @@ gmx_rmsf_docker:
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rmsf.container.xvg
   properties:
     selection: System
-    demean: True
-    mass_weighted: False
-    nofit: False
-    bfactor: False
-    bin_width: 0.1
-    hist: False
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
   
@@ -163,14 +151,8 @@ gmx_rmsf_singularity:
     ref_output_xvg_path: file:test_reference_dir/gromacs/ref_rmsf.container.xvg
   properties:
     selection: System
-    demean: True
-    mass_weighted: False
-    nofit: False
-    bfactor: False
-    bin_width: 0.1
-    hist: False
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_energy:
@@ -189,7 +171,7 @@ gmx_energy_docker:
   properties:
     terms: [Potential, Pressure]
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -201,7 +183,7 @@ gmx_energy_singularity:
   properties:
     terms: [Potential, Pressure]
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_rgyr:
@@ -224,7 +206,7 @@ gmx_rgyr_docker:
   properties:
     selection: System
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -238,7 +220,7 @@ gmx_rgyr_singularity:
   properties:
     selection: System
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_trjconv_str:
@@ -261,7 +243,7 @@ gmx_trjconv_str_docker:
   properties:
     selection: System
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -275,7 +257,7 @@ gmx_trjconv_str_singularity:
   properties:
     selection: System
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_trjconv_str_ens:
@@ -308,7 +290,7 @@ gmx_trjconv_str_ens_docker:
     output_name: output
     output_type: pdb
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -327,7 +309,7 @@ gmx_trjconv_str_ens_singularity:
     output_name: output
     output_type: pdb
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_trjconv_trj:
@@ -354,7 +336,7 @@ gmx_trjconv_trj_docker:
     end: 0
     dt: 0
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -370,7 +352,7 @@ gmx_trjconv_trj_singularity:
     end: 0
     dt: 0
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 gmx_image:
@@ -405,7 +387,7 @@ gmx_image_docker:
     fit: rot+trans
     ur: compact
     container_path: docker
-    container_image: gromacs/gromacs:2022.2
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
     container_user_id: "1000"
 
@@ -425,7 +407,7 @@ gmx_image_singularity:
     fit: rot+trans
     ur: compact
     container_path: singularity
-    container_image: shub://michael-tn/gromacs
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_input:
@@ -464,7 +446,7 @@ cpptraj_convert_docker:
     mask: c-alpha
     format: netcdf
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_convert_singularity:
@@ -480,7 +462,7 @@ cpptraj_convert_singularity:
     mask: c-alpha
     format: netcdf
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_average:
@@ -509,7 +491,7 @@ cpptraj_average_docker:
     mask: c-alpha
     format: pdb
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_average_singularity:
@@ -525,7 +507,7 @@ cpptraj_average_singularity:
     mask: c-alpha
     format: pdb
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_dry:
@@ -554,7 +536,7 @@ cpptraj_dry_docker:
     mask: c-alpha
     format: netcdf
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_dry_singularity:
@@ -570,7 +552,7 @@ cpptraj_dry_singularity:
     mask: c-alpha
     format: netcdf
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_image:
@@ -599,7 +581,7 @@ cpptraj_image_docker:
     mask: c-alpha
     format: netcdf
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_image_singularity:
@@ -615,7 +597,7 @@ cpptraj_image_singularity:
     mask: c-alpha
     format: netcdf
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_mask:
@@ -644,7 +626,7 @@ cpptraj_mask_docker:
     mask: c-alpha
     format: netcdf
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_mask_singularity:
@@ -660,7 +642,7 @@ cpptraj_mask_singularity:
     mask: c-alpha
     format: netcdf
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_slice:
@@ -689,7 +671,7 @@ cpptraj_slice_docker:
     mask: c-alpha
     format: netcdf
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_slice_singularity:
@@ -705,7 +687,7 @@ cpptraj_slice_singularity:
     mask: c-alpha
     format: netcdf
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_snapshot:
@@ -730,7 +712,7 @@ cpptraj_snapshot_docker:
     mask: c-alpha
     format: pdb
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_snapshot_singularity:
@@ -744,7 +726,7 @@ cpptraj_snapshot_singularity:
     mask: c-alpha
     format: pdb
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_strip:
@@ -773,7 +755,7 @@ cpptraj_strip_docker:
     mask: c-alpha
     format: netcdf
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_strip_singularity:
@@ -789,7 +771,7 @@ cpptraj_strip_singularity:
     mask: c-alpha
     format: netcdf
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rgyr:
@@ -816,7 +798,7 @@ cpptraj_rgyr_docker:
     steps: 1
     mask: c-alpha
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rgyr_singularity:
@@ -831,7 +813,7 @@ cpptraj_rgyr_singularity:
     steps: 1
     mask: c-alpha
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rms:
@@ -879,7 +861,7 @@ cpptraj_rms_first_docker:
     mask: c-alpha
     reference: first
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rms_first_singularity:
@@ -897,7 +879,7 @@ cpptraj_rms_first_singularity:
     mask: c-alpha
     reference: first
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rms_average:
@@ -930,7 +912,7 @@ cpptraj_rms_average_docker:
     mask: c-alpha
     reference: average
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rms_average_singularity:
@@ -948,7 +930,7 @@ cpptraj_rms_average_singularity:
     mask: c-alpha
     reference: average
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rms_experimental:
@@ -983,7 +965,7 @@ cpptraj_rms_experimental_docker:
     mask: c-alpha
     reference: experimental
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rms_experimental_singularity:
@@ -1002,7 +984,7 @@ cpptraj_rms_experimental_singularity:
     mask: c-alpha
     reference: experimental
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rmsf:
@@ -1044,7 +1026,7 @@ cpptraj_rmsf_first_docker:
     mask: c-alpha
     reference: first
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rmsf_first_singularity:
@@ -1060,7 +1042,7 @@ cpptraj_rmsf_first_singularity:
     mask: c-alpha
     reference: first
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rmsf_average:
@@ -1089,7 +1071,7 @@ cpptraj_rmsf_average_docker:
     mask: c-alpha
     reference: average
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rmsf_average_singularity:
@@ -1105,7 +1087,7 @@ cpptraj_rmsf_average_singularity:
     mask: c-alpha
     reference: average
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rmsf_experimental:
@@ -1136,7 +1118,7 @@ cpptraj_rmsf_experimental_docker:
     mask: c-alpha
     reference: experimental
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_rmsf_experimental_singularity:
@@ -1153,7 +1135,7 @@ cpptraj_rmsf_experimental_singularity:
     mask: c-alpha
     reference: experimental
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_bfactor:
@@ -1195,7 +1177,7 @@ cpptraj_bfactor_first_docker:
     mask: c-alpha
     reference: first
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_bfactor_first_singularity:
@@ -1211,7 +1193,7 @@ cpptraj_bfactor_first_singularity:
     mask: c-alpha
     reference: first
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_bfactor_average:
@@ -1240,7 +1222,7 @@ cpptraj_bfactor_average_docker:
     mask: c-alpha
     reference: average
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_bfactor_average_singularity:
@@ -1256,7 +1238,7 @@ cpptraj_bfactor_average_singularity:
     mask: c-alpha
     reference: average
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_bfactor_experimental:
@@ -1287,7 +1269,7 @@ cpptraj_bfactor_experimental_docker:
     mask: c-alpha
     reference: experimental
     container_path: docker
-    container_image: afandiadib/ambertools:serial
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
 cpptraj_bfactor_experimental_singularity:
@@ -1304,6 +1286,6 @@ cpptraj_bfactor_experimental_singularity:
     mask: c-alpha
     reference: experimental
     container_path: singularity
-    container_image: shub://bioexcel/ambertools_singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 

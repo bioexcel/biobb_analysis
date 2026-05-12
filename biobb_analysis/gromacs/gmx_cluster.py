@@ -6,6 +6,7 @@ from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_common.tools.file_utils import launchlogger
+from pathlib import PurePath
 from biobb_analysis.gromacs.common import check_input_path, check_traj_path, check_index_path, check_out_pdb_path, get_binary_path, get_image_selection, get_selection_index_file, get_dista, get_method, get_cutoff
 
 
@@ -134,9 +135,17 @@ class GMXCluster(BiobbObject):
         self.stage_files()
 
         # Optional output files
-        dist = self.stage_io_dict['out'].get('output_rmsd_dist_xvg_path') or self.create_tmp_file('rmsd-dist.xvg')
-        rmsd = self.stage_io_dict['out'].get('output_rmsd_cluster_xpm_path') or self.create_tmp_file('rmsd-clust.xpm')
-        clust = self.stage_io_dict['out'].get('output_cluster_log_path') or self.create_tmp_file('cluster.log')
+        if self.container_path:
+            dist_fn = self.stage_io_dict['out'].get('output_rmsd_dist_xvg_path') or 'rmsd-dist.xvg'
+            rmsd_fn = self.stage_io_dict['out'].get('output_rmsd_cluster_xpm_path') or 'rmsd-clust.xpm'
+            clust_fn = self.stage_io_dict['out'].get('output_cluster_log_path') or 'cluster.log'
+            dist = str(PurePath(self.container_volume_path).joinpath(dist_fn))
+            rmsd = str(PurePath(self.container_volume_path).joinpath(rmsd_fn))
+            clust = str(PurePath(self.container_volume_path).joinpath(clust_fn))
+        else:
+            dist = self.stage_io_dict['out'].get('output_rmsd_dist_xvg_path') or self.create_tmp_file('rmsd-dist.xvg')
+            rmsd = self.stage_io_dict['out'].get('output_rmsd_cluster_xpm_path') or self.create_tmp_file('rmsd-clust.xpm')
+            clust = self.stage_io_dict['out'].get('output_cluster_log_path') or self.create_tmp_file('cluster.log')
 
         self.cmd = [self.binary_path, 'cluster',
                     '-g', clust,

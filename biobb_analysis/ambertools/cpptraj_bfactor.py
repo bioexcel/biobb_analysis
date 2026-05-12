@@ -106,9 +106,11 @@ class CpptrajBfactor(BiobbObject):
         instructions_list = []
         # Different path if container execution or not
         if self.container_path:
-            self.instructions_file = str(PurePath(self.container_volume_path).joinpath(self.instructions_file))
+            self.instructions_file = str(PurePath(self.stage_io_dict['unique_dir']).joinpath("cpptraj.in"))
+            self.instructions_file_path = str(PurePath(self.container_volume_path).joinpath("cpptraj.in"))
         else:
             self.instructions_file = self.create_tmp_file(self.instructions_file)
+            self.instructions_file_path = self.instructions_file
 
         # parm
         instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
@@ -141,7 +143,7 @@ class CpptrajBfactor(BiobbObject):
             for line in instructions_list:
                 mdp.write(line.strip() + '\n')
 
-        return self.instructions_file
+        return self.instructions_file_path
 
     @launchlogger
     def launch(self) -> int:
@@ -159,7 +161,7 @@ class CpptrajBfactor(BiobbObject):
         self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
 
         # Create cmd and launch execution
-        self.cmd = [self.binary_path, '-i', self.instructions_file]
+        self.cmd = [self.binary_path, '-i', self.instructions_file_path]
 
         # Run Biobb block
         self.run_biobb()

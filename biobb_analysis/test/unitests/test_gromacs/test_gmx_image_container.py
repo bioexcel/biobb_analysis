@@ -2,6 +2,7 @@
 import pytest
 from biobb_common.tools import test_fixtures as fx
 from biobb_analysis.gromacs.gmx_image import gmx_image
+import sys
 
 
 class TestGMXImageDocker():
@@ -19,7 +20,7 @@ class TestGMXImageDocker():
         assert fx.equal(self.paths['output_traj_path'], self.paths['ref_output_traj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestGMXImageSingularity():
     def setup_class(self):
         fx.test_setup(self, 'gmx_image_singularity')
