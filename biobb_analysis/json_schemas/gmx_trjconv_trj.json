@@ -352,6 +352,15 @@
                     "max": 10000,
                     "step": 1
                 },
+                "dump": {
+                    "type": "integer",
+                    "default": 0,
+                    "wf_prop": false,
+                    "description": "Dump frame nearest specified time (ps). If specified, overrides the -b, -e and -dt options.",
+                    "min": 0,
+                    "max": 10000,
+                    "step": 1
+                },
                 "binary_path": {
                     "type": "string",
                     "default": "gmx",
