@@ -48,7 +48,7 @@ class TestCpptrajBfactorAverageDocker():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestCpptrajBfactorAverageSingularity():
     def setup_class(self):
         fx.test_setup(self, 'cpptraj_bfactor_average_singularity')
@@ -77,7 +77,7 @@ class TestCpptrajBfactorExperimentalDocker():
         assert fx.equal(self.paths['output_cpptraj_path'], self.paths['ref_output_cpptraj_path'])
 
 
-@pytest.mark.skip(reason="singularity currently not available")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="singularity not available on macOS")
 class TestCpptrajBfactorExperimentalSingularity():
     def setup_class(self):
         fx.test_setup(self, 'cpptraj_bfactor_experimental_singularity')
