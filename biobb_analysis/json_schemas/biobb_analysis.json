@@ -23,7 +23,7 @@
             "desc": "Wrapper of the GROMACS check module for comparing and validating GROMACS files.",
             "exec": "gmx_check",
             "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_check",
-            "rest": true
+            "rest": false
         },
         {
             "block": "GMXRms",
@@ -39,7 +39,7 @@
             "desc": "Wrapper of the GROMACS module for calculating the Root Mean Square fluctuations (RMSf) of a given GROMACS compatible trajectory.",
             "exec": "gmx_rmsf",
             "docs": "https://biobb-analysis.readthedocs.io/en/latest/gromacs.html#module-gromacs.gmx_rmsf",
-            "rest": true
+            "rest": false
         },
         {
             "block": "GMXRgyr",
