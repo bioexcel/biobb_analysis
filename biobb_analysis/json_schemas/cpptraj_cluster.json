@@ -645,6 +645,61 @@
                         }
                     ]
                 },
+                "metric_mask": {
+                    "type": "string",
+                    "default": "all-atoms",
+                    "wf_prop": false,
+                    "description": "Mask used for the distance metric calculation. Unlike **mask**, the atoms outside this selection are kept in the clustered coordinates, they are only left out of the frame to frame distance calculation. ",
+                    "enum": [
+                        "c-alpha",
+                        "backbone",
+                        "all-atoms",
+                        "heavy-atoms",
+                        "side-chain",
+                        "solute",
+                        "ions",
+                        "solvent",
+                        "AnyAmberFromatMask"
+                    ],
+                    "property_formats": [
+                        {
+                            "name": "c-alpha",
+                            "description": "All c-alpha atoms; protein only"
+                        },
+                        {
+                            "name": "backbone",
+                            "description": "Backbone atoms"
+                        },
+                        {
+                            "name": "all-atoms",
+                            "description": "All system atoms"
+                        },
+                        {
+                            "name": "heavy-atoms",
+                            "description": "System heavy atoms; not hydrogen"
+                        },
+                        {
+                            "name": "side-chain",
+                            "description": "All not backbone atoms"
+                        },
+                        {
+                            "name": "solute",
+                            "description": "All system atoms except solvent atoms"
+                        },
+                        {
+                            "name": "ions",
+                            "description": "All ion molecules"
+                        },
+                        {
+                            "name": "solvent",
+                            "description": "All solvent atoms"
+                        },
+                        {
+                            "name": "AnyAmberFromatMask",
+                            "description": "Amber atom selection syntax like `@*`"
+                        }
+                    ]
+                },
                 "mass": {
                     "type": "boolean",
                     "default": false,

@@ -33,6 +33,7 @@ class CpptrajCluster(BiobbObject):
             * **minpoints** (*int*) - (4) [1~1000|1] Minimum number of points required to form a cluster. Only used by the dbscan algorithm.
             * **linkage** (*str*) - ("linkage") Distance between clusters. Only used by the hieragglo algorithm. Values: linkage (Shortest distance between members of the two clusters), averagelinkage (Average distance between members of the two clusters), complete (Longest distance between members of the two clusters).
             * **metric** (*str*) - ("rms") Distance metric between frames. Values: rms (Coordinate root mean square deviation), srmsd (Symmetry-corrected coordinate root mean square deviation), dme (Distance root mean square deviation), qrmsd (Quaternion root mean square deviation).
+            * **metric_mask** (*str*) - ("all-atoms") Mask used for the distance metric calculation. Unlike **mask**, the atoms outside this selection are kept in the clustered coordinates, they are only left out of the frame to frame distance calculation. Values: c-alpha (All c-alpha atoms; protein only), backbone (Backbone atoms), all-atoms (All system atoms), heavy-atoms (System heavy atoms; not hydrogen), side-chain (All not backbone atoms), solute (All system atoms except solvent atoms), ions (All ion molecules), solvent (All solvent atoms), AnyAmberFromatMask (Amber atom selection syntax like `@*`).
             * **mass** (*bool*) - (False) Mass-weight the distance metric.
             * **nofit** (*bool*) - (False) Do not best-fit the frames before calculating the distance metric.
             * **sieve** (*int*) - (0) [0~100000|1] Cluster only every nth frame and add the remaining frames back in afterwards. 0 disables sieving.
@@ -106,6 +107,7 @@ class CpptrajCluster(BiobbObject):
         self.minpoints = properties.get('minpoints', 4)
         self.linkage = properties.get('linkage', 'linkage')
         self.metric = properties.get('metric', 'rms')
+        self.metric_mask = properties.get('metric_mask', 'all-atoms')
         self.mass = properties.get('mass', False)
         self.nofit = properties.get('nofit', False)
         self.sieve = properties.get('sieve', 0)
@@ -160,7 +162,7 @@ class CpptrajCluster(BiobbObject):
         # cluster
         cluster = ['cluster', 'crdset', cluster_set]
         cluster.append(get_cluster_algorithm(self.algorithm, self.clusters, self.epsilon, self.minpoints, self.linkage, out_log))
-        cluster.append(get_cluster_metric(self.metric, self.mass, self.nofit, out_log))
+        cluster.append(get_cluster_metric(self.metric, self.mass, self.nofit, self.metric_mask, out_log))
         if self.sieve:
             cluster += ['sieve', str(self.sieve)]
         cluster += ['out', container_io_dict["out"]["output_cpptraj_path"]]

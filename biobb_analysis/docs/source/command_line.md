@@ -286,6 +286,7 @@ Config parameters for this building block:
 * **minpoints** (*integer*): (4) Minimum number of points required to form a cluster. Only used by the dbscan algorithm.
 * **linkage** (*string*): (linkage) Distance between clusters. Only used by the hieragglo algorithm. 
 * **metric** (*string*): (rms) Distance metric between frames. 
+* **metric_mask** (*string*): (all-atoms) Mask used for the distance metric calculation. Unlike **mask**, the atoms outside this selection are kept in the clustered coordinates, they are only left out of the frame to frame distance calculation. 
 * **mass** (*boolean*): (False) Mass-weight the distance metric.
 * **nofit** (*boolean*): (False) Do not best-fit the frames before calculating the distance metric.
 * **sieve** (*integer*): (0) Cluster only every nth frame and add the remaining frames back in afterwards. 0 disables sieving.
@@ -309,6 +310,7 @@ properties:
   linkage: linkage
   mask: c-alpha
   metric: rms
+  metric_mask: all-atoms
   start: 1
   steps: 1
 
@@ -326,6 +328,7 @@ properties:
   linkage: linkage
   mask: c-alpha
   metric: rms
+  metric_mask: all-atoms
   start: 1
   steps: 1
 
@@ -342,6 +345,7 @@ properties:
   linkage: linkage
   mask: c-alpha
   metric: rms
+  metric_mask: all-atoms
   start: 1
   steps: 1
 
@@ -362,7 +366,8 @@ cpptraj_cluster --config config_cpptraj_cluster.yml --input_top_path cpptraj.par
     "algorithm": "hieragglo",
     "clusters": 5,
     "linkage": "linkage",
-    "metric": "rms"
+    "metric": "rms",
+    "metric_mask": "all-atoms"
   }
 }
 ```
@@ -378,6 +383,7 @@ cpptraj_cluster --config config_cpptraj_cluster.yml --input_top_path cpptraj.par
     "clusters": 5,
     "linkage": "linkage",
     "metric": "rms",
+    "metric_mask": "all-atoms",
     "container_path": "docker",
     "container_image": "quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1",
     "container_volume_path": "/tmp",
@@ -397,6 +403,7 @@ cpptraj_cluster --config config_cpptraj_cluster.yml --input_top_path cpptraj.par
     "clusters": 5,
     "linkage": "linkage",
     "metric": "rms",
+    "metric_mask": "all-atoms",
     "container_path": "singularity",
     "container_image": "https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1",
     "container_volume_path": "/tmp"

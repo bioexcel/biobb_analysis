@@ -310,7 +310,7 @@ def get_cluster_algorithm(algorithm, clusters, epsilon, minpoints, linkage, out_
     return ' '.join(keywords)
 
 
-def get_cluster_metric(metric, mass, nofit, out_log):
+def get_cluster_metric(metric, mass, nofit, metric_mask, out_log):
     """ Return string with the clustering distance metric keywords """
     if not metric or metric == 'None':
         metric = get_default_value('metric')
@@ -325,6 +325,12 @@ def get_cluster_metric(metric, mass, nofit, out_log):
         keywords.append('mass')
     if nofit:
         keywords.append('nofit')
+
+    if not metric_mask or metric_mask == 'None':
+        metric_mask = get_default_value('mask')
+        fu.log('No metric_mask provided in configuration file, assigned default value: %s' % get_default_value('mask'), out_log)
+    # the metric mask selects atoms, it does not remove them from the clustered coordinates
+    keywords.append(get_mask(metric_mask, out_log))
 
     return ' '.join(keywords)
 
