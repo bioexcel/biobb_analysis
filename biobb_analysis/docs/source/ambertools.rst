@@ -21,6 +21,14 @@ ambertools.cpptraj_bfactor module
     :undoc-members:
     :show-inheritance:
 
+ambertools.cpptraj_cluster module
+----------------------------------
+
+.. automodule:: ambertools.cpptraj_cluster
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 ambertools.cpptraj_convert module
 ----------------------------------
 

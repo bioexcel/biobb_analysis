@@ -106,6 +106,14 @@
             "rest": true
         },
         {
+            "block": "CpptrajCluster",
+            "tool": "Ambertools cpptraj",
+            "desc": "Wrapper of the Ambertools Cpptraj module for clustering the frames of a given cpptraj compatible trajectory.",
+            "exec": "cpptraj_cluster",
+            "docs": "https://biobb-analysis.readthedocs.io/en/latest/ambertools.html#module-ambertools.cpptraj_cluster",
+            "rest": true
+        },
+        {
             "block": "CpptrajRms",
             "tool": "Ambertools cpptraj",
             "desc": "Wrapper of the Ambertools Cpptraj module for calculating the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.",

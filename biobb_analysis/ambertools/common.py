@@ -88,6 +88,12 @@ def get_default_value(key):
         "average": "MyAvg",
         "instructions_file": "instructions.in",
         "binary_path": "cpptraj",
+        "algorithm": "hieragglo",
+        "metric": "rms",
+        "linkage": "linkage",
+        "clusters": 10,
+        "minpoints": 4,
+        "cluster_set": "MyClusters",
         # default conf for Average
         "Average": {
             "in_parameters": {
@@ -108,6 +114,15 @@ def get_default_value(key):
                 "step": 1,
                 "mask": "all-atoms",
                 "reference": "first"
+            }
+        },
+        # default conf for Cluster
+        "Cluster": {
+            "in_parameters": {
+                "start": 1,
+                "end": -1,
+                "step": 1,
+                "mask": "all-atoms"
             }
         },
         # default conf for Convert
@@ -242,6 +257,86 @@ def is_valid_reference(ref):
     """ Checks if reference is correct """
     references = 'first', 'average', 'experimental'
     return ref in references
+
+
+def is_valid_cluster_algorithm(algorithm):
+    """ Checks if clustering algorithm is compatible with Cpptraj """
+    algorithms = 'hieragglo', 'dbscan', 'kmeans', 'dpeaks'
+    return algorithm in algorithms
+
+
+def is_valid_cluster_metric(metric):
+    """ Checks if clustering distance metric is compatible with Cpptraj """
+    metrics = 'rms', 'srmsd', 'dme', 'qrmsd'
+    return metric in metrics
+
+
+def is_valid_cluster_linkage(linkage):
+    """ Checks if hierarchical agglomerative linkage is compatible with Cpptraj """
+    linkages = 'linkage', 'averagelinkage', 'complete'
+    return linkage in linkages
+
+
+def get_cluster_algorithm(algorithm, clusters, epsilon, minpoints, linkage, out_log):
+    """ Return string with the clustering algorithm keywords """
+    if not algorithm or algorithm == 'None':
+        algorithm = get_default_value('algorithm')
+        fu.log('No algorithm provided in configuration file, assigned default value: %s' % get_default_value('algorithm'), out_log)
+
+    if not is_valid_cluster_algorithm(algorithm):
+        fu.log('Algorithm %s is not compatible, assigned default value: %s' % (algorithm, get_default_value('algorithm')), out_log)
+        algorithm = get_default_value('algorithm')
+
+    if algorithm == 'hieragglo':
+        if not is_valid_cluster_linkage(linkage):
+            fu.log('Linkage %s is not compatible, assigned default value: %s' % (linkage, get_default_value('linkage')), out_log)
+            linkage = get_default_value('linkage')
+        keywords = ['hieragglo', 'clusters', str(clusters), linkage]
+        # epsilon is an additional stop condition for hieragglo, only added when provided
+        if epsilon is not None and epsilon > 0:
+            keywords += ['epsilon', str(epsilon)]
+    elif algorithm == 'kmeans':
+        keywords = ['kmeans', 'clusters', str(clusters)]
+    else:
+        # both dbscan and dpeaks need epsilon
+        if epsilon is None or epsilon <= 0:
+            fu.log('Algorithm %s needs a positive epsilon, assigned default value: 1.0' % algorithm, out_log)
+            epsilon = 1.0
+        if algorithm == 'dbscan':
+            keywords = ['dbscan', 'minpoints', str(minpoints), 'epsilon', str(epsilon)]
+        else:
+            keywords = ['dpeaks', 'epsilon', str(epsilon), 'choosepoints', 'auto']
+
+    return ' '.join(keywords)
+
+
+def get_cluster_metric(metric, mass, nofit, out_log):
+    """ Return string with the clustering distance metric keywords """
+    if not metric or metric == 'None':
+        metric = get_default_value('metric')
+        fu.log('No metric provided in configuration file, assigned default value: %s' % get_default_value('metric'), out_log)
+
+    if not is_valid_cluster_metric(metric):
+        fu.log('Metric %s is not compatible, assigned default value: %s' % (metric, get_default_value('metric')), out_log)
+        metric = get_default_value('metric')
+
+    keywords = [metric]
+    if mass:
+        keywords.append('mass')
+    if nofit:
+        keywords.append('nofit')
+
+    return ' '.join(keywords)
+
+
+def get_traj_format(path, out_log):
+    """ Return the Cpptraj trajectory format matching the extension of the given path """
+    format = PurePath(path).suffix[1:]
+    if not is_valid_trajectory(format):
+        fu.log('Format %s is not compatible, assigned default value: %s' % (format, get_default_value('format')), out_log)
+        format = get_default_value('format')
+
+    return format
 
 
 def get_mask_atoms(key):

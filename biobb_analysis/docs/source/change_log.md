@@ -1,5 +1,11 @@
 # Biobb Analysis changelog
 
+## What's new in version [Unreleased]?
+
+### New features
+
+* [FEATURE](cpptraj_cluster) New `cpptraj_cluster` building block: wrapper of the Ambertools Cpptraj cluster analysis for clustering the frames of a given cpptraj compatible trajectory.
+
 ## What's new in version [5.3.0](https://github.com/bioexcel/biobb_amber/releases/tag/v5.3.0)?
 
 ### Changes

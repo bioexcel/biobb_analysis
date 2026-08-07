@@ -510,6 +510,79 @@ cpptraj_average_singularity:
     container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
     container_volume_path: /tmp
 
+cpptraj_cluster:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.dat
+    output_summary_path: output_summary.dat
+    ref_output_summary_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.summary.dat
+    output_info_path: output_info.dat
+    ref_output_info_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.info.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.netcdf
+  properties:
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    algorithm: hieragglo
+    clusters: 5
+    linkage: linkage
+    metric: rms
+
+cpptraj_cluster_docker:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.container.dat
+    output_summary_path: output_summary.dat
+    ref_output_summary_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.summary.container.dat
+    output_info_path: output_info.dat
+    ref_output_info_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.info.container.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.container.netcdf
+  properties:
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    algorithm: hieragglo
+    clusters: 5
+    linkage: linkage
+    metric: rms
+    container_path: docker
+    container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
+    container_volume_path: /tmp
+    container_user_id: "1000"
+
+cpptraj_cluster_singularity:
+  paths:
+    input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
+    output_cpptraj_path: output.dat
+    ref_output_cpptraj_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.container.dat
+    output_summary_path: output_summary.dat
+    ref_output_summary_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.summary.container.dat
+    output_info_path: output_info.dat
+    ref_output_info_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.info.container.dat
+    output_traj_path: output.netcdf
+    ref_output_traj_path: file:test_reference_dir/ambertools/ref_cpptraj.cluster.container.netcdf
+  properties:
+    start: 1
+    end: -1
+    steps: 1
+    mask: c-alpha
+    algorithm: hieragglo
+    clusters: 5
+    linkage: linkage
+    metric: rms
+    container_path: singularity
+    container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
+    container_volume_path: /tmp
+
 cpptraj_dry:
   paths:
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top

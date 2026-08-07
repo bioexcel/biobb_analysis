@@ -1,0 +1,9 @@
+properties:
+  algorithm: hieragglo
+  clusters: 5
+  end: -1
+  linkage: linkage
+  mask: c-alpha
+  metric: rms
+  start: 1
+  steps: 1

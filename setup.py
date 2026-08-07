@@ -25,6 +25,7 @@ setuptools.setup(
         "console_scripts": [
             "cpptraj_average = biobb_analysis.ambertools.cpptraj_average:main",
             "cpptraj_bfactor = biobb_analysis.ambertools.cpptraj_bfactor:main",
+            "cpptraj_cluster = biobb_analysis.ambertools.cpptraj_cluster:main",
             "cpptraj_convert = biobb_analysis.ambertools.cpptraj_convert:main",
             "cpptraj_dry = biobb_analysis.ambertools.cpptraj_dry:main",
             "cpptraj_image = biobb_analysis.ambertools.cpptraj_image:main",

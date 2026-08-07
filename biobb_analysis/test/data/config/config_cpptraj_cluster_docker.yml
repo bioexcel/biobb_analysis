@@ -1,0 +1,13 @@
+properties:
+  algorithm: hieragglo
+  clusters: 5
+  container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
+  container_path: docker
+  container_user_id: '1000'
+  container_volume_path: /tmp
+  end: -1
+  linkage: linkage
+  mask: c-alpha
+  metric: rms
+  start: 1
+  steps: 1

@@ -1,0 +1,12 @@
+properties:
+  algorithm: hieragglo
+  clusters: 5
+  container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
+  container_path: singularity
+  container_volume_path: /tmp
+  end: -1
+  linkage: linkage
+  mask: c-alpha
+  metric: rms
+  start: 1
+  steps: 1

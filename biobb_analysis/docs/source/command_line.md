@@ -231,6 +231,183 @@ cpptraj_bfactor --config config_cpptraj_bfactor.yml --input_top_path cpptraj.par
 cpptraj_bfactor --config config_cpptraj_bfactor.json --input_top_path cpptraj.parm.top --input_traj_path cpptraj.traj.dcd --input_exp_path experimental.1e5t.pdb --output_cpptraj_path ref_cpptraj.bfactor.first.dat
 ```
 
+## Cpptraj_cluster
+Wrapper of the Ambertools Cpptraj module for clustering the frames of a given cpptraj compatible trajectory.
+### Get help
+Command:
+```python
+cpptraj_cluster -h
+```
+    usage: cpptraj_cluster [-h] [-c CONFIG] --input_top_path INPUT_TOP_PATH --input_traj_path INPUT_TRAJ_PATH --output_cpptraj_path OUTPUT_CPPTRAJ_PATH [--output_summary_path OUTPUT_SUMMARY_PATH] [--output_info_path OUTPUT_INFO_PATH] [--output_traj_path OUTPUT_TRAJ_PATH]
+    
+    Clusters the frames of a given cpptraj compatible trajectory.
+    
+    options:
+      -h, --help            show this help message and exit
+      -c CONFIG, --config CONFIG
+                            This file can be a YAML file, JSON file or JSON string
+    
+    required arguments:
+      --input_top_path INPUT_TOP_PATH
+                            Path to the input structure or topology file. Accepted formats: top, pdb, prmtop, parmtop, zip.
+      --input_traj_path INPUT_TRAJ_PATH
+                            Path to the input trajectory to be processed. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+      --output_cpptraj_path OUTPUT_CPPTRAJ_PATH
+                            Path to the output cluster number vs time analysis. Accepted formats: dat, agr, xmgr, gnu.
+    
+    optional arguments:
+      --output_summary_path OUTPUT_SUMMARY_PATH
+                            Path to the output summary of the generated clusters. Accepted formats: dat, agr, xmgr, gnu.
+      --output_info_path OUTPUT_INFO_PATH
+                            Path to the output detailed information of the generated clusters. Accepted formats: dat, agr, xmgr, gnu.
+      --output_traj_path OUTPUT_TRAJ_PATH
+                            Path to the output trajectory containing the representative frame of every cluster. Accepted formats: mdcrd, crd, cdf, netcdf, nc, restart, ncrestart, restartnc, dcd, charmm, cor, pdb, mol2, trr, gro, binpos, xtc, cif, arc, sqm, sdf, conflib.
+### I / O Arguments
+Syntax: input_argument (datatype) : Definition
+
+Config input / output arguments for this building block:
+* **input_top_path** (*string*): Path to the input structure or topology file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.parm.top). Accepted formats: TOP, PDB, PRMTOP, PARMTOP, ZIP
+* **input_traj_path** (*string*): Path to the input trajectory to be processed. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/ambertools/cpptraj.traj.dcd). Accepted formats: MDCRD, CRD, CDF, NETCDF, NC, RESTART, NCRESTART, RESTARTNC, DCD, CHARMM, COR, PDB, MOL2, TRR, GRO, BINPOS, XTC, CIF, ARC, SQM, SDF, CONFLIB
+* **output_cpptraj_path** (*string*): Path to the output cluster number vs time analysis. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.cluster.dat). Accepted formats: DAT, AGR, XMGR, GNU
+* **output_summary_path** (*string*): Path to the output summary of the generated clusters. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.cluster.summary.dat). Accepted formats: DAT, AGR, XMGR, GNU
+* **output_info_path** (*string*): Path to the output detailed information of the generated clusters. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.cluster.info.dat). Accepted formats: DAT, AGR, XMGR, GNU
+* **output_traj_path** (*string*): Path to the output trajectory containing the representative frame of every cluster. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/ambertools/ref_cpptraj.cluster.netcdf). Accepted formats: MDCRD, CRD, CDF, NETCDF, NC, RESTART, NCRESTART, RESTARTNC, DCD, CHARMM, COR, PDB, MOL2, TRR, GRO, BINPOS, XTC, CIF, ARC, SQM, SDF, CONFLIB
+### Config
+Syntax: input_parameter (datatype) - (default_value) Definition
+
+Config parameters for this building block:
+* **start** (*integer*): (1) Starting frame for slicing
+* **end** (*integer*): (-1) Ending frame for slicing
+* **steps** (*integer*): (1) Step for slicing
+* **mask** (*string*): (all-atoms) Mask definition. 
+* **algorithm** (*string*): (hieragglo) Clustering algorithm. 
+* **clusters** (*integer*): (10) Target number of clusters. Only used by the hieragglo and kmeans algorithms.
+* **epsilon** (*number*): (-1.0) Minimum distance between clusters. Mandatory for the dbscan and dpeaks algorithms; for hieragglo it is an additional stop condition, only used when greater than 0.
+* **minpoints** (*integer*): (4) Minimum number of points required to form a cluster. Only used by the dbscan algorithm.
+* **linkage** (*string*): (linkage) Distance between clusters. Only used by the hieragglo algorithm. 
+* **metric** (*string*): (rms) Distance metric between frames. 
+* **mass** (*boolean*): (False) Mass-weight the distance metric.
+* **nofit** (*boolean*): (False) Do not best-fit the frames before calculating the distance metric.
+* **sieve** (*integer*): (0) Cluster only every nth frame and add the remaining frames back in afterwards. 0 disables sieving.
+* **binary_path** (*string*): (cpptraj) Path to the cpptraj executable binary.
+* **remove_tmp** (*boolean*): (True) Remove temporal files.
+* **restart** (*boolean*): (False) Do not execute if output files exist.
+* **sandbox_path** (*string*): (./) Parent path to the sandbox directory.
+* **container_path** (*string*): (None) Container path definition.
+* **container_image** (*string*): (afandiadib/ambertools:serial) Container image definition.
+* **container_volume_path** (*string*): (/tmp) Container volume path definition.
+* **container_working_dir** (*string*): (None) Container working directory definition.
+* **container_user_id** (*string*): (None) Container user_id definition.
+* **container_shell_path** (*string*): (/bin/bash) Path to default shell inside the container.
+### YAML
+#### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_cpptraj_cluster.yml)
+```python
+properties:
+  algorithm: hieragglo
+  clusters: 5
+  end: -1
+  linkage: linkage
+  mask: c-alpha
+  metric: rms
+  start: 1
+  steps: 1
+
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_cpptraj_cluster_docker.yml)
+```python
+properties:
+  algorithm: hieragglo
+  clusters: 5
+  container_image: quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1
+  container_path: docker
+  container_user_id: '1000'
+  container_volume_path: /tmp
+  end: -1
+  linkage: linkage
+  mask: c-alpha
+  metric: rms
+  start: 1
+  steps: 1
+
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_cpptraj_cluster_singularity.yml)
+```python
+properties:
+  algorithm: hieragglo
+  clusters: 5
+  container_image: https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1
+  container_path: singularity
+  container_volume_path: /tmp
+  end: -1
+  linkage: linkage
+  mask: c-alpha
+  metric: rms
+  start: 1
+  steps: 1
+
+```
+#### Command line
+```python
+cpptraj_cluster --config config_cpptraj_cluster.yml --input_top_path cpptraj.parm.top --input_traj_path cpptraj.traj.dcd --output_cpptraj_path ref_cpptraj.cluster.dat --output_summary_path ref_cpptraj.cluster.summary.dat --output_info_path ref_cpptraj.cluster.info.dat --output_traj_path ref_cpptraj.cluster.netcdf
+```
+### JSON
+#### [Common config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_cpptraj_cluster.json)
+```python
+{
+  "properties": {
+    "start": 1,
+    "end": -1,
+    "steps": 1,
+    "mask": "c-alpha",
+    "algorithm": "hieragglo",
+    "clusters": 5,
+    "linkage": "linkage",
+    "metric": "rms"
+  }
+}
+```
+#### [Docker config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_cpptraj_cluster_docker.json)
+```python
+{
+  "properties": {
+    "start": 1,
+    "end": -1,
+    "steps": 1,
+    "mask": "c-alpha",
+    "algorithm": "hieragglo",
+    "clusters": 5,
+    "linkage": "linkage",
+    "metric": "rms",
+    "container_path": "docker",
+    "container_image": "quay.io/biocontainers/biobb_analysis:5.2.1--pyhdfd78af_1",
+    "container_volume_path": "/tmp",
+    "container_user_id": "1000"
+  }
+}
+```
+#### [Singularity config file](https://github.com/bioexcel/biobb_analysis/blob/master/biobb_analysis/test/data/config/config_cpptraj_cluster_singularity.json)
+```python
+{
+  "properties": {
+    "start": 1,
+    "end": -1,
+    "steps": 1,
+    "mask": "c-alpha",
+    "algorithm": "hieragglo",
+    "clusters": 5,
+    "linkage": "linkage",
+    "metric": "rms",
+    "container_path": "singularity",
+    "container_image": "https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1",
+    "container_volume_path": "/tmp"
+  }
+}
+```
+#### Command line
+```python
+cpptraj_cluster --config config_cpptraj_cluster.json --input_top_path cpptraj.parm.top --input_traj_path cpptraj.traj.dcd --output_cpptraj_path ref_cpptraj.cluster.dat --output_summary_path ref_cpptraj.cluster.summary.dat --output_info_path ref_cpptraj.cluster.info.dat --output_traj_path ref_cpptraj.cluster.netcdf
+```
+
 ## Cpptraj_convert
 Wrapper of the Ambertools Cpptraj module for converting between cpptraj compatible trajectory file formats and/or extracting a selection of atoms or frames.
 ### Get help
