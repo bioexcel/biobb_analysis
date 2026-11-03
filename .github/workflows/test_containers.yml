@@ -24,7 +24,7 @@ jobs:
   test_containers:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
         python-version: ["3.11"]
     runs-on: ${{ matrix.os }}
     steps:
