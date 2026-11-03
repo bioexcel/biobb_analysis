@@ -6,7 +6,7 @@
     "mask": "c-alpha",
     "reference": "average",
     "container_path": "singularity",
-    "container_image": "https://depot.galaxyproject.org/singularity/biobb_analysis:5.2.1--pyhdfd78af_1",
+    "container_image": "https://depot.galaxyproject.org/singularity/biobb_analysis:5.3.0--pyhdfd78af_1",
     "container_volume_path": "/tmp"
   }
 }
