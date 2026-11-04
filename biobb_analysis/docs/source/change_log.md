@@ -1,10 +1,14 @@
 # Biobb Analysis changelog
 
-## What's new in version [Unreleased]?
+## [Unreleased]
 
-### New features
+## What's new in version [5.3.1](https://github.com/bioexcel/biobb_analysis/releases/tag/v5.3.1)?
 
-* [FEATURE](cpptraj_cluster) New `cpptraj_cluster` building block: wrapper of the Ambertools Cpptraj cluster analysis for clustering the frames of a given cpptraj compatible trajectory.
+### Changes
+
+* [FEATURE](cpptraj_cluster) New `cpptraj_cluster` building block: wrapper of the Ambertools Cpptraj cluster analysis for clustering the frames of a given cpptraj compatible trajectory. Its `metric_mask` property selects the atoms used for the frame to frame distance without removing the other atoms from the clustered coordinates.
+* [FIX] The Docker and Singularity images in the JSON schema and the README now include AmberTools: the cpptraj blocks failed in the 5.3.0 `gmx2026_2` image, which had no `cpptraj`.
+* [UPDATE] Requires GROMACS >=2026.0 and AmberTools >=23.0, as the Bioconda package.
 
 ## What's new in version [5.3.0](https://github.com/bioexcel/biobb_amber/releases/tag/v5.3.0)?
 
