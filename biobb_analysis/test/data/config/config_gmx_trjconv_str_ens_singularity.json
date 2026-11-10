@@ -7,7 +7,7 @@
     "output_name": "output",
     "output_type": "pdb",
     "container_path": "singularity",
-    "container_image": "https://depot.galaxyproject.org/singularity/biobb_analysis:5.3.0--pyhdfd78af_1",
+    "container_image": "https://depot.galaxyproject.org/singularity/biobb_analysis:5.3.1--pyhdfd78af_0",
     "container_volume_path": "/tmp"
   }
 }
