@@ -148,7 +148,9 @@
                 ".*\\.gro$",
                 ".*\\.g96$",
                 ".*\\.pdb$",
-                ".*\\.tng$"
+                ".*\\.tng$",
+                ".*\\.ent$",
+                ".*\\.tpr$"
             ],
             "file_formats": [
                 {
@@ -185,6 +187,16 @@
                     "extension": ".*\\.tng$",
                     "description": "Path to the output cluster file",
                     "edam": "format_3876"
+                },
+                {
+                    "extension": ".*\\.ent$",
+                    "description": "Path to the output cluster file",
+                    "edam": "format_1476"
+                },
+                {
+                    "extension": ".*\\.tpr$",
+                    "description": "Path to the output cluster file",
+                    "edam": "format_2333"
                 }
             ]
         },

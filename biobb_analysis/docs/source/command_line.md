@@ -1775,7 +1775,7 @@ gmx_cluster -h
       --input_traj_path INPUT_TRAJ_PATH
                             Path to the GROMACS trajectory file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
       --output_pdb_path OUTPUT_PDB_PATH
-                            Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng.
+                            Path to the output cluster file. Accepted formats: xtc, trr, cpt, gro, g96, pdb, tng, ent, tpr.
     
     optional arguments:
       --input_index_path INPUT_INDEX_PATH
@@ -1793,7 +1793,7 @@ Config input / output arguments for this building block:
 * **input_structure_path** (*string*): Path to the input structure file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/topology.tpr). Accepted formats: TPR, GRO, G96, PDB, BRK, ENT
 * **input_traj_path** (*string*): Path to the GROMACS trajectory file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/trajectory.trr). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
 * **input_index_path** (*string*): Path to the GROMACS index file. File type: input. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx). Accepted formats: NDX
-* **output_pdb_path** (*string*): Path to the output cluster file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_cluster.pdb). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG
+* **output_pdb_path** (*string*): Path to the output cluster file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_cluster.pdb). Accepted formats: XTC, TRR, CPT, GRO, G96, PDB, TNG, ENT, TPR
 * **output_cluster_log_path** (*string*): Path to the output log file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/gmx_cluster_cluster.log). Accepted formats: LOG
 * **output_rmsd_cluster_xpm_path** (*string*): Path to the output X PixMap compatible matrix file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/gmx_cluster_rmsd-clust.xpm). Accepted formats: XPM
 * **output_rmsd_dist_xvg_path** (*string*): Path to xvgr/xmgr file. File type: output. [Sample file](https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/gmx_cluster_rmsd-dist.xvg). Accepted formats: XVG
