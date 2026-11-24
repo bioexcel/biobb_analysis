@@ -5,12 +5,9 @@
 from pathlib import PurePath
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools.file_utils import launchlogger
 
 from biobb_analysis.gromacs.common import (
     _from_string_to_list,
-    check_energy_path,
-    check_out_xvg_path,
     get_binary_path,
     get_default_value,
     get_terms,
@@ -88,19 +85,10 @@ class GMXEnergy(BiobbObject):
         # Properties common in all GROMACS BB
         self.binary_path = get_binary_path(properties, "binary_path")
 
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """Checks all the input/output paths and parameters"""
-        self.io_dict["in"]["input_energy_path"] = check_energy_path(
-            self.io_dict["in"]["input_energy_path"], out_log, self.__class__.__name__
-        )
-        self.io_dict["out"]["output_xvg_path"] = check_out_xvg_path(
-            self.io_dict["out"]["output_xvg_path"], out_log, self.__class__.__name__
-        )
-        self.xvg = get_xvg(self.properties, out_log, self.__class__.__name__)
-        self.terms = get_terms(self.properties, out_log, self.__class__.__name__)
+        self.xvg = get_xvg(self.properties, self.out_log, self.__class__.__name__)
+        self.terms = get_terms(self.properties, self.out_log, self.__class__.__name__)
 
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
@@ -123,17 +111,8 @@ class GMXEnergy(BiobbObject):
 
         return self.instructions_file_path
 
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> int:
         """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         # create instructions file
         self.create_instructions_file()

@@ -6,14 +6,8 @@ from typing import Optional
 
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
 from biobb_analysis.gromacs.common import (
-    check_energy_path,
-    check_index_path,
-    check_input_path,
-    check_out_log_path,
-    check_traj_path,
     get_binary_path,
     is_valid_boolean,
     is_valid_float,
@@ -128,9 +122,6 @@ class GMXCheck(BiobbObject):
         # Properties common in all GROMACS BB
         self.binary_path = get_binary_path(properties, "binary_path")
 
-        # Check the properties
-        self.check_init(properties)
-
     def _validate_float_property(self, prop_name, default_value=None):
         """Validates a float property and converts it to string."""
         value = self.properties.get(prop_name, default_value)
@@ -156,7 +147,7 @@ class GMXCheck(BiobbObject):
             raise SystemExit(f"{self.__class__.__name__}: Incorrect {prop_name} provided")
         return value
 
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """Checks all the input/output paths and parameters"""
         input_values = [
             self.io_dict["in"].get("input_structure_path"),
@@ -172,59 +163,16 @@ class GMXCheck(BiobbObject):
         if not any(input_values):
             fu.log(
                 f"{self.__class__.__name__}: No input files provided, exiting",
-                out_log,
+                self.out_log,
             )
             raise SystemExit(f"{self.__class__.__name__}: No input files provided")
-
-        if self.io_dict["in"].get("input_structure_path"):
-            self.io_dict["in"]["input_structure_path"] = check_input_path(
-                self.io_dict["in"]["input_structure_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_structure_2_path"):
-            self.io_dict["in"]["input_structure_2_path"] = check_input_path(
-                self.io_dict["in"]["input_structure_2_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_traj_path"):
-            self.io_dict["in"]["input_traj_path"] = check_traj_path(
-                self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_traj_2_path"):
-            self.io_dict["in"]["input_traj_2_path"] = check_traj_path(
-                self.io_dict["in"]["input_traj_2_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_energy_path"):
-            self.io_dict["in"]["input_energy_path"] = check_energy_path(
-                self.io_dict["in"]["input_energy_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_energy_2_path"):
-            self.io_dict["in"]["input_energy_2_path"] = check_energy_path(
-                self.io_dict["in"]["input_energy_2_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("structure_check_path"):
-            self.io_dict["in"]["structure_check_path"] = check_input_path(
-                self.io_dict["in"]["structure_check_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_index_path"):
-            self.io_dict["in"]["input_index_path"] = check_index_path(
-                self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__
-            )
 
         if not self.io_dict["out"].get("output_log_path"):
             fu.log(
                 f"{self.__class__.__name__}: No output log path provided, exiting",
-                out_log,
+                self.out_log,
             )
             raise SystemExit(f"{self.__class__.__name__}: No output log path provided")
-        self.io_dict["out"]["output_log_path"] = check_out_log_path(
-            self.io_dict["out"]["output_log_path"], out_log, self.__class__.__name__
-        )
 
         self.vdwfac = self._validate_float_property("vdwfac", self.vdwfac)
         self.bonlo = self._validate_float_property("bonlo", self.bonlo)
@@ -238,17 +186,8 @@ class GMXCheck(BiobbObject):
         self.rmsd = self._validate_boolean_property("rmsd", self.rmsd)
         self.compare_ab = self._validate_boolean_property("compare_ab", self.compare_ab)
 
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> int:
         """Execute the :class:`GMXCheck <gromacs.gmx_check.GMXCheck>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         self.cmd = [self.binary_path, "check"]
 

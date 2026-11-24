@@ -4,7 +4,6 @@
 
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools.file_utils import launchlogger
 import biobb_common.tools.file_utils as fu
 import biobb_analysis.gromacs.common as gro_common
 
@@ -90,52 +89,33 @@ class GMXTrjConvTrj(BiobbObject):
         # Properties common in all GROMACS BB
         self.binary_path = gro_common.get_binary_path(properties, 'binary_path')
 
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_traj_path"] = gro_common.check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_index_path"] = gro_common.check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
-        if self.io_dict["in"]["input_top_path"]:
-            self.io_dict["in"]["input_top_path"] = gro_common.check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_traj_path"] = gro_common.check_out_traj_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
         '''if not self.io_dict["in"]["input_index_path"]:
             self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
         else:
             self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)'''
         if self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
-            self.selection = gro_common.get_selection(self.properties, out_log, self.__class__.__name__)
+            self.selection = gro_common.get_selection(self.properties, self.out_log, self.__class__.__name__)
         elif self.io_dict["in"]["input_index_path"]:
-            self.selection = gro_common.get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
+            self.selection = gro_common.get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', self.out_log, self.__class__.__name__)
         elif not self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
             self.selection = ""
         else:
             return True
-        self.start = gro_common.get_start(self.properties, out_log, self.__class__.__name__)
-        self.end = gro_common.get_end(self.properties, out_log, self.__class__.__name__)
-        self.dt = gro_common.get_dt(self.properties, out_log, self.__class__.__name__)
-        self.dump = gro_common.get_dump(self.properties, out_log, self.__class__.__name__)
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
+        self.start = gro_common.get_start(self.properties, self.out_log, self.__class__.__name__)
+        self.end = gro_common.get_end(self.properties, self.out_log, self.__class__.__name__)
+        self.dt = gro_common.get_dt(self.properties, self.out_log, self.__class__.__name__)
+        self.dump = gro_common.get_dump(self.properties, self.out_log, self.__class__.__name__)
         # if not input_index_path and not input_top_path provided, selection must be empty, otherwise exit
         if not self.io_dict["in"]["input_index_path"] and not self.io_dict["in"]["input_top_path"] and self.selection != '':
             fu.log(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty', self.out_log)
             raise SystemExit(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty')
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
-        self.stage_files()
+
+    def run(self) -> int:
+        """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` object."""
 
         self.cmd = [self.binary_path, 'trjconv', '-f', self.stage_io_dict["in"]["input_traj_path"]]
 

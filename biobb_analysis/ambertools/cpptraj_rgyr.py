@@ -5,8 +5,7 @@
 from typing import Optional
 from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_negative_mask, setup_structure
+from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_binary_path, get_in_parameters, get_negative_mask, setup_structure
 
 
 class CpptrajRgyr(BiobbObject):
@@ -83,16 +82,11 @@ class CpptrajRgyr(BiobbObject):
         self.mask = properties.get('mask', 'all-atoms')
         self.properties = properties
         self.binary_path = get_binary_path(properties, 'binary_path')
-
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
-        """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_top_path"], self.input_top_path_orig = check_top_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
         self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask}
+
+    def prepare(self) -> None:
+        """Extract the topology from input_top_path if it is a zip file."""
+        self.io_dict["in"]["input_top_path"] = unzip_top_path(self.io_dict["in"]["input_top_path"], self.tmp_files, self.out_log)
 
     def create_instructions_file(self, container_io_dict, out_log, err_log):
         """Creates an input file using the properties file settings"""
@@ -131,17 +125,8 @@ class CpptrajRgyr(BiobbObject):
 
         return self.instructions_file_path
 
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> int:
         """Execute the :class:`CpptrajRgyr <ambertools.cpptraj_rgyr.CpptrajRgyr>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         # create instructions file
         self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)

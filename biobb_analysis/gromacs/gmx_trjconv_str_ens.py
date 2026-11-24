@@ -5,8 +5,7 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_selection_index_file, get_selection, check_out_str_ens_path, get_skip, get_start, get_end, get_dt, get_ot_str_ens, process_output_trjconv_str_ens
+from biobb_analysis.gromacs.common import get_binary_path, get_selection_index_file, get_selection, get_skip, get_start, get_end, get_dt, get_ot_str_ens, process_output_trjconv_str_ens
 
 
 class GMXTrjConvStrEns(BiobbObject):
@@ -93,40 +92,23 @@ class GMXTrjConvStrEns(BiobbObject):
         # Properties common in all GROMACS BB
         self.binary_path = get_binary_path(properties, 'binary_path')
 
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_top_path"] = check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_str_ens_path"] = check_out_str_ens_path(self.io_dict["out"]["output_str_ens_path"], out_log, self.__class__.__name__)
         if not self.io_dict["in"]["input_index_path"]:
-            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+            self.selection = get_selection(self.properties, self.out_log, self.__class__.__name__)
         else:
-            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
-        self.skip = get_skip(self.properties, out_log, self.__class__.__name__)
-        self.start = get_start(self.properties, out_log, self.__class__.__name__)
-        self.end = get_end(self.properties, out_log, self.__class__.__name__)
-        self.dt = get_dt(self.properties, out_log, self.__class__.__name__)
+            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', self.out_log, self.__class__.__name__)
+        self.skip = get_skip(self.properties, self.out_log, self.__class__.__name__)
+        self.start = get_start(self.properties, self.out_log, self.__class__.__name__)
+        self.end = get_end(self.properties, self.out_log, self.__class__.__name__)
+        self.dt = get_dt(self.properties, self.out_log, self.__class__.__name__)
         self.output_name = self.properties.get('output_name', 'output')
-        self.output_type = get_ot_str_ens(self.properties, out_log, self.__class__.__name__)
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+        self.output_type = get_ot_str_ens(self.properties, self.out_log, self.__class__.__name__)
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
-        self.stage_files()
+
+    def run(self) -> int:
+        """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` object."""
 
         # if container execution, output to container_volume_path, else to unique_dir
         if self.container_path:

@@ -5,9 +5,8 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from pathlib import PurePath
-from biobb_analysis.gromacs.common import check_input_path, check_traj_path, check_index_path, check_out_pdb_path, get_binary_path, get_image_selection, get_selection_index_file, get_dista, get_method, get_cutoff
+from biobb_analysis.gromacs.common import get_binary_path, get_image_selection, get_selection_index_file, get_dista, get_method, get_cutoff
 
 
 class GMXCluster(BiobbObject):
@@ -100,39 +99,22 @@ class GMXCluster(BiobbObject):
         # Properties common in all GROMACS BB
         self.binary_path = get_binary_path(properties, 'binary_path')
 
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_structure_path"] = check_input_path(self.io_dict["in"]["input_structure_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_pdb_path"] = check_out_pdb_path(self.io_dict["out"]["output_pdb_path"], out_log, self.__class__.__name__)
         if not self.io_dict["in"]["input_index_path"]:
-            self.fit_selection = get_image_selection(self.properties, 'fit_selection', out_log, self.__class__.__name__)
-            self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
+            self.fit_selection = get_image_selection(self.properties, 'fit_selection', self.out_log, self.__class__.__name__)
+            self.output_selection = get_image_selection(self.properties, 'output_selection', self.out_log, self.__class__.__name__)
         else:
-            self.fit_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'fit_selection', out_log, self.__class__.__name__)
-            self.output_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'output_selection', out_log, self.__class__.__name__)
-        self.dista = get_dista(self.properties, out_log, self.__class__.__name__)
-        self.method = get_method(self.properties, out_log, self.__class__.__name__)
-        self.cutoff = get_cutoff(self.properties, out_log, self.__class__.__name__)
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+            self.fit_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'fit_selection', self.out_log, self.__class__.__name__)
+            self.output_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'output_selection', self.out_log, self.__class__.__name__)
+        self.dista = get_dista(self.properties, self.out_log, self.__class__.__name__)
+        self.method = get_method(self.properties, self.out_log, self.__class__.__name__)
+        self.cutoff = get_cutoff(self.properties, self.out_log, self.__class__.__name__)
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.fit_selection} {self.output_selection}')
-        self.stage_files()
+
+    def run(self) -> int:
+        """Execute the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` object."""
 
         # Optional output files
         if self.container_path:

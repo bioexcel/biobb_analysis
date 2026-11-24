@@ -5,8 +5,7 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_selection_index_file, check_out_xvg_path, get_xvg, get_selection
+from biobb_analysis.gromacs.common import get_binary_path, get_selection_index_file, get_xvg, get_selection
 
 
 class GMXRms(BiobbObject):
@@ -81,35 +80,18 @@ class GMXRms(BiobbObject):
         # Properties common in all GROMACS BB
         self.binary_path = get_binary_path(properties, 'binary_path')
 
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_structure_path"] = check_input_path(self.io_dict["in"]["input_structure_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_xvg_path"] = check_out_xvg_path(self.io_dict["out"]["output_xvg_path"], out_log, self.__class__.__name__)
-        self.xvg = get_xvg(self.properties, out_log, self.__class__.__name__)
+        self.xvg = get_xvg(self.properties, self.out_log, self.__class__.__name__)
         if not self.io_dict["in"]["input_index_path"]:
-            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+            self.selection = get_selection(self.properties, self.out_log, self.__class__.__name__)
         else:
-            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', self.out_log, self.__class__.__name__)
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection} {self.selection}')
-        self.stage_files()
+
+    def run(self) -> int:
+        """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` object."""
 
         self.cmd = [self.binary_path, 'rms',
                     '-s', self.stage_io_dict["in"]["input_structure_path"],

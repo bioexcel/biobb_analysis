@@ -5,7 +5,6 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_analysis.ambertools.common import get_default_value, check_in_path
 
 
@@ -61,9 +60,6 @@ class CpptrajInput(BiobbObject):
         self.properties = properties
         self.binary_path = properties.get('binary_path', 'cpptraj')
 
-        # Check the properties
-        self.check_init(properties)
-
     def create_instrucions_file(self):
         """ Creates an input file using paths provideed in the configuration file (only used for test purposes) """
         instructions_list = []
@@ -79,16 +75,8 @@ class CpptrajInput(BiobbObject):
 
         return output_instructions_path
 
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> int:
         """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` object."""
-
-        # Get local loggers from launchlogger decorator
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         output_instructions_path = self.stage_io_dict.get('input_instructions_path', self.create_instrucions_file())
         check_in_path(output_instructions_path, self.out_log, self.__class__.__name__)
