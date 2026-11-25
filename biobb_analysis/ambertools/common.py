@@ -377,7 +377,7 @@ def get_in_parameters(list, out_log, type='None'):
                 fu.log('No step value provided in configuration file or incorrect format, assigned default value: %s' % get_default_value('step'), out_log)
 
             # checking start <= end
-            if end != '-1' and start > end:
+            if end != '-1' and int(start) > int(end):
                 fu.log('End must be -1 (indicating the end of the trajectory) or more or equal than start. Your values are start: %s, end: %s' % (start, end), out_log)
                 raise SystemExit('End must be -1 (indicating the end of the trajectory) or greater or equal than start. Your values are start: %s, end: %s' % (start, end))
 
