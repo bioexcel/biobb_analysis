@@ -125,7 +125,7 @@ class CpptrajRgyr(BiobbObject):
 
         return self.instructions_file_path
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`CpptrajRgyr <ambertools.cpptraj_rgyr.CpptrajRgyr>` object."""
 
         # create instructions file
@@ -136,15 +136,6 @@ class CpptrajRgyr(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # remove temporary folder(s)
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def cpptraj_rgyr(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:

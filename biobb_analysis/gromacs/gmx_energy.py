@@ -111,7 +111,7 @@ class GMXEnergy(BiobbObject):
 
         return self.instructions_file_path
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` object."""
 
         # create instructions file
@@ -132,12 +132,6 @@ class GMXEnergy(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def gmx_energy(

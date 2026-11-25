@@ -130,7 +130,7 @@ class CpptrajAverage(BiobbObject):
 
         return self.instructions_file_path
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`CpptrajAverage <ambertools.cpptraj_average.CpptrajAverage>` object."""
 
         # Create instructions file
@@ -141,13 +141,6 @@ class CpptrajAverage(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
-        # Remove temporary folder(s)
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def cpptraj_average(input_top_path: str,

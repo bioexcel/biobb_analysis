@@ -127,7 +127,7 @@ class CpptrajConvert(BiobbObject):
 
         return self.instructions_file_path
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`CpptrajConvert <ambertools.cpptraj_convert.CpptrajConvert>` object."""
 
         # Create instructions file
@@ -136,13 +136,6 @@ class CpptrajConvert(BiobbObject):
         self.cmd = [self.binary_path, '-i', self.instructions_file_path]
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
-        # Remove temporary folder
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def cpptraj_convert(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:

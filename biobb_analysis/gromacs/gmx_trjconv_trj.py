@@ -114,7 +114,7 @@ class GMXTrjConvTrj(BiobbObject):
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` object."""
 
         self.cmd = [self.binary_path, 'trjconv', '-f', self.stage_io_dict["in"]["input_traj_path"]]
@@ -144,13 +144,7 @@ class GMXTrjConvTrj(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def gmx_trjconv_trj(input_traj_path: str,

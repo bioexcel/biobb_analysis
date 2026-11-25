@@ -90,7 +90,7 @@ class GMXRms(BiobbObject):
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection} {self.selection}')
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` object."""
 
         self.cmd = [self.binary_path, 'rms',
@@ -109,15 +109,7 @@ class GMXRms(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
-
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
-        self.remove_tmp_files()
-
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def gmx_rms(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:

@@ -107,7 +107,7 @@ class GMXTrjConvStrEns(BiobbObject):
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` object."""
 
         # if container execution, output to container_volume_path, else to unique_dir
@@ -140,9 +140,10 @@ class GMXTrjConvStrEns(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
+        self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
+    def process_outputs(self) -> None:
+        """Zip the frames written by trjconv into the output zip file."""
         if self.container_path:
             process_output_trjconv_str_ens(self.stage_io_dict['unique_dir'],
                                            self.io_dict["out"]["output_str_ens_path"],
@@ -153,12 +154,6 @@ class GMXTrjConvStrEns(BiobbObject):
                                            self.stage_io_dict["out"]["output_str_ens_path"],
                                            self.io_dict["out"]["output_str_ens_path"],
                                            self.output_name + f'*.{self.output_type}', self.out_log)
-
-        self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def gmx_trjconv_str_ens(input_traj_path: str,

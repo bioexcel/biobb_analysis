@@ -139,7 +139,7 @@ class CpptrajBfactor(BiobbObject):
 
         return self.instructions_file_path
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`CpptrajBfactor <ambertools.cpptraj_bfactor.CpptrajBfactor>` object."""
 
         # Create instructions file
@@ -150,13 +150,6 @@ class CpptrajBfactor(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
-        # Remove temporary folder
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def cpptraj_bfactor(input_top_path: str,

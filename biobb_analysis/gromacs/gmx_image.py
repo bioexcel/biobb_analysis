@@ -132,7 +132,7 @@ class GMXImage(BiobbObject):
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{selections}')
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` object."""
 
         self.cmd = [self.binary_path, 'trjconv',
@@ -159,14 +159,8 @@ class GMXImage(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
         # Remove temporal files
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
 def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:

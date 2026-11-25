@@ -75,7 +75,7 @@ class CpptrajInput(BiobbObject):
 
         return output_instructions_path
 
-    def run(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` object."""
 
         output_instructions_path = self.stage_io_dict.get('input_instructions_path', self.create_instrucions_file())
@@ -85,9 +85,6 @@ class CpptrajInput(BiobbObject):
         self.cmd = [self.binary_path, '-i', output_instructions_path]
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
-        return self.return_code
 
 
 def cpptraj_input(input_instructions_path: str, properties: Optional[dict] = None, **kwargs) -> int:
