@@ -67,7 +67,7 @@ class CpptrajInput(BiobbObject):
     def run(self) -> None:
         """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` object."""
 
-        output_instructions_path = self.stage_io_dict.get('input_instructions_path', self.create_instrucions_file())
+        output_instructions_path = self.stage_io_dict["in"].get('input_instructions_path') or self.create_instrucions_file()
         check_in_path(output_instructions_path, self.out_log, self.__class__.__name__)
 
         # create cmd and launch execution
