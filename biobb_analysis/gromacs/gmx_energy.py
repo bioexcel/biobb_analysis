@@ -2,7 +2,6 @@
 
 """Module containing the GMX Energy class and the command line interface."""
 
-from pathlib import PurePath
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 
@@ -93,13 +92,9 @@ class GMXEnergy(BiobbObject):
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
         instructions_list = []
-        # Different path if container execution or not
-        if self.container_path:
-            self.instructions_file = str(PurePath(self.stage_io_dict['unique_dir']).joinpath("instructions.in"))
-            self.instructions_file_path = str(PurePath(self.container_volume_path).joinpath("instructions.in"))
-        else:
-            self.instructions_file = self.create_tmp_file(self.instructions_file)
-            self.instructions_file_path = self.instructions_file
+        # Instructions file in the sandbox, and its path for the command (inside the container if any)
+        self.instructions_file = self.create_tmp_file(self.instructions_file)
+        self.instructions_file_path = self.staged_path(self.instructions_file)
 
         for t in self.terms:
             instructions_list.append(t)

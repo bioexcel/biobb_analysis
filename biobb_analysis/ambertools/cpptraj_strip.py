@@ -3,7 +3,6 @@
 """Module containing the Cpptraj Strip class and the command line interface."""
 
 from typing import Optional
-from pathlib import PurePath
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_binary_path, get_in_parameters, get_out_parameters, get_mask
@@ -96,13 +95,9 @@ class CpptrajStrip(BiobbObject):
     def create_instructions_file(self, container_io_dict, out_log, err_log):
         """Creates an input file using the properties file settings"""
         instructions_list = []
-        # different path if container execution or not
-        if self.container_path:
-            self.instructions_file = str(PurePath(self.stage_io_dict['unique_dir']).joinpath("cpptraj.in"))
-            self.instructions_file_path = str(PurePath(self.container_volume_path).joinpath("cpptraj.in"))
-        else:
-            self.instructions_file = self.create_tmp_file(self.instructions_file)
-            self.instructions_file_path = self.instructions_file
+        # Instructions file in the sandbox, and its path for the command (inside the container if any)
+        self.instructions_file = self.create_tmp_file(self.instructions_file)
+        self.instructions_file_path = self.staged_path(self.instructions_file)
 
         # parm
         instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
