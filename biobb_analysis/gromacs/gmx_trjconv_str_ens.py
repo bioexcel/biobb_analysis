@@ -142,18 +142,11 @@ class GMXTrjConvStrEns(BiobbObject):
 
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
-    def process_outputs(self) -> None:
-        """Zip the frames written by trjconv into the output zip file."""
-        if self.container_path:
-            process_output_trjconv_str_ens(self.stage_io_dict['unique_dir'],
-                                           self.io_dict["out"]["output_str_ens_path"],
-                                           self.stage_io_dict.get("unique_dir"),
-                                           self.output_name + '*', self.out_log)
-        else:
-            process_output_trjconv_str_ens(self.stage_io_dict.get("unique_dir"),
-                                           self.stage_io_dict["out"]["output_str_ens_path"],
-                                           self.io_dict["out"]["output_str_ens_path"],
-                                           self.output_name + f'*.{self.output_type}', self.out_log)
+        # Zip the frames written by trjconv into the output zip file.
+        process_output_trjconv_str_ens(self.stage_io_dict["unique_dir"],
+                                       self.sandbox_file("output_str_ens_path"),
+                                       self.output_name + ('*' if self.container_path else f'*.{self.output_type}'),
+                                       self.out_log)
 
 
 def gmx_trjconv_str_ens(input_traj_path: str,

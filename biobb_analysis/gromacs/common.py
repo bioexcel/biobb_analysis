@@ -438,9 +438,8 @@ def remove_tmp_files(list, remove_tmp, out_log):
         fu.log("Removed: %s" % str(removed_files), out_log)
 
 
-def process_output_trjconv_str_ens(
-    tmp_folder, output_file, output_dir, glob_pattern, out_log
-):
+def process_output_trjconv_str_ens(tmp_folder, output_file, glob_pattern, out_log):
+    """Zip the files of **tmp_folder** matching **glob_pattern** (or frame*.pdb) into **output_file**."""
     tmp_fl = list(Path(tmp_folder).glob(glob_pattern))
     if not tmp_fl:
         tmp_fl = list(Path(tmp_folder).glob("frame*.pdb"))
@@ -451,8 +450,6 @@ def process_output_trjconv_str_ens(
 
     # adding files from temporary folder to zip
     fu.zip_list(output_file, files_list, out_log)
-
-    shutil.copy2(output_file, output_dir)
 
 
 def _from_string_to_list(input_data: Optional[Union[str, list[str]]]) -> list[str]:
