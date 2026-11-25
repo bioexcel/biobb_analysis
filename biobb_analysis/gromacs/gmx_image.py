@@ -5,7 +5,7 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_analysis.gromacs.common import get_binary_path, get_image_selection, get_selection_index_file, get_pbc, get_center, get_ur, get_fit
+from biobb_analysis.gromacs.common import get_image_selection, get_selection_index_file, get_pbc, get_center, get_ur, get_fit
 
 
 class GMXImage(BiobbObject):
@@ -68,33 +68,9 @@ class GMXImage(BiobbObject):
 
     def __init__(self, input_traj_path, input_top_path, output_traj_path,
                  input_index_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_traj_path": input_traj_path,
-                   "input_top_path": input_top_path,
-                   "input_index_path": input_index_path},
-            "out": {"output_traj_path": output_traj_path}
-        }
-
-        # Properties specific for BB
-        self.fit_selection = properties.get('fit_selection', "System")
-        self.center_selection = properties.get('center_selection', "System")
-        self.cluster_selection = properties.get('cluster_selection', "System")
-        self.output_selection = properties.get('output_selection', "System")
-        self.pbc = properties.get('pbc', "mol")
-        self.center = properties.get('center', True)
-        self.ur = properties.get('ur', "compact")
-        self.fit = properties.get('fit', "none")
-        self.properties = properties
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, 'binary_path')
 
     def prepare(self):
         """ Checks all the input/output paths and parameters """

@@ -5,7 +5,7 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_analysis.gromacs.common import get_binary_path, get_image_selection, get_selection_index_file, get_dista, get_method, get_cutoff
+from biobb_analysis.gromacs.common import get_image_selection, get_selection_index_file, get_dista, get_method, get_cutoff
 
 
 class GMXCluster(BiobbObject):
@@ -69,34 +69,9 @@ class GMXCluster(BiobbObject):
     def __init__(self, input_structure_path, input_traj_path, output_pdb_path,
                  input_index_path=None, output_cluster_log_path=None, output_rmsd_cluster_xpm_path=None,
                  output_rmsd_dist_xvg_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_structure_path": input_structure_path,
-                   "input_traj_path": input_traj_path,
-                   "input_index_path": input_index_path},
-            "out": {"output_pdb_path": output_pdb_path,
-                    "output_cluster_log_path": output_cluster_log_path,
-                    "output_rmsd_cluster_xpm_path": output_rmsd_cluster_xpm_path,
-                    "output_rmsd_dist_xvg_path": output_rmsd_dist_xvg_path}
-        }
-
-        # Properties specific for BB
-        self.fit_selection = properties.get('fit_selection', "System")
-        self.output_selection = properties.get('output_selection', "System")
-        self.method = properties.get('method', "linkage")
-        self.dista = properties.get('dista', False)
-        self.nofit = properties.get('nofit', False)
-        self.cutoff = properties.get('cutoff', 0.1)
-        self.properties = properties
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, 'binary_path')
 
     def prepare(self):
         """ Checks all the input/output paths and parameters """

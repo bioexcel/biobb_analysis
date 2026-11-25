@@ -343,33 +343,33 @@
             "properties": {
                 "vdwfac": {
                     "type": "number",
-                    "default": 0.8,
+                    "default": null,
                     "wf_prop": false,
-                    "description": "Fraction of the sum of Van der Waals radii used as warning cutoff."
+                    "description": "Fraction of the sum of Van der Waals radii used as warning cutoff. If not set, GROMACS uses 0.8."
                 },
                 "bonlo": {
                     "type": "number",
-                    "default": 0.4,
+                    "default": null,
                     "wf_prop": false,
-                    "description": "Minimum fraction of the sum of Van der Waals radii for bonded atoms."
+                    "description": "Minimum fraction of the sum of Van der Waals radii for bonded atoms. If not set, GROMACS uses 0.4."
                 },
                 "bonhi": {
                     "type": "number",
-                    "default": 0.7,
+                    "default": null,
                     "wf_prop": false,
-                    "description": "Maximum fraction of the sum of Van der Waals radii for bonded atoms."
+                    "description": "Maximum fraction of the sum of Van der Waals radii for bonded atoms. If not set, GROMACS uses 0.7."
                 },
                 "relative_tolerance": {
                     "type": "number",
-                    "default": 0.001,
+                    "default": null,
                     "wf_prop": false,
-                    "description": "Relative tolerance for comparing real values."
+                    "description": "Relative tolerance for comparing real values. If not set, GROMACS uses 0.001."
                 },
                 "absolute_tolerance": {
                     "type": "number",
-                    "default": 0.001,
+                    "default": null,
                     "wf_prop": false,
-                    "description": "Absolute tolerance, useful when sums are close to zero."
+                    "description": "Absolute tolerance, useful when sums are close to zero. If not set, GROMACS uses 0.001."
                 },
                 "rmsd": {
                     "type": "boolean",

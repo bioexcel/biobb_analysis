@@ -5,7 +5,7 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_analysis.gromacs.common import get_binary_path, get_selection_index_file, get_xvg, get_selection
+from biobb_analysis.gromacs.common import get_selection_index_file, get_xvg, get_selection
 
 
 class GMXRmsf(BiobbObject):
@@ -60,25 +60,9 @@ class GMXRmsf(BiobbObject):
 
     def __init__(self, input_structure_path, input_traj_path, output_xvg_path,
                  input_index_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_structure_path": input_structure_path, "input_traj_path": input_traj_path, "input_index_path": input_index_path},
-            "out": {"output_xvg_path": output_xvg_path}
-        }
-
-        # Properties specific for BB
-        self.xvg = properties.get('xvg', "none")
-        self.selection = properties.get('selection', "System")
-        self.properties = properties
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, 'binary_path')
 
     def prepare(self):
         """ Checks all the input/output paths and parameters """

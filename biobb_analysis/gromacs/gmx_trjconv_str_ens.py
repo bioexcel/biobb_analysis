@@ -5,7 +5,7 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_analysis.gromacs.common import get_binary_path, get_selection_index_file, get_selection, get_skip, get_start, get_end, get_dt, get_ot_str_ens, process_output_trjconv_str_ens
+from biobb_analysis.gromacs.common import get_selection_index_file, get_selection, get_skip, get_start, get_end, get_dt, get_ot_str_ens, process_output_trjconv_str_ens
 
 
 class GMXTrjConvStrEns(BiobbObject):
@@ -67,30 +67,9 @@ class GMXTrjConvStrEns(BiobbObject):
 
     def __init__(self, input_traj_path, input_top_path, output_str_ens_path,
                  input_index_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_traj_path": input_traj_path, "input_top_path": input_top_path, "input_index_path": input_index_path},
-            "out": {"output_str_ens_path": output_str_ens_path}
-        }
-
-        # Properties specific for BB
-        self.selection = properties.get('selection', "System")
-        self.skip = properties.get('skip', 1)
-        self.start = properties.get('start', 0)
-        self.end = properties.get('end', 0)
-        self.dt = properties.get('dt', 0)
-        self.output_name = properties.get('output_name', "output")
-        self.output_type = properties.get('output_type', "pdb")
-        self.properties = properties
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, 'binary_path')
 
     def prepare(self):
         """ Checks all the input/output paths and parameters """

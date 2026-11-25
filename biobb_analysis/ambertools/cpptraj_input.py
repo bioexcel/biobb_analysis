@@ -42,23 +42,12 @@ class CpptrajInput(BiobbObject):
     """
 
     def __init__(self, input_instructions_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_instructions_path": input_instructions_path},
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
         self.input_top_path = kwargs.get('input_top_path')
         self.input_traj_path = kwargs.get('input_traj_path')
         self.output_cpptraj_path = kwargs.get('output_cpptraj_path')
-        self.properties = properties
-        self.binary_path = properties.get('binary_path', 'cpptraj')
 
     def create_instrucions_file(self):
         """ Creates an input file using paths provideed in the configuration file (only used for test purposes) """

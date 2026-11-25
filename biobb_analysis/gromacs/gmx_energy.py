@@ -7,7 +7,6 @@ from biobb_common.generic.biobb_object import BiobbObject
 
 from biobb_analysis.gromacs.common import (
     _from_string_to_list,
-    get_binary_path,
     get_default_value,
     get_terms,
     get_xvg,
@@ -63,26 +62,13 @@ class GMXEnergy(BiobbObject):
     def __init__(
         self, input_energy_path, output_xvg_path, properties=None, **kwargs
     ) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_energy_path": input_energy_path},
-            "out": {"output_xvg_path": output_xvg_path},
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
-        self.xvg = properties.get("xvg", "none")
-        self.terms = _from_string_to_list(properties.get("terms", ["Potential"]))
+        self.terms = _from_string_to_list(self.terms)
         self.instructions_file = get_default_value("instructions_file")
-        self.properties = properties
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, "binary_path")
 
     def prepare(self):
         """Checks all the input/output paths and parameters"""

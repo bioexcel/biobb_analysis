@@ -4,7 +4,7 @@
 
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_binary_path, get_in_parameters, get_negative_mask, setup_structure, get_cluster_algorithm, get_cluster_metric, get_traj_format
+from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure, get_cluster_algorithm, get_cluster_metric, get_traj_format
 
 
 class CpptrajCluster(BiobbObject):
@@ -80,37 +80,10 @@ class CpptrajCluster(BiobbObject):
     def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
                  output_summary_path=None, output_info_path=None, output_traj_path=None,
                  properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_top_path": input_top_path, "input_traj_path": input_traj_path},
-            "out": {"output_cpptraj_path": output_cpptraj_path, "output_summary_path": output_summary_path,
-                    "output_info_path": output_info_path, "output_traj_path": output_traj_path}
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
         self.instructions_file = get_default_value('instructions_file')
-        self.start = properties.get('start', 1)
-        self.end = properties.get('end', -1)
-        self.steps = properties.get('steps', 1)
-        self.mask = properties.get('mask', 'all-atoms')
-        self.algorithm = properties.get('algorithm', 'hieragglo')
-        self.clusters = properties.get('clusters', 10)
-        self.epsilon = properties.get('epsilon', -1.0)
-        self.minpoints = properties.get('minpoints', 4)
-        self.linkage = properties.get('linkage', 'linkage')
-        self.metric = properties.get('metric', 'rms')
-        self.metric_mask = properties.get('metric_mask', 'all-atoms')
-        self.mass = properties.get('mass', False)
-        self.nofit = properties.get('nofit', False)
-        self.sieve = properties.get('sieve', 0)
-        self.properties = properties
-        self.binary_path = get_binary_path(properties, 'binary_path')
 
         self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask}
 

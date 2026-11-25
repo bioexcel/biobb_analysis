@@ -4,7 +4,7 @@
 
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
-from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_binary_path, get_in_parameters, get_negative_mask, setup_structure
+from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure
 
 
 class CpptrajRgyr(BiobbObject):
@@ -61,26 +61,10 @@ class CpptrajRgyr(BiobbObject):
 
     def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
                  properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_top_path": input_top_path, "input_traj_path": input_traj_path},
-            "out": {"output_cpptraj_path": output_cpptraj_path}
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
         self.instructions_file = get_default_value('instructions_file')
-        self.start = properties.get('start', 1)
-        self.end = properties.get('end', -1)
-        self.steps = properties.get('steps', 1)
-        self.mask = properties.get('mask', 'all-atoms')
-        self.properties = properties
-        self.binary_path = get_binary_path(properties, 'binary_path')
         self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask}
 
     def prepare(self) -> None:

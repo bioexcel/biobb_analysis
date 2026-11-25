@@ -21,10 +21,10 @@ class GMXTrjConvTrj(BiobbObject):
         output_traj_path (str): Path to the output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.trj.xtc>`_. Accepted formats: xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), tng (edam:format_3876).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (C-alpha atoms), Backbone (protein backbone atoms: N; C-alpha and C), MainChain (protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including C-beta), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups), DNA (all DNA atoms), RNA (all RNA atoms), Protein_DNA (all Protein-DNA complex atoms), Protein_RNA (all Protein-RNA complex atoms), Protein_DNA_RNA (all Protein-DNA-RNA complex atoms), DNA_RNA (all DNA-RNA complex atoms).
-            * **start** (*int*) - (0) [0~10000|1] Time of first frame to read from trajectory (default unit ps).
-            * **end** (*int*) - (0) [0~10000|1] Time of last frame to read from trajectory (default unit ps).
-            * **dt** (*int*) - (0) [0~10000|1] Only write frame when t MOD dt = first time (ps).
-            * **dump** (*int*) - (0) [0~10000|1] Dump frame nearest specified time (ps). If specified, overrides the -b, -e and -dt options.
+            * **start** (*int*) - (None) [0~10000|1] Time of first frame to read from trajectory (default unit ps).
+            * **end** (*int*) - (None) [0~10000|1] Time of last frame to read from trajectory (default unit ps).
+            * **dt** (*int*) - (None) [0~10000|1] Only write frame when t MOD dt = first time (ps).
+            * **dump** (*int*) - (None) [0~10000|1] Dump frame nearest specified time (ps). If specified, overrides the -b, -e and -dt options.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -63,31 +63,11 @@ class GMXTrjConvTrj(BiobbObject):
 
     def __init__(self, input_traj_path,
                  output_traj_path, input_index_path=None, input_top_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_traj_path": input_traj_path, "input_index_path": input_index_path, "input_top_path": input_top_path},
-            "out": {"output_traj_path": output_traj_path}
-        }
-
-        # Properties specific for BB
+        # Without index and topology files the default selection is empty
         if not self.io_dict["in"]["input_index_path"] and not self.io_dict["in"]["input_top_path"]:
-            self.selection = properties.get('selection', "")
-        else:
-            self.selection = properties.get('selection', "System")
-        self.start = properties.get('start')
-        self.end = properties.get('end')
-        self.dt = properties.get('dt')
-        self.dump = properties.get('dump')
-        self.properties = properties
-
-        # Properties common in all GROMACS BB
-        self.binary_path = gro_common.get_binary_path(properties, 'binary_path')
+            self.selection = self.properties.get('selection', "")
 
     def prepare(self):
         """ Checks all the input/output paths and parameters """

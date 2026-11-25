@@ -7,7 +7,7 @@
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
-from biobb_analysis.gromacs.common import get_binary_path, get_selection_index_file, get_selection
+from biobb_analysis.gromacs.common import get_selection_index_file, get_selection
 
 
 class GMXTrjConvStr(BiobbObject):
@@ -23,10 +23,10 @@ class GMXTrjConvStr(BiobbObject):
         output_str_path (str): Path to the output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.str.pdb>`_. Accepted formats: pdb (edam:format_1476), xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), tng (edam:format_3876).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (C-alpha atoms), Backbone (protein backbone atoms: N; C-alpha and C), MainChain (protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including C-beta), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups), DNA (all DNA atoms), RNA (all RNA atoms), Protein_DNA (all Protein-DNA complex atoms), Protein_RNA (all Protein-RNA complex atoms), Protein_DNA_RNA (all Protein-DNA-RNA complex atoms), DNA_RNA (all DNA-RNA complex atoms).
-            * **pbc** (*str*) - ("mol") PBC treatment (see help text for full description). Values: none (No PBC treatment), mol (Puts the center of mass of molecules in the box), res (Puts the center of mass of residues in the box), atom (Puts all the atoms in the box), nojump (Checks if atoms jump across the box and then puts them back), cluster (Clusters all the atoms in the selected index such that they are all closest to the center of mass of the cluster which is iteratively updated), whole (Only makes broken molecules whole).
+            * **pbc** (*str*) - (None) PBC treatment (see help text for full description). If not set, GROMACS uses none. Values: none (No PBC treatment), mol (Puts the center of mass of molecules in the box), res (Puts the center of mass of residues in the box), atom (Puts all the atoms in the box), nojump (Checks if atoms jump across the box and then puts them back), cluster (Clusters all the atoms in the selected index such that they are all closest to the center of mass of the cluster which is iteratively updated), whole (Only makes broken molecules whole).
             * **center** (*bool*) - (True) Center atoms in box.
-            * **ur** (*str*) - ("compact") Unit-cell representation. Values: rect (It's the ordinary brick shape), tric (It's the triclinic unit cell), compact (Puts all atoms at the closest distance from the center of the box).
-            * **fit** (*str*) - ("none") Fit molecule to ref structure in the structure file. Values: none, rot+trans, rotxy+transxy, translation, transxy, progressive.
+            * **ur** (*str*) - (None) Unit-cell representation. If not set, GROMACS uses rect. Values: rect (It's the ordinary brick shape), tric (It's the triclinic unit cell), compact (Puts all atoms at the closest distance from the center of the box).
+            * **fit** (*str*) - (None) Fit molecule to ref structure in the structure file. If not set, GROMACS uses none. Values: none, rot+trans, rotxy+transxy, translation, transxy, progressive.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -64,28 +64,12 @@ class GMXTrjConvStr(BiobbObject):
 
     def __init__(self, input_structure_path, input_top_path, output_str_path,
                  input_index_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_structure_path": input_structure_path, "input_top_path": input_top_path, "input_index_path": input_index_path},
-            "out": {"output_str_path": output_str_path}
-        }
+        super().__init__(**locals())
 
         # Properties specific for BB
-        self.selection = properties.get('selection', "System")
-        self.pbc = properties.get('pbc', None)
-        self.center = properties.get('dista', None)
-        self.ur = properties.get('ur', None)
-        self.fit = properties.get('fit', None)
-        self.properties = properties
+        self.center = self.properties.get('dista', None)
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, 'binary_path')
 
     def prepare(self):
         """ Checks all the input/output paths and parameters """
