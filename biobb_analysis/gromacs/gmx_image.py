@@ -76,7 +76,7 @@ class GMXImage(BiobbObject):
         if not self.io_dict["in"]["input_index_path"]:
             if self.fit != 'none':
                 self.fit_selection = get_image_selection(self.properties, 'fit_selection', self.out_log, self.__class__.__name__)
-            if self.fit != 'none' or not self.center:
+            if self.fit != 'none' or self.center:
                 self.center_selection = get_image_selection(self.properties, 'center_selection', self.out_log, self.__class__.__name__)
             if self.pbc == 'cluster':
                 self.cluster_selection = get_image_selection(self.properties, 'cluster_selection', self.out_log, self.__class__.__name__)
