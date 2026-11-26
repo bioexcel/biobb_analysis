@@ -3,7 +3,6 @@
 import re
 import shutil
 from pathlib import Path
-from typing import Optional, Union
 
 from biobb_common.command_wrapper import cmd_wrapper
 from biobb_common.tools import file_utils as fu
@@ -76,16 +75,15 @@ def get_binary_path(properties, type):
     return properties.get(type, get_default_value(type))
 
 
-def get_terms(properties, out_log, classname):
-    """Gets energy terms"""
-    terms = properties.get("terms", dict())
-    if not terms or not isinstance(terms, list):
-        fu.log(classname + ": No terms provided or incorrect format, exiting", out_log)
-        raise SystemExit(classname + ": No terms provided or incorrect format")
+def get_terms(terms, out_log, classname):
+    """Checks the energy terms"""
+    if not terms:
+        fu.log(classname + ": No terms provided, exiting", out_log)
+        raise SystemExit(classname + ": No terms provided")
     if not is_valid_term(terms):
         fu.log(classname + ": Incorrect terms provided, exiting", out_log)
         raise SystemExit(classname + ": Incorrect terms provided")
-    return properties.get("terms", "")
+    return terms
 
 
 def get_selection(properties, out_log, classname):
@@ -450,31 +448,3 @@ def process_output_trjconv_str_ens(tmp_folder, output_file, glob_pattern, out_lo
 
     # adding files from temporary folder to zip
     fu.zip_list(output_file, files_list, out_log)
-
-
-def _from_string_to_list(input_data: Optional[Union[str, list[str]]]) -> list[str]:
-    """
-    Converts a string to a list, splitting by commas or spaces. If the input is already a list, returns it as is.
-    Returns an empty list if input_data is None.
-
-    Parameters:
-        input_data (str, list, or None): The string, list, or None value to convert.
-
-    Returns:
-        list: A list of string elements or an empty list if input_data is None.
-    """
-    if input_data is None:
-        return []
-
-    if isinstance(input_data, list):
-        # If input is already a list, return it
-        return input_data
-
-    # If input is a string, determine the delimiter based on presence of commas
-    delimiter = "," if "," in input_data else " "
-    items = input_data.split(delimiter)
-
-    # Remove whitespace from each item and ignore empty strings
-    processed_items = [item.strip() for item in items if item.strip()]
-
-    return processed_items

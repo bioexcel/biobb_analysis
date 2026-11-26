@@ -4,9 +4,9 @@
 
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject, launcher
+from biobb_common.tools import file_utils as fu
 
 from biobb_analysis.gromacs.common import (
-    _from_string_to_list,
     get_default_value,
     get_terms,
     get_xvg,
@@ -64,7 +64,7 @@ class GMXEnergy(BiobbObject):
         super().__init__(**locals())
 
         # Properties specific for BB
-        self.terms = _from_string_to_list(self.terms)
+        self.terms = fu.str_to_list(self.terms)
         self.instructions_file = get_default_value("instructions_file")
 
         # Properties common in all GROMACS BB
@@ -72,7 +72,7 @@ class GMXEnergy(BiobbObject):
     def prepare(self):
         """Checks all the input/output paths and parameters"""
         self.xvg = get_xvg(self.properties, self.out_log, self.__class__.__name__)
-        self.terms = get_terms(self.properties, self.out_log, self.__class__.__name__)
+        self.terms = get_terms(self.terms, self.out_log, self.__class__.__name__)
 
     def create_instructions_file(self):
         """Creates an input file using the properties file settings"""
