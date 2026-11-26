@@ -64,32 +64,19 @@ class GMXTrjConvTrj(BiobbObject):
                  output_traj_path: str, input_index_path: Optional[str] = None, input_top_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
-        # Without index and topology files the default selection is empty
-        if not self.io_dict["in"]["input_index_path"] and not self.io_dict["in"]["input_top_path"]:
-            self.selection = self.properties.get('selection', "")
-
     def prepare(self):
         """ Checks all the input/output paths and parameters """
-        '''if not self.io_dict["in"]["input_index_path"]:
-            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
-        else:
-            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)'''
-        if self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
-            self.selection = gro_common.get_selection(self.properties, self.out_log, self.__class__.__name__)
-        elif self.io_dict["in"]["input_index_path"]:
+        # Without index and topology files the selection is empty
+        if self.io_dict["in"]["input_index_path"]:
             self.selection = gro_common.get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', self.out_log, self.__class__.__name__)
-        elif not self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
-            self.selection = ""
+        elif self.io_dict["in"]["input_top_path"]:
+            self.selection = gro_common.get_selection(self.properties, self.out_log, self.__class__.__name__)
         else:
-            return True
+            self.selection = ""
         self.start = gro_common.get_start(self.properties, self.out_log, self.__class__.__name__)
         self.end = gro_common.get_end(self.properties, self.out_log, self.__class__.__name__)
         self.dt = gro_common.get_dt(self.properties, self.out_log, self.__class__.__name__)
         self.dump = gro_common.get_dump(self.properties, self.out_log, self.__class__.__name__)
-        # if not input_index_path and not input_top_path provided, selection must be empty, otherwise exit
-        if not self.io_dict["in"]["input_index_path"] and not self.io_dict["in"]["input_top_path"] and self.selection != '':
-            fu.log(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty', self.out_log)
-            raise SystemExit(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty')
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
 
