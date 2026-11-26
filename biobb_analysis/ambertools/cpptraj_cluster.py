@@ -3,11 +3,11 @@
 """Module containing the Cpptraj Cluster class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject, launcher
-from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure, get_cluster_algorithm, get_cluster_metric, get_traj_format
+from biobb_common.generic.biobb_object import launcher
+from biobb_analysis.ambertools.common import CpptrajBase, get_default_value, setup_structure, get_cluster_algorithm, get_cluster_metric, get_traj_format
 
 
-class CpptrajCluster(BiobbObject):
+class CpptrajCluster(CpptrajBase):
     """
     | biobb_analysis CpptrajCluster
     | Wrapper of the Ambertools Cpptraj module for clustering the frames of a given cpptraj compatible trajectory.
@@ -81,77 +81,24 @@ class CpptrajCluster(BiobbObject):
                  properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
-        # Properties specific for BB
-        self.instructions_file = get_default_value('instructions_file')
-
-        self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask}
-
-    def prepare(self) -> None:
-        """Extract the topology from input_top_path if it is a zip file."""
-        self.io_dict["in"]["input_top_path"] = unzip_top_path(self.io_dict["in"]["input_top_path"], self.tmp_files, self.out_log)
-
-    def create_instructions_file(self, container_io_dict, out_log, err_log):
-        """Creates an input file using the properties file settings"""
-        instructions_list = []
-        # Instructions file in the sandbox, and its path for the command (inside the container if any)
-        self.instructions_file = self.create_tmp_file(self.instructions_file)
-        self.instructions_file_path = self.staged_path(self.instructions_file)
-
-        # parm
-        instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
-
-        # trajin
-        in_params = get_in_parameters(self.in_parameters, out_log)
-        instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
-
-        # Set up
-        instructions_list += setup_structure()
-
-        # mask
-        mask = self.in_parameters.get('mask', '')
-        if mask:
-            strip_mask = get_negative_mask(mask)
-            instructions_list.append('strip ' + strip_mask)
-
-        # the cluster analysis works on a COORDS data set, so the processed frames must be saved first
+    def instructions(self) -> list[str]:
+        """Goes from the properties to the set up, strip, createcrd and cluster lines."""
+        out = self.stage_io_dict["out"]
         cluster_set = get_default_value('cluster_set')
-        instructions_list.append('createcrd ' + cluster_set)
-        instructions_list.append('run')
-
-        # cluster
-        cluster = ['cluster', 'crdset', cluster_set]
-        cluster.append(get_cluster_algorithm(self.algorithm, self.clusters, self.epsilon, self.minpoints, self.linkage, out_log))
-        cluster.append(get_cluster_metric(self.metric, self.mass, self.nofit, self.metric_mask, out_log))
+        cluster = ['cluster', 'crdset', cluster_set,
+                   get_cluster_algorithm(self.algorithm, self.clusters, self.epsilon, self.minpoints, self.linkage, self.out_log),
+                   get_cluster_metric(self.metric, self.mass, self.nofit, self.metric_mask, self.out_log)]
         if self.sieve:
             cluster += ['sieve', str(self.sieve)]
-        cluster += ['out', container_io_dict["out"]["output_cpptraj_path"]]
-        if container_io_dict["out"].get("output_summary_path"):
-            cluster += ['summary', container_io_dict["out"]["output_summary_path"]]
-        if container_io_dict["out"].get("output_info_path"):
-            cluster += ['info', container_io_dict["out"]["output_info_path"]]
-        if container_io_dict["out"].get("output_traj_path"):
-            traj_path = container_io_dict["out"]["output_traj_path"]
-            cluster += ['singlerepout', traj_path, 'singlerepfmt', get_traj_format(traj_path, out_log)]
-        instructions_list.append(' '.join(cluster))
-
-        # create .in file
-        with open(self.instructions_file, 'w') as mdp:
-            for line in instructions_list:
-                mdp.write(line.strip() + '\n')
-
-        return self.instructions_file_path
-
-    def run(self) -> None:
-        """Execute the :class:`CpptrajCluster <ambertools.cpptraj_cluster.CpptrajCluster>` object."""
-
-        # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
-
-        # create cmd and launch execution
-        self.cmd = [self.binary_path, '-i', self.instructions_file_path]
-
-        # Run Biobb block
-        self.run_biobb()
+        cluster += ['out', out["output_cpptraj_path"]]
+        if out.get("output_summary_path"):
+            cluster += ['summary', out["output_summary_path"]]
+        if out.get("output_info_path"):
+            cluster += ['info', out["output_info_path"]]
+        if out.get("output_traj_path"):
+            cluster += ['singlerepout', out["output_traj_path"], 'singlerepfmt', get_traj_format(out["output_traj_path"], self.out_log)]
+        # the cluster analysis works on a COORDS data set, so the processed frames must be saved first
+        return setup_structure() + self.strip_mask() + ['createcrd ' + cluster_set, 'run', ' '.join(cluster)]
 
 
 cpptraj_cluster = launcher(CpptrajCluster)

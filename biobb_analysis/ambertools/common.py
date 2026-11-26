@@ -1,6 +1,7 @@
 """ Common functions for package biobb_analysis.ambertools """
 from pathlib import Path, PurePath
 import zipfile
+from biobb_common.generic.biobb_object import BiobbObject
 from biobb_common.tools import file_utils as fu
 
 
@@ -273,10 +274,8 @@ def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output, classn
     return instructions_list
 
 
-def get_out_parameters(list, out_log):
+def get_out_parameters(format, out_log):
     """ Return string with output parameters """
-    format = list['format']
-    # msg = None
     # check if format provided
     if not format:
         format = get_default_value('format')
@@ -287,3 +286,39 @@ def get_out_parameters(list, out_log):
         format = get_default_value('format')
 
     return format
+
+
+class CpptrajBase(BiobbObject):
+    """Parent of the cpptraj blocks: goes from the instructions of the block to a cpptraj run
+    on input_top_path and input_traj_path."""
+
+    def prepare(self) -> None:
+        """Extract the topology from input_top_path if it is a zip file."""
+        self.io_dict["in"]["input_top_path"] = unzip_top_path(self.io_dict["in"]["input_top_path"], self.tmp_files, self.out_log)
+
+    def trajin_frames(self) -> str:
+        """Goes from the start, end and steps properties to the frames of the trajin line."""
+        return get_in_parameters({'start': self.start, 'end': self.end, 'step': self.steps}, self.out_log)
+
+    def instructions(self) -> list[str]:
+        """Goes from the properties to the cpptraj instructions that follow the parm and trajin lines."""
+        raise NotImplementedError
+
+    def strip_mask(self) -> list[str]:
+        """Goes from the mask property to the strip line that keeps only its atoms (none without mask)."""
+        return ['strip ' + get_negative_mask(self.mask)] if self.mask else []
+
+    def trajout(self) -> str:
+        """Goes from output_cpptraj_path and the format property to the trajout line."""
+        return 'trajout ' + self.stage_io_dict["out"]["output_cpptraj_path"] + ' ' + get_out_parameters(self.format, self.out_log)
+
+    def run(self) -> None:
+        """Write the instructions file in the sandbox and run cpptraj with it."""
+        instructions = ['parm ' + self.stage_io_dict["in"]["input_top_path"],
+                        'trajin ' + self.stage_io_dict["in"]["input_traj_path"] + ' ' + self.trajin_frames()]
+        instructions += self.instructions()
+        instructions_file = self.create_tmp_file(get_default_value('instructions_file'))
+        with open(instructions_file, 'w') as file:
+            file.writelines(line.strip() + '\n' for line in instructions)
+        self.cmd = [self.binary_path, '-i', self.staged_path(instructions_file)]
+        self.run_biobb()

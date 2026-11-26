@@ -3,11 +3,11 @@
 """Module containing the Cpptraj Dry class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject, launcher
-from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_mask, get_negative_mask, get_out_parameters
+from biobb_common.generic.biobb_object import launcher
+from biobb_analysis.ambertools.common import CpptrajBase, get_mask, get_negative_mask
 
 
-class CpptrajDry(BiobbObject):
+class CpptrajDry(CpptrajBase):
     """
     | biobb_analysis CpptrajDry
     | Wrapper of the Ambertools Cpptraj module for dehydrating a given cpptraj compatible trajectory stripping out solvent molecules and ions.
@@ -64,61 +64,10 @@ class CpptrajDry(BiobbObject):
                  properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
-        # Properties specific for BB
-        self.instructions_file = get_default_value('instructions_file')
-        self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask}
-        self.out_parameters = {'format': self.format}
-
-    def prepare(self) -> None:
-        """Extract the topology from input_top_path if it is a zip file."""
-        self.io_dict["in"]["input_top_path"] = unzip_top_path(self.io_dict["in"]["input_top_path"], self.tmp_files, self.out_log)
-
-    def create_instructions_file(self, container_io_dict, out_log, err_log):
-        """Creates an input file using the properties file settings"""
-        instructions_list = []
-        # Instructions file in the sandbox, and its path for the command (inside the container if any)
-        self.instructions_file = self.create_tmp_file(self.instructions_file)
-        self.instructions_file_path = self.staged_path(self.instructions_file)
-
-        # parm
-        instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
-
-        # trajin
-        in_params = get_in_parameters(self.in_parameters, out_log)
-        instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
-
-        # dry
-        mask_dry1 = get_negative_mask('solute')
-        instructions_list.append('strip ' + mask_dry1)
-        mask_dry2 = get_mask('heavy-atoms')
-        instructions_list.append('strip ' + mask_dry2)
-
-        # mask
-        mask = self.in_parameters.get('mask', '')
-        if mask:
-            strip_mask = get_negative_mask(mask)
-            instructions_list.append('strip ' + strip_mask)
-
-        # trajout
-        out_params = get_out_parameters(self.out_parameters, out_log)
-        instructions_list.append('trajout ' + container_io_dict["out"]["output_cpptraj_path"] + ' ' + out_params)
-
-        # create .in file
-        with open(self.instructions_file, 'w') as mdp:
-            for line in instructions_list:
-                mdp.write(line.strip() + '\n')
-
-        return self.instructions_file_path
-
-    def run(self) -> None:
-        """Execute the :class:`CpptrajDry <ambertools.cpptraj_dry.CpptrajDry>` object."""
-
-        # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
-        # create cmd and launch execution
-        self.cmd = [self.binary_path, '-i', self.instructions_file_path]
-        # Run Biobb block
-        self.run_biobb()
+    def instructions(self) -> list[str]:
+        """Goes from the properties to the dry, strip and trajout lines."""
+        dry = ['strip ' + get_negative_mask('solute'), 'strip ' + get_mask('heavy-atoms')]
+        return dry + self.strip_mask() + [self.trajout()]
 
 
 cpptraj_dry = launcher(CpptrajDry)

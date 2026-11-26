@@ -3,11 +3,11 @@
 """Module containing the Cpptraj Rms class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject, launcher
-from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure, get_mask, get_reference
+from biobb_common.generic.biobb_object import launcher
+from biobb_analysis.ambertools.common import CpptrajBase, setup_structure, get_mask, get_reference
 
 
-class CpptrajRms(BiobbObject):
+class CpptrajRms(CpptrajBase):
     """
     | biobb_analysis CpptrajRms
     | Wrapper of the Ambertools Cpptraj module for calculating the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.
@@ -71,70 +71,14 @@ class CpptrajRms(BiobbObject):
                  input_exp_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
-        # Properties specific for BB
-        self.instructions_file = get_default_value('instructions_file')
-
-        self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask, 'reference': self.reference}
-
-    def prepare(self) -> None:
-        """Extract the topology from input_top_path if it is a zip file."""
-        self.io_dict["in"]["input_top_path"] = unzip_top_path(self.io_dict["in"]["input_top_path"], self.tmp_files, self.out_log)
-
-    def create_instructions_file(self, container_io_dict, out_log, err_log):
-        """Creates an input file using the properties file settings"""
-        instructions_list = []
-        # Instructions file in the sandbox, and its path for the command (inside the container if any)
-        self.instructions_file = self.create_tmp_file(self.instructions_file)
-        self.instructions_file_path = self.staged_path(self.instructions_file)
-
-        # parm
-        instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
-
-        # trajin
-        in_params = get_in_parameters(self.in_parameters, out_log)
-        instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
-
-        # Set up
-        instructions_list += setup_structure()
-
-        # mask
-        mask = self.in_parameters.get('mask', '')
-        ref_mask = ''
-        if mask:
-            strip_mask = get_negative_mask(mask)
-            ref_mask = get_mask(mask)
-            instructions_list.append('strip ' + strip_mask)
-
-        # reference
-        reference = self.in_parameters.get('reference', '')
-        inp_exp_pth = None
-        if "input_exp_path" in container_io_dict["in"]:
-            inp_exp_pth = container_io_dict["in"]["input_exp_path"]
-        instructions_list += get_reference(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True,
-                                           self.__class__.__name__, out_log, self.nofit, self.norotate, self.nomod)
-
-        # trajout
-        if ("output_traj_path" in container_io_dict["out"]):
-            instructions_list.append('trajout ' + container_io_dict["out"]["output_traj_path"])
-
-        # create .in file
-        with open(self.instructions_file, 'w') as mdp:
-            for line in instructions_list:
-                mdp.write(line.strip() + '\n')
-
-        return self.instructions_file_path
-
-    def run(self) -> None:
-        """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` object."""
-
-        # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
-
-        # create cmd and launch execution
-        self.cmd = [self.binary_path, '-i', self.instructions_file_path]
-
-        # Run Biobb block
-        self.run_biobb()
+    def instructions(self) -> list[str]:
+        """Goes from the properties to the set up, strip, rms and trajout lines."""
+        out = self.stage_io_dict["out"]["output_cpptraj_path"]
+        exp_path = self.stage_io_dict["in"].get("input_exp_path")
+        ref_mask = get_mask(self.mask) if self.mask else ''
+        rms = get_reference(self.reference, out, exp_path, ref_mask, True, self.__class__.__name__, self.out_log, self.nofit, self.norotate, self.nomod)
+        trajout = self.stage_io_dict["out"].get("output_traj_path")
+        return setup_structure() + self.strip_mask() + rms + (['trajout ' + trajout] if trajout else [])
 
 
 cpptraj_rms = launcher(CpptrajRms)
