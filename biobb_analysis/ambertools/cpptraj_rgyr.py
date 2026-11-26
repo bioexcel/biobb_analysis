@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Rgyr class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure
 
 
@@ -59,8 +59,8 @@ class CpptrajRgyr(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -117,14 +117,7 @@ class CpptrajRgyr(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_rgyr(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajRgyr <ambertools.cpptraj_rgyr.CpptrajRgyr>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_rgyr.CpptrajRgyr.launch>` method."""
-    return CpptrajRgyr(**dict(locals())).launch()
-
-
-cpptraj_rgyr.__doc__ = CpptrajRgyr.__doc__
-main = CpptrajRgyr.get_main(cpptraj_rgyr, "Computes the radius of gyration (Rgyr) from a given cpptraj compatible trajectory.")
+cpptraj_rgyr = launcher(CpptrajRgyr)
 
 if __name__ == '__main__':
-    main()
+    CpptrajRgyr.main()

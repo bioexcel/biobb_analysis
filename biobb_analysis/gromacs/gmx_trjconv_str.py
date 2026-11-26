@@ -5,7 +5,7 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.gromacs.common import get_selection_index_file, get_selection
 
@@ -62,8 +62,8 @@ class GMXTrjConvStr(BiobbObject):
 
     """
 
-    def __init__(self, input_structure_path, input_top_path, output_str_path,
-                 input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path: str, input_top_path: str, output_str_path: str,
+                 input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -111,19 +111,7 @@ class GMXTrjConvStr(BiobbObject):
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
 
-def gmx_trjconv_str(input_structure_path: str,
-                    input_top_path: str,
-                    output_str_path: str,
-                    input_index_path: Optional[str] = None,
-                    properties: Optional[dict] = None,
-                    **kwargs) -> int:
-    """Create the :class:`GMXTrjConvStr <gromacs.gmx_trjconv_str.GMXTrjConvStr>` class and
-    execute the :meth:`launch() <gromacs.gmx_trjconv_str.GMXTrjConvStr.launch>` method."""
-    return GMXTrjConvStr(**dict(locals())).launch()
-
-
-gmx_trjconv_str.__doc__ = GMXTrjConvStr.__doc__
-main = GMXTrjConvStr.get_main(gmx_trjconv_str, "Converts between GROMACS compatible structure file formats and/or extracts a selection of atoms.")
+gmx_trjconv_str = launcher(GMXTrjConvStr)
 
 if __name__ == '__main__':
-    main()
+    GMXTrjConvStr.main()

@@ -3,7 +3,7 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.gromacs.common import get_image_selection, get_selection_index_file, get_pbc, get_center, get_ur, get_fit
 
@@ -66,8 +66,8 @@ class GMXImage(BiobbObject):
 
     """
 
-    def __init__(self, input_traj_path, input_top_path, output_traj_path,
-                 input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_traj_path: str, input_top_path: str, output_traj_path: str,
+                 input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties common in all GROMACS BB
@@ -139,14 +139,7 @@ class GMXImage(BiobbObject):
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
 
-def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and
-    execute the :meth:`launch() <gromacs.gmx_image.GMXImage.launch>` method."""
-    return GMXImage(**dict(locals())).launch()
-
-
-gmx_image.__doc__ = GMXImage.__doc__
-main = GMXImage.get_main(gmx_image, "Corrects periodicity (image) from a given GROMACS compatible trajectory file.")
+gmx_image = launcher(GMXImage)
 
 if __name__ == '__main__':
-    main()
+    GMXImage.main()

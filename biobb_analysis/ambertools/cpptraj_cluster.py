@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Cluster class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure, get_cluster_algorithm, get_cluster_metric, get_traj_format
 
 
@@ -77,9 +77,9 @@ class CpptrajCluster(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 output_summary_path=None, output_info_path=None, output_traj_path=None,
-                 properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 output_summary_path: Optional[str] = None, output_info_path: Optional[str] = None, output_traj_path: Optional[str] = None,
+                 properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -155,14 +155,7 @@ class CpptrajCluster(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_cluster(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, output_summary_path: Optional[str] = None, output_info_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajCluster <ambertools.cpptraj_cluster.CpptrajCluster>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_cluster.CpptrajCluster.launch>` method."""
-    return CpptrajCluster(**dict(locals())).launch()
-
-
-cpptraj_cluster.__doc__ = CpptrajCluster.__doc__
-main = CpptrajCluster.get_main(cpptraj_cluster, "Clusters the frames of a given cpptraj compatible trajectory.")
+cpptraj_cluster = launcher(CpptrajCluster)
 
 if __name__ == '__main__':
-    main()
+    CpptrajCluster.main()

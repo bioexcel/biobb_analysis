@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Rms class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure, get_mask, get_reference_rms
 
 
@@ -68,8 +68,8 @@ class CpptrajRms(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 input_exp_path=None, output_traj_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 input_exp_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -138,14 +138,7 @@ class CpptrajRms(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
-    return CpptrajRms(**dict(locals())).launch()
-
-
-cpptraj_rms.__doc__ = CpptrajRms.__doc__
-main = CpptrajRms.get_main(cpptraj_rms, "Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.")
+cpptraj_rms = launcher(CpptrajRms)
 
 if __name__ == '__main__':
-    main()
+    CpptrajRms.main()

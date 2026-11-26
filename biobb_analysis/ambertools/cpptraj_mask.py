@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Mask class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, get_out_parameters
 
@@ -62,8 +62,8 @@ class CpptrajMask(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -124,14 +124,7 @@ class CpptrajMask(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_mask(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajMask <ambertools.cpptraj_mask.CpptrajMask>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_mask.CpptrajMask.launch>` method."""
-    return CpptrajMask(**dict(locals())).launch()
-
-
-cpptraj_mask.__doc__ = CpptrajMask.__doc__
-main = CpptrajMask.get_main(cpptraj_mask, "Extracts a selection of atoms from a given cpptraj compatible trajectory.")
+cpptraj_mask = launcher(CpptrajMask)
 
 if __name__ == '__main__':
-    main()
+    CpptrajMask.main()

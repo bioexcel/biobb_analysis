@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Rmsf class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure, get_mask, get_reference
 
 
@@ -63,8 +63,8 @@ class CpptrajRmsf(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 input_exp_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 input_exp_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -128,14 +128,7 @@ class CpptrajRmsf(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_rmsf(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajRmsf <ambertools.cpptraj_rmsf.CpptrajRmsf>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_rmsf.CpptrajRmsf.launch>` method."""
-    return CpptrajRmsf(**dict(locals())).launch()
-
-
-cpptraj_rmsf.__doc__ = CpptrajRmsf.__doc__
-main = CpptrajRmsf.get_main(cpptraj_rmsf, "Calculates the Root Mean Square fluctuations (RMSf) of a given cpptraj compatible trajectory.")
+cpptraj_rmsf = launcher(CpptrajRmsf)
 
 if __name__ == '__main__':
-    main()
+    CpptrajRmsf.main()

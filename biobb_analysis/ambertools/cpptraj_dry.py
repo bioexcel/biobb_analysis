@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Dry class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_mask, get_negative_mask, get_out_parameters
 
 
@@ -61,8 +61,8 @@ class CpptrajDry(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -122,14 +122,7 @@ class CpptrajDry(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_dry(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajDry <ambertools.cpptraj_dry.CpptrajDry>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_dry.CpptrajDry.launch>` method."""
-    return CpptrajDry(**dict(locals())).launch()
-
-
-cpptraj_dry.__doc__ = CpptrajDry.__doc__
-main = CpptrajDry.get_main(cpptraj_dry, "Dehydrates a given cpptraj compatible trajectory stripping out solvent molecules and ions.")
+cpptraj_dry = launcher(CpptrajDry)
 
 if __name__ == '__main__':
-    main()
+    CpptrajDry.main()

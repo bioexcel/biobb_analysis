@@ -3,7 +3,7 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 import biobb_common.tools.file_utils as fu
 import biobb_analysis.gromacs.common as gro_common
 
@@ -61,8 +61,8 @@ class GMXTrjConvTrj(BiobbObject):
 
     """
 
-    def __init__(self, input_traj_path,
-                 output_traj_path, input_index_path=None, input_top_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_traj_path: str,
+                 output_traj_path: str, input_index_path: Optional[str] = None, input_top_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Without index and topology files the default selection is empty
@@ -127,22 +127,7 @@ class GMXTrjConvTrj(BiobbObject):
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
 
-def gmx_trjconv_trj(input_traj_path: str,
-                    output_traj_path: str,
-                    input_index_path: Optional[str] = None,
-                    input_top_path: Optional[str] = None,
-                    properties: Optional[dict] = None,
-                    **kwargs) -> int:
-    """Create the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` class and
-    execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch>` method."""
-    return GMXTrjConvTrj(**dict(locals())).launch()
-
-
-gmx_trjconv_trj.__doc__ = GMXTrjConvTrj.__doc__
-main = GMXTrjConvTrj.get_main(
-    gmx_trjconv_trj,
-    "Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms."
-)
+gmx_trjconv_trj = launcher(GMXTrjConvTrj)
 
 if __name__ == '__main__':
-    main()
+    GMXTrjConvTrj.main()

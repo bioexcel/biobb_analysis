@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Bfactor class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, setup_structure, get_negative_mask, get_mask, get_reference
 
 
@@ -63,8 +63,8 @@ class CpptrajBfactor(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 input_exp_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 input_exp_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -128,21 +128,7 @@ class CpptrajBfactor(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_bfactor(input_top_path: str,
-                    input_traj_path: str,
-                    output_cpptraj_path: str,
-                    input_exp_path: Optional[str] = None,
-                    properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajBfactor <ambertools.cpptraj_bfactor.CpptrajBfactor>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_bfactor.CpptrajBfactor.launch>` method."""
-    return CpptrajBfactor(**dict(locals())).launch()
-
-
-cpptraj_bfactor.__doc__ = CpptrajBfactor.__doc__
-main = CpptrajBfactor.get_main(
-    cpptraj_bfactor,
-    "Calculates the Bfactor fluctuations of a given cpptraj compatible trajectory."
-)
+cpptraj_bfactor = launcher(CpptrajBfactor)
 
 if __name__ == '__main__':
-    main()
+    CpptrajBfactor.main()

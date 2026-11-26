@@ -4,7 +4,7 @@
 
 from typing import Optional
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 
 from biobb_analysis.gromacs.common import (
@@ -74,16 +74,16 @@ class GMXCheck(BiobbObject):
 
     def __init__(
         self,
-        input_structure_path=None,
-        input_structure_2_path=None,
-        input_traj_path=None,
-        input_traj_2_path=None,
-        input_energy_path=None,
-        input_energy_2_path=None,
-        structure_check_path=None,
-        input_index_path=None,
-        output_log_path=None,
-        properties=None,
+        input_structure_path: Optional[str] = None,
+        input_structure_2_path: Optional[str] = None,
+        input_traj_path: Optional[str] = None,
+        input_traj_2_path: Optional[str] = None,
+        input_energy_path: Optional[str] = None,
+        input_energy_2_path: Optional[str] = None,
+        structure_check_path: Optional[str] = None,
+        input_index_path: Optional[str] = None,
+        output_log_path: Optional[str] = None,
+        properties: Optional[dict] = None,
         **kwargs,
     ) -> None:
         super().__init__(**locals())
@@ -215,29 +215,7 @@ class GMXCheck(BiobbObject):
         self.run_biobb()
 
 
-def gmx_check(
-    input_structure_path: Optional[str] = None,
-    input_structure_2_path: Optional[str] = None,
-    input_traj_path: Optional[str] = None,
-    input_traj_2_path: Optional[str] = None,
-    input_energy_path: Optional[str] = None,
-    input_energy_2_path: Optional[str] = None,
-    structure_check_path: Optional[str] = None,
-    input_index_path: Optional[str] = None,
-    output_log_path: Optional[str] = None,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create the :class:`GMXCheck <gromacs.gmx_check.GMXCheck>` class and
-    execute the :meth:`launch() <gromacs.gmx_check.GMXCheck.launch>` method."""
-    return GMXCheck(**dict(locals())).launch()
-
-
-gmx_check.__doc__ = GMXCheck.__doc__
-main = GMXCheck.get_main(
-    gmx_check,
-    "Checks and compares GROMACS topology, trajectory or energy files.",
-)
+gmx_check = launcher(GMXCheck)
 
 if __name__ == "__main__":
-    main()
+    GMXCheck.main()

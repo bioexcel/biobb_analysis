@@ -3,7 +3,7 @@
 """Module containing the GMX Energy class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 
 from biobb_analysis.gromacs.common import (
     _from_string_to_list,
@@ -60,7 +60,7 @@ class GMXEnergy(BiobbObject):
     """
 
     def __init__(
-        self, input_energy_path, output_xvg_path, properties=None, **kwargs
+        self, input_energy_path: str, output_xvg_path: str, properties: Optional[dict] = None, **kwargs
     ) -> None:
         super().__init__(**locals())
 
@@ -115,19 +115,7 @@ class GMXEnergy(BiobbObject):
         self.run_biobb()
 
 
-def gmx_energy(
-    input_energy_path: str,
-    output_xvg_path: str,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create the :class:`GMXEnergy <gromacs.gmx_energy.GMXEnergy>` class and
-    execute the :meth:`launch() <gromacs.gmx_energy.GMXEnergy.launch>` method."""
-    return GMXEnergy(**dict(locals())).launch()
-
-
-gmx_energy.__doc__ = GMXEnergy.__doc__
-main = GMXEnergy.get_main(gmx_energy, "Extracts energy components from a given GROMACS energy file.")
+gmx_energy = launcher(GMXEnergy)
 
 if __name__ == "__main__":
-    main()
+    GMXEnergy.main()

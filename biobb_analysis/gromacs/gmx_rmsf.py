@@ -3,7 +3,7 @@
 """Module containing the GMX Rmsf class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.gromacs.common import get_selection_index_file, get_xvg, get_selection
 
@@ -58,8 +58,8 @@ class GMXRmsf(BiobbObject):
 
     """
 
-    def __init__(self, input_structure_path, input_traj_path, output_xvg_path,
-                 input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path: str, input_traj_path: str, output_xvg_path: str,
+                 input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties common in all GROMACS BB
@@ -96,14 +96,7 @@ class GMXRmsf(BiobbObject):
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
 
-def gmx_rmsf(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`GMXRmsf <gromacs.gmx_rmsf.GMXRmsf>` class and
-    execute the :meth:`launch() <gromacs.gmx_rmsf.GMXRmsf.launch>` method."""
-    return GMXRmsf(**dict(locals())).launch()
-
-
-gmx_rmsf.__doc__ = GMXRmsf.__doc__
-main = GMXRmsf.get_main(gmx_rmsf, "Performs a Root Mean Square fluctuation (RMSF) analysis from a given GROMACS compatible trajectory.")
+gmx_rmsf = launcher(GMXRmsf)
 
 if __name__ == '__main__':
-    main()
+    GMXRmsf.main()

@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Image class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_mask, get_negative_mask, get_out_parameters
 
 
@@ -61,8 +61,8 @@ class CpptrajImage(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -124,14 +124,7 @@ class CpptrajImage(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_image(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajImage <ambertools.cpptraj_image.CpptrajImage>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_image.CpptrajImage.launch>` method."""
-    return CpptrajImage(**dict(locals())).launch()
-
-
-cpptraj_image.__doc__ = CpptrajImage.__doc__
-main = CpptrajImage.get_main(cpptraj_image, "Corrects periodicity (image) from a given cpptraj trajectory file.")
+cpptraj_image = launcher(CpptrajImage)
 
 if __name__ == '__main__':
-    main()
+    CpptrajImage.main()

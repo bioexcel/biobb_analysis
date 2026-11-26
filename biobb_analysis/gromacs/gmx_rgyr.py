@@ -3,7 +3,7 @@
 """Module containing the GMX Rgyr class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.gromacs.common import get_selection_index_file, get_xvg, get_selection
 
@@ -58,8 +58,8 @@ class GMXRgyr(BiobbObject):
 
     """
 
-    def __init__(self, input_structure_path, input_traj_path, output_xvg_path,
-                 input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path: str, input_traj_path: str, output_xvg_path: str,
+                 input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties common in all GROMACS BB
@@ -96,14 +96,7 @@ class GMXRgyr(BiobbObject):
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
 
-def gmx_rgyr(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`GMXRgyr <gromacs.gmx_rgyr.GMXRgyr>` class and
-    execute the :meth:`launch() <gromacs.gmx_rgyr.GMXRgyr.launch>` method."""
-    return GMXRgyr(**dict(locals())).launch()
-
-
-gmx_rgyr.__doc__ = GMXRgyr.__doc__
-main = GMXRgyr.get_main(gmx_rgyr, "Computes the radius of gyration (Rgyr) of a molecule about the x-, y- and z-axes, as a function of time, from a given GROMACS compatible trajectory.")
+gmx_rgyr = launcher(GMXRgyr)
 
 if __name__ == '__main__':
-    main()
+    GMXRgyr.main()

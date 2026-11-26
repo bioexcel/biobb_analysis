@@ -3,7 +3,7 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.gromacs.common import get_selection_index_file, get_selection, get_skip, get_start, get_end, get_dt, get_ot_str_ens, process_output_trjconv_str_ens
 
@@ -65,8 +65,8 @@ class GMXTrjConvStrEns(BiobbObject):
 
     """
 
-    def __init__(self, input_traj_path, input_top_path, output_str_ens_path,
-                 input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_traj_path: str, input_top_path: str, output_str_ens_path: str,
+                 input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties common in all GROMACS BB
@@ -128,19 +128,7 @@ class GMXTrjConvStrEns(BiobbObject):
                                        self.out_log)
 
 
-def gmx_trjconv_str_ens(input_traj_path: str,
-                        input_top_path: str,
-                        output_str_ens_path: str,
-                        input_index_path: Optional[str] = None,
-                        properties: Optional[dict] = None,
-                        **kwargs) -> int:
-    """Create the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` class and
-    execute the :meth:`launch() <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns.launch>` method."""
-    return GMXTrjConvStrEns(**dict(locals())).launch()
-
-
-gmx_trjconv_str_ens.__doc__ = GMXTrjConvStrEns.__doc__
-main = GMXTrjConvStrEns.get_main(gmx_trjconv_str_ens, "Extracts an ensemble of frames containing a selection of atoms from GROMACS compatible trajectory files.")
+gmx_trjconv_str_ens = launcher(GMXTrjConvStrEns)
 
 if __name__ == '__main__':
-    main()
+    GMXTrjConvStrEns.main()

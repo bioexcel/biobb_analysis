@@ -3,7 +3,7 @@
 """Module containing the GMX Cluster class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.gromacs.common import get_image_selection, get_selection_index_file, get_dista, get_method, get_cutoff
 
@@ -66,9 +66,9 @@ class GMXCluster(BiobbObject):
 
     """
 
-    def __init__(self, input_structure_path, input_traj_path, output_pdb_path,
-                 input_index_path=None, output_cluster_log_path=None, output_rmsd_cluster_xpm_path=None,
-                 output_rmsd_dist_xvg_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path: str, input_traj_path: str, output_pdb_path: str,
+                 input_index_path: Optional[str] = None, output_cluster_log_path: Optional[str] = None, output_rmsd_cluster_xpm_path: Optional[str] = None,
+                 output_rmsd_dist_xvg_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties common in all GROMACS BB
@@ -123,22 +123,7 @@ class GMXCluster(BiobbObject):
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
 
-def gmx_cluster(input_structure_path: str,
-                input_traj_path: str,
-                output_pdb_path: str,
-                input_index_path: Optional[str] = None,
-                output_cluster_log_path: Optional[str] = None,
-                output_rmsd_cluster_xpm_path: Optional[str] = None,
-                output_rmsd_dist_xvg_path: Optional[str] = None,
-                properties: Optional[dict] = None,
-                **kwargs) -> int:
-    """Create the :class:`GMXCluster <gromacs.gmx_cluster.GMXCluster>` class and
-    execute the :meth:`launch() <gromacs.gmx_cluster.GMXCluster.launch>` method."""
-    return GMXCluster(**dict(locals())).launch()
-
-
-gmx_cluster.__doc__ = GMXCluster.__doc__
-main = GMXCluster.get_main(gmx_cluster, "Creates cluster structures from a given GROMACS compatible trajectory.")
+gmx_cluster = launcher(GMXCluster)
 
 if __name__ == '__main__':
-    main()
+    GMXCluster.main()

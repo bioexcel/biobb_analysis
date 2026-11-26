@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Input class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.ambertools.common import get_default_value, check_in_path
 
@@ -41,7 +41,7 @@ class CpptrajInput(BiobbObject):
 
     """
 
-    def __init__(self, input_instructions_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_instructions_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -76,14 +76,7 @@ class CpptrajInput(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_input(input_instructions_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch>` method."""
-    return CpptrajInput(**dict(locals())).launch()
-
-
-cpptraj_input.__doc__ = CpptrajInput.__doc__
-main = CpptrajInput.get_main(cpptraj_input, "Performs multiple analysis and trajectory operations of a given trajectory.")
+cpptraj_input = launcher(CpptrajInput)
 
 if __name__ == '__main__':
-    main()
+    CpptrajInput.main()

@@ -3,7 +3,7 @@
 """Module containing the GMX Rms class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
 from biobb_analysis.gromacs.common import get_selection_index_file, get_xvg, get_selection
 
@@ -58,8 +58,8 @@ class GMXRms(BiobbObject):
 
     """
 
-    def __init__(self, input_structure_path, input_traj_path, output_xvg_path,
-                 input_index_path=None, properties=None, **kwargs) -> None:
+    def __init__(self, input_structure_path: str, input_traj_path: str, output_xvg_path: str,
+                 input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties common in all GROMACS BB
@@ -96,14 +96,7 @@ class GMXRms(BiobbObject):
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
 
 
-def gmx_rms(input_structure_path: str, input_traj_path: str, output_xvg_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`GMXRms <gromacs.gmx_rms.GMXRms>` class and
-    execute the :meth:`launch() <gromacs.gmx_rms.GMXRms.launch>` method."""
-    return GMXRms(**dict(locals())).launch()
-
-
-gmx_rms.__doc__ = GMXRms.__doc__
-main = GMXRms.get_main(gmx_rms, "Performs a Root Mean Square deviation (RMSd) analysis from a given GROMACS compatible trajectory.")
+gmx_rms = launcher(GMXRms)
 
 if __name__ == '__main__':
-    main()
+    GMXRms.main()

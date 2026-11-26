@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Convert class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, get_out_parameters
 
 
@@ -61,8 +61,8 @@ class CpptrajConvert(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -116,14 +116,7 @@ class CpptrajConvert(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_convert(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajConvert <ambertools.cpptraj_convert.CpptrajConvert>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_convert.CpptrajConvert.launch>` method."""
-    return CpptrajConvert(**dict(locals())).launch()
-
-
-cpptraj_convert.__doc__ = CpptrajConvert.__doc__
-main = CpptrajConvert.get_main(cpptraj_convert, "Converts between cpptraj compatible trajectory file formats and/or extracts a selection of atoms or frames.")
+cpptraj_convert = launcher(CpptrajConvert)
 
 if __name__ == '__main__':
-    main()
+    CpptrajConvert.main()

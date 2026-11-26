@@ -3,7 +3,7 @@
 """Module containing the Cpptraj Snapshot class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_out_parameters, get_negative_mask
 
 
@@ -57,8 +57,8 @@ class CpptrajSnapshot(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 properties=None, **kwargs) -> None:
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
         # Properties specific for BB
@@ -114,14 +114,7 @@ class CpptrajSnapshot(BiobbObject):
         self.run_biobb()
 
 
-def cpptraj_snapshot(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajSnapshot <ambertools.cpptraj_snapshot.CpptrajSnapshot>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_snapshot.CpptrajSnapshot.launch>` method."""
-    return CpptrajSnapshot(**dict(locals())).launch()
-
-
-cpptraj_snapshot.__doc__ = CpptrajSnapshot.__doc__
-main = CpptrajSnapshot.get_main(cpptraj_snapshot, "Extracts a particular snapshot from a given cpptraj compatible trajectory.")
+cpptraj_snapshot = launcher(CpptrajSnapshot)
 
 if __name__ == '__main__':
-    main()
+    CpptrajSnapshot.main()
