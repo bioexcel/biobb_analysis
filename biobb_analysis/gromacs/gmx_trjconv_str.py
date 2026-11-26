@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-# AFEGIR PARÀMETRES DE GMX_IMAGE: PBC, CENTER, UR, FIT (NOMÉS APPEND SI L'USUARI ELS AFEGEIX)
-
 """Module containing the GMX TrjConvStr class and the command line interface."""
 
 from typing import Optional
@@ -24,7 +22,7 @@ class GMXTrjConvStr(BiobbObject):
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (C-alpha atoms), Backbone (protein backbone atoms: N; C-alpha and C), MainChain (protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including C-beta), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups), DNA (all DNA atoms), RNA (all RNA atoms), Protein_DNA (all Protein-DNA complex atoms), Protein_RNA (all Protein-RNA complex atoms), Protein_DNA_RNA (all Protein-DNA-RNA complex atoms), DNA_RNA (all DNA-RNA complex atoms).
             * **pbc** (*str*) - (None) PBC treatment (see help text for full description). If not set, GROMACS uses none. Values: none (No PBC treatment), mol (Puts the center of mass of molecules in the box), res (Puts the center of mass of residues in the box), atom (Puts all the atoms in the box), nojump (Checks if atoms jump across the box and then puts them back), cluster (Clusters all the atoms in the selected index such that they are all closest to the center of mass of the cluster which is iteratively updated), whole (Only makes broken molecules whole).
-            * **center** (*bool*) - (True) Center atoms in box.
+            * **center** (*bool*) - (False) Center the selection in the box.
             * **ur** (*str*) - (None) Unit-cell representation. If not set, GROMACS uses rect. Values: rect (It's the ordinary brick shape), tric (It's the triclinic unit cell), compact (Puts all atoms at the closest distance from the center of the box).
             * **fit** (*str*) - (None) Fit molecule to ref structure in the structure file. If not set, GROMACS uses none. Values: none, rot+trans, rotxy+transxy, translation, transxy, progressive.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
@@ -65,19 +63,15 @@ class GMXTrjConvStr(BiobbObject):
                  input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
         super().__init__(**locals())
 
-        # Properties specific for BB
-        self.center = self.properties.get('dista', None)
-
-        # Properties common in all GROMACS BB
-
     def prepare(self):
         """ Checks all the input/output paths and parameters """
         if not self.io_dict["in"]["input_index_path"]:
             self.selection = get_selection(self.properties, self.out_log, self.__class__.__name__)
         else:
             self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', self.out_log, self.__class__.__name__)
-        # standard input
-        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
+        # standard input: with -center trjconv asks for the group to center before the output group
+        selections = f'{self.selection} {self.selection}' if self.center else f'{self.selection}'
+        self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(selections)
 
     def run(self) -> None:
         """Execute the :class:`GMXTrjConvStr <gromacs.gmx_trjconv_str.GMXTrjConvStr>` object."""

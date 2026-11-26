@@ -373,9 +373,9 @@
                 },
                 "center": {
                     "type": "boolean",
-                    "default": true,
+                    "default": false,
                     "wf_prop": false,
-                    "description": "Center atoms in box."
+                    "description": "Center the selection in the box."
                 },
                 "ur": {
                     "type": "string",

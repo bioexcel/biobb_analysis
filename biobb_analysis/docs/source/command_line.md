@@ -2568,7 +2568,7 @@ Syntax: input_parameter (datatype) - (default_value) Definition
 Config parameters for this building block:
 * **selection** (*string*): (System) Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. 
 * **pbc** (*string*): (mol) PBC treatment (see help text for full description) . 
-* **center** (*boolean*): (True) Center atoms in box.
+* **center** (*boolean*): (False) Center the selection in the box.
 * **ur** (*string*): (compact) Unit-cell representation. 
 * **fit** (*string*): (none) Fit molecule to ref structure in the structure file. 
 * **binary_path** (*string*): (gmx) Path to the GROMACS executable binary.
