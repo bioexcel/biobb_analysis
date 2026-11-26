@@ -89,14 +89,14 @@ class CpptrajRmsf(BiobbObject):
         instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
 
         # Set up
-        instructions_list += setup_structure(self)
+        instructions_list += setup_structure()
 
         # mask
         mask = self.in_parameters.get('mask', '')
         ref_mask = ''
         if mask:
-            strip_mask = get_negative_mask(mask, out_log)
-            ref_mask = get_mask(mask, out_log)
+            strip_mask = get_negative_mask(mask)
+            ref_mask = get_mask(mask)
             instructions_list.append('strip ' + strip_mask)
 
         # reference

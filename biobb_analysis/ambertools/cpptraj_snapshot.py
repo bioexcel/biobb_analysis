@@ -86,7 +86,7 @@ class CpptrajSnapshot(BiobbObject):
         # mask
         mask = self.in_parameters.get('mask', '')
         if mask:
-            strip_mask = get_negative_mask(mask, out_log)
+            strip_mask = get_negative_mask(mask)
             instructions_list.append('strip ' + strip_mask)
 
         # trajout

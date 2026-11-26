@@ -105,12 +105,12 @@ class CpptrajCluster(BiobbObject):
         instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
 
         # Set up
-        instructions_list += setup_structure(self)
+        instructions_list += setup_structure()
 
         # mask
         mask = self.in_parameters.get('mask', '')
         if mask:
-            strip_mask = get_negative_mask(mask, out_log)
+            strip_mask = get_negative_mask(mask)
             instructions_list.append('strip ' + strip_mask)
 
         # the cluster analysis works on a COORDS data set, so the processed frames must be saved first

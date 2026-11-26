@@ -88,7 +88,7 @@ class CpptrajImage(BiobbObject):
         instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
 
         # image
-        mask_atoms = get_mask('heavy-atoms', out_log)
+        mask_atoms = get_mask('heavy-atoms')
         instructions_list.append('center ' + mask_atoms + ' origin')
         instructions_list.append('autoimage')
         instructions_list.append('rms first ' + mask_atoms)
@@ -96,7 +96,7 @@ class CpptrajImage(BiobbObject):
         # mask
         mask = self.in_parameters.get('mask', '')
         if mask:
-            strip_mask = get_negative_mask(mask, out_log)
+            strip_mask = get_negative_mask(mask)
             instructions_list.append('strip ' + strip_mask)
 
         # trajout

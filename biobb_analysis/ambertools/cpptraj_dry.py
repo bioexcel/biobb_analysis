@@ -88,15 +88,15 @@ class CpptrajDry(BiobbObject):
         instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
 
         # dry
-        mask_dry1 = get_negative_mask('solute', out_log)
+        mask_dry1 = get_negative_mask('solute')
         instructions_list.append('strip ' + mask_dry1)
-        mask_dry2 = get_mask('heavy-atoms', out_log)
+        mask_dry2 = get_mask('heavy-atoms')
         instructions_list.append('strip ' + mask_dry2)
 
         # mask
         mask = self.in_parameters.get('mask', '')
         if mask:
-            strip_mask = get_negative_mask(mask, out_log)
+            strip_mask = get_negative_mask(mask)
             instructions_list.append('strip ' + strip_mask)
 
         # trajout

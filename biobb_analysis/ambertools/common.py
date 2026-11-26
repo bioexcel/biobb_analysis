@@ -1,7 +1,6 @@
 """ Common functions for package biobb_analysis.ambertools """
 from pathlib import Path, PurePath
 import zipfile
-import shutil
 from biobb_common.tools import file_utils as fu
 
 
@@ -13,20 +12,6 @@ def unzip_top_path(path, tmp_files, out_log):
     top_file = fu.unzip_top(zip_file=path, out_log=out_log)
     tmp_files.append(str(PurePath(top_file).parent))
     return top_file
-
-
-def get_parameters(properties, type, classname, out_log):
-    """ Gets in_parameters and out_parameters """
-    if not properties.get(type, dict()):
-        fu.log('No %s parameters provided' % type, out_log)
-        return get_default_value(classname)[type]
-
-    return {k: v for k, v in properties.get(type, dict()).items()}
-
-
-def get_binary_path(properties, type):
-    """ Gets binary path """
-    return properties.get(type, get_default_value(type))
 
 
 def check_in_path(path, out_log, classname):
@@ -61,155 +46,10 @@ def get_default_value(key):
         "reference": "first",
         "average": "MyAvg",
         "instructions_file": "instructions.in",
-        "binary_path": "cpptraj",
         "algorithm": "hieragglo",
         "metric": "rms",
         "linkage": "linkage",
-        "clusters": 10,
-        "minpoints": 4,
         "cluster_set": "MyClusters",
-        # default conf for Average
-        "Average": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            },
-            "out_parameters": {
-                "format": "pdb"
-            }
-        },
-        # default conf for Bfactor
-        "Bfactor": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms",
-                "reference": "first"
-            }
-        },
-        # default conf for Cluster
-        "Cluster": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            }
-        },
-        # default conf for Convert
-        "Convert": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            },
-            "out_parameters": {
-                "format": "netcdf"
-            }
-        },
-        # default conf for Dry
-        "Dry": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            },
-            "out_parameters": {
-                "format": "netcdf"
-            }
-        },
-        # default conf for Image
-        "Image": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            },
-            "out_parameters": {
-                "format": "netcdf"
-            }
-        },
-        # default conf for Mask
-        "Mask": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            },
-            "out_parameters": {
-                "format": "netcdf"
-            }
-        },
-        # default conf for Rgyr
-        "Rgyr": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            }
-        },
-        # default conf for Rms
-        "Rms": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms",
-                "reference": "first"
-            }
-        },
-        # default conf for Rmsf
-        "Rmsf": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms",
-                "reference": "first"
-            }
-        },
-        # default conf for Slice
-        "Slice": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            },
-            "out_parameters": {
-                "format": "netcdf"
-            }
-        },
-        # default conf for Snapshot
-        "Snapshot": {
-            "in_parameters": {
-                "snapshot": 12,
-                "mask": "all-atoms"
-            },
-            "out_parameters": {
-                "format": "pdb"
-            }
-        },
-        # default conf for Strip
-        "Strip": {
-            "in_parameters": {
-                "start": 1,
-                "end": -1,
-                "step": 1,
-                "mask": "all-atoms"
-            },
-            "out_parameters": {
-                "format": "netcdf"
-            }
-        }
     }
 
     return default_values[key]
@@ -298,7 +138,7 @@ def get_cluster_metric(metric, mass, nofit, metric_mask, out_log):
         metric_mask = get_default_value('mask')
         fu.log('No metric_mask provided in configuration file, assigned default value: %s' % get_default_value('mask'), out_log)
     # the metric mask selects atoms, it does not remove them from the clustered coordinates
-    keywords.append(get_mask(metric_mask, out_log))
+    keywords.append(get_mask(metric_mask))
 
     return ' '.join(keywords)
 
@@ -311,26 +151,6 @@ def get_traj_format(path, out_log):
         format = get_default_value('format')
 
     return format
-
-
-def get_mask_atoms(key):
-    """ Gives mask atoms according to the given key """
-    masks = {
-        "c-alpha": "@CA",
-        "backbone": "@C,CA,N,O,C3',O3',C4',C5',O5',P",
-        "all-atoms": ":*",
-        "heavy-atoms": "!@H*,1H*,2H*,3H*",
-        "side-chain": "!@CA,C,N,O,H,HA,C3',O3',C4',C5',O5',P",
-        "solute": "!:WAT,HOH,SOL,TIP3,TP3,SOD,CLA,Na+,Cl-,NA,CL,K+,K",
-        "ions": ":SOD,CLA,Na+,Cl-,NA,CL,K+,K",
-        "solvent": ":WAT,HOH,SOL,TIP3,TP3"
-    }
-
-    # if key incorrect, return default value and message
-    if key in masks:
-        return masks[key], None
-    else:
-        return key, None  # Allow for Amber mask
 
 
 def get_in_parameters(list, out_log, type='None'):
@@ -384,45 +204,42 @@ def get_in_parameters(list, out_log, type='None'):
     return start + " " + end + " " + step
 
 
-def setup_structure(out_log):
+def setup_structure():
     """ Sets up the structure """
     instructions_list = []
-    mask_atoms = get_mask('heavy-atoms', out_log)
+    mask_atoms = get_mask('heavy-atoms')
     instructions_list.append('center ' + mask_atoms + ' origin')
     instructions_list.append('autoimage')
     instructions_list.append('rms first ' + mask_atoms)
-    mask_solvent = get_mask('solvent', out_log)
-    mask_ions = get_mask('ions', out_log)
-    instructions_list.append('strip ' + mask_solvent + ',' + mask_ions[1:])
+    instructions_list.append('strip ' + get_mask('solvent') + ',' + get_mask('ions')[1:])
 
     return instructions_list
 
 
-def get_negative_mask(key, out_log):
-    """ Gives the negative mask according to the given key """
-    atoms, msg = get_mask_atoms(key)
-    if atoms[0] == '!':
-        mask = atoms[1:]
-    else:
-        mask = '!' + atoms
-    # if mask incorrect, give message
-    if msg:
-        fu.log(msg, out_log)
-
-    return mask
+MASKS = {
+    "c-alpha": "@CA",
+    "backbone": "@C,CA,N,O,C3',O3',C4',C5',O5',P",
+    "all-atoms": ":*",
+    "heavy-atoms": "!@H*,1H*,2H*,3H*",
+    "side-chain": "!@CA,C,N,O,H,HA,C3',O3',C4',C5',O5',P",
+    "solute": "!:WAT,HOH,SOL,TIP3,TP3,SOD,CLA,Na+,Cl-,NA,CL,K+,K",
+    "ions": ":SOD,CLA,Na+,Cl-,NA,CL,K+,K",
+    "solvent": ":WAT,HOH,SOL,TIP3,TP3"
+}
 
 
-def get_mask(key, out_log):
-    """ Gives mask according to the given key """
-    mask, msg = get_mask_atoms(key)
-    # if mask incorrect, give message
-    if msg:
-        fu.log(msg, out_log)
-
-    return mask
+def get_mask(key):
+    """ Goes from a mask name (or an Amber mask) to the Amber mask """
+    return MASKS.get(key, key)
 
 
-def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output, classname, out_log):
+def get_negative_mask(key):
+    """ Goes from a mask name (or an Amber mask) to the Amber mask of the other atoms """
+    mask = get_mask(key)
+    return mask[1:] if mask[0] == '!' else '!' + mask
+
+
+def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output, classname, out_log, nofit=False, norotate=False, nomod=False):
     """ Gives reference instructions according to the given key """
     instructions_list = []
     if not ref or ref == 'None':
@@ -433,83 +250,25 @@ def get_reference(ref, output_cpptraj_path, input_exp_path, mask, output, classn
         fu.log('Reference %s is not compatible, assigned default value: %s' % (ref, get_default_value('reference')), out_log)
         ref = get_default_value('reference')
 
+    # end of the rms line: output file and flags
+    rms_end = ' out ' + output_cpptraj_path if output else ''
+    rms_end += ''.join(' ' + flag for flag, value in (('nofit', nofit), ('norotate', norotate), ('nomod', nomod)) if value)
+
     if ref == 'first':
-        if output:
-            instructions_list.append('rms first out ' + output_cpptraj_path)
-        else:
-            instructions_list.append('rms first')
+        instructions_list.append('rms first' + rms_end)
 
     if ref == 'average':
         instructions_list.append('average crdset ' + get_default_value('average'))
         instructions_list.append('run')
-        if output:
-            instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask + ' out ' + output_cpptraj_path)
-        else:
-            instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask)
+        instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask + rms_end)
 
     if ref == 'experimental':
         if not input_exp_path:
             fu.log('No experimental structure provided, exiting', out_log)
             raise SystemExit(classname + ': input_exp_path is mandatory')
         instructions_list.append('parm ' + input_exp_path + ' noconect [exp]')
-        solute, msg = get_mask_atoms('solute')
-        instructions_list.append('reference ' + input_exp_path + ' ' + solute + ' parm [exp]')
-        backbone, msg = get_mask_atoms('backbone')
-        if output:
-            instructions_list.append('rms reference ' + mask + ' out ' + output_cpptraj_path)
-        else:
-            instructions_list.append('rms reference ' + mask)
-
-    return instructions_list
-
-
-def get_reference_rms(ref, output_cpptraj_path, input_exp_path, mask, output, classname, out_log, nofit=False, norotate=False, nomod=False):
-    """ Gives reference instructions according to the given key """
-    instructions_list = []
-    if not ref or ref == 'None':
-        ref = get_default_value('reference')
-        fu.log('No reference provided in configuration file, assigned default value: %s' % get_default_value('reference'), out_log)
-
-    if not is_valid_reference(ref):
-        fu.log('Reference %s is not compatible, assigned default value: %s' % (ref, get_default_value('reference')), out_log)
-        ref = get_default_value('reference')
-
-    flags = []
-    if nofit:
-        flags.append("nofit")
-    if norotate:
-        flags.append("norotate")
-    if nomod:
-        flags.append("nomod")
-
-    flags_str = " ".join(flags)
-
-    if ref == 'first':
-        if output:
-            instructions_list.append('rms first out ' + output_cpptraj_path + f' {flags_str}')
-        else:
-            instructions_list.append('rms first' + f' {flags_str}')
-
-    if ref == 'average':
-        instructions_list.append('average crdset ' + get_default_value('average'))
-        instructions_list.append('run')
-        if output:
-            instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask + ' out ' + output_cpptraj_path + f' {flags_str}')
-        else:
-            instructions_list.append('rms ref ' + get_default_value('average') + ' ' + mask + f' {flags_str}')
-
-    if ref == 'experimental':
-        if not input_exp_path:
-            fu.log('No experimental structure provided, exiting', out_log)
-            raise SystemExit(classname + ': input_exp_path is mandatory')
-        instructions_list.append('parm ' + input_exp_path + ' noconect [exp]')
-        solute, msg = get_mask_atoms('solute')
-        instructions_list.append('reference ' + input_exp_path + ' ' + solute + ' parm [exp]')
-        backbone, msg = get_mask_atoms('backbone')
-        if output:
-            instructions_list.append('rms reference ' + mask + ' out ' + output_cpptraj_path + f' {flags_str}')
-        else:
-            instructions_list.append('rms reference ' + mask + f' {flags_str}')
+        instructions_list.append('reference ' + input_exp_path + ' ' + get_mask('solute') + ' parm [exp]')
+        instructions_list.append('rms reference ' + mask + rms_end)
 
     return instructions_list
 
@@ -528,7 +287,3 @@ def get_out_parameters(list, out_log):
         format = get_default_value('format')
 
     return format
-
-
-def copy_instructions_file_to_container(instructions_file, unique_dir):
-    shutil.copy2(instructions_file, unique_dir)

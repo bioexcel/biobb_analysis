@@ -96,7 +96,7 @@ class CpptrajStrip(BiobbObject):
         if not mask or mask == 'None':
             fu.log('No mask provided, exiting', out_log, self.global_log)
             raise SystemExit('Mask parameter is mandatory')
-        strip_mask = get_mask(mask, out_log)
+        strip_mask = get_mask(mask)
         instructions_list.append('strip ' + strip_mask)
 
         # trajout

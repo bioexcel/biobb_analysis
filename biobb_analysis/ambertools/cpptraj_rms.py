@@ -4,7 +4,7 @@
 
 from typing import Optional
 from biobb_common.generic.biobb_object import BiobbObject, launcher
-from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure, get_mask, get_reference_rms
+from biobb_analysis.ambertools.common import get_default_value, unzip_top_path, get_in_parameters, get_negative_mask, setup_structure, get_mask, get_reference
 
 
 class CpptrajRms(BiobbObject):
@@ -95,14 +95,14 @@ class CpptrajRms(BiobbObject):
         instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
 
         # Set up
-        instructions_list += setup_structure(self)
+        instructions_list += setup_structure()
 
         # mask
         mask = self.in_parameters.get('mask', '')
         ref_mask = ''
         if mask:
-            strip_mask = get_negative_mask(mask, out_log)
-            ref_mask = get_mask(mask, out_log)
+            strip_mask = get_negative_mask(mask)
+            ref_mask = get_mask(mask)
             instructions_list.append('strip ' + strip_mask)
 
         # reference
@@ -110,8 +110,8 @@ class CpptrajRms(BiobbObject):
         inp_exp_pth = None
         if "input_exp_path" in container_io_dict["in"]:
             inp_exp_pth = container_io_dict["in"]["input_exp_path"]
-        instructions_list += get_reference_rms(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True,
-                                               self.__class__.__name__, out_log, self.nofit, self.norotate, self.nomod)
+        instructions_list += get_reference(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True,
+                                           self.__class__.__name__, out_log, self.nofit, self.norotate, self.nomod)
 
         # trajout
         if ("output_traj_path" in container_io_dict["out"]):
