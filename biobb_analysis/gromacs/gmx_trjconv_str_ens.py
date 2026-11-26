@@ -34,7 +34,6 @@ class GMXTrjConvStrEns(BiobbObject):
             * **container_path** (*str*) - (None) Container path definition.
             * **container_image** (*str*) - ('gromacs/gromacs:2022.2') Container image definition.
             * **container_volume_path** (*str*) - ('/tmp') Container volume path definition.
-            * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
@@ -89,11 +88,8 @@ class GMXTrjConvStrEns(BiobbObject):
     def run(self) -> None:
         """Execute the :class:`GMXTrjConvStrEns <gromacs.gmx_trjconv_str_ens.GMXTrjConvStrEns>` object."""
 
-        # if container execution, output to container_volume_path, else to unique_dir
-        if self.container_path:
-            output = self.container_volume_path + '/' + self.output_name + '.' + self.output_type
-        else:
-            output = self.stage_io_dict.get("unique_dir", "") + '/' + self.output_name + '.' + self.output_type
+        # trjconv writes the frames in the sandbox, where it runs
+        output = self.output_name + '.' + self.output_type
 
         self.cmd = [self.binary_path, 'trjconv',
                     '-f', self.stage_io_dict["in"]["input_traj_path"],
