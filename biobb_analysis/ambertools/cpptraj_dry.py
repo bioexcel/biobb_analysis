@@ -4,7 +4,7 @@
 
 from typing import Optional
 from biobb_common.generic.biobb_object import launcher
-from biobb_analysis.ambertools.common import CpptrajBase, get_mask, get_negative_mask
+from biobb_analysis.ambertools.common import CpptrajBase, get_negative_mask
 
 
 class CpptrajDry(CpptrajBase):
@@ -65,9 +65,8 @@ class CpptrajDry(CpptrajBase):
         super().__init__(**locals())
 
     def instructions(self) -> list[str]:
-        """Goes from the properties to the dry, strip and trajout lines."""
-        dry = ['strip ' + get_negative_mask('solute'), 'strip ' + get_mask('heavy-atoms')]
-        return dry + self.strip_mask() + [self.trajout()]
+        """Goes from the properties to the dry (strip of solvent and ions), strip and trajout lines."""
+        return ['strip ' + get_negative_mask('solute')] + self.strip_mask() + [self.trajout()]
 
 
 cpptraj_dry = launcher(CpptrajDry)
