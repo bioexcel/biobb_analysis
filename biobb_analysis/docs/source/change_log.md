@@ -2,10 +2,19 @@
 
 ## [Unreleased]
 
+## What's new in version [5.4.0](https://github.com/bioexcel/biobb_analysis/releases/tag/v5.4.0)?
+
 ### Changes
 
+* [UPDATE] Update to biobb_common 5.4.0.
 * [FIX] `gmx_trjconv_str`: the `center` property was never read, so the structure was never centered, although the documentation said `center` was True by default. Now `center: True` centers the selection in the box. Its default is False, so the default output does not change.
 * [FIX] `cpptraj_dry`: the output had only the hydrogen atoms (the block also stripped the heavy atoms), and a `mask` of heavy atoms, like `c-alpha`, was ignored. Now it strips only the solvent and the ions, as documented, and then applies `mask`.
+* [FIX] `gmx_image`: an invalid `center_selection` is rejected when `center` is True (it was checked only when `center` was False).
+* [FIX] `gmx_energy`: `terms` given as a string (for example `"Potential Pressure"`) works, and the `Constr.-rmsd` and `Box-Z` terms are accepted.
+* [FIX] `cpptraj_input`: it runs the given `input_instructions_path` (it ran an instructions file of its own).
+* [FIX] cpptraj blocks: `start` and `end` are compared as numbers, so a range like `start: 9`, `end: 10` is no longer rejected.
+* [DOCS] `gmx_cluster`: the `output_pdb_path` formats list ENT and TPR, already accepted.
+* [UPDATE] Python 3.11 to 3.13.
 
 ## What's new in version [5.3.1](https://github.com/bioexcel/biobb_analysis/releases/tag/v5.3.1)?
 
