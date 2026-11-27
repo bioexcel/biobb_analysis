@@ -3,13 +3,11 @@
 """Module containing the Cpptraj Rms class and the command line interface."""
 
 from typing import Optional
-from pathlib import PurePath
-from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_negative_mask, setup_structure, get_mask, get_reference_rms
+from biobb_common.generic.biobb_object import launcher
+from biobb_analysis.ambertools.common import CpptrajBase, setup_structure, get_mask, get_reference
 
 
-class CpptrajRms(BiobbObject):
+class CpptrajRms(CpptrajBase):
     """
     | biobb_analysis CpptrajRms
     | Wrapper of the Ambertools Cpptraj module for calculating the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.
@@ -37,7 +35,6 @@ class CpptrajRms(BiobbObject):
             * **container_path** (*str*) - (None) Container path definition.
             * **container_image** (*str*) - ('afandiadib/ambertools:serial') Container image definition.
             * **container_volume_path** (*str*) - ('/tmp') Container volume path definition.
-            * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
@@ -70,132 +67,21 @@ class CpptrajRms(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 input_exp_path=None, output_traj_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 input_exp_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_top_path": input_top_path, "input_traj_path": input_traj_path, "input_exp_path": input_exp_path},
-            "out": {"output_cpptraj_path": output_cpptraj_path, "output_traj_path": output_traj_path}
-        }
-
-        # Properties specific for BB
-        self.instructions_file = get_default_value('instructions_file')
-        self.start = properties.get('start', 1)
-        self.end = properties.get('end', -1)
-        self.steps = properties.get('steps', 1)
-        self.mask = properties.get('mask', 'all-atoms')
-        self.reference = properties.get('reference', 'first')
-        self.nofit = properties.get('nofit', False)
-        self.norotate = properties.get('norotate', False)
-        self.nomod = properties.get('nomod', False)
-        self.properties = properties
-        self.binary_path = get_binary_path(properties, 'binary_path')
-
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
-        """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_top_path"], self.input_top_path_orig = check_top_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
-        if self.io_dict["out"]["output_traj_path"]:
-            self.io_dict["out"]["output_traj_path"] = check_out_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
-        self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask, 'reference': self.reference}
-
-    def create_instructions_file(self, container_io_dict, out_log, err_log):
-        """Creates an input file using the properties file settings"""
-        instructions_list = []
-        # different path if container execution or not
-        if self.container_path:
-            self.instructions_file = str(PurePath(self.stage_io_dict['unique_dir']).joinpath("cpptraj.in"))
-            self.instructions_file_path = str(PurePath(self.container_volume_path).joinpath("cpptraj.in"))
-        else:
-            self.instructions_file = self.create_tmp_file(self.instructions_file)
-            self.instructions_file_path = self.instructions_file
-
-        # parm
-        instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
-
-        # trajin
-        in_params = get_in_parameters(self.in_parameters, out_log)
-        instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
-
-        # Set up
-        instructions_list += setup_structure(self)
-
-        # mask
-        mask = self.in_parameters.get('mask', '')
-        ref_mask = ''
-        if mask:
-            strip_mask = get_negative_mask(mask, out_log)
-            ref_mask = get_mask(mask, out_log)
-            instructions_list.append('strip ' + strip_mask)
-
-        # reference
-        reference = self.in_parameters.get('reference', '')
-        inp_exp_pth = None
-        if "input_exp_path" in container_io_dict["in"]:
-            inp_exp_pth = container_io_dict["in"]["input_exp_path"]
-        instructions_list += get_reference_rms(reference, container_io_dict["out"]["output_cpptraj_path"], inp_exp_pth, ref_mask, True,
-                                               self.__class__.__name__, out_log, self.nofit, self.norotate, self.nomod)
-
-        # trajout
-        if ("output_traj_path" in container_io_dict["out"]):
-            instructions_list.append('trajout ' + container_io_dict["out"]["output_traj_path"])
-
-        # create .in file
-        with open(self.instructions_file, 'w') as mdp:
-            for line in instructions_list:
-                mdp.write(line.strip() + '\n')
-
-        return self.instructions_file_path
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
-
-        # create cmd and launch execution
-        self.cmd = [self.binary_path, '-i', self.instructions_file_path]
-
-        # Run Biobb block
-        self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # remove temporary folder(s)
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
+    def instructions(self) -> list[str]:
+        """Goes from the properties to the set up, strip, rms and trajout lines."""
+        out = self.stage_io_dict["out"]["output_cpptraj_path"]
+        exp_path = self.stage_io_dict["in"].get("input_exp_path")
+        ref_mask = get_mask(self.mask) if self.mask else ''
+        rms = get_reference(self.reference, out, exp_path, ref_mask, True, self.__class__.__name__, self.out_log, self.nofit, self.norotate, self.nomod)
+        trajout = self.stage_io_dict["out"].get("output_traj_path")
+        return setup_structure() + self.strip_mask() + rms + (['trajout ' + trajout] if trajout else [])
 
 
-def cpptraj_rms(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, input_exp_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajRms <ambertools.cpptraj_rms.CpptrajRms>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_rms.CpptrajRms.launch>` method."""
-    return CpptrajRms(**dict(locals())).launch()
-
-
-cpptraj_rms.__doc__ = CpptrajRms.__doc__
-main = CpptrajRms.get_main(cpptraj_rms, "Calculates the Root Mean Square deviation (RMSd) of a given cpptraj compatible trajectory.")
+cpptraj_rms = launcher(CpptrajRms)
 
 if __name__ == '__main__':
-    main()
+    CpptrajRms.main()

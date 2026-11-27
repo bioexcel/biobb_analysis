@@ -3,13 +3,11 @@
 """Module containing the Cpptraj Cluster class and the command line interface."""
 
 from typing import Optional
-from pathlib import PurePath
-from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_negative_mask, setup_structure, get_cluster_algorithm, get_cluster_metric, get_traj_format
+from biobb_common.generic.biobb_object import launcher
+from biobb_analysis.ambertools.common import CpptrajBase, get_default_value, setup_structure, get_cluster_algorithm, get_cluster_metric, get_traj_format
 
 
-class CpptrajCluster(BiobbObject):
+class CpptrajCluster(CpptrajBase):
     """
     | biobb_analysis CpptrajCluster
     | Wrapper of the Ambertools Cpptraj module for clustering the frames of a given cpptraj compatible trajectory.
@@ -44,7 +42,6 @@ class CpptrajCluster(BiobbObject):
             * **container_path** (*str*) - (None) Container path definition.
             * **container_image** (*str*) - ('afandiadib/ambertools:serial') Container image definition.
             * **container_volume_path** (*str*) - ('/tmp') Container volume path definition.
-            * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
@@ -79,148 +76,32 @@ class CpptrajCluster(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 output_summary_path=None, output_info_path=None, output_traj_path=None,
-                 properties=None, **kwargs) -> None:
-        properties = properties or {}
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 output_summary_path: Optional[str] = None, output_info_path: Optional[str] = None, output_traj_path: Optional[str] = None,
+                 properties: Optional[dict] = None, **kwargs) -> None:
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_top_path": input_top_path, "input_traj_path": input_traj_path},
-            "out": {"output_cpptraj_path": output_cpptraj_path, "output_summary_path": output_summary_path,
-                    "output_info_path": output_info_path, "output_traj_path": output_traj_path}
-        }
-
-        # Properties specific for BB
-        self.instructions_file = get_default_value('instructions_file')
-        self.start = properties.get('start', 1)
-        self.end = properties.get('end', -1)
-        self.steps = properties.get('steps', 1)
-        self.mask = properties.get('mask', 'all-atoms')
-        self.algorithm = properties.get('algorithm', 'hieragglo')
-        self.clusters = properties.get('clusters', 10)
-        self.epsilon = properties.get('epsilon', -1.0)
-        self.minpoints = properties.get('minpoints', 4)
-        self.linkage = properties.get('linkage', 'linkage')
-        self.metric = properties.get('metric', 'rms')
-        self.metric_mask = properties.get('metric_mask', 'all-atoms')
-        self.mass = properties.get('mass', False)
-        self.nofit = properties.get('nofit', False)
-        self.sieve = properties.get('sieve', 0)
-        self.properties = properties
-        self.binary_path = get_binary_path(properties, 'binary_path')
-
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
-        """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_top_path"], self.input_top_path_orig = check_top_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
-        for out_file in ("output_summary_path", "output_info_path", "output_traj_path"):
-            if self.io_dict["out"][out_file]:
-                self.io_dict["out"][out_file] = check_out_path(self.io_dict["out"][out_file], out_log, self.__class__.__name__)
-        self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask}
-
-    def create_instructions_file(self, container_io_dict, out_log, err_log):
-        """Creates an input file using the properties file settings"""
-        instructions_list = []
-        # different path if container execution or not
-        if self.container_path:
-            self.instructions_file = str(PurePath(self.stage_io_dict['unique_dir']).joinpath("cpptraj.in"))
-            self.instructions_file_path = str(PurePath(self.container_volume_path).joinpath("cpptraj.in"))
-        else:
-            self.instructions_file = self.create_tmp_file(self.instructions_file)
-            self.instructions_file_path = self.instructions_file
-
-        # parm
-        instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
-
-        # trajin
-        in_params = get_in_parameters(self.in_parameters, out_log)
-        instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
-
-        # Set up
-        instructions_list += setup_structure(self)
-
-        # mask
-        mask = self.in_parameters.get('mask', '')
-        if mask:
-            strip_mask = get_negative_mask(mask, out_log)
-            instructions_list.append('strip ' + strip_mask)
-
-        # the cluster analysis works on a COORDS data set, so the processed frames must be saved first
+    def instructions(self) -> list[str]:
+        """Goes from the properties to the set up, strip, createcrd and cluster lines."""
+        out = self.stage_io_dict["out"]
         cluster_set = get_default_value('cluster_set')
-        instructions_list.append('createcrd ' + cluster_set)
-        instructions_list.append('run')
-
-        # cluster
-        cluster = ['cluster', 'crdset', cluster_set]
-        cluster.append(get_cluster_algorithm(self.algorithm, self.clusters, self.epsilon, self.minpoints, self.linkage, out_log))
-        cluster.append(get_cluster_metric(self.metric, self.mass, self.nofit, self.metric_mask, out_log))
+        cluster = ['cluster', 'crdset', cluster_set,
+                   get_cluster_algorithm(self.algorithm, self.clusters, self.epsilon, self.minpoints, self.linkage, self.out_log),
+                   get_cluster_metric(self.metric, self.mass, self.nofit, self.metric_mask, self.out_log)]
         if self.sieve:
             cluster += ['sieve', str(self.sieve)]
-        cluster += ['out', container_io_dict["out"]["output_cpptraj_path"]]
-        if container_io_dict["out"].get("output_summary_path"):
-            cluster += ['summary', container_io_dict["out"]["output_summary_path"]]
-        if container_io_dict["out"].get("output_info_path"):
-            cluster += ['info', container_io_dict["out"]["output_info_path"]]
-        if container_io_dict["out"].get("output_traj_path"):
-            traj_path = container_io_dict["out"]["output_traj_path"]
-            cluster += ['singlerepout', traj_path, 'singlerepfmt', get_traj_format(traj_path, out_log)]
-        instructions_list.append(' '.join(cluster))
-
-        # create .in file
-        with open(self.instructions_file, 'w') as mdp:
-            for line in instructions_list:
-                mdp.write(line.strip() + '\n')
-
-        return self.instructions_file_path
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`CpptrajCluster <ambertools.cpptraj_cluster.CpptrajCluster>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
-
-        # create cmd and launch execution
-        self.cmd = [self.binary_path, '-i', self.instructions_file_path]
-
-        # Run Biobb block
-        self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # remove temporary folder(s)
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
+        cluster += ['out', out["output_cpptraj_path"]]
+        if out.get("output_summary_path"):
+            cluster += ['summary', out["output_summary_path"]]
+        if out.get("output_info_path"):
+            cluster += ['info', out["output_info_path"]]
+        if out.get("output_traj_path"):
+            cluster += ['singlerepout', out["output_traj_path"], 'singlerepfmt', get_traj_format(out["output_traj_path"], self.out_log)]
+        # the cluster analysis works on a COORDS data set, so the processed frames must be saved first
+        return setup_structure() + self.strip_mask() + ['createcrd ' + cluster_set, 'run', ' '.join(cluster)]
 
 
-def cpptraj_cluster(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, output_summary_path: Optional[str] = None, output_info_path: Optional[str] = None, output_traj_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajCluster <ambertools.cpptraj_cluster.CpptrajCluster>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_cluster.CpptrajCluster.launch>` method."""
-    return CpptrajCluster(**dict(locals())).launch()
-
-
-cpptraj_cluster.__doc__ = CpptrajCluster.__doc__
-main = CpptrajCluster.get_main(cpptraj_cluster, "Clusters the frames of a given cpptraj compatible trajectory.")
+cpptraj_cluster = launcher(CpptrajCluster)
 
 if __name__ == '__main__':
-    main()
+    CpptrajCluster.main()

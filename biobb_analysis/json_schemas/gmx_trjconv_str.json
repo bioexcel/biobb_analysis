@@ -328,9 +328,9 @@
                 },
                 "pbc": {
                     "type": "string",
-                    "default": "mol) PBC treatment (see help text for full description",
+                    "default": "None) PBC treatment (see help text for full description",
                     "wf_prop": false,
-                    "description": ". ",
+                    "description": ". If not set, GROMACS uses none. ",
                     "enum": [
                         "none",
                         "mol",
@@ -373,15 +373,15 @@
                 },
                 "center": {
                     "type": "boolean",
-                    "default": true,
+                    "default": false,
                     "wf_prop": false,
-                    "description": "Center atoms in box."
+                    "description": "Center the selection in the box."
                 },
                 "ur": {
                     "type": "string",
-                    "default": "compact",
+                    "default": null,
                     "wf_prop": false,
-                    "description": "Unit-cell representation. ",
+                    "description": "Unit-cell representation. If not set, GROMACS uses rect. ",
                     "enum": [
                         "rect",
                         "tric",
@@ -404,9 +404,9 @@
                 },
                 "fit": {
                     "type": "string",
-                    "default": "none",
+                    "default": null,
                     "wf_prop": false,
-                    "description": "Fit molecule to ref structure in the structure file. ",
+                    "description": "Fit molecule to ref structure in the structure file. If not set, GROMACS uses none. ",
                     "enum": [
                         "none",
                         "rot+trans",
@@ -483,12 +483,6 @@
                     "default": "/tmp",
                     "wf_prop": false,
                     "description": "Container volume path definition."
-                },
-                "container_working_dir": {
-                    "type": "string",
-                    "default": null,
-                    "wf_prop": false,
-                    "description": "Container working directory definition."
                 },
                 "container_user_id": {
                     "type": "string",

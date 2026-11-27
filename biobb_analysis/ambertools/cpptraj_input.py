@@ -3,9 +3,8 @@
 """Module containing the Cpptraj Input class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 from biobb_analysis.ambertools.common import get_default_value, check_in_path
 
 
@@ -42,27 +41,13 @@ class CpptrajInput(BiobbObject):
 
     """
 
-    def __init__(self, input_instructions_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_instructions_path": input_instructions_path},
-        }
+    def __init__(self, input_instructions_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
+        super().__init__(**locals())
 
         # Properties specific for BB
         self.input_top_path = kwargs.get('input_top_path')
         self.input_traj_path = kwargs.get('input_traj_path')
         self.output_cpptraj_path = kwargs.get('output_cpptraj_path')
-        self.properties = properties
-        self.binary_path = properties.get('binary_path', 'cpptraj')
-
-        # Check the properties
-        self.check_init(properties)
 
     def create_instrucions_file(self):
         """ Creates an input file using paths provideed in the configuration file (only used for test purposes) """
@@ -79,37 +64,19 @@ class CpptrajInput(BiobbObject):
 
         return output_instructions_path
 
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` object."""
 
-        # Get local loggers from launchlogger decorator
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        output_instructions_path = self.stage_io_dict.get('input_instructions_path', self.create_instrucions_file())
+        output_instructions_path = self.stage_io_dict["in"].get('input_instructions_path') or self.create_instrucions_file()
         check_in_path(output_instructions_path, self.out_log, self.__class__.__name__)
 
         # create cmd and launch execution
         self.cmd = [self.binary_path, '-i', output_instructions_path]
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
-        return self.return_code
 
 
-def cpptraj_input(input_instructions_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajInput <ambertools.cpptraj_input.CpptrajInput>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_input.CpptrajInput.launch>` method."""
-    return CpptrajInput(**dict(locals())).launch()
-
-
-cpptraj_input.__doc__ = CpptrajInput.__doc__
-main = CpptrajInput.get_main(cpptraj_input, "Performs multiple analysis and trajectory operations of a given trajectory.")
+cpptraj_input = launcher(CpptrajInput)
 
 if __name__ == '__main__':
-    main()
+    CpptrajInput.main()

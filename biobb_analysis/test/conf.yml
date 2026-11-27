@@ -412,7 +412,7 @@ gmx_image_singularity:
 
 cpptraj_input:
   paths:
-    input_instructions_path: file:test_data_dir/ambertools/cpptraj.parm.top
+    input_instructions_path: cpptraj_input.in
     input_top_path: file:test_data_dir/ambertools/cpptraj.parm.top
     input_traj_path: file:test_data_dir/ambertools/cpptraj.traj.dcd
     output_cpptraj_path: output.netcdf

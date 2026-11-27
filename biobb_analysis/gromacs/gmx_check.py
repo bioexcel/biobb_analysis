@@ -4,17 +4,10 @@
 
 from typing import Optional
 
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
 
 from biobb_analysis.gromacs.common import (
-    check_energy_path,
-    check_index_path,
-    check_input_path,
-    check_out_log_path,
-    check_traj_path,
-    get_binary_path,
     is_valid_boolean,
     is_valid_float,
 )
@@ -37,11 +30,11 @@ class GMXCheck(BiobbObject):
         input_index_path (str) (Optional): Path to the GROMACS index file. File type: input. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/data/gromacs/index.ndx>`_. Accepted formats: ndx (edam:format_2033).
         output_log_path (str): Path to the text file storing the gmx check console output. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_check.log>`_. Accepted formats: txt (edam:format_2330), log (edam:format_2330), out (edam:format_2330).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
-            * **vdwfac** (*float*) - (0.8) Fraction of the sum of Van der Waals radii used as warning cutoff.
-            * **bonlo** (*float*) - (0.4) Minimum fraction of the sum of Van der Waals radii for bonded atoms.
-            * **bonhi** (*float*) - (0.7) Maximum fraction of the sum of Van der Waals radii for bonded atoms.
-            * **relative_tolerance** (*float*) - (0.001) Relative tolerance for comparing real values.
-            * **absolute_tolerance** (*float*) - (0.001) Absolute tolerance, useful when sums are close to zero.
+            * **vdwfac** (*float*) - (None) Fraction of the sum of Van der Waals radii used as warning cutoff. If not set, GROMACS uses 0.8.
+            * **bonlo** (*float*) - (None) Minimum fraction of the sum of Van der Waals radii for bonded atoms. If not set, GROMACS uses 0.4.
+            * **bonhi** (*float*) - (None) Maximum fraction of the sum of Van der Waals radii for bonded atoms. If not set, GROMACS uses 0.7.
+            * **relative_tolerance** (*float*) - (None) Relative tolerance for comparing real values. If not set, GROMACS uses 0.001.
+            * **absolute_tolerance** (*float*) - (None) Absolute tolerance, useful when sums are close to zero. If not set, GROMACS uses 0.001.
             * **rmsd** (*bool*) - (False) Print RMSD for coordinates, velocities and forces.
             * **compare_ab** (*bool*) - (False) Compare the A and B topologies from a single input file.
             * **last_energy_term** (*str*) - (None) Last energy term to compare.
@@ -52,7 +45,6 @@ class GMXCheck(BiobbObject):
             * **container_path** (*str*) - (None) Container path definition.
             * **container_image** (*str*) - ('gromacs/gromacs:2022.2') Container image definition.
             * **container_volume_path** (*str*) - ('/tmp') Container volume path definition.
-            * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
@@ -81,55 +73,21 @@ class GMXCheck(BiobbObject):
 
     def __init__(
         self,
-        input_structure_path=None,
-        input_structure_2_path=None,
-        input_traj_path=None,
-        input_traj_2_path=None,
-        input_energy_path=None,
-        input_energy_2_path=None,
-        structure_check_path=None,
-        input_index_path=None,
-        output_log_path=None,
-        properties=None,
+        input_structure_path: Optional[str] = None,
+        input_structure_2_path: Optional[str] = None,
+        input_traj_path: Optional[str] = None,
+        input_traj_2_path: Optional[str] = None,
+        input_energy_path: Optional[str] = None,
+        input_energy_2_path: Optional[str] = None,
+        structure_check_path: Optional[str] = None,
+        input_index_path: Optional[str] = None,
+        output_log_path: Optional[str] = None,
+        properties: Optional[dict] = None,
         **kwargs,
     ) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {
-                "input_structure_path": input_structure_path,
-                "input_structure_2_path": input_structure_2_path,
-                "input_traj_path": input_traj_path,
-                "input_traj_2_path": input_traj_2_path,
-                "input_energy_path": input_energy_path,
-                "input_energy_2_path": input_energy_2_path,
-                "structure_check_path": structure_check_path,
-                "input_index_path": input_index_path,
-            },
-            "out": {"output_log_path": output_log_path},
-        }
-
-        # Properties specific for BB
-        self.vdwfac = properties.get("vdwfac")
-        self.bonlo = properties.get("bonlo")
-        self.bonhi = properties.get("bonhi")
-        self.relative_tolerance = properties.get("relative_tolerance")
-        self.absolute_tolerance = properties.get("absolute_tolerance")
-        self.rmsd = properties.get("rmsd", False)
-        self.compare_ab = properties.get("compare_ab", False)
-        self.last_energy_term = properties.get("last_energy_term")
-        self.properties = properties
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, "binary_path")
-
-        # Check the properties
-        self.check_init(properties)
 
     def _validate_float_property(self, prop_name, default_value=None):
         """Validates a float property and converts it to string."""
@@ -156,7 +114,7 @@ class GMXCheck(BiobbObject):
             raise SystemExit(f"{self.__class__.__name__}: Incorrect {prop_name} provided")
         return value
 
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """Checks all the input/output paths and parameters"""
         input_values = [
             self.io_dict["in"].get("input_structure_path"),
@@ -172,59 +130,16 @@ class GMXCheck(BiobbObject):
         if not any(input_values):
             fu.log(
                 f"{self.__class__.__name__}: No input files provided, exiting",
-                out_log,
+                self.out_log,
             )
             raise SystemExit(f"{self.__class__.__name__}: No input files provided")
-
-        if self.io_dict["in"].get("input_structure_path"):
-            self.io_dict["in"]["input_structure_path"] = check_input_path(
-                self.io_dict["in"]["input_structure_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_structure_2_path"):
-            self.io_dict["in"]["input_structure_2_path"] = check_input_path(
-                self.io_dict["in"]["input_structure_2_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_traj_path"):
-            self.io_dict["in"]["input_traj_path"] = check_traj_path(
-                self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_traj_2_path"):
-            self.io_dict["in"]["input_traj_2_path"] = check_traj_path(
-                self.io_dict["in"]["input_traj_2_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_energy_path"):
-            self.io_dict["in"]["input_energy_path"] = check_energy_path(
-                self.io_dict["in"]["input_energy_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_energy_2_path"):
-            self.io_dict["in"]["input_energy_2_path"] = check_energy_path(
-                self.io_dict["in"]["input_energy_2_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("structure_check_path"):
-            self.io_dict["in"]["structure_check_path"] = check_input_path(
-                self.io_dict["in"]["structure_check_path"], out_log, self.__class__.__name__
-            )
-
-        if self.io_dict["in"].get("input_index_path"):
-            self.io_dict["in"]["input_index_path"] = check_index_path(
-                self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__
-            )
 
         if not self.io_dict["out"].get("output_log_path"):
             fu.log(
                 f"{self.__class__.__name__}: No output log path provided, exiting",
-                out_log,
+                self.out_log,
             )
             raise SystemExit(f"{self.__class__.__name__}: No output log path provided")
-        self.io_dict["out"]["output_log_path"] = check_out_log_path(
-            self.io_dict["out"]["output_log_path"], out_log, self.__class__.__name__
-        )
 
         self.vdwfac = self._validate_float_property("vdwfac", self.vdwfac)
         self.bonlo = self._validate_float_property("bonlo", self.bonlo)
@@ -238,17 +153,8 @@ class GMXCheck(BiobbObject):
         self.rmsd = self._validate_boolean_property("rmsd", self.rmsd)
         self.compare_ab = self._validate_boolean_property("compare_ab", self.compare_ab)
 
-    @launchlogger
-    def launch(self) -> int:
+    def run(self) -> None:
         """Execute the :class:`GMXCheck <gromacs.gmx_check.GMXCheck>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
 
         self.cmd = [self.binary_path, "check"]
 
@@ -306,37 +212,9 @@ class GMXCheck(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
-def gmx_check(
-    input_structure_path: Optional[str] = None,
-    input_structure_2_path: Optional[str] = None,
-    input_traj_path: Optional[str] = None,
-    input_traj_2_path: Optional[str] = None,
-    input_energy_path: Optional[str] = None,
-    input_energy_2_path: Optional[str] = None,
-    structure_check_path: Optional[str] = None,
-    input_index_path: Optional[str] = None,
-    output_log_path: Optional[str] = None,
-    properties: Optional[dict] = None,
-    **kwargs,
-) -> int:
-    """Create the :class:`GMXCheck <gromacs.gmx_check.GMXCheck>` class and
-    execute the :meth:`launch() <gromacs.gmx_check.GMXCheck.launch>` method."""
-    return GMXCheck(**dict(locals())).launch()
-
-
-gmx_check.__doc__ = GMXCheck.__doc__
-main = GMXCheck.get_main(
-    gmx_check,
-    "Checks and compares GROMACS topology, trajectory or energy files.",
-)
+gmx_check = launcher(GMXCheck)
 
 if __name__ == "__main__":
-    main()
+    GMXCheck.main()

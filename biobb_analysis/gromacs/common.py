@@ -1,202 +1,9 @@
 """Common functions for package biobb_analysis.gromacs"""
 
 import re
-import shutil
-from pathlib import Path, PurePath
-from typing import Optional, Union
+from pathlib import Path
 
-from biobb_common.command_wrapper import cmd_wrapper
 from biobb_common.tools import file_utils as fu
-
-
-def gmx_check(file_a: str, file_b: str, gmx: str = "gmx") -> bool:
-    print("Comparing GROMACS files:")
-    print("FILE_A: %s" % str(Path(file_a).resolve()))
-    print("FILE_B: %s" % str(Path(file_b).resolve()))
-    check_result = "check_result.out"
-    cmd = [gmx, "check"]
-    if file_a.endswith(".tpr"):
-        cmd.append("-s1")
-    else:
-        cmd.append("-f")
-    cmd.append(file_a)
-    if file_b.endswith(".tpr"):
-        cmd.append("-s2")
-    else:
-        cmd.append("-f2")
-    cmd.append(file_b)
-    cmd.append("> check_result.out")
-    cmd_wrapper.CmdWrapper(cmd).launch()
-    print("Result file: %s" % str(Path(check_result).resolve()))
-    with open(check_result) as check_file:
-        for line_num, line in enumerate(check_file):
-            if not line.rstrip():
-                continue
-            if line.startswith("Both files read correctly"):
-                continue
-            if not line.startswith("comparing"):
-                print("Discrepance found in line %d: %s" % (line_num, line))
-                return False
-    return True
-
-
-def check_energy_path(path, out_log, classname):
-    """Checks energy input file"""
-    if not Path(path).exists():
-        fu.log(classname + ": Unexisting energy input file, exiting", out_log)
-        raise SystemExit(classname + ": Unexisting energy input file")
-    file_extension = PurePath(path).suffix
-    if not is_valid_energy(file_extension[1:]):
-        fu.log(
-            classname + ": Format %s in energy input file is not compatible" % file_extension[1:],
-            out_log,
-        )
-        raise SystemExit(
-            classname + ": Format %s in energy input file is not compatible" % file_extension[1:]
-        )
-    # if file input has no path, add cwd because execution is launched on tmp folder
-    if PurePath(path).name == path or not PurePath(path).is_absolute():
-        path = str(PurePath(Path.cwd()).joinpath(path))
-    return path
-
-
-def check_input_path(path, out_log, classname):
-    """Checks input structure file"""
-    if not Path(path).exists():
-        fu.log(classname + ": Unexisting structure input file, exiting", out_log)
-        raise SystemExit(classname + ": Unexisting structure input file")
-    file_extension = PurePath(path).suffix
-    if not is_valid_structure(file_extension[1:]):
-        fu.log(
-            classname + ": Format %s in structure input file is not compatible"
-            % file_extension[1:],
-            out_log,
-        )
-        raise SystemExit(
-            classname + ": Format %s in structure input file is not compatible"
-            % file_extension[1:]
-        )
-    # if file input has no path, add cwd because execution is launched on tmp folder
-    if PurePath(path).name == path or not PurePath(path).is_absolute():
-        path = str(PurePath(Path.cwd()).joinpath(path))
-    return path
-
-
-def check_index_path(path, out_log, classname):
-    """Checks index input file"""
-    if not path:
-        return None
-    file_extension = PurePath(path).suffix
-    if not is_valid_index(file_extension[1:]):
-        fu.log(
-            classname + ": Format %s in index input file is not compatible" % file_extension[1:],
-            out_log,
-        )
-        raise SystemExit(
-            classname + ": Format %s in index input file is not compatible" % file_extension[1:]
-        )
-    # if file input has no path, add cwd because execution is launched on tmp folder
-    if PurePath(path).name == path or not PurePath(path).is_absolute():
-        path = str(PurePath(Path.cwd()).joinpath(path))
-    return path
-
-
-def check_traj_path(path, out_log, classname):
-    """Checks input structure file"""
-    if not Path(path).exists():
-        fu.log(classname + ": Unexisting trajectory input file, exiting", out_log)
-        raise SystemExit(classname + ": Unexisting trajectory input file")
-    file_extension = PurePath(path).suffix
-    if not is_valid_trajectory(file_extension[1:]):
-        fu.log(
-            classname + ": Format %s in trajectory input file is not compatible"
-            % file_extension[1:],
-            out_log,
-        )
-        raise SystemExit(
-            classname + ": Format %s in trajectory input file is not compatible"
-            % file_extension[1:]
-        )
-    # if file input has no path, add cwd because execution is launched on tmp folder
-    if PurePath(path).name == path or not PurePath(path).is_absolute():
-        path = str(PurePath(Path.cwd()).joinpath(path))
-    return path
-
-
-def check_out_xvg_path(path, out_log, classname):
-    """Checks if output folder exists and format is xvg"""
-    if PurePath(path).parent and not Path(PurePath(path).parent).exists():
-        fu.log(classname + ": Unexisting output folder, exiting", out_log)
-        raise SystemExit(classname + ": Unexisting output folder")
-    file_extension = PurePath(path).suffix
-    if not is_valid_xvg(file_extension[1:]):
-        fu.log(
-            classname + ": Format %s in output file is not compatible" % file_extension[1:],
-            out_log,
-        )
-        raise SystemExit(
-            classname + ": Format %s in output file is not compatible" % file_extension[1:]
-        )
-    return path
-
-
-def check_out_log_path(path, out_log, classname):
-    """Checks if output folder exists for log-like files"""
-    if PurePath(path).parent and not Path(PurePath(path).parent).exists():
-        fu.log(classname + ": Unexisting output folder, exiting", out_log)
-        raise SystemExit(classname + ": Unexisting output folder")
-    return path
-
-
-def check_out_pdb_path(path, out_log, classname):
-    """Checks if output folder exists and format is xvg"""
-    if PurePath(path).parent and not Path(PurePath(path).parent).exists():
-        fu.log(classname + ": Unexisting output folder, exiting", out_log)
-        raise SystemExit(classname + ": Unexisting output folder")
-    file_extension = PurePath(path).suffix
-    if not is_valid_structure(file_extension[1:]):
-        fu.log(
-            classname + ": Format %s in output file is not compatible" % file_extension[1:],
-            out_log,
-        )
-        raise SystemExit(
-            classname + ": Format %s in output file is not compatible" % file_extension[1:]
-        )
-    return path
-
-
-def check_out_traj_path(path, out_log, classname):
-    """Checks if output folder exists and format is correct"""
-    if PurePath(path).parent and not Path(PurePath(path).parent).exists():
-        fu.log(classname + ": Unexisting output folder, exiting", out_log)
-        raise SystemExit(classname + ": Unexisting output folder")
-    file_extension = PurePath(path).suffix
-    if not is_valid_trajectory_output(file_extension[1:]):
-        fu.log(
-            classname + ": Format %s in output file is not compatible" % file_extension[1:],
-            out_log,
-        )
-        raise SystemExit(
-            classname + ": Format %s in output file is not compatible" % file_extension[1:]
-        )
-    return path
-
-
-def check_out_str_ens_path(path, out_log, classname):
-    """Checks if output folder exists and format is correct"""
-    if PurePath(path).parent and not Path(PurePath(path).parent).exists():
-        fu.log(classname + ": Unexisting output folder, exiting", out_log)
-        raise SystemExit(classname + ": Unexisting output folder")
-    file_extension = PurePath(path).suffix
-    if not is_valid_zip(file_extension[1:]):
-        fu.log(
-            classname + ": Format %s in output file is not compatible" % file_extension[1:],
-            out_log,
-        )
-        raise SystemExit(
-            classname + ": Format %s in output file is not compatible" % file_extension[1:]
-        )
-    return path
 
 
 def get_default_value(key):
@@ -204,8 +11,6 @@ def get_default_value(key):
 
     default_values = {
         "instructions_file": "instructions.in",
-        "binary_path": "gmx",
-        "terms": ["Potential"],
         "selection": "System",
         "xvg": "none",
         "dista": False,
@@ -223,28 +28,22 @@ def get_default_value(key):
         "start": None,
         "end": None,
         "dt": None,
-        "dump": None, 
+        "dump": None,
         "ot_str_ens": "pdb",
     }
 
     return default_values[key]
 
 
-def get_binary_path(properties, type):
-    """Gets binary path"""
-    return properties.get(type, get_default_value(type))
-
-
-def get_terms(properties, out_log, classname):
-    """Gets energy terms"""
-    terms = properties.get("terms", dict())
-    if not terms or not isinstance(terms, list):
-        fu.log(classname + ": No terms provided or incorrect format, exiting", out_log)
-        raise SystemExit(classname + ": No terms provided or incorrect format")
+def get_terms(terms, out_log, classname):
+    """Checks the energy terms"""
+    if not terms:
+        fu.log(classname + ": No terms provided, exiting", out_log)
+        raise SystemExit(classname + ": No terms provided")
     if not is_valid_term(terms):
         fu.log(classname + ": Incorrect terms provided, exiting", out_log)
         raise SystemExit(classname + ": Incorrect terms provided")
-    return properties.get("terms", "")
+    return terms
 
 
 def get_selection(properties, out_log, classname):
@@ -368,6 +167,7 @@ def get_dt(properties, out_log, classname):
         raise SystemExit(classname + ": Incorrect dt provided")
     return str(dt)
 
+
 def get_dump(properties, out_log, classname):
     """Gets dump"""
     dump = properties.get("dump", get_default_value("dump"))
@@ -450,48 +250,6 @@ def is_valid_method_param(met):
     return met in methods
 
 
-def is_valid_structure(ext):
-    """Checks if structure format is compatible with GROMACS"""
-    formats = ["tpr", "gro", "g96", "pdb", "brk", "ent"]
-    return ext in formats
-
-
-def is_valid_index(ext):
-    """Checks if structure format is compatible with GROMACS"""
-    formats = ["ndx"]
-    return ext in formats
-
-
-def is_valid_trajectory(ext):
-    """Checks if trajectory format is compatible with GROMACS"""
-    formats = ["xtc", "trr", "cpt", "gro", "g96", "pdb", "tng"]
-    return ext in formats
-
-
-def is_valid_trajectory_output(ext):
-    """Checks if trajectory format is compatible with GROMACS"""
-    formats = ["xtc", "trr", "gro", "g96", "pdb", "tng"]
-    return ext in formats
-
-
-def is_valid_energy(ext):
-    """Checks if energy format is compatible with GROMACS"""
-    formats = ["edr"]
-    return ext in formats
-
-
-def is_valid_xvg(ext):
-    """Checks if file is XVG"""
-    formats = ["xvg"]
-    return ext in formats
-
-
-def is_valid_zip(ext):
-    """Checks if file is ZIP"""
-    formats = ["zip"]
-    return ext in formats
-
-
 def is_valid_xvg_param(ext):
     """Checks xvg parameter"""
     formats = ["xmgrace", "xmgr", "none"]
@@ -546,10 +304,10 @@ def is_valid_term(iterms):
         "Total-Energy",
         "Temperature",
         "Pressure",
-        " Constr.-rmsd",
+        "Constr.-rmsd",
         "Box-X",
         "Box-Y",
-        " Box-Z",
+        "Box-Z",
         "Volume",
         "Density",
         "pV",
@@ -627,21 +385,8 @@ def is_valid_selection(ext):
     return ext in formats
 
 
-def copy_instructions_file_to_container(instructions_file, unique_dir):
-    shutil.copy2(instructions_file, unique_dir)
-
-
-def remove_tmp_files(list, remove_tmp, out_log):
-    """Removes temporal files generated by the wrapper"""
-    if remove_tmp:
-        tmp_files = list
-        removed_files = [f for f in tmp_files if fu.rm(f)]
-        fu.log("Removed: %s" % str(removed_files), out_log)
-
-
-def process_output_trjconv_str_ens(
-    tmp_folder, output_file, output_dir, glob_pattern, out_log
-):
+def process_output_trjconv_str_ens(tmp_folder, output_file, glob_pattern, out_log):
+    """Zip the files of **tmp_folder** matching **glob_pattern** (or frame*.pdb) into **output_file**."""
     tmp_fl = list(Path(tmp_folder).glob(glob_pattern))
     if not tmp_fl:
         tmp_fl = list(Path(tmp_folder).glob("frame*.pdb"))
@@ -652,33 +397,3 @@ def process_output_trjconv_str_ens(
 
     # adding files from temporary folder to zip
     fu.zip_list(output_file, files_list, out_log)
-
-    shutil.copy2(output_file, output_dir)
-
-
-def _from_string_to_list(input_data: Optional[Union[str, list[str]]]) -> list[str]:
-    """
-    Converts a string to a list, splitting by commas or spaces. If the input is already a list, returns it as is.
-    Returns an empty list if input_data is None.
-
-    Parameters:
-        input_data (str, list, or None): The string, list, or None value to convert.
-
-    Returns:
-        list: A list of string elements or an empty list if input_data is None.
-    """
-    if input_data is None:
-        return []
-
-    if isinstance(input_data, list):
-        # If input is already a list, return it
-        return input_data
-
-    # If input is a string, determine the delimiter based on presence of commas
-    delimiter = "," if "," in input_data else " "
-    items = input_data.split(delimiter)
-
-    # Remove whitespace from each item and ignore empty strings
-    processed_items = [item.strip() for item in items if item.strip()]
-
-    return processed_items

@@ -3,8 +3,7 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools.file_utils import launchlogger
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 import biobb_common.tools.file_utils as fu
 import biobb_analysis.gromacs.common as gro_common
 
@@ -22,10 +21,10 @@ class GMXTrjConvTrj(BiobbObject):
         output_traj_path (str): Path to the output file. File type: output. `Sample file <https://github.com/bioexcel/biobb_analysis/raw/master/biobb_analysis/test/reference/gromacs/ref_trjconv.trj.xtc>`_. Accepted formats: xtc (edam:format_3875), trr (edam:format_3910), cpt (edam:format_2333), gro (edam:format_2033), g96 (edam:format_2033), pdb (edam:format_1476), tng (edam:format_3876).
         properties (dic - Python dictionary object containing the tool parameters, not input/output files):
             * **selection** (*str*) - ("System") Group where the trjconv will be performed. If **input_index_path** provided, check the file for the accepted values. Values: System (all atoms in the system), Protein (all protein atoms), Protein-H (protein atoms excluding hydrogens), C-alpha (C-alpha atoms), Backbone (protein backbone atoms: N; C-alpha and C), MainChain (protein main chain atoms: N; C-alpha; C and O; including oxygens in C-terminus), MainChain+Cb (protein main chain atoms including C-beta), MainChain+H (protein main chain atoms including backbone amide hydrogens and hydrogens on the N-terminus), SideChain (protein side chain atoms: that is all atoms except N; C-alpha; C; O; backbone amide hydrogens and oxygens in C-terminus and hydrogens on the N-terminus), SideChain-H (protein side chain atoms excluding all hydrogens), Prot-Masses (protein atoms excluding dummy masses), non-Protein (all non-protein atoms), Water (water molecules), SOL (water molecules), non-Water (anything not covered by the Water group), Ion (any name matching an Ion entry in residuetypes.dat), NA (all NA atoms), CL (all CL atoms), Water_and_ions (combination of the Water and Ions groups), DNA (all DNA atoms), RNA (all RNA atoms), Protein_DNA (all Protein-DNA complex atoms), Protein_RNA (all Protein-RNA complex atoms), Protein_DNA_RNA (all Protein-DNA-RNA complex atoms), DNA_RNA (all DNA-RNA complex atoms).
-            * **start** (*int*) - (0) [0~10000|1] Time of first frame to read from trajectory (default unit ps).
-            * **end** (*int*) - (0) [0~10000|1] Time of last frame to read from trajectory (default unit ps).
-            * **dt** (*int*) - (0) [0~10000|1] Only write frame when t MOD dt = first time (ps).
-            * **dump** (*int*) - (0) [0~10000|1] Dump frame nearest specified time (ps). If specified, overrides the -b, -e and -dt options.
+            * **start** (*int*) - (None) [0~10000|1] Time of first frame to read from trajectory (default unit ps).
+            * **end** (*int*) - (None) [0~10000|1] Time of last frame to read from trajectory (default unit ps).
+            * **dt** (*int*) - (None) [0~10000|1] Only write frame when t MOD dt = first time (ps).
+            * **dump** (*int*) - (None) [0~10000|1] Dump frame nearest specified time (ps). If specified, overrides the -b, -e and -dt options.
             * **binary_path** (*str*) - ("gmx") Path to the GROMACS executable binary.
             * **remove_tmp** (*bool*) - (True) [WF property] Remove temporal files.
             * **restart** (*bool*) - (False) [WF property] Do not execute if output files exist.
@@ -33,7 +32,6 @@ class GMXTrjConvTrj(BiobbObject):
             * **container_path** (*str*) - (None) Container path definition.
             * **container_image** (*str*) - ('gromacs/gromacs:2022.2') Container image definition.
             * **container_volume_path** (*str*) - ('/tmp') Container volume path definition.
-            * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
@@ -62,80 +60,28 @@ class GMXTrjConvTrj(BiobbObject):
 
     """
 
-    def __init__(self, input_traj_path,
-                 output_traj_path, input_index_path=None, input_top_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
+    def __init__(self, input_traj_path: str,
+                 output_traj_path: str, input_index_path: Optional[str] = None, input_top_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_traj_path": input_traj_path, "input_index_path": input_index_path, "input_top_path": input_top_path},
-            "out": {"output_traj_path": output_traj_path}
-        }
-
-        # Properties specific for BB
-        if not self.io_dict["in"]["input_index_path"] and not self.io_dict["in"]["input_top_path"]:
-            self.selection = properties.get('selection', "")
-        else:
-            self.selection = properties.get('selection', "System")
-        self.start = properties.get('start')
-        self.end = properties.get('end')
-        self.dt = properties.get('dt')
-        self.dump = properties.get('dump')
-        self.properties = properties
-
-        # Properties common in all GROMACS BB
-        self.binary_path = gro_common.get_binary_path(properties, 'binary_path')
-
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_traj_path"] = gro_common.check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_index_path"] = gro_common.check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
-        if self.io_dict["in"]["input_top_path"]:
-            self.io_dict["in"]["input_top_path"] = gro_common.check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_traj_path"] = gro_common.check_out_traj_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
-        '''if not self.io_dict["in"]["input_index_path"]:
-            self.selection = get_selection(self.properties, out_log, self.__class__.__name__)
+        # Without index and topology files the selection is empty
+        if self.io_dict["in"]["input_index_path"]:
+            self.selection = gro_common.get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', self.out_log, self.__class__.__name__)
+        elif self.io_dict["in"]["input_top_path"]:
+            self.selection = gro_common.get_selection(self.properties, self.out_log, self.__class__.__name__)
         else:
-            self.selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)'''
-        if self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
-            self.selection = gro_common.get_selection(self.properties, out_log, self.__class__.__name__)
-        elif self.io_dict["in"]["input_index_path"]:
-            self.selection = gro_common.get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'selection', out_log, self.__class__.__name__)
-        elif not self.io_dict["in"]["input_top_path"] and not self.io_dict["in"]["input_index_path"]:
             self.selection = ""
-        else:
-            return True
-        self.start = gro_common.get_start(self.properties, out_log, self.__class__.__name__)
-        self.end = gro_common.get_end(self.properties, out_log, self.__class__.__name__)
-        self.dt = gro_common.get_dt(self.properties, out_log, self.__class__.__name__)
-        self.dump = gro_common.get_dump(self.properties, out_log, self.__class__.__name__)
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # if not input_index_path and not input_top_path provided, selection must be empty, otherwise exit
-        if not self.io_dict["in"]["input_index_path"] and not self.io_dict["in"]["input_top_path"] and self.selection != '':
-            fu.log(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty', self.out_log)
-            raise SystemExit(self.__class__.__name__ + ': If not input_index_path and not input_top_path provided, selection must be empty')
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
+        self.start = gro_common.get_start(self.properties, self.out_log, self.__class__.__name__)
+        self.end = gro_common.get_end(self.properties, self.out_log, self.__class__.__name__)
+        self.dt = gro_common.get_dt(self.properties, self.out_log, self.__class__.__name__)
+        self.dump = gro_common.get_dump(self.properties, self.out_log, self.__class__.__name__)
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{self.selection}')
-        self.stage_files()
+
+    def run(self) -> None:
+        """Execute the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` object."""
 
         self.cmd = [self.binary_path, 'trjconv', '-f', self.stage_io_dict["in"]["input_traj_path"]]
 
@@ -164,31 +110,10 @@ class GMXTrjConvTrj(BiobbObject):
         # Run Biobb block
         self.run_biobb()
 
-        # Copy files to host
-        self.copy_to_host()
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
-def gmx_trjconv_trj(input_traj_path: str,
-                    output_traj_path: str,
-                    input_index_path: Optional[str] = None,
-                    input_top_path: Optional[str] = None,
-                    properties: Optional[dict] = None,
-                    **kwargs) -> int:
-    """Create the :class:`GMXTrjConvTrj <gromacs.gmx_trjconv_trj.GMXTrjConvTrj>` class and
-    execute the :meth:`launch() <gromacs.gmx_trjconv_trj.GMXTrjConvTrj.launch>` method."""
-    return GMXTrjConvTrj(**dict(locals())).launch()
-
-
-gmx_trjconv_trj.__doc__ = GMXTrjConvTrj.__doc__
-main = GMXTrjConvTrj.get_main(
-    gmx_trjconv_trj,
-    "Converts between GROMACS compatible trajectory file formats and/or extracts a selection of atoms."
-)
+gmx_trjconv_trj = launcher(GMXTrjConvTrj)
 
 if __name__ == '__main__':
-    main()
+    GMXTrjConvTrj.main()

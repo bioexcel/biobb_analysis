@@ -3,13 +3,11 @@
 """Module containing the Cpptraj Image class and the command line interface."""
 
 from typing import Optional
-from pathlib import PurePath
-from biobb_common.generic.biobb_object import BiobbObject
-from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.ambertools.common import get_default_value, check_top_path, check_traj_path, check_out_path, get_binary_path, get_in_parameters, get_mask, get_negative_mask, get_out_parameters
+from biobb_common.generic.biobb_object import launcher
+from biobb_analysis.ambertools.common import CpptrajBase, get_mask
 
 
-class CpptrajImage(BiobbObject):
+class CpptrajImage(CpptrajBase):
     """
     | biobb_analysis CpptrajImage
     | Wrapper of the Ambertools Cpptraj module for correcting periodicity (image) from a given cpptraj trajectory file.
@@ -32,7 +30,6 @@ class CpptrajImage(BiobbObject):
             * **container_path** (*str*) - (None) Container path definition.
             * **container_image** (*str*) - ('afandiadib/ambertools:serial') Container image definition.
             * **container_volume_path** (*str*) - ('/tmp') Container volume path definition.
-            * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
@@ -63,121 +60,18 @@ class CpptrajImage(BiobbObject):
 
     """
 
-    def __init__(self, input_top_path, input_traj_path, output_cpptraj_path,
-                 properties=None, **kwargs) -> None:
-        properties = properties or {}
+    def __init__(self, input_top_path: str, input_traj_path: str, output_cpptraj_path: str,
+                 properties: Optional[dict] = None, **kwargs) -> None:
+        super().__init__(**locals())
 
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_top_path": input_top_path, "input_traj_path": input_traj_path},
-            "out": {"output_cpptraj_path": output_cpptraj_path}
-        }
-
-        # Properties specific for BB
-        self.instructions_file = get_default_value('instructions_file')
-        self.start = properties.get('start', 1)
-        self.end = properties.get('end', -1)
-        self.steps = properties.get('steps', 1)
-        self.mask = properties.get('mask', 'all-atoms')
-        self.format = properties.get('format', 'netcdf')
-        self.properties = properties
-        self.binary_path = get_binary_path(properties, 'binary_path')
-
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
-        """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_top_path"], self.input_top_path_orig = check_top_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_cpptraj_path"] = check_out_path(self.io_dict["out"]["output_cpptraj_path"], out_log, self.__class__.__name__)
-        self.in_parameters = {'start': self.start, 'end': self.end, 'step': self.steps, 'mask': self.mask}
-        self.out_parameters = {'format': self.format}
-
-    def create_instructions_file(self, container_io_dict, out_log, err_log):
-        """Creates an input file using the properties file settings"""
-        instructions_list = []
-        # different path if container execution or not
-        if self.container_path:
-            self.instructions_file = str(PurePath(self.stage_io_dict['unique_dir']).joinpath("cpptraj.in"))
-            self.instructions_file_path = str(PurePath(self.container_volume_path).joinpath("cpptraj.in"))
-        else:
-            self.instructions_file = self.create_tmp_file(self.instructions_file)
-            self.instructions_file_path = self.instructions_file
-
-        # parm
-        instructions_list.append('parm ' + container_io_dict["in"]["input_top_path"])
-
-        # trajin
-        in_params = get_in_parameters(self.in_parameters, out_log)
-        instructions_list.append('trajin ' + container_io_dict["in"]["input_traj_path"] + ' ' + in_params)
-
-        # image
-        mask_atoms = get_mask('heavy-atoms', out_log)
-        instructions_list.append('center ' + mask_atoms + ' origin')
-        instructions_list.append('autoimage')
-        instructions_list.append('rms first ' + mask_atoms)
-
-        # mask
-        mask = self.in_parameters.get('mask', '')
-        if mask:
-            strip_mask = get_negative_mask(mask, out_log)
-            instructions_list.append('strip ' + strip_mask)
-
-        # trajout
-        out_params = get_out_parameters(self.out_parameters, out_log)
-        instructions_list.append('trajout ' + container_io_dict["out"]["output_cpptraj_path"] + ' ' + out_params)
-
-        # create .in file
-        with open(self.instructions_file, 'w') as mdp:
-            for line in instructions_list:
-                mdp.write(line.strip() + '\n')
-
-        return self.instructions_file_path
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`CpptrajImage <ambertools.cpptraj_image.CpptrajImage>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-        self.stage_files()
-
-        # create instructions file
-        self.create_instructions_file(self.stage_io_dict, self.out_log, self.err_log)
-
-        # create cmd and launch execution
-        self.cmd = [self.binary_path, '-i', self.instructions_file_path]
-
-        # Run Biobb block
-        self.run_biobb()
-
-        # Copy files to host
-        self.copy_to_host()
-
-        # remove temporary folder(s)
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
+    def instructions(self) -> list[str]:
+        """Goes from the properties to the image, strip and trajout lines."""
+        mask_atoms = get_mask('heavy-atoms')
+        image = ['center ' + mask_atoms + ' origin', 'autoimage', 'rms first ' + mask_atoms]
+        return image + self.strip_mask() + [self.trajout()]
 
 
-def cpptraj_image(input_top_path: str, input_traj_path: str, output_cpptraj_path: str, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`CpptrajImage <ambertools.cpptraj_image.CpptrajImage>` class and
-    execute the :meth:`launch() <ambertools.cpptraj_image.CpptrajImage.launch>` method."""
-    return CpptrajImage(**dict(locals())).launch()
-
-
-cpptraj_image.__doc__ = CpptrajImage.__doc__
-main = CpptrajImage.get_main(cpptraj_image, "Corrects periodicity (image) from a given cpptraj trajectory file.")
+cpptraj_image = launcher(CpptrajImage)
 
 if __name__ == '__main__':
-    main()
+    CpptrajImage.main()

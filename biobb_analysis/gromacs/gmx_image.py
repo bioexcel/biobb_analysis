@@ -3,10 +3,9 @@
 """Module containing the GMX TrjConvStr class and the command line interface."""
 
 from typing import Optional
-from biobb_common.generic.biobb_object import BiobbObject
+from biobb_common.generic.biobb_object import BiobbObject, launcher
 from biobb_common.tools import file_utils as fu
-from biobb_common.tools.file_utils import launchlogger
-from biobb_analysis.gromacs.common import get_binary_path, check_input_path, check_traj_path, check_index_path, get_image_selection, get_selection_index_file, check_out_traj_path, get_pbc, get_center, get_ur, get_fit
+from biobb_analysis.gromacs.common import get_image_selection, get_selection_index_file, get_pbc, get_center, get_ur, get_fit
 
 
 class GMXImage(BiobbObject):
@@ -36,7 +35,6 @@ class GMXImage(BiobbObject):
             * **container_path** (*str*) - (None) Container path definition.
             * **container_image** (*str*) - ('gromacs/gromacs:2022.2') Container image definition.
             * **container_volume_path** (*str*) - ('/tmp') Container volume path definition.
-            * **container_working_dir** (*str*) - (None) Container working directory definition.
             * **container_user_id** (*str*) - (None) Container user_id definition.
             * **container_shell_path** (*str*) - ('/bin/bash') Path to default shell inside the container.
 
@@ -67,71 +65,32 @@ class GMXImage(BiobbObject):
 
     """
 
-    def __init__(self, input_traj_path, input_top_path, output_traj_path,
-                 input_index_path=None, properties=None, **kwargs) -> None:
-        properties = properties or {}
-
-        # Call parent class constructor
-        super().__init__(properties)
-        self.locals_var_dict = locals().copy()
-
-        # Input/Output files
-        self.io_dict = {
-            "in": {"input_traj_path": input_traj_path,
-                   "input_top_path": input_top_path,
-                   "input_index_path": input_index_path},
-            "out": {"output_traj_path": output_traj_path}
-        }
-
-        # Properties specific for BB
-        self.fit_selection = properties.get('fit_selection', "System")
-        self.center_selection = properties.get('center_selection', "System")
-        self.cluster_selection = properties.get('cluster_selection', "System")
-        self.output_selection = properties.get('output_selection', "System")
-        self.pbc = properties.get('pbc', "mol")
-        self.center = properties.get('center', True)
-        self.ur = properties.get('ur', "compact")
-        self.fit = properties.get('fit', "none")
-        self.properties = properties
+    def __init__(self, input_traj_path: str, input_top_path: str, output_traj_path: str,
+                 input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> None:
+        super().__init__(**locals())
 
         # Properties common in all GROMACS BB
-        self.binary_path = get_binary_path(properties, 'binary_path')
 
-        # Check the properties
-        self.check_init(properties)
-
-    def check_data_params(self, out_log, err_log):
+    def prepare(self):
         """ Checks all the input/output paths and parameters """
-        self.io_dict["in"]["input_traj_path"] = check_traj_path(self.io_dict["in"]["input_traj_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_top_path"] = check_input_path(self.io_dict["in"]["input_top_path"], out_log, self.__class__.__name__)
-        self.io_dict["in"]["input_index_path"] = check_index_path(self.io_dict["in"]["input_index_path"], out_log, self.__class__.__name__)
-        self.io_dict["out"]["output_traj_path"] = check_out_traj_path(self.io_dict["out"]["output_traj_path"], out_log, self.__class__.__name__)
         if not self.io_dict["in"]["input_index_path"]:
             if self.fit != 'none':
-                self.fit_selection = get_image_selection(self.properties, 'fit_selection', out_log, self.__class__.__name__)
-            if self.fit != 'none' or not self.center:
-                self.center_selection = get_image_selection(self.properties, 'center_selection', out_log, self.__class__.__name__)
+                self.fit_selection = get_image_selection(self.properties, 'fit_selection', self.out_log, self.__class__.__name__)
+            if self.fit != 'none' or self.center:
+                self.center_selection = get_image_selection(self.properties, 'center_selection', self.out_log, self.__class__.__name__)
             if self.pbc == 'cluster':
-                self.cluster_selection = get_image_selection(self.properties, 'cluster_selection', out_log, self.__class__.__name__)
-            self.output_selection = get_image_selection(self.properties, 'output_selection', out_log, self.__class__.__name__)
+                self.cluster_selection = get_image_selection(self.properties, 'cluster_selection', self.out_log, self.__class__.__name__)
+            self.output_selection = get_image_selection(self.properties, 'output_selection', self.out_log, self.__class__.__name__)
         else:
-            self.fit_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'fit_selection', out_log, self.__class__.__name__)
-            self.center_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'center_selection', out_log, self.__class__.__name__)
+            self.fit_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'fit_selection', self.out_log, self.__class__.__name__)
+            self.center_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'center_selection', self.out_log, self.__class__.__name__)
             if self.pbc == 'cluster':
-                self.cluster_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'cluster_selection', out_log, self.__class__.__name__)
-            self.output_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'output_selection', out_log, self.__class__.__name__)
-        self.pbc = get_pbc(self.properties, out_log, self.__class__.__name__)
-        self.center = get_center(self.properties, out_log, self.__class__.__name__)
-        self.ur = get_ur(self.properties, out_log, self.__class__.__name__)
-        self.fit = get_fit(self.properties, out_log, self.__class__.__name__)
-
-    @launchlogger
-    def launch(self) -> int:
-        """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` object."""
-
-        # check input/output paths and parameters
-        self.check_data_params(self.out_log, self.err_log)
-
+                self.cluster_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'cluster_selection', self.out_log, self.__class__.__name__)
+            self.output_selection = get_selection_index_file(self.properties, self.io_dict["in"]["input_index_path"], 'output_selection', self.out_log, self.__class__.__name__)
+        self.pbc = get_pbc(self.properties, self.out_log, self.__class__.__name__)
+        self.center = get_center(self.properties, self.out_log, self.__class__.__name__)
+        self.ur = get_ur(self.properties, self.out_log, self.__class__.__name__)
+        self.fit = get_fit(self.properties, self.out_log, self.__class__.__name__)
         # If fitting provided, echo fit_selection
         if self.fit == 'none':
             if self.center:
@@ -145,14 +104,11 @@ class GMXImage(BiobbObject):
                 selections = self.fit_selection + ' ' + self.center_selection + ' ' + self.output_selection
             else:
                 selections = self.fit_selection + ' ' + self.output_selection
-
-        # Setup Biobb
-        if self.check_restart():
-            return 0
-
         # standard input
         self.io_dict['in']['stdin_file_path'] = fu.create_stdin_file(f'{selections}')
-        self.stage_files()
+
+    def run(self) -> None:
+        """Execute the :class:`GMXImage <gromacs.gmx_image.GMXImage>` object."""
 
         self.cmd = [self.binary_path, 'trjconv',
                     '-f', self.stage_io_dict["in"]["input_traj_path"],
@@ -178,24 +134,11 @@ class GMXImage(BiobbObject):
 
         # Run Biobb block
         self.run_biobb()
-        # Copy files to host
-        self.copy_to_host()
         # Remove temporal files
         self.tmp_files.append(self.io_dict['in'].get("stdin_file_path", ""))
-        self.remove_tmp_files()
-        self.check_arguments(output_files_created=True, raise_exception=False)
-
-        return self.return_code
 
 
-def gmx_image(input_traj_path: str, input_top_path: str, output_traj_path: str, input_index_path: Optional[str] = None, properties: Optional[dict] = None, **kwargs) -> int:
-    """Create the :class:`GMXImage <gromacs.gmx_image.GMXImage>` class and
-    execute the :meth:`launch() <gromacs.gmx_image.GMXImage.launch>` method."""
-    return GMXImage(**dict(locals())).launch()
-
-
-gmx_image.__doc__ = GMXImage.__doc__
-main = GMXImage.get_main(gmx_image, "Corrects periodicity (image) from a given GROMACS compatible trajectory file.")
+gmx_image = launcher(GMXImage)
 
 if __name__ == '__main__':
-    main()
+    GMXImage.main()
